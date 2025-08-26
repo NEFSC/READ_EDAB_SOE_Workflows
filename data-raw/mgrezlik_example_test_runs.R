@@ -13,10 +13,12 @@ source(here::here("data-raw/workflow_species_dist.R"))
 
 # rawData <- SOEworkflows::get_survey_data(channel,outputPathDataSets)
 
-indD <- workflow_species_dist(outputPath = outputPath,
+indD <- workflow_species_dist(
                                    inputPathSurvey = inputPathSurvey,
                                    inputPathSpecies = inputPathSpecies,
-                                   staticPath = staticPath)
+                                   staticPath = staticPath,
+                                   outputPath = outputPath
+                                   )
 
 # # compare workflow outputs to ecodata
 # max <- indD |> dplyr::mutate(source = 'max')
