@@ -10,9 +10,10 @@
 #' @examples
 #' \dontrun{
 #' # create the ecodata::species_dist indicator
-#' create_species_dist(inputPathSurvey <- here::here("surveyNoLengths.rds"),
-#'                          inputPathSpecies <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds",
-#'                          outputPath <- here::here())
+#' create_species_dist(inputPathSurvey = here::here("surveyNoLengths.rds"),
+#'                          inputPathSpecies = "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds",
+#'                          staticPath = "/home/<user>/EDAB_Resources/"
+#'                          outputPath = here::here())
 #'
 #' }
 #'
@@ -27,7 +28,7 @@ create_species_dist <- function(inputPathSurvey, inputPathSpecies, staticPath, o
   end.year <- format(Sys.Date(),"%Y")
    
 # Check if the input files exist ---------------------------
-  if (file.exists(inputPathSurvey) && file.exists(inputPathSpecies)) {
+  if (file.exists(inputPathSurvey) && file.exists(inputPathSpecies) && file.exists(staticPath)) {
     
   } else {
     stop("One or more of the input files are not present in the location specified")
