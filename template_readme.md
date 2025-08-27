@@ -8,7 +8,7 @@ When all indicators have been added to the repo we can provide a list of package
 The survey data will pulled from the Oracle database via a cron job (quarterly?) using R function
 
 ```
-SOEworkflows::get_survey_data(channel,outputPathDatasets)
+workflow_pull_survey_data(channel,outputPathDatasets)
 ```
 
 * `channel` is a connection object created using `ROracle::dbConnect()`
@@ -88,7 +88,7 @@ The rds file name is hardcoded as `species_dist.rds` to match the `ecodata` pack
 The commercial data will pulled from the Oracle database via a cron job (quarterly?) using R function
 
 ```
-SOEworkflows::get_commercial_data(channel,outputPathDatasets)
+workflows_pull_commercial_data(channel,outputPathDatasets)
 ```
 
 * `channel` is a connection object created using `ROracle::dbConnect()`
