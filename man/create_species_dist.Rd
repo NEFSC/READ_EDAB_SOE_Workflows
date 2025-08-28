@@ -16,7 +16,7 @@ create_species_dist(
 
 \item{inputPathSpecies}{Character string. Full path to the species list data pull rds file}
 
-\item{staticPath}{Character string. Path to folder for static files}
+\item{staticPath}{Character string. Path to folder for static files for depth and coast shape are saved}
 
 \item{outputPath}{Character string. Path to folder where data pull should be saved}
 }
