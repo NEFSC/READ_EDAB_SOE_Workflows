@@ -72,20 +72,20 @@ create_heatwave_year_bottom <- function(inputPathGB, inputPathGOM, inputPathMAB)
   #GB
   mhw<- gb.mhw$clim %>%
     mutate(EPU = c("GB"),
-           Year = c("2024"))# add EPU column
-  mhw.gb.year <- mhw[15341:15671,]## days in 2024 data set only went to Sep 10, 2024
+           Year = format(gb.mhw$clim$t, "%Y")) #extract year from date column; create year and epu columns
+  mhw.gb.year <- dplyr::filter(mhw, mhw$Year == max(mhw$Year)) #subset most recent year
 
   #GOM
   mhw<- gom.mhw$clim %>%
     mutate(EPU = c("GOM"),
-           Year = c("2024"))# add EPU column
-  mhw.gom.year <- mhw[15341:15671,]## days in 2024 data set only went to Sep 10, 2024
+           Year = format(gom.mhw$clim$t, "%Y")) #extract year from date column; create year and epu columns
+  mhw.gom.year <- dplyr::filter(mhw, mhw$Year == max(mhw$Year)) #subset most recent year
 
   #MAB
   mhw<- mab.mhw$clim %>%
     mutate(EPU = c("MAB"),
-           Year = c("2024"))# add EPU column
-  mhw.mab.year <- mhw[15341:15671,]## days in 2024 data set only went to Sep 10, 2024
+           Year = format(mab.mhw$clim$t, "%Y")) #extract year from date column; create year and epu columns
+  mhw.mab.year <- dplyr::filter(mhw, mhw$Year == max(mhw$Year)) #subset most recent year
 
   heatwave_year_bottom<- rbind(mhw.gb.year, mhw.gom.year, mhw.mab.year) %>%
     dplyr::mutate(Var = "BottomDetrended")
