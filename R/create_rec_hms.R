@@ -11,7 +11,7 @@
 #' \dontrun{
 #' #create the ecodata::rec_hms indicator
 #' create_rec_hms(
-#   inputFile = "path/to/hms_mrip_2025-08-26.csv",
+#   inputPath = "path/to/hms_mrip_2025-08-26.csv",
 #'  inputKey = "path/to/hms_key.rda")
 #'
 #' }

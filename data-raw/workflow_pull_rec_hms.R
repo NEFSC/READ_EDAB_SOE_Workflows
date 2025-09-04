@@ -9,10 +9,10 @@
 #'
 #' @examples
 #' \dontrun{
-#'   workflow_pull_rec_hms(outputDir = outputDir)
+#'   workflow_pull_rec_hms(outputDir)
 #' }
 #'
-workflow_pull_rec_hms <- function(outputDir) {
+workflow_pull_rec_hms <- function(outputDir = NULL) {
   # pull MRIP data
   rec_hms_data <- SOEworkflows::pull_rec_hms(channel)
   
