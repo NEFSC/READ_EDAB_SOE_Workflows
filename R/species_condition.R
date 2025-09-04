@@ -21,7 +21,13 @@
 #' species_condition(
 #   inputPath = "path/to/condition.rds",
 #'  inputpathLW = "path/to/LWparams.rda",
-#'  inputpathSpecies = "path/to/species.codes.rda")
+#'  inputpathSpecies = "path/to/species.codes.rda",
+#'  by_EPU = TRUE,
+#'  by_sex = FALSE,
+#'  length_break = NULL,
+#'  more_than_20_years = TRUE,
+#'  record_outliers = FALSE,
+#'  output = "soe")
 #'
 #' }
 #' 
