@@ -13,7 +13,7 @@
 #'
 #' }
 #' 
-#' @return new.hms, a csv file with landings data from MRIP
+#' @return new.hms, a data frame with landings data from MRIP
 #'
 #' @export
 
@@ -101,12 +101,6 @@ pull_rec_hms <- function(outputDir) {
   
   ## bind data together and save intermediate ----
   new_hms <- purrr::reduce(data_pull, dplyr::bind_rows)
-  
-  write.csv(
-    new_hms,
-    paste0(outputDir, "hms_mrip_", Sys.Date(), ".csv"),
-    row.names = FALSE
-  )
   
   return(new_hms)
 }
