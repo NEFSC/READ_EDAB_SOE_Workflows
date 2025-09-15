@@ -25,10 +25,10 @@
 #'   outputPath <- here::here()
 #'   inputPathSurvey <- here::here("surveyNoLengths.rds")
 #'   inputPathSpecies <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds"
-#'   static_depth <-  "/home/<user>/EDAB_Resources/soe_workflows/nes_bath_data.nc"
-#'   static_diagonal <- "/home/<user>/EDAB_Resources/soe_workflows/diag.csv"
-#'   static_coast_coord <- "/home/<user>/EDAB_Resources/soe_workflows/nes_coast_2.csv"
-#'   static_strat_areas <- "/home/<user>/EDAB_Resources/soe_workflows/stratareas.rdata"
+#'   static_depth <-  "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc"
+#'   static_diagonal <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/diag.csv"
+#'   static_coast_coord <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"
+#'   static_strat_areas <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rdata"
 #'   workflow_species_dist(inputPathSurvey, inputPathSpecies, static_depth, static_diagonal, static_coast_coord, static_strat_areas, outputPath)
 #' }
 #' 
@@ -39,7 +39,7 @@ workflow_species_dist <- function(inputPathSurvey,
                                   static_diagonal, 
                                   static_coast_coord, 
                                   static_strat_areas, 
-                                  outputPath) { 
+                                  outputPath = NULL) { 
   # Assumes that survey data has been pulled and is located in inputPathSurvey
   #get_survey_data(channel,outputPath = outputPath)
   
@@ -68,8 +68,7 @@ workflow_species_dist <- function(inputPathSurvey,
       static_depth      = static_depth,
       static_diagonal   = static_diagonal,
       static_coast_coord= static_coast_coord,
-      static_strat_areas= static_strat_areas,
-      outputPath        = outputPath
+      static_strat_areas= static_strat_areas
       )
     
     # write data to file

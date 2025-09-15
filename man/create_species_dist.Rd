@@ -7,8 +7,10 @@
 create_species_dist(
   inputPathSurvey,
   inputPathSpecies,
-  staticPath,
-  outputPath = NULL
+  static_depth,
+  static_diagonal,
+  static_coast_coord,
+  static_strat_areas
 )
 }
 \arguments{
@@ -16,7 +18,13 @@ create_species_dist(
 
 \item{inputPathSpecies}{Character string. Full path to the species list data pull rds file}
 
-\item{staticPath}{Character string. Path to folder for static files for depth and coast shape are saved}
+\item{static_depth}{Character string. Path to file with depth data for NE shelf}
+
+\item{static_diagonal}{Character string. Path to file with along shelf diagonal data}
+
+\item{static_coast_coord}{Character string. Path to file with lat lon coordinates defining the coastline}
+
+\item{static_strat_areas}{Character string. Path to file defining NEFSC trawl survey strata}
 
 \item{outputPath}{Character string. Path to folder where data pull should be saved}
 }
@@ -29,9 +37,13 @@ Data include time series of depth, distance from shelf and distance along shelf.
 \examples{
 \dontrun{
 # create the ecodata::species_dist indicator
-create_species_dist(inputPathSurvey <- here::here("surveyNoLengths.rds"),
-                         inputPathSpecies <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds",
-                         outputPath <- here::here())
+create_species_dist(inputPathSurvey = here::here("surveyNoLengths.rds"),
+ inputPathSpecies = "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds",
+ static_depth <-  "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc"
+ static_diagonal <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/diag.csv"
+ static_coast_coord <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"
+ static_strat_areas <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rdata"
+ outputPath = here::here())
 
 }
 
