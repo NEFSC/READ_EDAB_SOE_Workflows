@@ -75,12 +75,17 @@ To run the "workflow" below, it is assumed that the "raw" survey data has been p
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```
-workflow_species_dist(outputPath,inputPathSurvey,inputPathSpecies)
+workflow_species_dist(inputPathSurvey,inputPathSpecies, static_depth,
+                      static_diagonal, static_coast_coord, static_strat_areas)
 ```
 
 * `inputPathSpecies` is the path to static data set `EDAB_Datasets/SOE_species_list_24.rds`.
 * `inputPathSurvey` is the path to the dynamically created survey data `EDAB_Datasets/surveyNoLengths.rds`. 
-* `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+* `static_depth` is the path to the file `nes_bath_data.nc`
+* `static_diagonal` is the path to the file `diag.csv`
+* `static_coast_coord` is the path to the file `nes_coast_2.csv`
+* `static_strat_areas` is the path to the file `stratareas.rdata`
+
 The rds file name is hardcoded as `species_dist.rds` to match the `ecodata` package dataset
 
 ## Commercial Landings Based Indicators
