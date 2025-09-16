@@ -11,7 +11,7 @@ inputPathBigelow <- "/home/mgrezlik/EDAB_Dev/beet/bigelowData.rds"
 static_depth <-  "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc"
 static_diagonal <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/diag.csv"
 static_coast_coord <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"
-static_strat_areas <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rdata"
+static_strat_areas <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds"
 menhaden_path <- "/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds"
 comdat_path <- '/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds'
 comland_old_path <- '/home/mgrezlik/EDAB_Dev/beet/comlandr_old.rds'
@@ -33,7 +33,8 @@ indD <- workflow_species_dist(
                                    static_depth = static_depth,
                                    static_diagonal = static_diagonal,
                                    static_coast_coord = static_coast_coord,
-                                   static_strat_areas = static_strat_areas
+                                   static_strat_areas = static_strat_areas,
+                                   outputPath = outputPathDataSets
                                    )
 
 
