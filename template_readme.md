@@ -84,7 +84,7 @@ workflow_species_dist(inputPathSurvey,inputPathSpecies, static_depth,
 * `static_depth` is the path to the file `nes_bath_data.nc`
 * `static_diagonal` is the path to the file `diag.csv`
 * `static_coast_coord` is the path to the file `nes_coast_2.csv`
-* `static_strat_areas` is the path to the file `stratareas.rdata`
+* `static_strat_areas` is the path to the file `stratareas.rds`
 
 The rds file name is hardcoded as `species_dist.rds` to match the `ecodata` package dataset
 
