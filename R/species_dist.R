@@ -97,7 +97,7 @@ create_species_dist <- function(inputPathSurvey,
     R <- 6371 # Earth mean radius [km]
     
 # load stratareas ---------------------------------------------------
-    load(static_strat_areas)
+    stratareas <- readRDS(static_strat_areas)
     
 # tidy data ---------------------------------------------------
     # trim the data, filter for chosen season
