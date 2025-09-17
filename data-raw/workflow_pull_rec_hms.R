@@ -1,9 +1,6 @@
 #' Pull recreational HMS required for indicator creation
 #'
 #' @param outputDir Character string. Path to folder where data pull should be saved.
-#' If not NULL the pull will be saved to the
-#' folder `//nefscdata/EDAB_Dev/atyrell/hms_mrip_data/`
-#' @param channel Oracle connection channel created with `dbutils`
 #'
 #' @return rec_hms_data, a csv file with landings data from MRIP
 #' @return list of data objects. rds files exported
@@ -13,9 +10,11 @@
 #'   workflow_pull_rec_hms(outputDir)
 #' }
 #'
-workflow_pull_rec_hms <- function(outputDir = NULL, channel) {
+workflow_pull_rec_hms <- function(outputDir = NULL) {
   # pull MRIP data
-  rec_hms_data <- SOEworkflows::pull_rec_hms(channel)
+  rec_hms_data <- SOEworkflows::pull_rec_hms(
+    outputDir = paste0(outputDir, "mrip_data_", Sys.Date())
+  )
 
   # Save these to a specific location
   if (!is.null(outputDir)) {
