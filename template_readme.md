@@ -83,6 +83,22 @@ workflow_species_dist(outputPath,inputPathSurvey,inputPathSpecies)
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `species_dist.rds` to match the `ecodata` package dataset
 
+### species_condition
+
+To run the "workflow" below, it is assumed that the "raw" survey data has been pulled using the 
+`get_survey_data` function above.
+
+*Note: the following function resides in the folder `data-raw` and is NOT part of the package*
+
+```
+workflow_condition(inputPath, inputpathLW, inputpathSpecies, outputPath)
+```
+* `inputPath` is the path to the static data set `EDAB_Dev/beet/condition.rds`
+* `inputPathSpecies` is the path to static data set `EDAB_Resources/workflow_resources/soe_workflows/species.codes.rda`
+* `inputPathLW` is the path to the static data set `EDAB_Resources/workflow_resources/soe_workflows/LWparams.rda`
+* `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+The rds file name is hardcoded as `condition.rds` to match the `ecodata` package dataset
+
 ## Commercial Landings Based Indicators
 
 The commercial data will pulled from the Oracle database via a cron job (quarterly?) using R function
@@ -163,3 +179,32 @@ workflow_trans_dates(inputPath, outputPath)
 * `inputPath` is the path to static data set `EDAB_Datasets/TS_SHP_adv rep MAB GOM GBK NES SCSPoly.csv`.
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `trans_dates.rds` to match the `ecodata` package dataset
+
+## Recreational Landings Based Indicators
+
+### rec_hms
+
+Recreational data will pulled using the function below.
+
+*Note: the following function resides in the folder `data-raw` and is NOT part of the package*
+
+```
+workflow_pull_rec_hms(outputDir)
+```
+
+* `outputDir` is the path to the folder where "raw" data is stored, currently `EDAB_Dev/atyrell`
+* The data set created is `hms_mrip_(Sys.Date).csv`
+
+To run the "workflow" below, it is assumed that the recreational data has been pulled using the 
+`workflow_pull_rec_hms` function above. 
+
+*Note: the following function resides in the folder `data-raw` and is NOT part of the package*
+
+```
+workflow_rec_hms(inputPath,inputKey, outputPath)
+```
+
+* `inputPath` is the path to the data set created by `workflow_pull_rec_hms`, currently residing in `EDAB_Dev/atyrell/hms_mrip_(Sys.Date).csv`.
+* `inputKey` is the path to the static data set `EDAB_Resources/workflow_resources/soe_workflows/hms_key.csv`
+* `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+The rds file name is hardcoded as `rec_hms.rds` to match the `ecodata` package dataset

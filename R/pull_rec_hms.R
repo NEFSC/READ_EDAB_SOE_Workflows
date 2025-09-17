@@ -100,7 +100,7 @@ pull_rec_hms <- function(outputDir) {
   )
   
   ## bind data together and save intermediate ----
-  new_hms <- purrr::reduce(data_pull, dplyr::bind_rows)
+  rec_hms <- purrr::reduce(data_pull, dplyr::bind_rows)
   
-  return(new_hms)
+  return(rec_hms)
 }

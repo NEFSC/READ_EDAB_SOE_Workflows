@@ -12,11 +12,11 @@
 #' #create the ecodata::rec_hms indicator
 #' create_rec_hms(
 #   inputPath = "path/to/hms_mrip_2025-08-26.csv",
-#'  inputKey = "path/to/hms_key.rda")
+#'  inputKey = "path/to/hms_key.csv")
 #'
 #' }
 #' 
-#' @return rec.hms, ecodata::rec_hms data frame
+#' @return rec_hms, ecodata::rec_hms data frame
 #'
 #' @export
 
