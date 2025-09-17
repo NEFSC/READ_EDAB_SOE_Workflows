@@ -22,6 +22,9 @@ Imports:
     comlandr,
     geosphere,
     here,
+    magrittr,
+    NEesp2,
+    purrr,
     raster,
     stringr,
     tidyr,
@@ -35,4 +38,5 @@ Imports:
 Remotes:
   NOAA-EDAB/survdat,
   NOAA-EDAB/stocksmart,
-  NOAA-EDAB/comlandr
+  NOAA-EDAB/comlandr,
+  NEFSC/READ-EDAB-NEesp2
