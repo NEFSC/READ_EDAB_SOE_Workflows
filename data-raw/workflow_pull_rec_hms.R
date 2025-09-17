@@ -13,13 +13,11 @@
 workflow_pull_rec_hms <- function(outputDir = NULL) {
   # pull MRIP data
   rec_hms_data <- SOEworkflows::pull_rec_hms(
-    outputDir = paste0(outputDir, "mrip_data_", Sys.Date())
+    outputDir = paste0(outputDir)
   )
 
   # Save these to a specific location
   if (!is.null(outputDir)) {
-    saveRDS(rec_hms_data, paste0(outputDir, "hms_mrip_", Sys.Date(), ".csv"))
+    write.csv(rec_hms_data, paste0(outputDir, "/hms_mrip_", Sys.Date(), ".csv"))
   }
-
-  return(rec_hms_data)
 }

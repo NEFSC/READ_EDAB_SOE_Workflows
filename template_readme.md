@@ -94,8 +94,8 @@ To run the "workflow" below, it is assumed that the "raw" survey data has been p
 workflow_condition(inputPath, inputpathLW, inputpathSpecies, outputPath)
 ```
 * `inputPath` is the path to the static data set `EDAB_Dev/beet/condition.rds`
-* `inputPathSpecies` is the path to static data set `EDAB_Resources/workflow_resources/soe_workflows/species.codes.rda`
-* `inputPathLW` is the path to the static data set `EDAB_Resources/workflow_resources/soe_workflows/LWparams.rda`
+* `inputPathSpecies` is the path to static data set `EDAB_Resources/workflow_resources/soe_workflows/species.codes.csv`
+* `inputPathLW` is the path to the static data set `EDAB_Resources/workflow_resources/soe_workflows/LWparams.csv`
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `condition.rds` to match the `ecodata` package dataset
 

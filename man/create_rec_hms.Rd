@@ -12,7 +12,7 @@ create_rec_hms(inputPath, inputKey)
 \item{inputKey}{Character string. Full path to the hms_key file in EDAB_Resources ("//nefscdata/EDAB_Resources/hms_key.csv")}
 }
 \value{
-rec.hms, ecodata::rec_hms data frame
+rec_hms, ecodata::rec_hms data frame
 }
 \description{
 This uses the output file from 'pull_rec_hms' as an input parameter
@@ -23,7 +23,7 @@ It is formatted exactly like the ecodata data object
 \dontrun{
 #create the ecodata::rec_hms indicator
 create_rec_hms(
- inputKey = "path/to/hms_key.rda")
+ inputKey = "path/to/hms_key.csv")
 
 }
 

@@ -26,6 +26,7 @@ Imports:
     NEesp2,
     purrr,
     raster,
+    rvest,
     stringr,
     tidyr,
     sf,
@@ -34,7 +35,8 @@ Imports:
     stocksmart,
     rlang,
     utils,
-    zoo
+    zoo,
+    janitor
 Remotes:
   NOAA-EDAB/survdat,
   NOAA-EDAB/stocksmart,

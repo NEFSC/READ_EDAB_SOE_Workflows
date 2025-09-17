@@ -1,22 +1,21 @@
 #' Pulls recreational HMS data from MRIP
 #'
-#' This pulls landings data for HMS species in the North and Mid-Atlantic. 
+#' This pulls landings data for HMS species in the North and Mid-Atlantic.
 #' The function creates an rds and csv file for each species, to be stored in the designated output directory.
-#' The function then combines all individual output files and saves as 'hms_mrip_' followed by the date in the output directory. 
+#' The function then combines all individual output files and saves as 'hms_mrip_' followed by the date in the output directory.
 #'
-#' @param outputDir Character string. Full path the directory in which to store files. Currently stored in "//nefscdata/EDAB_Dev/atyrell/hms_mrip_2025-08-26.csv" 
-#' 
+#' @param outputDir Character string. Full path the directory in which to store files.
+#'
 #' @examples
 #' \dontrun{
 #' pull_rec_hms(
 #   outputDir = "path/to/output/directory/hms_mrip_date.csv")
 #'
 #' }
-#' 
+#'
 #' @return new.hms, a data frame with landings data from MRIP
 #'
 #' @export
-
 
 pull_rec_hms <- function(outputDir) {
   ## set up query ----
@@ -67,11 +66,11 @@ pull_rec_hms <- function(outputDir) {
     'wahoo',
     'yellowfin tuna'
   )
-  
+
   region_list <- c('north atlantic', 'mid-atlantic')
-  
+
   query_params <- expand.grid(species = species_list, regions = region_list)
-  
+
   ## query data ----
   data_pull <- purrr::map2(
     query_params$species,
@@ -85,11 +84,11 @@ pull_rec_hms <- function(outputDir) {
         catch_type = "landings",
         wait = FALSE
       )
-      
+
       data <- readRDS(save_data)
-      
+
       if (is.data.frame(data$data)) {
-        create_total_mrip(
+        NEesp2::create_total_mrip(
           data$data,
           var_name = "hms_landings",
           var_units = "n",
@@ -98,9 +97,9 @@ pull_rec_hms <- function(outputDir) {
       }
     }
   )
-  
+
   ## bind data together and save intermediate ----
   rec_hms <- purrr::reduce(data_pull, dplyr::bind_rows)
-  
+
   return(rec_hms)
 }
