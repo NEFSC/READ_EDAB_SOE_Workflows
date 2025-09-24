@@ -46,7 +46,27 @@
 
 
 
+# Check if the input files exist ---------------------------
+if (file.exists(inputPathSurvey) && file.exists(inputPathSpecies)) {
+  
+} else {
+  stop("One or more of the input files are not present in the location specified")
+}
 
+# Add check to skip running workflow if data not present
+if(file.exists(inputPathSpecies) && file.exists(inputPathSurvey) && (!is.null(outputPath))) {
+  
+  indicatorData <- SOEworkflows::create_aggregate_biomass(inputPathSurvey = inputPathSurvey,
+                                                          inputPathSpecies = inputPathSpecies)
+  
+  # Write data to file
+  saveRDS(indicatorData,paste0(outputPath,"/aggregate_biomass.rds"))
+  
+} else {
+  # 
+  message("One or more of the input files are not present in the location specified")
+}
+}
 
 create_mass_inshore_survey <- function(channel, SOEreportYear, end.year,saveToFile =F) {
   

@@ -12,7 +12,7 @@
 #' @examples
 #' \dontrun{
 #' # create the ecodata::ma_inshore_survey indicator
-#' create_mass_inshore_survey(inputPathSurvey <- here::here("MassSurvey.rds"), #### this gets created by SOEworkflows::get_survey_data
+#' create_mass_inshore_survey(inputPathSurvey <- here::here("MassSurvey.rds"), #### this gets created by SOEworkflows::get_survey_data, it doesn't
 #'                          inputPathSpecies <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds",
 #'                          outputPath <- here::here())
 #'
@@ -23,12 +23,14 @@
 #'
 #' @export
 
+######### To do --> update shapefile filepath, see create_ma survey script adjacent here (andy edited 10 mo ago)
+### make any changes to match syntax
+# what to do about static path (probably don't need, except for maybe shapefile) 
+#input path mass survey data not pulled by get_survey function...maybe shouyld have two functions then one to get data from channel pull and one to do the rest
 
-#-------------------------------------------------------------------------------
 # packages --> data.table, survdat, sf,
 
-#User created functions
-# what to do about this first one
+# Helper function
 sqltext <- function(x){
   out <- x[1]
   if(length(x) > 1){
@@ -39,20 +41,14 @@ sqltext <- function(x){
   out <- paste("'", out, "'", sep = '')
   return(out)
 }
-# probably don't need staticpath except for maybe shapefile
-create_mass_inshore_survey <- function(inputPathSurvey, inputPathSpecies, staticPath, outputPath = NULL) {
+
+# Main function
+create_mass_inshore_survey <- function(inputPathSurvey, inputPathSpecies, end.year) {
   
   end.year <- format(Sys.Date(),"%Y")
 
-  # Check if the input files exist ---------------------------
-  if (file.exists(inputPathSurvey) && file.exists(inputPathSpecies)) {
-    
-  } else {
-    stop("One or more of the input files are not present in the location specified")
-  }
-  
   # Read survey data & species-------------------------------------------
-  survdat.mass <- readRDS((inputPathSurvey))
+  survdat.mass <- readRDS(inputPathSurvey)
   
   # Read species list -------------
   Spp.list <- readRDS(inputPathSpecies) 
@@ -117,11 +113,10 @@ create_mass_inshore_survey <- function(inputPathSurvey, inputPathSpecies, static
   survdat.mass <- merge(survdat.mass, unique(Spp.list[, list(SVSPP, SOE.24)]),
                         by = 'SVSPP', all.x = T)
   
-  #Grab strata --> update this once in package
+  #Grab strata 
   #strata <- sf::st_read(dsn = here::here('gis', 'RA_STRATA_POLY_MC.shp'), quiet = T)
   strata <- sf::st_read(dsn = "C:/Users/Adelle.molina/Documents/GitHub/SOE_data/gis/RA_STRATA_POLY_MC.shp", quiet = TRUE)
-  #"/home/<user>/EDAB_Datasets/SOE_species_list_24.rds"
-  #strata <- sf::st_read(dsn = system.file("extdata", "EPU.shp", package = "survdat"), quiet = T) # this is from one of the other scripts
+  strata <- sf::st_read(dsn = system.file("data", "EPU.shp", package = "NEFSCspatial"), quiet = T) 
   
   #fix strata numbers
   strata$massstratum <- as.numeric(paste0(9, strata$stratum, 0))
