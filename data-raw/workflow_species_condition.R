@@ -43,13 +43,7 @@ workflow_condition <- function(
     indicatorData <- SOEworkflows::create_species_condition(
       inputPath = inputPath,
       inputpathLW = inputpathLW,
-      inputpathSpecies = inputpathSpecies,
-      by_EPU = TRUE,
-      by_sex = FALSE,
-      length_break = NULL,
-      more_than_20_years = TRUE,
-      record_outliers = FALSE,
-      output = "soe"
+      inputpathSpecies = inputpathSpecies
     )
     # write data to file
     saveRDS(indicatorData, paste0(outputPath, "/condition.rds"))

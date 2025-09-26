@@ -26,16 +26,17 @@
 create_species_condition <- function(
   inputPath,
   inputpathLW,
-  inputpathSpecies,
-  by_EPU = TRUE,
-  by_sex = FALSE,
-  length_break = NULL,
-  more_than_20_years = TRUE,
-  record_outliers = FALSE,
-  output = "soe"
+  inputpathSpecies
 ) {
+  
+  dat <- readRDS(inputPath)
+  # pull out dataframe from survdat list output
+  if(is.list(dat)) {
+    dat <- dat$survdat
+  }
+  
   output <- NEesp2::species_condition(
-    data = readRDS(inputPath),
+    data = dat,
     LWparams = read.csv(inputpathLW),
     species.codes = read.csv(inputpathSpecies),
     by_EPU = TRUE,
