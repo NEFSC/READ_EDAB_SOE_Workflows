@@ -16,17 +16,16 @@
 #' }
 #' 
 
-# To do: sort out syntax, where does first functions sve out....and how does second function find that
 workflow_ma_inshore_survey <- function(channel,  inputPathSpecies, outputPath = NULL) {
   
   # pull survey data
   survdat.mass <- SOEworkflows::get_mass_survey(channel)
   
-  # Save out --> where?
-  saveRDS(survdat.mass, paste0(outputPath, "/raw.inshorsurveyData.rds"))
+  # Don't save out due to confidentiality concerns
+  #saveRDS(survdat.mass, paste0(outputPath, "data.raw/MainshorsurveyData.rds"))
   
   # Run second function
-  indicatorData <- SOEworkflows::create_mass_inshore_survey(inputPathSurvey = paste0(outputPath, "/raw.inshorsurveyData.rds"),
+  indicatorData <- create_mass_inshore_survey(inputPathSurvey = survdat.mass,
                                                             inputPathSpecies = inputPathSpecies)
     
   # Write data to file
