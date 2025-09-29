@@ -1,36 +1,21 @@
-#' Function to analyze Massachusetts inshore bottom trawl survey for automated workflow
+#' Get Massachussets inshore bottom trawl survey data 
 #'
-#' Data include aggregated time series of inshore fishery-independent trawl survey data from Massachusetts waters.
-#' MA inshore surveys have been performed biannually in the spring and fall since 1978.
+#' @description
+#' Pulls survey data in format required for indicator generation function
 #'
-#' @param inputPathMassSurvey Character string. Full path to the survdat data pull rds file
-#' @param inputPathSpecies Character string. Full path to the species list data pull rds file
-#' @param outputPath Character string. Path to folder where data pull should be saved
-#' @param staticPath Character string. Path to folder for static files
-#' 
+#' @param channel to connect to communicate with the database engine.
 #'
-#' @examples
-#' \dontrun{
-#' # create the ecodata::ma_inshore_survey indicator
-#' create_mass_inshore_survey(inputPathSurvey <- here::here("MassSurvey.rds"), #### this gets created by SOEworkflows::get_survey_data, it doesn't
-#'                          inputPathSpecies <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds",
-#'                          outputPath <- here::here())
+#'@return Mass inshore survey data pull
 #'
-#' }
+#'@examples
+#'\dontrun{
+#'channel <- dbutils::connect_to_database("server",user)
+#'rawData <- get_mass_survey(channel)
+#'}
 #'
-#'
-#' @return ecodata::ma_inshore_survey data frame
-#'
-#' @export
+#'@export
 
-######### To do --> update shapefile filepath, see create_ma survey script adjacent here (andy edited 10 mo ago)
-### make any changes to match syntax
-# what to do about static path (probably don't need, except for maybe shapefile) 
-#input path mass survey data not pulled by get_survey function...maybe shouyld have two functions then one to get data from channel pull and one to do the rest
-
-# packages --> data.table, survdat, sf,
-
-# Helper function
+# Helper function----
 sqltext <- function(x){
   out <- x[1]
   if(length(x) > 1){
@@ -43,19 +28,7 @@ sqltext <- function(x){
 }
 
 # Main function
-create_mass_inshore_survey <- function(inputPathSurvey, inputPathSpecies, end.year) {
-  
-  end.year <- format(Sys.Date(),"%Y")
-
-  # Read survey data & species-------------------------------------------
-  survdat.mass <- readRDS(inputPathSurvey)
-  
-  # Read species list -------------
-  Spp.list <- readRDS(inputPathSpecies) 
-  
-  # Pull Data----
-  #All of this to be replaced with input path to the data pull
-  
+get_mass_survey <- function(channel){
   channel <- dbutils::connect_to_database("NEFSC_pw_oraprod","amolina")  
   cruise.qry <- "select unique year, cruise6, svvessel, season
                  from svdbs.mstr_cruise
@@ -79,7 +52,7 @@ create_mass_inshore_survey <- function(inputPathSurvey, inputPathSpecies, end.ye
                         where cruise6 = cruise6
                         and SHG <= 136
                         order by cruise6, station"
-
+  
   station <- data.table::as.data.table(DBI::dbGetQuery(channel, station.qry))
   
   #merge cruise and station
@@ -102,22 +75,55 @@ create_mass_inshore_survey <- function(inputPathSurvey, inputPathSpecies, end.ye
   #Convert number fields from chr to num
   numberCols <- c('CRUISE6', 'STATION', 'STRATUM', 'TOW', 'SVSPP', 'CATCHSEX', 'YEAR')
   survdat.mass[, (numberCols):= lapply(.SD, as.numeric), .SDcols = numberCols][]
+  return(survdat.mass)
+}
+
+
+#' Function to process Massachusetts inshore bottom trawl survey for automated workflow
+#'
+#' Data include aggregated time series of inshore fishery-independent trawl survey data from Massachusetts waters.
+#' MA inshore surveys have been performed biannually in the spring and fall since 1978.
+#'
+#' @param inputPathMassSurvey Character string. Full path to the mass inshore data pull rds file created by get_mass_survey
+#' @param inputPathSpecies Character string. Full path to the species list data pull rds file
+#' 
+#'
+#' @examples
+#' \dontrun{
+#' # create the ecodata::ma_inshore_survey indicator
+#' create_mass_inshore_survey(inputPathSurvey <- here::here("survdat.mass.rds"), 
+#'                          inputPathSpecies <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds")
+#'
+#' }
+#'
+#'
+#' @return ecodata::ma_inshore_survey data frame
+#'
+#' @export
+
+######### 
+# packages --> data.table, survdat, sf,NEFSCspatial
+
+create_mass_inshore_survey <- function(inputPathSurvey, inputPathSpecies) {
   
-  #survdat.mass <- survdat.mass |>dplyr::filter(YEAR <= end.year)
+  end.year <- format(Sys.Date(),"%Y")
+
+  # Read survey data & species-------------------------------------------
+  survdat.mass <- readRDS(inputPathSurvey)
   
-  #survdat.mass <- readRDS(inputPath1)$survdat
+  # Read species list -------------
+  Spp.list <- readRDS(inputPathSpecies) 
   
   # Aggregate species----
   
-  #Merge species list with to get species group
+  #Merge with species list to get species groups
   survdat.mass <- merge(survdat.mass, unique(Spp.list[, list(SVSPP, SOE.24)]),
                         by = 'SVSPP', all.x = T)
   
   #Grab strata 
+  strata <- NEFSCspatial::mass_inshore_strata
   #strata <- sf::st_read(dsn = here::here('gis', 'RA_STRATA_POLY_MC.shp'), quiet = T)
-  strata <- sf::st_read(dsn = "C:/Users/Adelle.molina/Documents/GitHub/SOE_data/gis/RA_STRATA_POLY_MC.shp", quiet = TRUE)
-  strata <- sf::st_read(dsn = system.file("data", "EPU.shp", package = "NEFSCspatial"), quiet = T) 
-  
+
   #fix strata numbers
   strata$massstratum <- as.numeric(paste0(9, strata$stratum, 0))
   #Give extra stratum column to survdat
@@ -165,7 +171,7 @@ create_mass_inshore_survey <- function(inputPathSurvey, inputPathSpecies, end.ye
   
   # Prepare for SOE ------
 
-    #Remove missing values
+  #Remove missing values
   stratmeanData <- stratmeanData[!is.na(stratmeanData$SOE.24), ]
   
   # select biomass and biomass SE for both spring and fall for each guild
