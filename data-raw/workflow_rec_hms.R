@@ -26,7 +26,7 @@
 #' @export
 #'
 
-workflow_rec_hms <- function(inputPath, inputKey, outputPath) {
+workflow_rec_hms <- function(outputPath, inputPath, inputKey ) {
   # Assumes that rec HMS data has been pulled and is located in inputPath
   #pull_rec_hms(channel,outputDir = outPutDir)
 
