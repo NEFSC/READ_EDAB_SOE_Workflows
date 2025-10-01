@@ -16,6 +16,7 @@ workflow_pull_recreational_data <- function(outputPath = NULL) {
 
   # Save these to a specific location
   if (!is.null(outputPath)) {
-    write.csv(rec_hms_data, paste0(outputPath, "/hms_mrip_", Sys.Date(), ".csv"))
+    #write.csv(rec_hms_data, paste0(outputPath, "/hms_mrip_", Sys.Date(), ".csv"))
+    saveRDS(rec_hms_data, paste0(outputPath, "/hms_mrip_", Sys.Date(), ".rds"))
   }
 }

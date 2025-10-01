@@ -25,7 +25,7 @@ create_rec_hms <- function(
   inputKey
 ) {
   # data wrangling ----
-  rec_hms <- read.csv(inputPath) |>
+  rec_hms <- readRDS(inputPath) |>
     dplyr::left_join(
       read.csv(inputKey) |>
         dplyr::select(COMMON_NAME, SP_CATEGORY),
