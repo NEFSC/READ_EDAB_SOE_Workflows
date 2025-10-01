@@ -92,6 +92,9 @@ create_mass_inshore_survey <- function(inputPathMassSurvey, inputPathSpecies) {
   #Remove missing values
   #stratmeanData <- stratmeanData[!is.na(stratmeanData$SOE.24), ]
   stratmeanData <- stratmeanData[!is.na(SOE.24), ]
+  # format Season to have use camel case (not all uppercase)
+  stratmeanData <- stratmeanData |> 
+    dplyr::mutate(SEASON = stringr::str_to_title(SEASON))
   
   # select biomass and biomass SE for both spring and fall for each guild
   mass.survey <- stratmeanData |>
