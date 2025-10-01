@@ -49,6 +49,9 @@ get_survey_data <- function(channel) {
     getBio = TRUE
   )
 
+  # Get mass inshore survey data
+  message("Getting the Massachusetts Inshore Survey Data")
+  
   # create a list of three datasets
   survey_data <- list(
     survey1 = survey1,
