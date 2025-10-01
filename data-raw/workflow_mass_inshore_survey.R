@@ -15,9 +15,9 @@
 #' }
 #' 
 
-workflow_mass_inshore_survey <- function(inputPathMassSurvey,  
-                                         inputPathSpecies, 
-                                         outputPath = NULL) {
+workflow_mass_inshore_survey <- function(outputPath = NULL,
+                                         inputPathMassSurvey,  
+                                         inputPathSpecies) {
   
   # Assumes that survey data has been pulled and is located in inputPathMassSurvey
   # workflow_pull_survey_data(channel,outputPath = outputPath)
