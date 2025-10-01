@@ -51,13 +51,16 @@ get_survey_data <- function(channel) {
 
   # Get mass inshore survey data
   message("Getting the Massachusetts Inshore Survey Data")
+  mass_inshore <- survdat::get_mass_inshore_survey(channel,
+                                                   filterByYear = 1963:end.year)
   
   # create a list of three datasets
   survey_data <- list(
     survey1 = survey1,
     al.data = al.data,
     big.data = big.data,
-    condition = condition
+    condition = condition,
+    mass_inshore = mass_inshore
   )
   
   message("Done pulling Survey data")
