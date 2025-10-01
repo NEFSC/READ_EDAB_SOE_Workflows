@@ -25,7 +25,7 @@ workflow_mass_inshore_survey <- function(outputPath = NULL,
   # Add check to skip running workflow if data not present
   if(file.exists(inputPathSpecies) && file.exists(inputPathMassSurvey) && (!is.null(outputPath))) {
     
-    indicatorData <- create_mass_inshore_survey(inputPathMassSurvey = inputPathMassSurvey,
+    indicatorData <- SOEworkflows::create_mass_inshore_survey(inputPathMassSurvey = inputPathMassSurvey,
                                                 inputPathSpecies = inputPathSpecies)
     
     # Write data to file
