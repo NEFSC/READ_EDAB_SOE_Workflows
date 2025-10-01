@@ -4,18 +4,18 @@
 #' Methods derived from Laurel Smith (https://github.com/Laurels1/Condition/blob/master/R/RelConditionEPU.R)
 #'
 #' @param inputPath Character string. Full path to the condition data pull rds file.
-#' @param inputpathLW Character string. Full path to the LWparams csv file in 'EDAB_Resources/workflow_resources/soe_workflows'.
-#' @param inputpathSpecies Character string. Full path to the species.codes csv file in 'EDAB_Resources/workflow_resources/soe_workflows'.
+#' @param inputPathLW Character string. Full path to the LWparams csv file in 'EDAB_Resources/workflow_resources/soe_workflows'.
+#' @param inputPathSpecies Character string. Full path to the species.codes csv file in 'EDAB_Resources/workflow_resources/soe_workflows'.
 #'
 #' @importFrom magrittr %>%
 #'
 #' @examples
 #' \dontrun{
 #' #create the ecodata::condition indicator
-#' species_condition(
+#' condition(
 #   inputPath = "path/to/condition.rds",
-#'  inputpathLW = "path/to/LWparams.csv",
-#'  inputpathSpecies = "path/to/species.codes.csv")
+#'  inputPathLW = "path/to/LWparams.csv",
+#'  inputPathSpecies = "path/to/species.codes.csv")
 #'
 #' }
 #'
@@ -23,10 +23,10 @@
 #'
 #' @export
 
-create_species_condition <- function(
+create_condition <- function(
   inputPath,
-  inputpathLW,
-  inputpathSpecies
+  inputPathLW,
+  inputPathSpecies
 ) {
   
   dat <- readRDS(inputPath)
@@ -37,8 +37,8 @@ create_species_condition <- function(
   
   output <- NEesp2::species_condition(
     data = dat,
-    LWparams = read.csv(inputpathLW),
-    species.codes = read.csv(inputpathSpecies),
+    LWparams = read.csv(inputPathLW),
+    species.codes = read.csv(inputPathSpecies),
     by_EPU = TRUE,
     by_sex = FALSE,
     length_break = NULL,

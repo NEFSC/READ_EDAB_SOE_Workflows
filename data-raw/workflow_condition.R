@@ -5,16 +5,16 @@
 #' It is formatted exactly like the ecodata data object
 #'
 #' @param inputPath Character string. Full path to the condition data pull rds file.
-#' @param inputpathLW Character string. Full path to the LWparams rda file in 'EDAB_Resources/workflow_resources/soe_workflows'.
-#' @param inputpathSpecies Character string. Full path to the species.codes rda file in 'EDAB_Resources/workflow_resources/soe_workflows'.
+#' @param inputPathLW Character string. Full path to the LWparams rda file in 'EDAB_Resources/workflow_resources/soe_workflows'.
+#' @param inputPathSpecies Character string. Full path to the species.codes rda file in 'EDAB_Resources/workflow_resources/soe_workflows'.
 #' @param outputPath Character string. Path to folder where data pull should be saved.
 #'
 #' @example
 #' \dontrun{
 #' # create the ecodata::condition indicator
-#' workflow_condition(inputPath = "path/to/condition.rds",
-#'  inputpathLW = "path/to/hms_key.rda,
-#'  inputpathSpecies = "path/to/species.codes.rda",
+#' workflow_condition(inputPath = "path/to/conditionData.rds",
+#'  inputPathLW = "path/to/hms_key.rda,
+#'  inputPathSpecies = "path/to/species.codes.rda",
 #'  outputPath = "path/to/output/folder")
 #'
 #' }
@@ -26,8 +26,8 @@
 
 workflow_condition <- function(
   inputPath,
-  inputpathLW,
-  inputpathSpecies,
+  inputPathLW,
+  inputPathSpecies,
   outputPath = NULL
 ) {
   # Assumes that survey data has been pulled
@@ -36,14 +36,14 @@ workflow_condition <- function(
   # Add check to skip running workflow if data not present
   if (
     file.exists(inputPath) &&
-      file.exists(inputpathLW) &&
-      file.exists(inputpathSpecies) &&
+      file.exists(inputPathLW) &&
+      file.exists(inputPathSpecies) &&
       (!is.null(outputPath))
   ) {
-    indicatorData <- SOEworkflows::create_species_condition(
+    indicatorData <- SOEworkflows::create_condition(
       inputPath = inputPath,
-      inputpathLW = inputpathLW,
-      inputpathSpecies = inputpathSpecies
+      inputPathLW = inputPathLW,
+      inputPathSpecies = inputPathSpecies
     )
     # write data to file
     saveRDS(indicatorData, paste0(outputPath, "/condition.rds"))
