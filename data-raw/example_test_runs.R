@@ -12,6 +12,11 @@ inputPathAlbatross <- "/home/abeet/EDAB_Dev/beet/albatrossData.rds"
 inputPathBigelow <- "/home/abeet/EDAB_Dev/beet/bigelowData.rds"
 inputPathBennet <- "/home/abeet/EDAB_Dev/beet/commercial_bennet.rds"
 inputPathComdat <- "/home/abeet/EDAB_Dev/beet/commercial_comdat.rds"
+inputKey <- "/home/abeet/EDAB_Resources/workflow_resources/soe_workflows/hms_key.csv"
+inputPath <- "/home/abeet/EDAB_Dev/beet/hms_mrip_2025-10-01.rds"
+inputPath <- "/home/abeet/EDAB_Dev/beet/conditionData.rds"
+inputPathLW <- "/home/abeet/EDAB_Resources/workflow_resources/soe_workflows/LWparams.csv"
+inputPathSpecies <- "/home/abeet/EDAB_Resources/workflow_resources/soe_workflows/species.codes.csv"
 menhadenPath <- "/home/abeet/EDAB_Dev/grezlik/menhadenEOF.rds"
 
 # source workflow functions from data-raw since they are not accessible from the package installation
