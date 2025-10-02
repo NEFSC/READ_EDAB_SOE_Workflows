@@ -36,7 +36,8 @@ Imports:
     rlang,
     utils,
     zoo,
-    janitor
+    janitor,
+    ncdf4
 Remotes:
   NOAA-EDAB/survdat,
   NOAA-EDAB/stocksmart,
