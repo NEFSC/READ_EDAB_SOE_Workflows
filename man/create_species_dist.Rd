@@ -25,8 +25,6 @@ create_species_dist(
 \item{static_coast_coord}{Character string. Path to file with lat lon coordinates defining the coastline}
 
 \item{static_strat_areas}{Character string. Path to file defining NEFSC trawl survey strata}
-
-\item{outputPath}{Character string. Path to folder where data pull should be saved}
 }
 \value{
 ecodata::species_dist data frame
@@ -42,8 +40,7 @@ create_species_dist(inputPathSurvey = here::here("surveyNoLengths.rds"),
  static_depth <-  "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc"
  static_diagonal <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/diag.csv"
  static_coast_coord <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"
- static_strat_areas <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rdata"
- outputPath = here::here())
+ static_strat_areas <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds")
 
 }
 

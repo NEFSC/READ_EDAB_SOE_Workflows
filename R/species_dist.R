@@ -8,7 +8,6 @@
 #' @param static_diagonal Character string. Path to file with along shelf diagonal data
 #' @param static_coast_coord Character string. Path to file with lat lon coordinates defining the coastline
 #' @param static_strat_areas Character string. Path to file defining NEFSC trawl survey strata
-#' @param outputPath Character string. Path to folder where data pull should be saved
 #'
 #' @examples
 #' \dontrun{
@@ -18,8 +17,7 @@
 #'  static_depth <-  "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc"
 #'  static_diagonal <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/diag.csv"
 #'  static_coast_coord <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"
-#'  static_strat_areas <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rdata"
-#'  outputPath = here::here())
+#'  static_strat_areas <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds")
 #'
 #' }
 #'
