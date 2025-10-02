@@ -32,8 +32,10 @@ Imports:
     rlang,
     utils,
     zoo,
+    NEFSCspatial,
     ncdf4
 Remotes:
   NOAA-EDAB/survdat,
   NOAA-EDAB/stocksmart,
-  NOAA-EDAB/comlandr
+  NOAA-EDAB/comlandr,
+  NEFSCspatial=NEFSC/NEFSC-Spatial

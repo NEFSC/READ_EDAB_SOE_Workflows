@@ -18,6 +18,7 @@ workflow_pull_survey_data(channel,outputPathDatasets)
   - `bigelowData.rds` - used in `survey_shannon`
   - `albatrosData.rds` - used in `survey_shannon`
   - `condition.rds` - used in `condition`
+  - `massInshoreData` - used in `mass_inshore_survey`
 
 ### aggregate_biomass
 
@@ -46,10 +47,27 @@ To run the "workflow" below, it is assumed that the "raw" survey data has been p
 workflow_survey_shannon(outputPath,inputPathBigelow,inputPathAlbatross)
 ```
 
-* `inputPathBigelow` is the path to static data set `EDAB_Datasets/bigelowData.rds`.
-* `inputPathAlbatross` is the path to the dynamically created survey data `EDAB_Datasets/albatrossData.rds`. 
+* `inputPathBigelow` is the path to the data set `EDAB_Datasets/bigelowData.rds`.
+* `inputPathAlbatross` is the path to the created survey data `EDAB_Datasets/albatrossData.rds`. 
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `survey_shannon.rds` to match the `ecodata` package dataset
+
+### mass_inshore_survey
+
+To run the "workflow" below, it is assumed that the "raw" survey data has been pulled using the 
+`get_survey_data` function above.
+
+*Note: the following function resides in the folder `data-raw` and is NOT part of the package*
+
+```
+workflow_mass_inshore_survey(outputPath,inputPathMassSurvey,inputPathSpecies)
+```
+
+* `inputPathMassSurvey` is the path to data set `EDAB_Datasets/massInshoreData.rds`.
+* `inputPathSpecies` is the path to static data set `EDAB_Datasets/SOE_species_list_24.rds`.
+* `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+The rds file name is hardcoded as `mass_inshore_survey.rds` to match the `ecodata` package dataset
+
 
 ### exp_n
 

@@ -5,7 +5,7 @@
 #' @param outputPath Character string. Path to folder where data pull should be saved.
 #' If not NULL the pull will be saved to the
 #' folder `outputPath` with names (`albatrossData.rds`,
-#' `bigelowData.rds`,`surveyNoLengths.rds`, `condition.rds`)
+#' `bigelowData.rds`,`surveyNoLengths.rds`, `condition.rds`,`massInshoreData.rds`)
 #'
 #' @return list of data objects. rds files exported
 #'
@@ -28,6 +28,7 @@ workflow_pull_survey_data <- function(channel, outputPath = NULL) {
     saveRDS(survey_data$big.data, paste0(outputPath, "/bigelowData.rds"))
     saveRDS(survey_data$survey1, paste0(outputPath, "/surveyNoLengths.rds"))
     saveRDS(survey_data$condition, paste0(outputPath, "/condition.rds"))
+    saveRDS(survey_data$mass_inshore, paste0(outputPath, "/massInshoreData.rds"))
   }
   return(survey_data)
 }
