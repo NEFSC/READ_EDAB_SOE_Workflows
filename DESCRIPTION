@@ -37,9 +37,11 @@ Imports:
     utils,
     zoo,
     janitor,
+    NEFSCspatial,
     ncdf4
 Remotes:
   NOAA-EDAB/survdat,
   NOAA-EDAB/stocksmart,
   NOAA-EDAB/comlandr,
   NEesp2=NEFSC/READ-EDAB-NEesp2
+  NEFSCspatial=NEFSC/NEFSC-Spatial

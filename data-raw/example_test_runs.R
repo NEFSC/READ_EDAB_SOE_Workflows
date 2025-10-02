@@ -7,6 +7,7 @@
 outputPathDataSets <- "/home/abeet/EDAB_Dev/beet/"
 outputPath <- "/home/abeet/EDAB_Dev/beet/"
 inputPathSurvey <- "/home/abeet/EDAB_Dev/beet/surveyNoLengths.rds"
+inputPathMassSurvey <- "/home/abeet/EDAB_Dev/beet/massInshoreData.rds"
 inputPathSpecies <- "/home/abeet/EDAB_Datasets/SOE_species_list_24.rds"
 inputPathAlbatross <- "/home/abeet/EDAB_Dev/beet/albatrossData.rds"
 inputPathBigelow <- "/home/abeet/EDAB_Dev/beet/bigelowData.rds"
@@ -26,7 +27,7 @@ source(here::here("data-raw/workflow_bennet.R"))
 source(here::here("data-raw/workflow_pull_survey_data.R"))
 source(here::here("data-raw/workflow_pull_commercial_data.R"))
 source(here::here("data-raw/workflow_comdat.R"))
-
+source(here::here("data-raw/workflow_mass_inshore_survey.R"))
 
 ## Connects to the data base.
 # This is only needed to pull data from survey and commercial dbs
@@ -62,3 +63,8 @@ indicator_comdat <- workflow_comdat(comdat_path = inputPathComdat,
                 input_path_species = inputPathSpecies,
                 menhaden_path = menhadenPath,
                 outputPathDataSets = outputPath)
+
+# calculate the mass_inshore_survey indicator and write it to desired location
+indicator_mass_inshore_survey <- workflow_mass_inshore_survey(outputPath = outputPath,
+                                                           inputPathMassSurvey = inputPathMassSurvey,
+                                                           inputPathSpecies = inputPathSpecies)
