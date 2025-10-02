@@ -42,7 +42,7 @@ workflow_species_dist <- function(inputPathSurvey,
                                   outputPath = NULL) { 
   # Assumes that survey data has been pulled and is located in inputPathSurvey
   #get_survey_data(channel,outputPath = outputPath)
-  
+
   # Check if static files are present
   required_files <- list(
     static_depth     = static_depth,
@@ -61,7 +61,7 @@ workflow_species_dist <- function(inputPathSurvey,
   # Add check to skip running workflow if data not present
   if(file.exists(inputPathSpecies) && file.exists(inputPathSurvey)) {
     
-    message("Generating species distribution indicator...")
+    message("Generating species distribution indicator... this could take up to 15 minutes")
     indicatorData <- SOEworkflows::create_species_dist(
       inputPathSurvey   = inputPathSurvey,
       inputPathSpecies  = inputPathSpecies,
@@ -79,4 +79,5 @@ workflow_species_dist <- function(inputPathSurvey,
     # 
     message("One or more of the input files are not present in the location specified")
   }
+  
 }
