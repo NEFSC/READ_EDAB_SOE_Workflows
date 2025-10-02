@@ -8,7 +8,10 @@ inputPathSpecies <- "/home/mgrezlik/EDAB_Datasets/SOE_species_list_24.rds"
 input_path_species <- "/home/mgrezlik/EDAB_Datasets/SOE_species_list_24.rds"
 inputPathAlbatross <- "/home/mgrezlik/EDAB_Dev/beet/albatrossData.rds"
 inputPathBigelow <- "/home/mgrezlik/EDAB_Dev/beet/bigelowData.rds"
-staticPath <-  "/home/mgrezlik/EDAB_Resources/"
+static_depth <-  "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc"
+static_diagonal <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/diag.csv"
+static_coast_coord <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"
+static_strat_areas <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds"
 menhaden_path <- "/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds"
 comdat_path <- '/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds'
 comland_old_path <- '/home/mgrezlik/EDAB_Dev/beet/comlandr_old.rds'
@@ -24,9 +27,37 @@ source(here::here('data-raw/workflow_comdat.R'))
 
 # rawData <- SOEworkflows::get_survey_data(channel,outputPathDataSets)
 
-# indD <- workflow_species_distribution(outputPath = outputPath,
-#                                    inputPathSurvey = inputPathSurvey,
-#                                    inputPathSpecies = inputPathSpecies)
+indD <- workflow_species_dist(
+                                   inputPathSurvey = inputPathSurvey,
+                                   inputPathSpecies = inputPathSpecies,
+                                   static_depth = static_depth,
+                                   static_diagonal = static_diagonal,
+                                   static_coast_coord = static_coast_coord,
+                                   static_strat_areas = static_strat_areas,
+                                   outputPath = outputPathDataSets
+                                   )
+
+
+# # compare workflow outputs to ecodata
+# max <- indD |> dplyr::mutate(source = 'max')
+# ecodata <- ecodata::species_dist |> dplyr::mutate(source = 'ecodata')
+# compare <- dplyr::bind_rows(max,ecodata)
+# 
+# library(ggplot2)
+# compare |> 
+#   dplyr::filter(Var == 'along-shelf distance') |> 
+# ggplot(aes(x=Time, y = Value, color = source))+
+#   geom_line()
+# 
+# compare |> 
+#   dplyr::filter(Var == 'depth') |> 
+#   ggplot(aes(x=Time, y = Value, color = source))+
+#   geom_line()
+# 
+# compare |> 
+#   dplyr::filter(Var == 'distance to coast') |> 
+#   ggplot(aes(x=Time, y = Value, color = source))+
+#   geom_line()
 
 
 
