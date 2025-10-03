@@ -33,7 +33,7 @@ workflow_exp_n <- function(inputPathBigelow, inputPathAlbatross, outputPath = NU
   # Add check to skip running workflow if data not present
   if(file.exists(inputPathBigelow) && file.exists(inputPathAlbatross) && (!is.null(outputPath))) {
     
-    indicatorData <- SOEworkflows::exp_n(inputPathBigelow = inputPathBigelow,
+    indicatorData <- SOEworkflows::create_exp_n(inputPathBigelow = inputPathBigelow,
                                                          inputPathAlbatross = inputPathAlbatross)
     # write data to file
     saveRDS(indicatorData,paste0(outputPath,"/exp_n.rds"))
