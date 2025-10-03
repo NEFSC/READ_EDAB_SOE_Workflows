@@ -5,6 +5,7 @@
 #'  * VPN connection
 #'  * a connection to the file server required
 
+pullRawData <- FALSE
 
 # suite of paths to input and output files
 outputPath <- "~/EDAB_Indicators/"
@@ -29,8 +30,6 @@ inputKey <- "~/EDAB_Datasets/Workflows/hms_key.csv"
 inputPathLW <- "~/EDAB_Datasets/Workflows/LWparams.csv"
 inputPathConditionSpecies <- "~/EDAB_Datasets/Workflows/species.codes.csv"
 
-
-
 # source workflow functions from data-raw since they are not accessible from the package installation
 source(here::here("data-raw/workflow_pull_survey_data.R"))
 source(here::here("data-raw/workflow_pull_commercial_data.R"))
@@ -48,18 +47,20 @@ source(here::here("data-raw/workflow_stock_status.R"))
 source(here::here("data-raw/workflow_survey_shannon.R"))
 source(here::here("data-raw/workflow_trans_dates.R"))
 
-## Connects to the data base.
-# you'll need to add the server and your user id
-channel <- dbutils::connect_to_database("server","user")
-
-# workflows for pulling data
-# This is required to be run first. All indicators rely on these
-# pull and write survey data
-workflow_pull_survey_data(channel,outputPath = outputPathDatasets)
-# pull and write commercial data
-workflow_pull_commercial_data(channel,outputPath = outputPathDatasets)
-# pull and write recreational data
-workflow_pull_recreational_data(outputPathDatasets)
+if (pullRawData) {
+  ## Connects to the data base.
+  # you'll need to add the server and your user id
+  # This is only needed to pull the data
+  channel <- dbutils::connect_to_database("server","user")
+  # workflows for pulling data
+  # This is required to be run first. All indicators rely on these
+  # pull and write survey data
+  workflow_pull_survey_data(channel,outputPath = outputPathDatasets)
+  # pull and write commercial data
+  workflow_pull_commercial_data(channel,outputPath = outputPathDatasets)
+  # pull and write recreational data
+  workflow_pull_recreational_data(outputPathDatasets)
+}
 
 # calculate the aggregate biomass index
 indicator_aggegegate_biomass <- workflow_aggregate_biomass(outputPath,
