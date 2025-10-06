@@ -28,6 +28,8 @@ workflow_pull_survey_data <- function(channel, outputPath = NULL) {
     saveRDS(survey_data$big.data, paste0(outputPath, "/bigelowData.rds"))
     saveRDS(survey_data$survey1, paste0(outputPath, "/surveyNoLengths.rds"))
     saveRDS(survey_data$condition, paste0(outputPath, "/conditionData.rds"))
+    saveRDS(survey_data$bio, paste0(outputPath, "/surveyBiologicalData.rds"))
+    saveRDS(survey_data$bio_epu, paste0(outputPath, "/surveyBiologicalByEPUData.rds"))
     saveRDS(survey_data$mass_inshore, paste0(outputPath, "/massInshoreData.rds"))
   }
   return(survey_data)
