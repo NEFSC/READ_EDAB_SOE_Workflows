@@ -2,8 +2,8 @@
 outputPathDataSets <- "/home/mgrezlik/EDAB_Dev/grezlik"
 outputPath <- "/home/mgrezlik/EDAB_Dev/grezlik"
 input_path_commercial_comdat <- "/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds"
-inputPathSurvey <- "/home/mgrezlik/EDAB_Dev/beet/surveyNoLengths.rds"
-inputPathSpecies <- "/home/mgrezlik/EDAB_Datasets/SOE_species_list_24.rds"
+inputPathSurvey <- "/home/mgrezlik/EDAB_Datasets/Workflows/surveyNoLengthsData.rds"
+inputPathSpecies <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
 # ditching camel case moving forward
 input_path_species <- "/home/mgrezlik/EDAB_Datasets/SOE_species_list_24.rds"
 inputPathAlbatross <- "/home/mgrezlik/EDAB_Dev/beet/albatrossData.rds"
