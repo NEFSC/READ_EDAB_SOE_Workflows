@@ -4,15 +4,20 @@
 #'
 #' @param inputPathSurvey Character string. Full path to the survdat data pull rds file
 #' @param inputPathSpecies Character string. Full path to the species list data pull rds file
-#' @param outputPath Character string. Path to folder where data pull should be saved
-#' @param staticPath Character string. Path to folder for static files
+#' @param static_depth Character string. Path to file with depth data for NE shelf
+#' @param static_diagonal Character string. Path to file with along shelf diagonal data
+#' @param static_coast_coord Character string. Path to file with lat lon coordinates defining the coastline
+#' @param static_strat_areas Character string. Path to file defining NEFSC trawl survey strata
 #'
 #' @examples
 #' \dontrun{
 #' # create the ecodata::species_dist indicator
-#' create_species_dist(inputPathSurvey <- here::here("surveyNoLengths.rds"),
-#'                          inputPathSpecies <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds",
-#'                          outputPath <- here::here())
+#' create_species_dist(inputPathSurvey = here::here("surveyNoLengths.rds"),
+#'  inputPathSpecies = "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds",
+#'  static_depth <-  "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc"
+#'  static_diagonal <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/diag.csv"
+#'  static_coast_coord <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"
+#'  static_strat_areas <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds")
 #'
 #' }
 #'
@@ -21,16 +26,28 @@
 #'
 #' @export
 
-
-create_species_dist <- function(inputPathSurvey, inputPathSpecies, staticPath, outputPath = NULL) {
+create_species_dist <- function(inputPathSurvey, 
+                                inputPathSpecies, 
+                                static_depth, 
+                                static_diagonal, 
+                                static_coast_coord, 
+                                static_strat_areas) {
  
   end.year <- format(Sys.Date(),"%Y")
    
 # Check if the input files exist ---------------------------
-  if (file.exists(inputPathSurvey) && file.exists(inputPathSpecies)) {
-    
-  } else {
-    stop("One or more of the input files are not present in the location specified")
+  required_files <- list(
+    survey        = inputPathSurvey,
+    species       = inputPathSpecies,
+    depth         = static_depth,
+    diagonal      = static_diagonal,
+    coast_coord   = static_coast_coord,
+    strat_areas   = static_strat_areas
+  )
+  
+  missing_files <- names(required_files)[!file.exists(unlist(required_files))]
+  if (length(missing_files) > 0) {
+    stop("One or more of the input files are not present: ", paste(missing_files, collapse = ", "))
   }
 
 # read survey data -------------------------------------------
@@ -59,23 +76,26 @@ create_species_dist <- function(inputPathSurvey, inputPathSpecies, staticPath, o
     
 # select the 48 best model distribution species --------------------
     
-    spptokeep <- c(13,15,22,23,24,25,26,27,28,32,33,34,35,72,73,74,75,76,77,78,84,102,103,104,105,106,107,108,109,121,131,141,143,155,156,163,164,171,172,176,181,192,193,197,301,401,502,503)
+    spptokeep <- c(13,15,22,23,24,25,26,27,28,32,33,34,35,72,73,74,
+                   75,76,77,78,84,102,103,104,105,106,107,108,109,
+                   121,131,141,143,155,156,163,164,171,172,176,181,
+                   192,193,197,301,401,502,503)
     
 # raster depth grid ------------------------------------------------
-    gdepth <- raster::raster(paste0(staticPath,"nes_bath_data.nc"),band=1)
+    gdepth <- raster::raster(static_depth, band = 1)
     
-# read coordinates for along shelf diagonal  diag.csv -----------------
-    diag <- read.csv(here::here(paste0(staticPath,"diag.csv")))
+# read coordinates for along shelf diagonal -----------------
+    diag <- read.csv(static_diagonal)
     
 # read coordinate for coast --------------------
-    nescoast2 <- read.csv(here::here(paste0(staticPath,"nes_coast_2.csv")))
+    nescoast2 <- read.csv(static_coast_coord)
     
 # constants ------------------------------------------------------------
     radt=pi/180
     R <- 6371 # Earth mean radius [km]
     
 # load stratareas ---------------------------------------------------
-    load(here::here(paste0(staticPath,"stratareas.rdata")))
+    stratareas <- readRDS(static_strat_areas)
     
 # tidy data ---------------------------------------------------
     # trim the data, filter for chosen season
@@ -187,7 +207,7 @@ create_species_dist <- function(inputPathSurvey, inputPathSpecies, staticPath, o
       # excluding 2020 & 2023
       dplyr::filter(!YEAR %in% c(2020,2023))
     
-# Final reshaping and metadata (from get_species_dist) ------------------
+# Final reshaping (from get_species_dist) ------------------
     species_dist <- dist_mean |>
       dplyr::mutate(YEAR = as.integer(YEAR)) |>
       dplyr::rename(
@@ -212,10 +232,6 @@ create_species_dist <- function(inputPathSurvey, inputPathSpecies, staticPath, o
     
     species_dist <- dplyr::right_join(species_dist, expanded, by = c("Time", "Var")) |>
       dplyr::arrange(Time)
-    
-    attr(species_dist, "tech-doc_url") <- "https://noaa-edab.github.io/tech-doc/species-distribution-indicators.html"
-    attr(species_dist, "data_steward") <- c("Kevin Friedland <kevin.freidland@noaa.gov>")
-    attr(species_dist, "plot_script") <- list(`mf_MAB` = "macrofauna_MAB.Rmd-species-dist.R")
   
 # return(species_dist) -----------------------
       return(species_dist)

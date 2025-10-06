@@ -1,6 +1,6 @@
 <!-- badges: start -->
-  [![R-CMD-check](https://github.com/NEFSC/READ_EDAB_SOE_Workflows/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/NEFSC/READ_EDAB_SOE_Workflows/actions/workflows/R-CMD-check.yaml)
-  <!-- badges: end -->
+[![R-CMD-check.yaml](https://github.com/NEFSC/READ_EDAB_SOE_Workflows/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/NEFSC/READ_EDAB_SOE_Workflows/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
 
 This repository is intended as a place to host any scripts or functions used within automated workflows that generate State of the Ecoystem indicators.
 
