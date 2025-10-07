@@ -18,6 +18,8 @@ comland_old_path <- '/home/mgrezlik/EDAB_Dev/beet/comlandr_old.rds'
 old_menh_path24 <- '/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF2024.rds'
 old_menh_path <- '/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds'
 old_comdat_path <- '/home/mgrezlik/EDAB_Dev/grezlik/Commercial_data_pull_25.RData'
+input_survey_bio_epu <- "~/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds"
+input_survery_bio <- 'home/mgrezlik/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds'
 
 
 source(here::here("data-raw/workflow_species_dist.R"))
