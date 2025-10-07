@@ -1,3 +1,17 @@
+# To review pull request for productivity_anomaly
+
+# If you are on the container edit this section --------------
+# enter your name here
+user <- mgrezlik
+
+
+# If you are running locally edit this section ---------------
+
+
+
+
+
+
 # Example of how to test on the Rstudio container 
 outputPathDataSets <- "/home/mgrezlik/EDAB_Dev/grezlik"
 outputPath <- "/home/mgrezlik/EDAB_Dev/grezlik"
@@ -20,6 +34,7 @@ old_menh_path <- '/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds'
 old_comdat_path <- '/home/mgrezlik/EDAB_Dev/grezlik/Commercial_data_pull_25.RData'
 input_survey_bio_epu <- "~/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds"
 input_survery_bio <- 'home/mgrezlik/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds'
+prod_anom_sarah <- "~/EDAB_Dev/grezlik/AssessFishProdAnomaly - Sarah Gaichas - NOAA Federal.rds"
 
 
 source(here::here("data-raw/workflow_species_dist.R"))
