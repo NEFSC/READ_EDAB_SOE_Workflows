@@ -182,9 +182,65 @@ productivity_anomaly1 <- dat_spec_rec_forSOE |>
   dplyr::select(Time, Var, Value, EPU, Units) |>
   dplyr::mutate(Var = paste0(Var, "_Survey"))
 
-prod_assess<- readRDS(file.path(prod_anom_sarah))
-prod_assess1<- prod_assess |>
+# prod_assess<- readRDS(file.path(prod_anom_sarah))
+
+# recreating part of MultisppRec2024 -------------
+# https://github.com/NOAA-EDAB/stockstatusindicator/blob/master/MultisppRec2024.Rmd
+
+message("Pulling and tidying stockSMART data")
+AssessFishProdAnomaly <- stocksmart::stockAssessmentData |>
+  # Keep only Northeast Shelf
+  dplyr::filter(RegionalEcosystem == "Northeast Shelf") |>
+  # For each StockName, Metric, and Year, collapse duplicate values
+  dplyr::group_by(StockName, Metric, Year) |>
+  dplyr::summarise(
+    Value = mean(Value, na.rm = TRUE),
+    Units = dplyr::first(Units),
+    Description = dplyr::first(Description),
+    AssessmentYear = max(AssessmentYear, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  # Optional: arrange for readability
+  dplyr::arrange(StockName, Metric, Year)
+
+AssessFishProdAnomaly_wide <- AssessFishProdAnomaly |>
+  tidyr::pivot_wider(
+    names_from = Metric,
+    values_from = Value
+  )
+
+AssessFishProdAnomaly_wide <- AssessFishProdAnomaly_wide |>
+  # rename for clarity
+  dplyr::rename(
+    spawners_biom_lag0 = Abundance,
+    recruits_abund = Recruitment
+  ) |>
+  dplyr::group_by(StockName) |>
+  dplyr::mutate(
+    # Lead/lag relationships
+    recruits_abund_lead1 = dplyr::lead(recruits_abund, 1),
+    
+    # Recruitment/spawner ratio
+    rs = recruits_abund_lead1 / spawners_biom_lag0,
+    
+    # anomalies (z-scores)
+    spawners_biom_lag0_anom = (spawners_biom_lag0 - mean(spawners_biom_lag0, na.rm = TRUE)) / sd(spawners_biom_lag0, na.rm = TRUE),
+    recruits_abund_lead1_anom = (recruits_abund_lead1 - mean(recruits_abund_lead1, na.rm = TRUE)) / sd(recruits_abund_lead1, na.rm = TRUE),
+    rs_anom = (rs - mean(rs, na.rm = TRUE)) / sd(rs, na.rm = TRUE),
+    
+    # log-transformed anomalies
+    logr_abund_anom = (log(recruits_abund) - mean(log(recruits_abund), na.rm = TRUE)) / sd(log(recruits_abund), na.rm = TRUE),
+    logs_biom_anom = (log(spawners_biom_lag0) - mean(log(spawners_biom_lag0), na.rm = TRUE)) / sd(log(spawners_biom_lag0), na.rm = TRUE),
+    logrs_anom = (log(rs) - mean(log(rs), na.rm = TRUE)) / sd(log(rs), na.rm = TRUE)
+  ) |>
+  dplyr::ungroup()
+
+
+prod_assess1<- AssessFishProdAnomaly_wide |>
   tidyr::separate(StockName, into= c("Stock", "Region"), sep = "-") |>
+  # line above creates a warning as tidyr::separate() expects only 2 values
+  # separated by a "-". Mid-Atlantic causes 3 sections separated by "-".
+  # Sarah accounted for this in the next line starting dplyr::mutate()
   dplyr::mutate(EPU = dplyr::recode(Region, " Gulf of Maine / Georges Bank" = "NE",
                                     " Gulf of Maine / Cape Hatteras" = "ALL",
                                     " Mid" = "MA",
@@ -200,14 +256,11 @@ prod_assess1<- prod_assess |>
                                "logs_biom_anom","logrs_anom"),
                       names_to = "Var", values_to = "Value") |>
   dplyr::mutate(Var = paste0(Stock, "-", Var, "-Assessment"),
-                Time = YEAR,
+                Time = Year,
                 Units = c("NA")) |>
   dplyr::ungroup() |>
   dplyr::select(Time, Var, Value, EPU, Units)
 
-# call above creates a warning as tidyr::separate() expects only 2 values
-# separated by a "-". Mid-Atlantic causes 3 sections separated by "-".
-# Sarah accounted for this in the next line starting dplyr::mutate()
 
 productivity_anomaly <- rbind(productivity_anomaly1, prod_assess1)
 

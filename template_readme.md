@@ -106,6 +106,25 @@ workflow_species_dist(inputPathSurvey,inputPathSpecies, static_depth,
 
 The rds file name is hardcoded as `species_dist.rds` to match the `ecodata` package dataset
 
+### productivity_anomaly
+
+To run the "workflow" below, it is assumed that the "raw" survey data has been pulled using the 
+`get_survey_data` function above.
+
+*Note: the following function resides in the folder `data-raw` and is NOT part of the package*
+
+```
+workflow_productivity_anomaly(input_survey_bio_epu, inputPathSpecies, outputPath)
+
+```
+
+* `input_survey_bio_epu` is the path to the dynamically created survey data `EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds`.
+* `inputPathSpecies` is the path to static data set `EDAB_Datasets/Workflows/SOE_species_list_24.rds`.
+* `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+
+The rds file name is hardcoded as `productivity_anomaly.rds` to match the `ecodata` package dataset
+
+
 ## Commercial Landings Based Indicators
 
 The commercial data will pulled from the Oracle database via a cron job (quarterly?) using R function

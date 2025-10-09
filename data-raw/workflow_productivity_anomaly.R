@@ -3,7 +3,7 @@
 #' This uses the survey data pull from pull_survey_data.
 #' It is formatted exactly like the ecodata data object
 #'
-#' @param inputPathSurvey Character string. Full path to the survey data rds file
+#' @param input_survey_bio_epu Character string. Full path to the survey data rds file
 #' @param inputPathSpecies Character string. Full path to the species list data pull rds file
 #' @param outputPath Character string. Path to folder where data pull should be saved
 #'
@@ -21,13 +21,11 @@
 #' @return ecodata::productivity_anomaly
 #' @export
 
-workflow_productivity_anomaly <- function(inputPathSurvey,
+workflow_productivity_anomaly <- function(input_survey_bio_epu,
                                           inputPathSpecies,
                                           outputPath) {
-  survey <- readRDS(inputPathSurvey)
-  species <- readRDS(inputPathSpecies)
   
-  prod_anom <- calculate_productivity_anomaly(survey, species)
+  prod_anom <- create_productivity_anomaly(input_survey_bio_epu, inputPathSpecies)
   
   saveRDS(prod_anom,
           file = file.path(outputPath, "productivity_anomaly.rds"))

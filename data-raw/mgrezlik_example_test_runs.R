@@ -8,11 +8,22 @@ user <- mgrezlik
 # If you are running locally edit this section ---------------
 
 
+# run workflow_productivity anomaly from the container --------
+## set paths for data inputs generated in workflow
+input_survey_bio_epu <- "~/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds"
+inputPathSpecies <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
+outputPath <- "/home/mgrezlik/EDAB_Dev/grezlik"
+
+
+## run workflow
+test_productivity_anomaly <- workflow_productivity_anomaly(
+  input_survey_bio_epu = input_survey_bio_epu,
+  inputPathSpecies = inputPathSpecies
+)
 
 
 
-
-# Example of how to test on the Rstudio container 
+# file paths used in all indicators I have worked on ---------------
 outputPathDataSets <- "/home/mgrezlik/EDAB_Dev/grezlik"
 outputPath <- "/home/mgrezlik/EDAB_Dev/grezlik"
 input_path_commercial_comdat <- "/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds"
@@ -33,8 +44,27 @@ old_menh_path24 <- '/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF2024.rds'
 old_menh_path <- '/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds'
 old_comdat_path <- '/home/mgrezlik/EDAB_Dev/grezlik/Commercial_data_pull_25.RData'
 input_survey_bio_epu <- "~/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds"
-input_survery_bio <- 'home/mgrezlik/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds'
+input_survey_bio <- 'home/mgrezlik/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds'
 prod_anom_sarah <- "~/EDAB_Dev/grezlik/AssessFishProdAnomaly - Sarah Gaichas - NOAA Federal.rds"
+
+
+# having issues with SOEworkflows being locked ------------------
+# creating a local library as a workaround
+# Create a new library folder
+dir.create("~/R/soe_local_lib", recursive = TRUE)
+
+# Install your local copy there
+devtools::install_local(
+  path = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows",
+  lib = "~/R/soe_local_lib",
+  force = TRUE
+)
+
+## load from local ----------
+library(SOEworkflows, lib.loc = "~/R/soe_local_lib")
+
+
+
 
 
 source(here::here("data-raw/workflow_species_dist.R"))
