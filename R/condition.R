@@ -12,8 +12,8 @@
 #' @examples
 #' \dontrun{
 #' #create the ecodata::condition indicator
-#' condition(
-#   inputPath = "path/to/condition.rds",
+#' create_condition(
+#   inputPath = "path/to/conditionData.rds",
 #'  inputPathLW = "path/to/LWparams.csv",
 #'  inputPathSpecies = "path/to/species.codes.csv")
 #'
@@ -42,10 +42,9 @@ create_condition <- function(
     by_EPU = TRUE,
     by_sex = FALSE,
     length_break = NULL,
-    more_than_20_years = TRUE,
-    record_outliers = FALSE,
     output = "soe"
   )
 
   return(output)
 }
+
