@@ -44,6 +44,10 @@ create_condition <- function(
     length_break = NULL,
     output = "soe"
   )
+  
+  # Remove all NAs
+  output <- output |> 
+    dplyr::filter(!(is.na(EPU)| is.na(Var))) 
 
   return(output)
 }
