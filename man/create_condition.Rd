@@ -23,7 +23,7 @@ Methods derived from Laurel Smith (https://github.com/Laurels1/Condition/blob/ma
 \examples{
 \dontrun{
 #create the ecodata::condition indicator
-condition(
+create_condition(
  inputPathLW = "path/to/LWparams.csv",
  inputPathSpecies = "path/to/species.codes.csv")
 
