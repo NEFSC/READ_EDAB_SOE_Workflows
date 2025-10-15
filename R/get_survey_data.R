@@ -19,11 +19,13 @@
 get_survey_data <- function(channel) {
   end.year <- format(Sys.Date(), "%Y")
   # Get the survey data for aggregate biomass
+  message("##############################################################")
   message("Getting base survey data without Lengths ")
   survey1 <- survdat::get_survdat_data(channel, getLengths = F)
 
   # Get the survey data for exp_n, survey_shannon
   # Grab Albatross time series (< 2009)
+  message("##############################################################")
   message("Getting albatross survey data (<= 2008) without Lengths ")
   al.data <- survdat::get_survdat_data(
     channel,
@@ -32,6 +34,7 @@ get_survey_data <- function(channel) {
   )
 
   #Grab data without Bigelow conversions (>= 2009)
+  message("##############################################################")
   message("Getting bigelow survey data (> 2008) without Lengths ")
   big.data <- survdat::get_survdat_data(
     channel,
@@ -42,6 +45,7 @@ get_survey_data <- function(channel) {
 
   # Get the survey data for condition indicator.
   # Individual lengths and weights are required
+  message("##############################################################")
   message("Getting condition survey data with biological data ")
   condition <- survdat::get_survdat_data(
     channel,
@@ -49,7 +53,26 @@ get_survey_data <- function(channel) {
     getBio = TRUE
   )
 
+  # Get Biological data
+  message("##############################################################")
+  message("Getting bottom trawl survey with biological info")
+  bio <- survdat::get_survdat_data(channel,
+                            filterByYear = NA, 
+                            all.season = F,
+                            shg.check = T,
+                            conversion.factor = T, 
+                            use.SAD = F, 
+                            getBio = T,
+                            getLengths = T,
+                            getWeightLength = F)
+  # Assign EPUs to biological data pull.
+  # Note that records in Strata not defined by an EPU will be omitted
+  bio_epu <- dplyr::left_join(bio$survdat,SOEworkflows::epu_strata , by = c("STRATUM")) |> 
+    dplyr::filter(!is.na(EPU))
+  
+  
   # Get mass inshore survey data
+  message("##############################################################")
   message("Getting the Massachusetts Inshore Survey Data")
   mass_inshore <- survdat::get_mass_inshore_survey(channel,
                                                    filterByYear = 1963:end.year)
@@ -60,9 +83,11 @@ get_survey_data <- function(channel) {
     al.data = al.data,
     big.data = big.data,
     condition = condition,
+    bio = bio,
+    bio_epu = bio_epu,
     mass_inshore = mass_inshore
   )
-  
+  message("##############################################################")
   message("Done pulling Survey data")
 
   return(survey_data)
