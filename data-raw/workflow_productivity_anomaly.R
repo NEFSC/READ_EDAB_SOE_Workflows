@@ -18,7 +18,7 @@
 #' }
 #'
 #'
-#' @return ecodata::productivity_anomaly
+#' @return productivity_anomaly
 #' @export
 
 workflow_productivity_anomaly <- function(input_survey_bio_epu,

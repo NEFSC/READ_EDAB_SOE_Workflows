@@ -9,17 +9,62 @@ user <- mgrezlik
 
 
 # run workflow_productivity anomaly from the container --------
-## set paths for data inputs generated in workflow
+## set paths for data inputs generated in workflow ------------
 input_survey_bio_epu <- "~/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds"
 inputPathSpecies <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
 outputPath <- "/home/mgrezlik/EDAB_Dev/grezlik"
 
 
-## run workflow
+## run workflow ------------------
 test_productivity_anomaly <- workflow_productivity_anomaly(
   input_survey_bio_epu = input_survey_bio_epu,
   inputPathSpecies = inputPathSpecies
 )
+
+## plot and compare to ecodata version ------------
+new <- productivity_anomaly |>
+  dplyr::mutate(source = 'workflow')
+
+old <- ecodata::productivity_anomaly |> 
+  dplyr::mutate(source = 'ecodata')
+
+combined <- dplyr::bind_rows(old,new)
+
+
+library(ggplot2)
+library(dplyr)
+
+# pick your region, e.g., GOM or MAB
+filter_epu <- "MAB"
+
+combined_plot <- combined |> 
+  dplyr::filter(EPU == filter_epu)  |> 
+  ggplot(aes(x = Time, y = Value, color = source, group = source)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  # facet_wrap(~ source) +
+  theme_bw() +
+  labs(
+    title = paste("Comparison of Productivity Anomaly (", filter_epu, ")", sep = ""),
+    subtitle = "Workflow vs ecodata",
+    y = "Anomaly Value",
+    x = "Year",
+    color = "Source"
+  ) +
+  theme(
+    text = element_text(size = 12),
+    plot.title = element_text(face = "bold")
+  )
+
+combined_plot
+
+
+
+
+
+
+
+
 
 
 

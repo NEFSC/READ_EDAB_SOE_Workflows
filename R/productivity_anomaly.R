@@ -130,12 +130,14 @@ dat_spec_rec_epu <- dat_spec_rec |>
   dplyr::arrange(YEAR, EPU, COMNAME, SCINAME)
 
 ## calc rs ------------------------
-dat_spec_rec_epu <- dat_spec_rec_epu |> 
+dat_spec_rec_epu <- dat_spec_rec_epu |>
+  dplyr::group_by(SCINAME, COMNAME, EPU) |>
   dplyr::mutate(
     recruits_abund_lead1 = dplyr::lead(recruits_abund, n = 1),
     rs = recruits_abund_lead1 / spawners_abund,
     rs_anom = (rs - mean(rs, na.rm = TRUE)) / sd(rs, na.rm = TRUE)
-  )
+  ) |>
+  dplyr::ungroup()
 
 
 
@@ -163,8 +165,6 @@ dat_spec_rec_epu_forSOE <- dat_spec_rec_epu |>
                 Var  = COMNAME,
                 Source = "SVDBS") |>
   dplyr::select(-COMNAME)
-
-
 
 #Select and rename
 epu_rec_anom <- dat_spec_rec_epu_forSOE  |> 
