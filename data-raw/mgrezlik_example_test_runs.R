@@ -11,6 +11,7 @@ user <- mgrezlik
 # run workflow_productivity anomaly from the container --------
 ## set paths for data inputs generated in workflow ------------
 input_survey_bio_epu <- "~/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds"
+input_survey_bio <- "~/EDAB_Datasets/Workflows/surveyBiologicalData.rds"
 inputPathSpecies <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
 outputPath <- "/home/mgrezlik/EDAB_Dev/grezlik"
 
@@ -20,6 +21,8 @@ test_productivity_anomaly <- workflow_productivity_anomaly(
   input_survey_bio_epu = input_survey_bio_epu,
   inputPathSpecies = inputPathSpecies
 )
+
+
 
 ## plot and compare to ecodata version ------------
 new <- productivity_anomaly |>
@@ -59,7 +62,40 @@ combined_plot <- combined |>
 combined_plot
 
 
+# new has ~80,000 more observations than old
+# looking into that
 
+library(dplyr)
+
+# Compare column names
+names(old)
+names(new)
+
+# Compare column types
+compare_types <- bind_rows(
+  old |> summarise(across(everything(), ~class(.))),
+  new |> summarise(across(everything(), ~class(.)))
+)
+compare_types
+
+# Define key columns
+keys <- c("Time", "Var", "EPU", "Units")
+
+# Exact matches
+both <- inner_join(old, new, by = keys)
+
+# In old only
+only_old <- anti_join(old, new, by = keys)
+
+# In new only
+only_new <- anti_join(new, old, by = keys)
+
+# Count summary
+tibble(
+  In_Both = nrow(both),
+  Only_in_Old = nrow(only_old),
+  Only_in_New = nrow(only_new)
+)
 
 
 
