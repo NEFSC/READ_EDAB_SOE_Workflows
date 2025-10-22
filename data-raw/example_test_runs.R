@@ -5,6 +5,7 @@
 #'  * VPN connection
 #'  * a connection to the file server required
 
+
 pullRawData <- FALSE
 
 # suite of paths to input and output files
@@ -63,15 +64,18 @@ if (pullRawData) {
 }
 
 # calculate the aggregate biomass index
+message("Running aggregate_biomass ...")
 indicator_aggegegate_biomass <- workflow_aggregate_biomass(outputPath,
                                                            inputPathSurvey,
                                                            inputPathSpecies)
 # calculate the bennet index
+message("Running bennet ...")
 indicator_bennet <- workflow_bennet(inputPathBennet,
                                    inputPathSpecies,
                                    outputPath)
 
 # calculate the comdat index
+message("Running comdat ...")
 indicator_comdat <- workflow_comdat(comdat_path = inputPathComdat,
                                     input_path_species = inputPathSpecies,
                                     menhaden_path = menhadenPath,
@@ -79,27 +83,32 @@ indicator_comdat <- workflow_comdat(comdat_path = inputPathComdat,
 
 
 # calculate condition index
+message("Running condition ...")
 indicator_condition <- workflow_condition(inputPath = inputPathCondition,
                                           inputPathLW,
                                           inputPathSpecies = inputPathConditionSpecies,
                                           outputPath)
 
 # calculate the exp_n index
+message("Running exp_n ...")
 indicator_exp_n <- workflow_exp_n(inputPathBigelow,
                                   inputPathAlbatross,
                                   outputPath)
 
-
+# calculate rec_hms index
+message("Running rec_hms ...")
 indicator_rec_hms <- workflow_rec_hms(outputPath, 
                                       inputPath = inputRecHMSPath,
                                       inputKey)
 
 # calculate the mass_inshore_survey index
+message("Running mass_inshore_survey ...")
 indicator_mass_inshore_survey <- workflow_mass_inshore_survey(outputPath = outputPath,
                                                            inputPathMassSurvey = inputPathMassSurvey,
                                                            inputPathSpecies = inputPathSpecies)
 
 # calculate the species_dist index
+message("Running species_dist ...")
 indicator_species_dist <- workflow_species_dist(inputPathSurvey, 
                                                inputPathSpecies, 
                                                static_depth, 
@@ -109,15 +118,18 @@ indicator_species_dist <- workflow_species_dist(inputPathSurvey,
                                                outputPath)
 
 # calculate the stock_status index
+message("Running stock_status ...")
 indicator_stock_status <- workflow_stock_status(inputPath = inputPathDecoder,
                                                  outputPath)
 
 # calculate the survey_shannon index
+message("Running survey_shannon ...")
 indicator_survey_shannon <- workflow_survey_shannon(outputPath = outputPath,
                                                     inputPathBigelow = inputPathBigelow,
                                                     inputPathAlbatross = inputPathAlbatross)
 
 # calculate the trans_dates index
+message("Running trans_dates ...")
 indicator_trans_dates <- workflow_trans_dates(inputPath = inputPathSST,
                                               outputPath)
 
