@@ -34,23 +34,31 @@ workflow_condition <- function(
   #get_survey_data(channel,outputPath = outputPath)
 
   # Add check to skip running workflow if data not present
-  if (
-    file.exists(inputPath) &&
-      file.exists(inputPathLW) &&
-      file.exists(inputPathSpecies) &&
-      (!is.null(outputPath))
-  ) {
-    indicatorData <- SOEworkflows::create_condition(
-      inputPath = inputPath,
-      inputPathLW = inputPathLW,
-      inputPathSpecies = inputPathSpecies
-    )
-    # write data to file
-    saveRDS(indicatorData, paste0(outputPath, "/condition.rds"))
-  } else {
-    #
-    message(
-      "One or more of the input files are not present in the location specified"
-    )
-  }
+  tryCatch(
+    {
+      if (
+        !all(
+          !is.null(outputPath),
+          file.exists(inputPath),
+          file.exists(inputPathLW),
+          file.exists(inputPathSpecies)
+        )
+      ) {
+        stop("Incorrect file path or file missing")
+      }
+      # calculate indicator
+      indicatorData <- SOEworkflows::create_condition(
+        inputPath = inputPath,
+        inputPathLW = inputPathLW,
+        inputPathSpecies = inputPathSpecies
+      )
+      # write data to file
+      saveRDS(indicatorData, paste0(outputPath, "/condition.rds"))
+      return(indicatorData)
+    },
+    error = function(e) {
+      message("An error occurred: ", conditionMessage(e))
+      return(NULL)
+    }
+  )
 }

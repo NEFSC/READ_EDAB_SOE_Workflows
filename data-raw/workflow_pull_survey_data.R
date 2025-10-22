@@ -19,18 +19,35 @@
 #'
 
 workflow_pull_survey_data <- function(channel, outputPath = NULL) {
-  # pull survey data
-  survey_data <- SOEworkflows::get_survey_data(channel)
+  # check to skip running workflow
+  tryCatch(
+    {
+      if (is.null(outputPath)) {
+        stop("output file path file missing")
+      }
+      # pull survey data
+      survey_data <- SOEworkflows::get_survey_data(channel)
 
-  # Save these to a specific location
-  if (!is.null(outputPath)) {
-    saveRDS(survey_data$al.data, paste0(outputPath, "/albatrossData.rds"))
-    saveRDS(survey_data$big.data, paste0(outputPath, "/bigelowData.rds"))
-    saveRDS(survey_data$survey1, paste0(outputPath, "/surveyNoLengths.rds"))
-    saveRDS(survey_data$condition, paste0(outputPath, "/conditionData.rds"))
-    saveRDS(survey_data$bio, paste0(outputPath, "/surveyBiologicalData.rds"))
-    saveRDS(survey_data$bio_epu, paste0(outputPath, "/surveyBiologicalByEPUData.rds"))
-    saveRDS(survey_data$mass_inshore, paste0(outputPath, "/massInshoreData.rds"))
-  }
-  return(survey_data)
+      # Save these to a specific location
+
+      saveRDS(survey_data$al.data, paste0(outputPath, "/albatrossData.rds"))
+      saveRDS(survey_data$big.data, paste0(outputPath, "/bigelowData.rds"))
+      saveRDS(survey_data$survey1, paste0(outputPath, "/surveyNoLengths.rds"))
+      saveRDS(survey_data$condition, paste0(outputPath, "/conditionData.rds"))
+      saveRDS(survey_data$bio, paste0(outputPath, "/surveyBiologicalData.rds"))
+      saveRDS(
+        survey_data$bio_epu,
+        paste0(outputPath, "/surveyBiologicalByEPUData.rds")
+      )
+      saveRDS(
+        survey_data$mass_inshore,
+        paste0(outputPath, "/massInshoreData.rds")
+      )
+      return(survey_data)
+    },
+    error = function(e) {
+      message("An error occurred: ", conditionMessage(e))
+      return(NULL)
+    }
+  )
 }

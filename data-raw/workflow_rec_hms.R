@@ -26,22 +26,35 @@
 #' @export
 #'
 
-workflow_rec_hms <- function(outputPath, inputPath, inputKey ) {
+workflow_rec_hms <- function(outputPath, inputPath, inputKey) {
   # Assumes that rec HMS data has been pulled and is located in inputPath
   #pull_rec_hms(channel,outputDir = outPutDir)
 
   # Add check to skip running workflow if data not present
-  if (file.exists(inputPath) && file.exists(inputKey)) {
-    indicatorData <- SOEworkflows::create_rec_hms(
-      inputPath = inputPath,
-      inputKey = inputKey
-    )
-    # write data to file
-    saveRDS(indicatorData, paste0(outputPath, "/rec_hms.rds"))
-  } else {
-    #
-    message(
-      "One or more of the input files are not present in the location specified"
-    )
-  }
+  tryCatch(
+    {
+      if (
+        !all(
+          !is.null(outputPath),
+          file.exists(inputPath),
+          file.exists(inputPathKey)
+        )
+      ) {
+        stop("Incorrect file path or file missing")
+      }
+
+      # calculate indicator
+      indicatorData <- SOEworkflows::create_rec_hms(
+        inputPath = inputPath,
+        inputKey = inputKey
+      )
+      # write data to file
+      saveRDS(indicatorData, paste0(outputPath, "/rec_hms.rds"))
+      return(indicatorData)
+    },
+    error = function(e) {
+      message("An error occurred: ", conditionMessage(e))
+      return(NULL)
+    }
+  )
 }

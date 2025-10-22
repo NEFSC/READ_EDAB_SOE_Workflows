@@ -18,14 +18,29 @@
 #'
 
 workflow_pull_commercial_data <- function(channel, outputPath = NULL) {
-  # pull commercial data
-  commercial_data <- SOEworkflows::get_commercial_data(channel)
+  # check to skip running workflow
+  tryCatch(
+    {
+      if (is.null(outputPath)) {
+        stop("output file path file missing")
+      }
+      # pull commercial data
+      commercial_data <- SOEworkflows::get_commercial_data(channel)
+      # Save these to a specific location
+      saveRDS(
+        commercial_data$comdat,
+        paste0(outputPath, "commercial_comdat.rds")
+      )
+      saveRDS(
+        commercial_data$bennet,
+        paste0(outputPath, "commercial_bennet.rds")
+      )
 
-  # Save these to a specific location
-  if (!is.null(outputPath)) {
-    saveRDS(commercial_data$comdat, paste0(outputPath, "commercial_comdat.rds"))
-    saveRDS(commercial_data$bennet, paste0(outputPath, "commercial_bennet.rds"))
-  }
-
-  return(commercial_data)
+      return(commercial_data)
+    },
+    error = function(e) {
+      message("An error occurred: ", conditionMessage(e))
+      return(NULL)
+    }
+  )
 }
