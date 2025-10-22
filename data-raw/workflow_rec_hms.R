@@ -37,7 +37,7 @@ workflow_rec_hms <- function(outputPath, inputPath, inputKey) {
         !all(
           !is.null(outputPath),
           file.exists(inputPath),
-          file.exists(inputPathKey)
+          file.exists(inputKey)
         )
       ) {
         stop("Incorrect file path or file missing")
