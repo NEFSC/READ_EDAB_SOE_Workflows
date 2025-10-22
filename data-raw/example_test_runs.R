@@ -7,29 +7,29 @@
 
 
 pullRawData <- FALSE
-
+rootPath <- "~/EDAB_Datasets/Workflows/" 
 # suite of paths to input and output files
 outputPath <- "~/EDAB_Indicators/"
-outputPathDatasets <- "~/EDAB_Datasets/Workflows/"
-inputPathSurvey <- "~/EDAB_Datasets/Workflows/surveyNoLengthsData.rds"
-inputPathMassSurvey <- "~/EDAB_Datasets/Workflows/massInshoreData.rds"
-inputPathSpecies <- "~/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
-inputPathAlbatross <- "~/EDAB_Datasets/Workflows/albatrossData.rds"
-inputPathBigelow <- "~/EDAB_Datasets/Workflows/bigelowData.rds"
-inputRecHMSPath <- "~/EDAB_Datasets/Workflows/hms_mrip_2025-10-03.rds"
-inputPathCondition <- "~/EDAB_Datasets/Workflows/conditionData.rds"
-inputPathBennet <- "~/EDAB_Datasets/Workflows/commercial_bennetData.rds"
-inputPathComdat <- "~/EDAB_Datasets/Workflows/commercial_comdatData.rds"
-menhadenPath <- "~/EDAB_Datasets/Workflows/menhadenEOF.rds"
-static_depth <-  "~/EDAB_Datasets/Workflows/nes_bath_data.nc"
-static_diagonal <- "~/EDAB_Datasets/Workflows/diag.csv"
-static_coast_coord <- "~/EDAB_Datasets/Workflows/nes_coast_2.csv"
-static_strat_areas <- "~/EDAB_Datasets/Workflows/stratareas.rds"
-inputPathDecoder <- "~/EDAB_Datasets/Workflows/decoder.csv"
-inputPathSST <- "~/EDAB_Datasets/Workflows/TS_SHP_adv_rep_MAB_GOM_GBK_NES_SCSPoly.csv"
-inputKey <- "~/EDAB_Datasets/Workflows/hms_key.csv"
-inputPathLW <- "~/EDAB_Datasets/Workflows/LWparams.csv"
-inputPathConditionSpecies <- "~/EDAB_Datasets/Workflows/species.codes.csv"
+outputPathDatasets <- rootPath
+inputPathSurvey <- paste0(rootPath,"surveyNoLengthsData.rds")
+inputPathMassSurvey <- paste0(rootPath,"massInshoreData.rds")
+inputPathSpecies <- paste0(rootPath,"SOE_species_list_24.rds")
+inputPathAlbatross <- paste0(rootPath,"albatrossData.rds")
+inputPathBigelow <- paste0(rootPath,"bigelowData.rds")
+inputRecHMSPath <- paste0(rootPath,"hms_mrip_2025-10-03.rds")
+inputPathCondition <- paste0(rootPath,"conditionData.rds")
+inputPathBennet <- paste0(rootPath,"commercial_bennetData.rds")
+inputPathComdat <- paste0(rootPath,"commercial_comdatData.rds")
+menhadenPath <- paste0(rootPath,"menhadenEOF.rds")
+static_depth <-  paste0(rootPath,"nes_bath_data.nc")
+static_diagonal <- paste0(rootPath,"diag.csv")
+static_coast_coord <- paste0(rootPath,"nes_coast_2.csv")
+static_strat_areas <- paste0(rootPath,"stratareas.rds")
+inputPathDecoder <- paste0(rootPath,"decoder.csv")
+inputPathSST <- paste0(rootPath,"TS_SHP_adv_rep_MAB_GOM_GBK_NES_SCSPoly.csv")
+inputKey <- paste0(rootPath,"hms_key.csv")
+inputPathLW <- paste0(rootPath,"LWparams.csv")
+inputPathConditionSpecies <- paste0(rootPath,"species.codes.csv")
 
 # source workflow functions from data-raw since they are not accessible from the package installation
 source(here::here("data-raw/workflow_pull_survey_data.R"))
