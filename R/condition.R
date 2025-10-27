@@ -41,7 +41,9 @@ create_condition <- function(
     species.codes = read.csv(inputPathSpecies),
     by_EPU = TRUE,
     by_sex = FALSE,
-    length_break = NULL,
+    length_break = NULL, 
+    more_than_20_years = TRUE,
+    record_outliers = FALSE,
     output = "soe"
   )
   
