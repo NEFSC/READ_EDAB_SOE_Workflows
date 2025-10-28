@@ -23,13 +23,16 @@
 
 create_heatwave_year_bottom <- function(inputPathGB, inputPathGOM, inputPathMAB) {
   
+  ## Load dplyr to use %>% pipes (will be removed later)
+  library(dplyr)
+  
   ## Define inputs
-  bheatwave_gbd <- read.csv(inputPathGB)
-  bheatwave_gomd <- read.csv(inputPathGOM)
-  bheatwave_mabd <- read.csv(inputPathMAB)
+  bheatwave_gbd <- inputPathGB
+  bheatwave_gomd <- inputPathGOM
+  bheatwave_mabd <- inputPathMAB
   
   #Bottom heatwave detrended
-  gom<-read.csv(file.path(raw.dir,bheatwave_gomd), header = FALSE) %>%
+  gom<-read.csv(file.path(bheatwave_gomd), header = FALSE) %>%
     janitor::row_to_names(1) %>%
     dplyr::select(date, Detrended) %>%
     dplyr::rename(t = date, temp = Detrended) %>%
@@ -38,7 +41,7 @@ create_heatwave_year_bottom <- function(inputPathGB, inputPathGOM, inputPathMAB)
                   t = as.Date(t, format = "%m/%d/%Y")) %>%
     tidyr::drop_na()
 
-  gb<-read.csv(file.path(raw.dir,bheatwave_gbd), header = FALSE) %>%
+  gb<-read.csv(file.path(bheatwave_gbd), header = FALSE) %>%
     janitor::row_to_names(1) %>%
     dplyr::select(date, Detrended) %>%
     dplyr::rename(t = date, temp = Detrended) %>%
@@ -47,7 +50,7 @@ create_heatwave_year_bottom <- function(inputPathGB, inputPathGOM, inputPathMAB)
                   t = as.Date(t, format = "%m/%d/%Y")) %>%
     tidyr::drop_na()
 
-  mab<-read.csv(file.path(raw.dir,bheatwave_mabd), header = FALSE) %>%
+  mab<-read.csv(file.path(bheatwave_mabd), header = FALSE) %>%
     janitor::row_to_names(1) %>%
     dplyr::select(date, Detrended) %>%
     dplyr::rename(t = date, temp = Detrended) %>%
