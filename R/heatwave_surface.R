@@ -23,14 +23,17 @@
 
 create_heatwave_surface <- function(inputPathGB, inputPathGOM, inputPathMAB) {
   
+  ## Load dplyr to use %>% pipes (will be removed later)
+  library(dplyr)
+  
   ## Define inputs
-  heatwave_gbd <- read.csv(inputPathGB)
-  heatwave_gomd <- read.csv(inputPathGOM)
-  heatwave_mabd <- read.csv(inputPathMAB)
+  heatwave_gbd <- inputPathGB
+  heatwave_gomd <- inputPathGOM
+  heatwave_mabd <- inputPathMAB
 
 # SURFACE DETRENDED
   # Process input files
-  gom<-read.csv(file.path(raw.dir,heatwave_gomd), header = FALSE) %>%
+  gom<-read.csv(file.path(heatwave_gomd), header = FALSE) %>%
     janitor::row_to_names(1) %>%
     dplyr::select(t, detrended) %>%
     dplyr::rename(temp = detrended) %>%
@@ -39,7 +42,7 @@ create_heatwave_surface <- function(inputPathGB, inputPathGOM, inputPathMAB) {
                   t = as.Date(t, format = "%m/%d/%Y")) %>%
     tidyr::drop_na()
 
-  gb<-read.csv(file.path(raw.dir,heatwave_gbd), header = FALSE) %>%
+  gb<-read.csv(file.path(heatwave_gbd), header = FALSE) %>%
     janitor::row_to_names(1) %>%
     dplyr::select(t, detrended) %>%
     dplyr::rename(temp = detrended) %>%
@@ -48,7 +51,7 @@ create_heatwave_surface <- function(inputPathGB, inputPathGOM, inputPathMAB) {
                   t = as.Date(t, format = "%m/%d/%Y")) %>%
     tidyr::drop_na()
 
-  mab<-read.csv(file.path(raw.dir,heatwave_mabd), header = FALSE) %>%
+  mab<-read.csv(file.path(heatwave_mabd), header = FALSE) %>%
     janitor::row_to_names(1) %>%
     dplyr::select(t, detrended) %>%
     dplyr::rename(temp = detrended) %>%
