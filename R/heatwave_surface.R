@@ -19,12 +19,11 @@
 #'
 #' @return surface temperature portion of ecodata::heatwave data frame
 #'
+#' @importFrom dplyr `%>%`
 #' @export
 
 create_heatwave_surface <- function(inputPathGB, inputPathGOM, inputPathMAB) {
-  
-  ## Load dplyr to use %>% pipes (will be removed later)
-  library(dplyr)
+
   
   ## Define inputs
   heatwave_gbd <- inputPathGB
@@ -129,8 +128,9 @@ create_heatwave_surface <- function(inputPathGB, inputPathGOM, inputPathMAB) {
                                 EPU = unique(heatwave_surface$EPU)) %>%
     dplyr::mutate(Value2 = 0)
 
-  heatwave_surface<- heatwave_surface %>% right_join(heatwave_zeros) %>%
-    dplyr::mutate(Value = case_when(is.na(Value)~Value2,
+  heatwave_surface<- heatwave_surface %>% 
+    dplyr::right_join(heatwave_zeros) %>%
+    dplyr::mutate(Value = dplyr::case_when(is.na(Value)~Value2,
                                     TRUE ~ Value)) %>%
     dplyr::select(!Value2)
   

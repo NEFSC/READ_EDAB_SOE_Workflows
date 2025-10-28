@@ -19,12 +19,11 @@
 #'
 #' @return bottom temperature portion of ecodata::heatwave data frame
 #'
+#' @importFrom dplyr `%>%`
+#'
 #' @export
 
 create_heatwave_bottom <- function(inputPathGB, inputPathGOM, inputPathMAB) {
-  
-  ## Load dplyr to use %>% pipes (will be removed later)
-  library(dplyr)
   
   ## Define inputs
   bheatwave_gbd <- inputPathGB
@@ -126,8 +125,9 @@ create_heatwave_bottom <- function(inputPathGB, inputPathGOM, inputPathMAB) {
                                 EPU = unique(heatwave_bottom$EPU)) %>%
     dplyr::mutate(Value2 = 0)
 
-  heatwave_bottom<- heatwave_bottom %>% right_join(heatwave_zeros) %>%
-    dplyr::mutate(Value = case_when(is.na(Value)~Value2,
+  heatwave_bottom<- heatwave_bottom %>% 
+    dplyr::right_join(heatwave_zeros) %>%
+    dplyr::mutate(Value = dplyr::case_when(is.na(Value)~Value2,
                                     TRUE ~ Value)) %>%
     dplyr::select(!Value2)
   

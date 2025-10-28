@@ -19,12 +19,13 @@
 #'
 #' @return bottom temperature portion of ecodata::heatwave_year data frame
 #'
+#'
+#' @importFrom dplyr `%>%`
+#' 
 #' @export
 
 create_heatwave_year_bottom <- function(inputPathGB, inputPathGOM, inputPathMAB) {
-  
-  ## Load dplyr to use %>% pipes (will be removed later)
-  library(dplyr)
+
   
   ## Define inputs
   bheatwave_gbd <- inputPathGB
@@ -74,19 +75,19 @@ create_heatwave_year_bottom <- function(inputPathGB, inputPathGOM, inputPathMAB)
   ### Take just clim
   #GB
   mhw<- gb.mhw$clim %>%
-    mutate(EPU = c("GB"),
+    dplyr::mutate(EPU = c("GB"),
            Year = format(gb.mhw$clim$t, "%Y")) #extract year from date column; create year and epu columns
   mhw.gb.year <- dplyr::filter(mhw, mhw$Year == max(mhw$Year)) #subset most recent year
 
   #GOM
   mhw<- gom.mhw$clim %>%
-    mutate(EPU = c("GOM"),
+    dplyr::mutate(EPU = c("GOM"),
            Year = format(gom.mhw$clim$t, "%Y")) #extract year from date column; create year and epu columns
   mhw.gom.year <- dplyr::filter(mhw, mhw$Year == max(mhw$Year)) #subset most recent year
 
   #MAB
   mhw<- mab.mhw$clim %>%
-    mutate(EPU = c("MAB"),
+    dplyr::mutate(EPU = c("MAB"),
            Year = format(mab.mhw$clim$t, "%Y")) #extract year from date column; create year and epu columns
   mhw.mab.year <- dplyr::filter(mhw, mhw$Year == max(mhw$Year)) #subset most recent year
 
