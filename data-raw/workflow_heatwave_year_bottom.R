@@ -37,16 +37,31 @@ workflow_heatwave_year_bottom <- function(inputPathGB, inputPathGOM, inputPathMA
   # Assumes that input data has been provided
   
   # Add check to skip running workflow if data not present
-  if(file.exists(inputPathGB) && file.exists(inputPathGOM) && file.exists(inputPathMAB) && (!is.null(outputPath))) {
-    
-    indicatorData <- SOEworkflows::create_heatwave_year_bottom(inputPathGB = inputPathGB,
-                                                              inputPathGOM = inputPathGOM,
-                                                              inputPathMAB = inputPathMAB)
-
-    # write data to file
-    saveRDS(indicatorData,paste0(outputPath,"/heatwave_year_bottom.rds"))
-  } else {
-    #
-    message("The input file is not present in the location specified")
-  }
+  tryCatch(
+    {
+      if (
+        !all(
+          !is.null(outputPath),
+          file.exists(inputPathGB),
+          file.exists(inputPathGOM),
+          file.exists(inputPathMAB)
+        )
+      ) {
+        stop("Incorrect file path or file missing")
+      }
+      
+      # calculate indicator
+      indicatorData <- SOEworkflows::create_heatwave_year_bottom(inputPathGB = inputPathGB,
+                                                            inputPathGOM = inputPathGOM,
+                                                            inputPathMAB = inputPathMAB)
+      # write data to file
+      saveRDS(indicatorData,paste0(outputPath,"/heatwave_year_bottom.rds"))
+      return(indicatorData)
+      
+    },
+    error = function(e) {
+      message("An error occurred: ", conditionMessage(e))
+      return(NULL)
+    }
+  )
 }
