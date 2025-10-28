@@ -22,6 +22,7 @@ Imports:
     survdat,
     comlandr,
     geosphere,
+    heatwaveR,
     here,
     raster,
     stringr,
