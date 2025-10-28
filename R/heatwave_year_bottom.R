@@ -92,7 +92,8 @@ create_heatwave_year_bottom <- function(inputPathGB, inputPathGOM, inputPathMAB)
   mhw.mab.year <- dplyr::filter(mhw, mhw$Year == max(mhw$Year)) #subset most recent year
 
   heatwave_year_bottom<- rbind(mhw.gb.year, mhw.gom.year, mhw.mab.year) %>%
-    dplyr::mutate(Var = "BottomDetrended")
+    dplyr::mutate(Var = "BottomDetrended") |> 
+    dplyr::as_tibble()
   
   return(heatwave_year_bottom)
   

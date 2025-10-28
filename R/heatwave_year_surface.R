@@ -91,7 +91,8 @@ create_heatwave_year_surface <- function(inputPathGB, inputPathGOM, inputPathMAB
   mhw.mab.year <- dplyr::filter(mhw, mhw$Year == max(mhw$Year)) #subset most recent year
 
   heatwave_year_surface<- rbind(mhw.gb.year, mhw.gom.year, mhw.mab.year) %>%
-    dplyr::mutate(Var = "SurfaceDetrended")
+    dplyr::mutate(Var = "SurfaceDetrended") |> 
+    dplyr::as_tibble()
   
   return(heatwave_year_surface)
   
