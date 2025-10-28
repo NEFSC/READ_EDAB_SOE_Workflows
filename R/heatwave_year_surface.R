@@ -21,7 +21,7 @@
 #'
 #' @export
 
-create_heatwave_surface <- function(inputPathGB, inputPathGOM, inputPathMAB) {
+create_heatwave_year_surface <- function(inputPathGB, inputPathGOM, inputPathMAB) {
   
   ## Surface Detrended
   heatwave_gbd <- read.csv(inputPathGB)
