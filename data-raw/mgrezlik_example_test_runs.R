@@ -38,14 +38,14 @@ library(ggplot2)
 library(dplyr)
 
 # pick your region, e.g., GOM or MAB
-filter_epu <- "MAB"
+filter_epu <- "All"
 
 combined_plot <- combined |> 
   dplyr::filter(EPU == filter_epu)  |> 
-  ggplot(aes(x = Time, y = Value, color = source, group = source)) +
+  ggplot(aes(x = Time, y = Value, color = source)) +
   geom_line(linewidth = 1) +
   geom_point(size = 2) +
-  # facet_wrap(~ source) +
+  facet_wrap(~ source) +
   theme_bw() +
   labs(
     title = paste("Comparison of Productivity Anomaly (", filter_epu, ")", sep = ""),
