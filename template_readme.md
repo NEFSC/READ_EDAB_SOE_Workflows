@@ -158,12 +158,15 @@ To run the "workflow" below, it is assumed that the static, detrended input file
 
 
 ```
-workflow_heatwave_surface(inputPathGB, inputPathGOM, inputPathMAB, outputPath)
-workflow_heatwave_bottom(inputPathGB, inputPathGOM, inputPathMAB, outputPath)
+workflow_heatwave(inputPathGBBot,inputPathGOMBot,inputPathMABBot,inputPathGBSurf,inputPathGOMSurf,inputPathMABSurf)
+workflow_heatwave_year(inputPathGBBot,inputPathGOMBot,inputPathMABBot,inputPathGBSurf,inputPathGOMSurf,inputPathMABSurf)
 ```
 
-* `inputPathGB` is the path to static, detrended data sets `EDAB_Datasets/GB_SST_1982_to_2024_detrended.csv` or `EDAB_Datasets/daily_bottomT_GB_1959_2024_detrended.csv`for Georges Bank surface and bottom heatwaves, respectively.
-* `inputPathGOM` is the path to static, detrended data sets `EDAB_Datasets/GOM_SST_1982_to_2024_detrended.csv` or `EDAB_Datasets/daily_bottomT_GOM_1959_2024_detrended.csv`for Gulf of Maine surface and bottom heatwaves, respectively.
-* `inputPathMAB` is the path to static, detrended data sets `EDAB_Datasets/MAB_SST_1982_to_2024_detrended.csv` or `EDAB_Datasets/daily_bottomT_MAB_1959_2024_detrended.csv`for Mid-Atlantic Bight surface and bottom heatwaves, respectively.
+* `inputPathGBxxx` is the path to static, detrended data sets `EDAB_Datasets/GB_SST_1982_to_2024_detrended.csv` or `EDAB_Datasets/daily_bottomT_GB_1959_2024_detrended.csv`for Georges Bank surface and bottom heatwaves, respectively.
+* `inputPathGOMxxx` is the path to static, detrended data sets `EDAB_Datasets/GOM_SST_1982_to_2024_detrended.csv` or `EDAB_Datasets/daily_bottomT_GOM_1959_2024_detrended.csv`for Gulf of Maine surface and bottom heatwaves, respectively.
+* `inputPathMABxxx` is the path to static, detrended data sets `EDAB_Datasets/MAB_SST_1982_to_2024_detrended.csv` or `EDAB_Datasets/daily_bottomT_MAB_1959_2024_detrended.csv`for Mid-Atlantic Bight surface and bottom heatwaves, respectively.
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
-The rds file names are hardcoded as `heatwave_surface.rds`, `heatwave_bottom.rds`, `heatwave_year_surface.rds` and `heatwave_year_bottom.rds` to match the `ecodata` package dataset
+The rds file names are hardcoded as `heatwave.rds`, `heatwave_year.rds` to match the `ecodata` package dataset
+
+
+
