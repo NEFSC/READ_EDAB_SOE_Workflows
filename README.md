@@ -12,6 +12,7 @@ To contribute an indicator workflow to this repo, please follow the steps below:
 -  Create branch off `dev` for your indicator. Name the branch the same name as your indicator
 -  Add a main wrapper workflow function in `data-raw` folder. Name it `workflow_<ecodata_dataset_name>.r`
     * This function should take only filepaths as arguments and should save the ecodata data set (see examples that already exist in the `data-raw` folder)
+    * Wrap the `workflow_<ecodata_dataset_name>` function in a `tryCatch()` statement. See existing workflows for how this is implemented
 -  Add file in the `R` folder. Name this as `<ecodata_dataset_name>.r`. 
     * This file should contain the set of functions required to calculate the indicator. The format of the indicator should match the format as found in the `ecodata` package. You may need to look at the `ecodata/data-raw/get_<your_indicator>` function to see any additional formatting that is required
     * This/these functions should be called from the `workflow_<ecodata_dataset_name>.r` function

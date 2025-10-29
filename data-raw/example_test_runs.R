@@ -30,6 +30,12 @@ inputPathSST <- paste0(rootPath,"TS_SHP_adv_rep_MAB_GOM_GBK_NES_SCSPoly.csv")
 inputKey <- paste0(rootPath,"hms_key.csv")
 inputPathLW <- paste0(rootPath,"LWparams.csv")
 inputPathConditionSpecies <- paste0(rootPath,"species.codes.csv")
+inputPathGBSurf <- paste0(rootPath,"GB_SST_1982_to_2024_detrended.csv")
+inputPathGBBot <- paste0(rootPath,"daily_bottomT_GB_1959_2024_detrended.csv")
+inputPathGOMSurf <- paste0(rootPath,"GOM_SST_1982_to_2024_detrended.csv")
+inputPathGOMBot <- paste0(rootPath,"daily_bottomT_GOM_1959_2024_detrended.csv")
+inputPathMABSurf <- paste0(rootPath,"MAB_SST_1982_to_2024_detrended.csv")
+inputPathMABBot <- paste0(rootPath,"daily_bottomT_MAB_1959_2024_detrended.csv")
 
 # source workflow functions from data-raw since they are not accessible from the package installation
 source(here::here("data-raw/workflow_pull_survey_data.R"))
@@ -47,6 +53,8 @@ source(here::here("data-raw/workflow_species_dist.R"))
 source(here::here("data-raw/workflow_stock_status.R"))
 source(here::here("data-raw/workflow_survey_shannon.R"))
 source(here::here("data-raw/workflow_trans_dates.R"))
+source(here::here("data-raw/workflow_heatwave.R"))
+source(here::here("data-raw/workflow_heatwave_year.R"))
 
 if (pullRawData) {
   ## Connects to the data base.
@@ -132,4 +140,27 @@ indicator_survey_shannon <- workflow_survey_shannon(outputPath = outputPath,
 message("Running trans_dates ...")
 indicator_trans_dates <- workflow_trans_dates(inputPath = inputPathSST,
                                               outputPath)
+
+# calculate the heatwave index
+message("Running heatwave ...")
+indicator_heatwave <- workflow_heatwave(inputPathGBBot = inputPathGBBot,
+                                        inputPathGOMBot = inputPathGOMBot,
+                                        inputPathMABBot = inputPathMABBot,
+                                        inputPathGBSurf = inputPathGBSurf,
+                                        inputPathGOMSurf = inputPathGOMSurf,
+                                        inputPathMABSurf = inputPathMABSurf,
+                                        outputPath)
+
+
+
+
+# calculate the heatwave_year index
+message("Running heatwave_year ...")
+indicator_heatwave_year <- workflow_heatwave_year(inputPathGBBot = inputPathGBBot,
+                                                  inputPathGOMBot = inputPathGOMBot,
+                                                  inputPathMABBot = inputPathMABBot,
+                                                  inputPathGBSurf = inputPathGBSurf,
+                                                  inputPathGOMSurf = inputPathGOMSurf,
+                                                  inputPathMABSurf = inputPathMABSurf,
+                                                  outputPath)
 
