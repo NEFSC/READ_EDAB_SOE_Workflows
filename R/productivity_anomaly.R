@@ -50,14 +50,22 @@ species2out <- readRDS(inputPathSpecies) |>
 
 
 # load survey data -----------------------
-survey_data <- readRDS(input_survey_bio)
-survey_data <- survey_data$survdat
-survey_data_epu <- readRDS(input_survey_bio_epu)
+# commenting out for now. I don't think 2-load.R uses bio without epu
+# survey_data <- readRDS(input_survey_bio)
+# survey_data <- survey_data$survdat
+survey_data_epu <- readRDS(input_survey_bio_epu) |> 
+                      # convert columns to match trawlr function
+                      dplyr::mutate(
+                        CRUISE6 = as.character(CRUISE6),
+                        STATION = as.character(STATION),
+                        EST_TOWDATE = as.Date(EST_TOWDATE)
+                      )
+
 species <- readRDS(inputPathSpecies)
 
-survdata <- survey_data |> 
-  dplyr::left_join(species, by = 'SVSPP', relationship = "many-to-many") |> 
-  dplyr::filter(SCINAME %in% species2out)
+# survdata <- survey_data |> 
+#   dplyr::left_join(species, by = 'SVSPP', relationship = "many-to-many") |> 
+#   dplyr::filter(SCINAME %in% species2out)
 
 survdata_epu <- survey_data_epu |> 
   dplyr::left_join(species, by = 'SVSPP', relationship = "many-to-many") |> 
@@ -79,16 +87,16 @@ message("recruitment estimates - whole shelf")
 
 message("estimating length cut-off for age-1 fish")
 
-df_len_at_age1 <- survdata  |> 
-  dplyr::filter(YEAR >= (1980 - 1),
-                YEAR <= end.year,
-                !is.na(AGE),
-                !is.na(LENGTH)) |> 
-  dplyr::group_by(COMNAME, SCINAME)  |> 
-  dplyr::summarise(length_at_age1 = {
-    len_model <- glm(LENGTH ~ AGE, family = "poisson")
-    as.numeric(predict(len_model, newdata = data.frame(AGE = 2), type = "response"))
-  }, .groups = "drop")
+# df_len_at_age1 <- survdata  |> 
+#   dplyr::filter(YEAR >= (1980 - 1),
+#                 YEAR <= end.year,
+#                 !is.na(AGE),
+#                 !is.na(LENGTH)) |> 
+#   dplyr::group_by(COMNAME, SCINAME)  |> 
+#   dplyr::summarise(length_at_age1 = {
+#     len_model <- glm(LENGTH ~ AGE, family = "poisson")
+#     as.numeric(predict(len_model, newdata = data.frame(AGE = 2), type = "response"))
+#   }, .groups = "drop")
 
 
 df_len_at_age1_epu <- survdata_epu  |> 
@@ -105,10 +113,10 @@ df_len_at_age1_epu <- survdata_epu  |>
 # Calculate the number of tows in each survey season
 message("calculating number of tows per cruise/year/season")
 
-dat_tows <- survdata  |> 
-  dplyr::distinct(CRUISE6, YEAR, SEASON, STATION, STRATUM)  |> 
-  dplyr::group_by(CRUISE6, YEAR, SEASON)  |> 
-  dplyr::summarise(n_tows = dplyr::n(), .groups = "drop")
+# dat_tows <- survdata  |>
+#   dplyr::distinct(CRUISE6, YEAR, SEASON, STATION, STRATUM)  |>
+#   dplyr::group_by(CRUISE6, YEAR, SEASON)  |>
+#   dplyr::summarise(n_tows = dplyr::n(), .groups = "drop")
 
 dat_tows_epu <- survdata_epu  |> 
   dplyr::distinct(CRUISE6, YEAR, SEASON, STATION, STRATUM)  |> 
@@ -137,10 +145,28 @@ dat_spec_rec_epu <- survdata_epu |>
     ind_rec_wl = ifelse(maturity == "recruit", WTperLENGTH, NaN)
   )
 
+# dat_spec_rec <- survdata |> 
+#   dplyr::left_join(dat_tows_epu, by = c("CRUISE6", "YEAR", "SEASON")) |> 
+#   dplyr::left_join(df_len_at_age1_epu, by = c("COMNAME", "SCINAME")) |> 
+#   dplyr::filter(YEAR >= (1980 - 1), YEAR <= end.year) |> 
+#   dplyr::mutate(
+#     NUMLEN = as.numeric(NUMLEN),
+#     INDWT  = as.numeric(INDWT),
+#     WTperLENGTH = INDWT / LENGTH,
+#     rank_LENGTH = dplyr::cume_dist(LENGTH),
+#     maturity = ifelse(is.na(length_at_age1),
+#                       ifelse(rank_LENGTH > 0.2, "spawner", "recruit"),
+#                       ifelse(LENGTH > length_at_age1, "spawner", "recruit")),
+#     ind_sp_abund = ifelse(maturity == "spawner", NUMLEN, 0),
+#     ind_rec_abund = ifelse(maturity == "recruit", NUMLEN, 0),
+#     ind_sp_wl = ifelse(maturity == "spawner", WTperLENGTH, NaN),
+#     ind_rec_wl = ifelse(maturity == "recruit", WTperLENGTH, NaN)
+#   )
+
 
 # summarize by species (whole shelf) ---------------------
 message("Summarizing whole-shelf for SOE")
-dat_spec_rec_summary <- dat_spec_rec |> 
+dat_spec_rec_summary <- dat_spec_rec_epu |> 
   dplyr::group_by(YEAR, SCINAME, COMNAME) |> 
   dplyr::summarise(
     spawners_abund = sum(ind_sp_abund, na.rm = TRUE) / mean(n_tows, na.rm = TRUE),
@@ -157,7 +183,7 @@ dat_spec_rec_summary <- dat_spec_rec |>
 
 # summarize by EPU ------------------
 message("Summarizing by EPU for SOE")
-dat_spec_rec_epu <- dat_spec_rec_epu |> 
+dat_spec_rec_epu_summary <- dat_spec_rec_epu |> 
   dplyr::group_by(YEAR, SCINAME, COMNAME, EPU) |> 
   dplyr::reframe(
     spawners_abund = sum(ind_sp_abund, na.rm = TRUE) / mean(n_tows),
@@ -182,27 +208,34 @@ dat_spec_rec_forSOE <- dat_spec_rec_summary |>
   dplyr::rename(Time = YEAR, Value = rs_anom) |>
   dplyr::mutate(Units = "anomaly (r/s)",
                 Var  = factor(COMNAME),
-                EPU = "All",
                 Source = "SVDBS") |> 
-  dplyr::mutate(Var = paste("NE LME", Var, "_Survey"))
+  dplyr::select(-COMNAME)
 
 # EPU output
-dat_spec_rec_epu_forSOE <- dat_spec_rec_epu |> 
+dat_spec_rec_epu_forSOE <- dat_spec_rec_epu_summary |> 
   dplyr::select(YEAR, COMNAME, EPU, rs_anom) |>
   dplyr::rename(Time = YEAR, Value = rs_anom, Region = EPU) |>
   dplyr::mutate(Units = "anomaly (r/s)",
                 Var  = factor(COMNAME),
                 Source = "SVDBS") |> 
-  dplyr::rename(EPU = Region)
+  dplyr::select(-COMNAME)
 
-# Combine whole-shelf and EPU outputs, filtering 2020 for EPU
-epu_rec_anom <- dat_spec_rec_epu_forSOE |> 
-  dplyr::filter(Time != 2020) 
+# Reproduce changes in ecodata::get_productivity_anomaly.R ------------
 
-productivity_anomaly1 <- rbind(
-  dat_spec_rec_forSOE |> dplyr::select(Time, Var, Value, EPU, Units),
-  epu_rec_anom |> dplyr::select(Time, Var, Value, EPU, Units)
-)
+#Select and rename
+epu_rec_anom <- dat_spec_rec_epu_forSOE  |> 
+  dplyr::select(Time, EPU = Region, Value, Units, -Source,Var)  |> 
+  dplyr::filter(!Time == "2020")
+
+#Select, rename, and bind
+productivity_anomaly1 <- dat_spec_rec_forSOE  |> 
+  dplyr::select(-Source) |> 
+  dplyr::mutate(EPU = "All",
+                Var = paste("NE LME",Var)) |> 
+  dplyr::bind_rows(epu_rec_anom) |>  
+  dplyr::select(Time, Var, Value, EPU, Units) |> 
+  dplyr::mutate(Var = paste0(Var, "_Survey"))
+
 
 # Add stockSMART assessment data -------------------
 
@@ -224,7 +257,7 @@ prod_assess1 <- stocksmart::stockAssessmentData |>
     recruits_abund = Recruitment
   ) |>
   # Separate StockName into Stock and Region
-  tidyr::separate(StockName, into = c("Stock", "Region"), sep = "-", extra = "merge") |>
+  tidyr::separate(StockName, into = c("Stock", "Region"), sep = "-") |>
   dplyr::group_by(Stock) |>
   dplyr::mutate(
     recruits_abund_lead1 = dplyr::lead(recruits_abund, 1),
@@ -258,192 +291,17 @@ prod_assess1 <- stocksmart::stockAssessmentData |>
     Time = Year,
     Units = NA
   ) |>
+  dplyr::ungroup() |> 
   dplyr::select(Time, Var, Value, EPU, Units)
 
 
 # Combine survey and assessment data -------------------------
 
 
-productivity_anomaly <- rbind(productivity_anomaly1, prod_assess1)
+productivity_anomaly <- rbind(productivity_anomaly1, prod_assess1) |> 
+  dplyr::filter(Time > 1979)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## calc rs ---------------
-dat_spec_rec_summary <- dat_spec_rec_summary |> 
-  dplyr::mutate(
-    recruits_abund_lead1 = dplyr::lead(recruits_abund, n = 1),
-    rs = recruits_abund_lead1 / spawners_abund,
-    rs_anom = (rs - mean(rs, na.rm = TRUE)) / sd(rs, na.rm = TRUE)
-  )
-
-
-# summarize by EPU --------------------------
-dat_spec_rec_epu <- dat_spec_rec |> 
-  dplyr::group_by(YEAR, SCINAME, COMNAME, EPU)  |> 
-  dplyr::reframe(
-    spawners_abund = sum(ind_sp_abund, na.rm = TRUE) / unique(n_tows),
-    recruits_abund = sum(ind_rec_abund, na.rm = TRUE) / unique(n_tows),
-    spawner_wl = mean(ind_sp_wl, na.rm = TRUE),
-    recruit_wl = mean(ind_rec_wl, na.rm = TRUE),
-    .groups = "drop"
-  ) |> 
-  dplyr::arrange(YEAR, EPU, COMNAME, SCINAME)
-
-## calc rs ------------------------
-dat_spec_rec_epu <- dat_spec_rec_epu |>
-  dplyr::group_by(SCINAME, COMNAME, EPU) |>
-  dplyr::mutate(
-    recruits_abund_lead1 = dplyr::lead(recruits_abund, n = 1),
-    rs = recruits_abund_lead1 / spawners_abund,
-    rs_anom = (rs - mean(rs, na.rm = TRUE)) / sd(rs, na.rm = TRUE)
-  ) |>
-  dplyr::ungroup()
-
-
-
-# prepare data frames for SOE -----------
-message("Formatting for SOE")
-# whole-shelf SOE output
-dat_spec_rec_forSOE <- dat_spec_rec_summary |>
-  dplyr::ungroup() |>
-  dplyr::select(YEAR, COMNAME, rs_anom) |>
-  dplyr::rename(Time = YEAR,
-                Value = rs_anom) |>
-  dplyr::mutate(Units = "anomaly (r/s)",
-                Var  = COMNAME,
-                Source = "SVDBS") |>
-  dplyr::select(-COMNAME) |> 
-  dplyr::mutate(
-    Var = factor(Var)
-  )
-
-# EPU SOE output
-dat_spec_rec_epu_forSOE <- dat_spec_rec_epu |>
-  dplyr::ungroup() |>
-  dplyr::select(YEAR, COMNAME, EPU, rs_anom) |>
-  dplyr::rename(Time = YEAR,
-                Value = rs_anom,
-                Region = EPU) |>
-  dplyr::mutate(Units = "anomaly (r/s)",
-                Var  = COMNAME,
-                Source = "SVDBS") |>
-  dplyr::select(-COMNAME) |> 
-  dplyr::mutate(
-    Region = factor(Region),
-    Var = factor(Var)
-  )
-
-#Select and rename
-epu_rec_anom <- dat_spec_rec_epu_forSOE  |> 
-  dplyr::select(Time, EPU = Region, Value, Units, -Source,Var)  |> 
-  dplyr::filter(!Time == "2020")
-
-#Select, rename, and bind
-productivity_anomaly1 <- dat_spec_rec_forSOE |>
-  dplyr::select(-Source) |>
-  dplyr::mutate(EPU = "All",
-                Var = paste("NE LME", Var)) |>
-  (\(x) rbind(x, epu_rec_anom))() |>
-  as.data.frame() |>
-  tibble::as_tibble() |>
-  dplyr::select(Time, Var, Value, EPU, Units) |>
-  dplyr::mutate(Var = paste0(Var, "_Survey"))
-
-# prod_assess<- readRDS(file.path(prod_anom_sarah))
-
-# recreating part of MultisppRec2024 -------------
-# https://github.com/NOAA-EDAB/stockstatusindicator/blob/master/MultisppRec2024.Rmd
-
-message("Pulling and tidying stockSMART data")
-AssessFishProdAnomaly <- stocksmart::stockAssessmentData |>
-  # Keep only Northeast Shelf
-  dplyr::filter(RegionalEcosystem == "Northeast Shelf") |>
-  # For each StockName, Metric, and Year, collapse duplicate values
-  dplyr::group_by(StockName, Metric, Year) |>
-  dplyr::summarise(
-    Value = mean(Value, na.rm = TRUE),
-    Units = dplyr::first(Units),
-    Description = dplyr::first(Description),
-    AssessmentYear = max(AssessmentYear, na.rm = TRUE),
-    .groups = "drop"
-  ) |>
-  # Optional: arrange for readability
-  dplyr::arrange(StockName, Metric, Year)
-
-AssessFishProdAnomaly_wide <- AssessFishProdAnomaly |>
-  tidyr::pivot_wider(
-    names_from = Metric,
-    values_from = Value
-  )
-
-AssessFishProdAnomaly_wide <- AssessFishProdAnomaly_wide |>
-  # rename for clarity
-  dplyr::rename(
-    spawners_biom_lag0 = Abundance,
-    recruits_abund = Recruitment
-  ) |>
-  dplyr::group_by(StockName) |>
-  dplyr::mutate(
-    # Lead/lag relationships
-    recruits_abund_lead1 = dplyr::lead(recruits_abund, 1),
-    
-    # Recruitment/spawner ratio
-    rs = recruits_abund_lead1 / spawners_biom_lag0,
-    
-    # anomalies (z-scores)
-    spawners_biom_lag0_anom = (spawners_biom_lag0 - mean(spawners_biom_lag0, na.rm = TRUE)) / sd(spawners_biom_lag0, na.rm = TRUE),
-    recruits_abund_lead1_anom = (recruits_abund_lead1 - mean(recruits_abund_lead1, na.rm = TRUE)) / sd(recruits_abund_lead1, na.rm = TRUE),
-    rs_anom = (rs - mean(rs, na.rm = TRUE)) / sd(rs, na.rm = TRUE),
-    
-    # log-transformed anomalies
-    logr_abund_anom = (log(recruits_abund) - mean(log(recruits_abund), na.rm = TRUE)) / sd(log(recruits_abund), na.rm = TRUE),
-    logs_biom_anom = (log(spawners_biom_lag0) - mean(log(spawners_biom_lag0), na.rm = TRUE)) / sd(log(spawners_biom_lag0), na.rm = TRUE),
-    logrs_anom = (log(rs) - mean(log(rs), na.rm = TRUE)) / sd(log(rs), na.rm = TRUE)
-  ) |>
-  dplyr::ungroup()
-
-
-prod_assess1<- AssessFishProdAnomaly_wide |>
-  tidyr::separate(StockName, into= c("Stock", "Region"), sep = "-") |>
-  # line above creates a warning as tidyr::separate() expects only 2 values
-  # separated by a "-". Mid-Atlantic causes 3 sections separated by "-".
-  # Sarah accounted for this in the next line starting dplyr::mutate()
-  dplyr::mutate(EPU = dplyr::recode(Region, " Gulf of Maine / Georges Bank" = "NE",
-                                    " Gulf of Maine / Cape Hatteras" = "ALL",
-                                    " Mid" = "MA",
-                                    " Atlantic Coast" = "ALL",
-                                    " Georges Bank" = "NE",
-                                    " Northwestern Atlantic Coast" = "ALL",
-                                    " Gulf of Maine" = "NE",
-                                    " Southern New England / Mid" = "MA",
-                                    " Cape Cod / Gulf of Maine" = "NE")) |>
-  tidyr::pivot_longer(cols = c("spawners_biom_lag0", "spawners_biom_lag0_anom",
-                               "recruits_abund_lead1","recruits_abund_lead1_anom",
-                               "rs","rs_anom","logr_abund_anom",
-                               "logs_biom_anom","logrs_anom"),
-                      names_to = "Var", values_to = "Value") |>
-  dplyr::mutate(Var = paste0(Stock, "-", Var, "-Assessment"),
-                Time = Year,
-                Units = c("NA")) |>
-  dplyr::ungroup() |>
-  dplyr::select(Time, Var, Value, EPU, Units)
-
-
-productivity_anomaly <- rbind(productivity_anomaly1, prod_assess1)
+# Return productivity_anomaly -----------------------
 
 return(productivity_anomaly)
 
