@@ -8,7 +8,7 @@ When all indicators have been added to the repo we can provide a list of package
 The survey data will pulled from the Oracle database via a cron job (quarterly?) using R function
 
 ```
-SOEworkflows::get_survey_data(channel,outputPathDatasets)
+workflow_pull_survey_data(channel,outputPathDatasets)
 ```
 
 * `channel` is a connection object created using `ROracle::dbConnect()`
@@ -18,6 +18,7 @@ SOEworkflows::get_survey_data(channel,outputPathDatasets)
   - `bigelowData.rds` - used in `survey_shannon`
   - `albatrosData.rds` - used in `survey_shannon`
   - `condition.rds` - used in `condition`
+  - `massInshoreData` - used in `mass_inshore_survey`
 
 ### aggregate_biomass
 
@@ -46,10 +47,27 @@ To run the "workflow" below, it is assumed that the "raw" survey data has been p
 workflow_survey_shannon(outputPath,inputPathBigelow,inputPathAlbatross)
 ```
 
-* `inputPathBigelow` is the path to static data set `EDAB_Datasets/bigelowData.rds`.
-* `inputPathAlbatross` is the path to the dynamically created survey data `EDAB_Datasets/albatrossData.rds`. 
+* `inputPathBigelow` is the path to the data set `EDAB_Datasets/bigelowData.rds`.
+* `inputPathAlbatross` is the path to the created survey data `EDAB_Datasets/albatrossData.rds`. 
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `survey_shannon.rds` to match the `ecodata` package dataset
+
+### mass_inshore_survey
+
+To run the "workflow" below, it is assumed that the "raw" survey data has been pulled using the 
+`get_survey_data` function above.
+
+*Note: the following function resides in the folder `data-raw` and is NOT part of the package*
+
+```
+workflow_mass_inshore_survey(outputPath,inputPathMassSurvey,inputPathSpecies)
+```
+
+* `inputPathMassSurvey` is the path to data set `EDAB_Datasets/massInshoreData.rds`.
+* `inputPathSpecies` is the path to static data set `EDAB_Datasets/SOE_species_list_24.rds`.
+* `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+The rds file name is hardcoded as `mass_inshore_survey.rds` to match the `ecodata` package dataset
+
 
 ### exp_n
 
@@ -75,20 +93,41 @@ To run the "workflow" below, it is assumed that the "raw" survey data has been p
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```
-workflow_species_dist(outputPath,inputPathSurvey,inputPathSpecies)
+workflow_species_dist(inputPathSurvey,inputPathSpecies, static_depth,
+                      static_diagonal, static_coast_coord, static_strat_areas)
 ```
 
 * `inputPathSpecies` is the path to static data set `EDAB_Datasets/SOE_species_list_24.rds`.
 * `inputPathSurvey` is the path to the dynamically created survey data `EDAB_Datasets/surveyNoLengths.rds`. 
-* `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+* `static_depth` is the path to the file `nes_bath_data.nc`
+* `static_diagonal` is the path to the file `diag.csv`
+* `static_coast_coord` is the path to the file `nes_coast_2.csv`
+* `static_strat_areas` is the path to the file `stratareas.rds`
+
 The rds file name is hardcoded as `species_dist.rds` to match the `ecodata` package dataset
 
-## Commercial Laindings Based Indicators
+### species_condition
+
+To run the "workflow" below, it is assumed that the "raw" survey data has been pulled using the 
+`get_survey_data` function above.
+
+*Note: the following function resides in the folder `data-raw` and is NOT part of the package*
+
+```
+workflow_condition(inputPath, inputpathLW, inputpathSpecies, outputPath)
+```
+* `inputPath` is the path to the static data set `EDAB_Dev/beet/condition.rds`
+* `inputPathSpecies` is the path to static data set `EDAB_Resources/workflow_resources/soe_workflows/species.codes.csv`
+* `inputPathLW` is the path to the static data set `EDAB_Resources/workflow_resources/soe_workflows/LWparams.csv`
+* `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+The rds file name is hardcoded as `condition.rds` to match the `ecodata` package dataset
+
+## Commercial Landings Based Indicators
 
 The commercial data will pulled from the Oracle database via a cron job (quarterly?) using R function
 
 ```
-SOEworkflows::get_commercial_data(channel,outputPathDatasets)
+workflows_pull_commercial_data(channel,outputPathDatasets)
 ```
 
 * `channel` is a connection object created using `ROracle::dbConnect()`
@@ -117,6 +156,20 @@ The rds file name is hardcoded as `bennet.rds` to match the `ecodata` package da
 
 ### comdat
 
+To run the "workflow" below, it is assumed that the commercial data has been pulled using the 
+`get_commercial_data` function above and that menhaden data have been pulled using the 
+`create_menhaden_input.R` script in the folder `data-raw`.
+*Note: the following function resides in the folder `data-raw` and is NOT part of the package*
+
+```R
+workflow_comdat(comdat_path, input_path_species, menhaden_path, outputPathDataSets)
+```
+
+* `comdat_path` is the path to the raw, comprehensive commercial landings data file, e.g., `EDAB_Datasets/commercial_comdat.rds`.
+* `input_path_species` is the path to the species list used for grouping, e.g., `EDAB_Datasets/SOE_species_list_24.rds`.
+* `menhaden_path` is the path to the Menhaden landings data output by create_`create_menhaden_input.R`.
+* `outputPathDataSets` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+The rds file name is hardcoded as `comdat.rds` to match the `ecodata` package dataset
 
 ## `stocksmart` Based Indicators
 
@@ -170,3 +223,31 @@ The rds file names are hardcoded as `heatwave.rds`, `heatwave_year.rds` to match
 
 
 
+## Recreational Landings Based Indicators
+
+### rec_hms
+
+Recreational data will pulled using the function below.
+
+*Note: the following function resides in the folder `data-raw` and is NOT part of the package*
+
+```
+workflow_pull_rec_hms(outputDir)
+```
+
+* `outputDir` is the path to the folder where "raw" data is stored, currently `EDAB_Dev/atyrell`
+* The data set created is `hms_mrip_(Sys.Date).csv`
+
+To run the "workflow" below, it is assumed that the recreational data has been pulled using the 
+`workflow_pull_rec_hms` function above. 
+
+*Note: the following function resides in the folder `data-raw` and is NOT part of the package*
+
+```
+workflow_rec_hms(inputPath,inputKey, outputPath)
+```
+
+* `inputPath` is the path to the data set created by `workflow_pull_rec_hms`, currently residing in `EDAB_Dev/atyrell/hms_mrip_(Sys.Date).csv`.
+* `inputKey` is the path to the static data set `EDAB_Resources/workflow_resources/soe_workflows/hms_key.csv`
+* `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+The rds file name is hardcoded as `rec_hms.rds` to match the `ecodata` package dataset

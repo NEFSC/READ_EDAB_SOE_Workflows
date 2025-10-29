@@ -1,0 +1,129 @@
+#' Function to process Massachusetts inshore bottom trawl survey for automated workflow
+#'
+#' Data include aggregated time series of inshore fishery-independent trawl survey data from Massachusetts waters.
+#' MA inshore surveys have been performed biannually in the spring and fall since 1978.
+#'
+#' @param inputPathMassSurvey Character string. Full path to the mass inshore data pull rds file created by workflow_pull_survey_data
+#' @param inputPathSpecies Character string. Full path to the species list data pull rds file
+#' 
+#'
+#' @examples
+#' \dontrun{
+#' # create the ecodata::mass_inshore_survey indicator
+#' create_mass_inshore_survey(inputPathMassSurvey <- here::here("mass_inshore.rds"), 
+#'                          inputPathSpecies <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds")
+#'
+#' }
+#'
+#'
+#' @return ecodata::mass_inshore_survey data frame
+#'
+#' @export
+
+create_mass_inshore_survey <- function(inputPathMassSurvey, inputPathSpecies) {
+  
+  end.year <- format(Sys.Date(),"%Y")
+
+  # Read survey data & species-------------------------------------------
+  survdat.mass <- readRDS(inputPathMassSurvey)$survdat |> 
+    dplyr::filter(YEAR <= end.year)
+  
+  # Read species list -------------
+  species <- readRDS(inputPathSpecies) 
+  
+  # Find unique species codes and groups---
+  uniqueSpecies <- species |> 
+    dplyr::distinct(SVSPP,SOE.24)
+  #Merge with species list to get species groups
+  survdat.mass <- merge(survdat.mass, uniqueSpecies,
+                        by = 'SVSPP', all.x = T)
+  
+  #Grab strata 
+  strata <- NEFSCspatial::mass_inshore_strata
+  #strata <- sf::st_read(dsn = here::here('gis', 'RA_STRATA_POLY_MC.shp'), quiet = T)
+
+  #fix strata numbers
+  strata$massstratum <- as.numeric(paste0(9, strata$stratum, 0))
+  #Give extra stratum column to survdat
+  survdat.mass[, massstratum := STRATUM]
+  
+  #Generate area table
+  strat.area <- survdat::get_area(strata, 'massstratum') # this pings the following: Spherical geometry (s2) switched off
+  
+  #Station data - Finds list of distinct stations sampled through time
+  data.table::setkey(survdat.mass, CRUISE6, STRATUM, STATION)
+  stations <- unique(survdat.mass, by = data.table::key(survdat.mass))
+  stations <- stations[, list(YEAR, CRUISE6, STRATUM, STATION)]
+  
+  # Count the number of stations in each year for each Region
+  data.table::setkey(stations, YEAR, CRUISE6, STRATUM)
+  stations[, ntows := length(STATION), by = data.table::key(stations)]
+  
+  #Merge stations and area
+  stations <- base::merge(stations, strat.area, by = 'STRATUM', all.x = T)
+  
+  #Calculate stratum weight
+  data.table::setkeyv(stations, c('YEAR', 'CRUISE6', 'STRATUM'))
+  strat.year <- unique(stations, by = data.table::key(stations))
+  strat.year[, c('STATION', 'ntows') := NULL]
+  data.table::setnames(strat.year, 'Area', 'S.Area')
+  strat.year[, W.h := S.Area / sum(S.Area, na.rm = T), by = c('YEAR', 'CRUISE6')]
+  strat.year[, W.h := as.vector(W.h)] #Drops the units from the area
+  strat.year[is.na(W.h), W.h := 0]
+  
+  #Merge back
+  stations <- merge(stations, strat.year, by = data.table::key(stations))
+  
+  #Merge catch with station data
+  prepData <- merge(survdat.mass, stations, by = c('YEAR', 'CRUISE6', 'STRATUM',
+                                                   'STATION'))
+  
+  prepData[, S.Area := NULL]
+  
+  #Calculate stratified mean
+  stratmeanData <- survdat:::strat_mean(prepData, groupDescription = 'SOE.24', ##### see how other scripts in workflow example handle terminal year hardcoding
+                                        mergesexFlag = T, seasonFlag = T,
+                                        areaDescription = 'STRATUM',
+                                        poststratFlag = F)
+  
+  
+  # Prepare for SOE ------
+
+  #Remove missing values
+  #stratmeanData <- stratmeanData[!is.na(stratmeanData$SOE.24), ]
+  stratmeanData <- stratmeanData[!is.na(SOE.24), ]
+  # format Season to have use camel case (not all uppercase)
+  stratmeanData <- stratmeanData |> 
+    dplyr::mutate(SEASON = stringr::str_to_title(SEASON))
+  
+  # select biomass and biomass SE for both spring and fall for each guild
+  mass.survey <- stratmeanData |>
+    dplyr::mutate(YEAR = as.integer(YEAR),
+                  Units = "kg tow^-1") |>
+    dplyr::rename(Time = YEAR,
+                  Guild = SOE.24,
+                  #Biomass.Index=strat.biomass,
+                  #Biomass SE = biomass.SE
+    ) |> 
+    tidyr::pivot_longer(cols = c(strat.biomass, biomass.SE),
+    names_to = "Variable_Type",
+    values_to = "Value"
+  )|>
+    dplyr::mutate(Var =  dplyr::case_when(
+      Variable_Type == "strat.biomass" ~ paste0(Guild, " ", SEASON, " Biomass Index - MA"),
+      Variable_Type == "biomass.SE" ~ paste0(Guild, " ", SEASON, " Biomass SE - MA")
+      )
+    )|>
+    dplyr::select(Time, Var, Value, Units)
+
+  # fill in Time, Var, EPUs that are missing
+  expanded <- expand.grid(Time = min(mass.survey$Time):end.year,Var = unique(mass.survey$Var))
+  mass.survey <- expanded |>
+    dplyr::left_join(mass.survey, by = c("Time", "Var")) |> 
+    dplyr::mutate(EPU = "GB") |> 
+    dplyr::relocate(Time,Var,Value,EPU,Units)
+
+  return(mass.survey)
+  
+}
+

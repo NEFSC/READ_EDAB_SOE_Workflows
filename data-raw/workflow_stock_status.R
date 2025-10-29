@@ -25,16 +25,30 @@
 
 workflow_stock_status <- function(inputPath, outputPath = NULL) {
   # Add check to skip inputPath workflow if data not present
-  if (file.exists(inputPath) && (!is.null(outputPath))) {
-    indicatorData <- SOEworkflows::create_stock_status(
-      data = stocksmart::stockAssessmentSummary,
-      decode = utils::read.csv(inputPath)
-    )
-    # write data to file
-    saveRDS(indicatorData, paste0(outputPath, "/stock_status.rds"))
-  } else {
-    #
-    message("The input file is not present in the location specified, or the output path is not specified.
-            Please check the inputPath and outputPath parameters.")
-  }
+  tryCatch(
+    {
+      if (
+        !all(
+          !is.null(outputPath),
+          file.exists(inputPath)
+        )
+      ) {
+        stop("Incorrect file path or file missing")
+      }
+
+      # calculate indicator
+
+      indicatorData <- SOEworkflows::create_stock_status(
+        data = stocksmart::stockAssessmentSummary,
+        decode = utils::read.csv(inputPath)
+      )
+      # write data to file
+      saveRDS(indicatorData, paste0(outputPath, "/stock_status.rds"))
+      return(indicatorData)
+    },
+    error = function(e) {
+      message("An error occurred: ", conditionMessage(e))
+      return(NULL)
+    }
+  )
 }
