@@ -21,6 +21,7 @@ Imports:
     survdat,
     comlandr,
     geosphere,
+    heatwaveR,
     here,
     magrittr,
     NEesp2,
