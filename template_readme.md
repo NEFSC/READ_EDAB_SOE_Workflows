@@ -203,6 +203,26 @@ workflow_trans_dates(inputPath, outputPath)
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `trans_dates.rds` to match the `ecodata` package dataset
 
+### Heatwave (heatwave & heatwave_year)
+
+To run the "workflow" below, it is assumed that the static, detrended input files from Joe Caracappa and Vince Saba are present.
+
+*Note: the following function resides in the folder `data-raw` and is NOT part of the package*
+
+
+```
+workflow_heatwave(inputPathGBBot,inputPathGOMBot,inputPathMABBot,inputPathGBSurf,inputPathGOMSurf,inputPathMABSurf)
+workflow_heatwave_year(inputPathGBBot,inputPathGOMBot,inputPathMABBot,inputPathGBSurf,inputPathGOMSurf,inputPathMABSurf)
+```
+
+* `inputPathGBxxx` is the path to static, detrended data sets `EDAB_Datasets/GB_SST_1982_to_2024_detrended.csv` or `EDAB_Datasets/daily_bottomT_GB_1959_2024_detrended.csv`for Georges Bank surface and bottom heatwaves, respectively.
+* `inputPathGOMxxx` is the path to static, detrended data sets `EDAB_Datasets/GOM_SST_1982_to_2024_detrended.csv` or `EDAB_Datasets/daily_bottomT_GOM_1959_2024_detrended.csv`for Gulf of Maine surface and bottom heatwaves, respectively.
+* `inputPathMABxxx` is the path to static, detrended data sets `EDAB_Datasets/MAB_SST_1982_to_2024_detrended.csv` or `EDAB_Datasets/daily_bottomT_MAB_1959_2024_detrended.csv`for Mid-Atlantic Bight surface and bottom heatwaves, respectively.
+* `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+The rds file names are hardcoded as `heatwave.rds`, `heatwave_year.rds` to match the `ecodata` package dataset
+
+
+
 ## Recreational Landings Based Indicators
 
 ### rec_hms
