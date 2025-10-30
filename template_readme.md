@@ -114,11 +114,17 @@ To run the "workflow" below, it is assumed that the "raw" survey data has been p
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```
-workflow_productivity_anomaly(input_survey_bio_epu, inputPathSpecies, outputPath)
+workflow_productivity_anomaly(
+                              input_survey_bio_epu,
+                              input_survey_bio,
+                              inputPathSpecies,
+                              outputPath
+                              )
 
 ```
 
 * `input_survey_bio_epu` is the path to the dynamically created survey data `EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds`.
+* `input_survey_bio` is the path to the dynamically created survey data `EDAB_Datasets/Workflows/surveyBiologicalData.rds`.
 * `inputPathSpecies` is the path to static data set `EDAB_Datasets/Workflows/SOE_species_list_24.rds`.
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 

@@ -5,6 +5,7 @@
 \title{Calculate Productivity Anomalies from Survey Data}
 \usage{
 create_productivity_anomaly(
+  input_survey_bio,
   input_survey_bio_epu,
   inputPathSpecies,
   species2include = c("ACADIAN REDFISH", "AMERICAN PLAICE", "ATLANTIC COD",
