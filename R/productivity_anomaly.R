@@ -52,12 +52,13 @@ species2out <- readRDS(inputPathSpecies) |>
 # load survey data -----------------------
 message("Loading survey data")
 survey_data_epu <- readRDS(input_survey_bio_epu) |> 
-                      # convert columns to match trawlr function
-                      dplyr::mutate(
-                        CRUISE6 = as.character(CRUISE6),
-                        STATION = as.character(STATION),
-                        EST_TOWDATE = as.Date(EST_TOWDATE)
-                      )
+  as.data.frame() |>
+  # convert columns to match trawlr function
+  dplyr::mutate(
+    CRUISE6 = as.character(CRUISE6),
+    STATION = as.character(STATION),
+    EST_TOWDATE = as.Date(EST_TOWDATE)
+  )
 
 species <- readRDS(inputPathSpecies)
 
@@ -194,63 +195,63 @@ message("Pulling and tidying stockSMART data")
 ## get stocksmart info -----------------------
 
 NErec <- stocksmart::stockAssessmentData  |> 
-  filter(RegionalEcosystem == "Northeast Shelf",
+  dplyr::filter(RegionalEcosystem == "Northeast Shelf",
          Metric == "Recruitment") |> 
-  group_by(StockName)  |> 
-  filter(AssessmentYear == max(AssessmentYear))  |> 
-  ungroup() 
+  dplyr::group_by(StockName)  |> 
+  dplyr::filter(AssessmentYear == max(AssessmentYear))  |> 
+  dplyr::ungroup() 
 
 NErec_sppunits <- NErec  |> 
-  select(StockName, StockArea, Description, Units) |> 
-  distinct()
+  dplyr::select(StockName, StockArea, Description, Units) |> 
+  dplyr::distinct()
 
 NEbio <- stocksmart::stockAssessmentData  |> 
-  filter(RegionalEcosystem == "Northeast Shelf",
+  dplyr::filter(RegionalEcosystem == "Northeast Shelf",
          Metric == "Abundance")  |> 
-  group_by(StockName) |> 
-  filter(AssessmentYear == max(AssessmentYear)) |> 
-  ungroup() 
+  dplyr::group_by(StockName) |> 
+  dplyr::filter(AssessmentYear == max(AssessmentYear)) |> 
+  dplyr::ungroup() 
 
 NEbio_sppunits <- NEbio |> 
-  select(StockName, StockArea, Description, Units) |> 
-  distinct()
+  dplyr::select(StockName, StockArea, Description, Units) |> 
+  dplyr::distinct()
 
 SSByr <- NEbio  |> 
-  group_by(StockName) |> 
-  select(StockName, AssessmentYear) |> 
-  filter(AssessmentYear>2018) |> 
-  distinct()
+  dplyr::group_by(StockName) |> 
+  dplyr::select(StockName, AssessmentYear) |> 
+  dplyr::filter(AssessmentYear>2018) |> 
+  dplyr::distinct()
 
 recyr <- NErec  |> 
-  group_by(StockName) |> 
-  select(StockName, AssessmentYear) |> 
-  filter(AssessmentYear>2018) |> 
-  distinct()
+  dplyr::group_by(StockName) |> 
+  dplyr::select(StockName, AssessmentYear) |> 
+  dplyr::filter(AssessmentYear>2018) |> 
+  dplyr::distinct()
 
 NErecN <- NErec  |> 
-  filter(AssessmentYear>2018,
+  dplyr::filter(AssessmentYear>2018,
          Units %in% c("Thousand Recruits",
                       "Number x 1,000,000",
                       "Number x 1,000",
                       "Million Recruits")) 
 
 NErecstocks <- NErecN |> 
-  select(StockName) |> 
-  distinct()
+  dplyr::select(StockName) |> 
+  dplyr::distinct()
 
 NEbiohasrec <- NEbio  |> 
-  filter(StockName %in% NErecstocks$StockName)
+  dplyr::filter(StockName %in% NErecstocks$StockName)
 
 bothyr <- NEbiohasrec  |> 
-  group_by(StockName) |> 
-  select(StockName, AssessmentYear) |> 
-  distinct()
+  dplyr::group_by(StockName) |> 
+  dplyr::select(StockName, AssessmentYear) |> 
+  dplyr::distinct()
 
 
 ## standardize assessment outputs ------------
 
 NErecNstd <- NErecN  |> 
-  mutate(NfishRec = case_when(Units == "Thousand Recruits" ~ Value*1000,
+  dplyr::mutate(NfishRec = dplyr::case_when(Units == "Thousand Recruits" ~ Value*1000,
                               Units == "Number x 1,000,000" ~ Value*1000000,
                               Units == "Number x 1,000" ~ Value*1000,
                               Units == "Million Recruits" ~ Value*1000000,
@@ -265,7 +266,7 @@ NErecNstd <- NErecN  |>
 # We are calculating an anomaly of recruits per biomass so I think this is ok even though it is not a measure of adult biomass.
 
 NEbioBstd <- NEbiohasrec  |> 
-  mutate(SSBkg = case_when(Units == "Thousand Metric Tons" ~ Value*1000000,
+  dplyr::mutate(SSBkg = dplyr::case_when(Units == "Thousand Metric Tons" ~ Value*1000000,
                            Units == "Metric Tons" ~ Value*1000,
                            Units == "Million Pups" ~ Value*10000000/2,
                            TRUE ~ as.numeric(NA))
@@ -277,10 +278,10 @@ NEbioBstd <- NEbiohasrec  |>
 ## Perretti anomaly calculation ---------------------------------------
 
 SSrecbio <- NErecNstd  |> 
-  select(StockName, SSByr, NfishRec)  |> 
-  left_join(NEbioBstd, by = c("StockName" = "StockName",
+  dplyr::select(StockName, SSByr, NfishRec)  |> 
+  dplyr::left_join(NEbioBstd, by = c("StockName" = "StockName",
                               "SSByr"="Year"))  |> 
-  select(StockName, SSByr, NfishRec, SSBkg)
+  dplyr::select(StockName, SSByr, NfishRec, SSBkg)
 
 
 min_year <- 1980
@@ -288,7 +289,7 @@ max_year <- end.year
 
 
 AssessFishProdAnomaly <- SSrecbio  |> 
-  group_by(StockName) |> 
+  dplyr::group_by(StockName) |> 
   dplyr::mutate(
     recruits_abund_lead1 = NfishRec,
     spawners_biom = SSBkg,
