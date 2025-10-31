@@ -396,8 +396,6 @@ create_comdat <- function(comdat_path,
     tibble::as_tibble()
   
   if (!is.null(outputPathDataSets)) {
-    # make sure the directory exists
-    dir.create(outputPathDataSets, recursive = TRUE, showWarnings = FALSE)
     saveRDS(comdat, file.path(outputPathDataSets, "comdat.rds"))
   }
   
