@@ -15,6 +15,8 @@ create_productivity_anomaly(
 )
 }
 \arguments{
+\item{input_survey_bio}{Character string. Full path to the survey data with bio rds file}
+
 \item{input_survey_bio_epu}{File path to survey data with bio data and epu (.rds format)}
 
 \item{inputPathSpecies}{File path to species lookup table (.rds format)}

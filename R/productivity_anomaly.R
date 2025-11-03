@@ -5,6 +5,7 @@
 #' and their anomalies (z-scores) across species and EPUs. Outputs data formatted 
 #' for State of the Ecosystem (SOE) reporting.
 #'
+#' @param input_survey_bio Character string. Full path to the survey data with bio rds file
 #' @param input_survey_bio_epu File path to survey data with bio data and epu (.rds format)
 #' @param inputPathSpecies File path to species lookup table (.rds format)
 #' @param species2include Character vector of species to include (default: commonly surveyed species)
