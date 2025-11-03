@@ -28,7 +28,10 @@ workflow_productivity_anomaly <- function(input_survey_bio_epu,
                                           inputPathSpecies,
                                           outputPath) {
   
-  prod_anom <- create_productivity_anomaly(input_survey_bio_epu, input_survey_bio, inputPathSpecies)
+  prod_anom <- SOEworkflows::create_productivity_anomaly(
+                                           input_survey_bio = input_survey_bio, 
+                                           input_survey_bio_epu = input_survey_bio_epu,
+                                           inputPathSpecies = inputPathSpecies)
   
   saveRDS(prod_anom,
           file = file.path(outputPath, "productivity_anomaly.rds"))
