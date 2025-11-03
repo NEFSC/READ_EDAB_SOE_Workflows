@@ -15,5 +15,6 @@ source(here::here("data-raw/workflow_productivity_anomaly.R"))
 test_productivity_anomaly <- workflow_productivity_anomaly(
   input_survey_bio_epu = input_survey_bio_epu,
   input_survey_bio = input_survey_bio,
-  inputPathSpecies = inputPathSpecies
+  inputPathSpecies = inputPathSpecies,
+  outputPath = outputPath
 )
