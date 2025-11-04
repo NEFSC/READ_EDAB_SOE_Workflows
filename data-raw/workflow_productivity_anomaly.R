@@ -5,6 +5,7 @@
 #'
 #' @param input_survey_bio_epu Character string. Full path to the survey data with bio and epu rds file
 #' @param input_survey_bio Character string. Full path to the survey data with bio rds file
+#' @param input_lw_table Character string. Full path to the lenght weight table rda file
 #' @param inputPathSpecies Character string. Full path to the species list data pull rds file
 #' @param outputPath Character string. Path to folder where data pull should be saved
 #'
@@ -13,7 +14,8 @@
 #' # create the ecodata::productivity_anomaly indicator
 #' workflow_productivity_anomaly(
 #'   input_survey_bio_epu <- "path/to/survey/bio/epu/.rds"
-#'   input_survey_bio <- "path/to/survey/bio/.rds"
+#'   input_survey_bio <- "path/to/survey/bio/.rds",
+#'   input_lw_table <- "path/to/lw/table/.rda",
 #'   inputPathSpecies = "path/to/species/data/.rds",
 #'   outputPath = "path/to/output/folder"
 #'   )
@@ -25,12 +27,14 @@
 
 workflow_productivity_anomaly <- function(input_survey_bio_epu,
                                           input_survey_bio,
+                                          input_lw_table,
                                           inputPathSpecies,
                                           outputPath) {
   
   prod_anom <- SOEworkflows::create_productivity_anomaly(
                                            input_survey_bio = input_survey_bio, 
                                            input_survey_bio_epu = input_survey_bio_epu,
+                                           input_lw_table = input_lw_table,
                                            inputPathSpecies = inputPathSpecies)
   
   saveRDS(prod_anom,
