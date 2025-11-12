@@ -8,7 +8,6 @@ input_lw_table <- "~/EDAB_Datasets/Workflows/df_lw.rda"
 inputPathSpecies <- "~/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
 outputPath <- "~/EDAB_Indicators/"
 input_length_convert <- "~/EDAB_Datasets/Workflows/df_lconv.rda"
-input_ratio_estimators <- "~/EDAB_Datasets/Workflows/ratio_estimators.rda"
 
 
 ## run workflow ------------------

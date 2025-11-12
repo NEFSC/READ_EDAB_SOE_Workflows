@@ -137,18 +137,13 @@ survdat <-
 
 # Fix some SCINAMES
 survdat <- survdat |> 
-  dplyr::mutate(SCINAME =
-                  ifelse(SCINAME == "LIMANDA FERRUGINEA ",
-                         "LIMANDA FERRUGINEA",
-                         SCINAME),
-                SCINAME =
-                  ifelse(SCINAME == "PSEUDOPLEURONECTES AMERICANUS ",
-                         "PSEUDOPLEURONECTES AMERICANUS",
-                         SCINAME),
-                SCINAME =
-                  ifelse(SCINAME == "MACROZOARCES AMERICANUS",
-                         "ZOARCES AMERICANUS",
-                         SCINAME))
+  dplyr::mutate(
+    SCINAME = as.character(SCINAME),
+    SCINAME = stringr::str_trim(SCINAME),  # removes spaces before and after
+    SCINAME = ifelse(SCINAME == "MACROZOARCES AMERICANUS", "ZOARCES AMERICANUS", SCINAME),
+    SCINAME = factor(SCINAME)
+  )
+
 
 # Change survdat SVVESSEL to "AL" if it isn't "HB"
 # (this is for length-conversion purposes)
@@ -177,29 +172,6 @@ survdat <- survdat |>
                                 NUMLEN,
                                 NUMLEN*rho*sweptratio))
 
-# Apply ratio estimators for all species without
-# length-based conversions
-load(input_ratio_estimators)
-comname2use <- setdiff(ratio_estimators$COMNAME,
-                       df_lconv$COMNAME)
-
-
-survdat <- survdat  |> 
-  dplyr::left_join({
-    ratio_estimators  |> 
-      dplyr::filter(COMNAME %in% comname2use,
-                    variable == "ABUNDANCE")  |> 
-      dplyr::mutate(al2hb_ratio = 1/hb2al_ratio)  |> 
-      dplyr::select(COMNAME, SEASON,
-                    hb2al_ratio, al2hb_ratio)
-    }) |> 
-      dplyr::mutate(
-        NUMLEN = ifelse(
-          (SVVESSEL == "HB" & !is.na(hb2al_ratio)),
-          NUMLEN / hb2al_ratio,
-          NUMLEN
-        )
-      )
 
 # Load length-weight table
 load(input_lw_table)
@@ -218,7 +190,6 @@ survdat <- survdat  |>
 # Remove observations that do not have NUMLEN (a few incomplete records)
 survdat1 <-
   survdat  |> 
-  dplyr::filter(!is.na(NUMLEN))  |> 
   #Keep only wanted species
   dplyr::filter(SCINAME %in% species2out)
 
@@ -231,7 +202,7 @@ survdat1 <-
 # with age data
 message("estimating length cut-off for age-1 fish")
 
-df_len_at_age1_epu <- survdat1  |> 
+df_len_at_age1_epu <- survdat1  |>
   dplyr::filter(YEAR >= (1980 - 1),
                 YEAR <= end.year,
                 !is.na(AGE),
@@ -241,6 +212,7 @@ df_len_at_age1_epu <- survdat1  |>
     len_model <- glm(LENGTH ~ AGE, family = "poisson")
     as.numeric(predict(len_model, newdata = data.frame(AGE = 2), type = "response"))
   }, .groups = "drop")
+
 
 # Calculate the number of tows in each survey season
 message("calculating number of tows per cruise/year/season")
