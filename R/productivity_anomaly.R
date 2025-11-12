@@ -217,44 +217,16 @@ df_len_at_age1_epu <- survdat1  |>
 # Calculate the number of tows in each survey season
 message("calculating number of tows per cruise/year/season")
 
-dat_tows_epu <- survdata_epu  |> 
+dat_tows_epu <- survdat1  |> 
   dplyr::distinct(CRUISE6, YEAR, SEASON, STATION, STRATUM)  |> 
   dplyr::group_by(CRUISE6, YEAR, SEASON)  |> 
   dplyr::summarise(n_tows = dplyr::n(), .groups = "drop")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # merge and calculate recruitment-related variables ---------------------
 
 message("Calculating recruitment-related variables")
 
-dat_spec_rec_epu <- survdata_epu |> 
+dat_spec_rec_epu <- survdat1 |> 
   dplyr::left_join(dat_tows_epu, by = c("CRUISE6", "YEAR", "SEASON")) |> 
   dplyr::left_join(df_len_at_age1_epu, by = c("COMNAME", "SCINAME")) |> 
   dplyr::filter(YEAR >= (1980 - 1), YEAR <= end.year) |> 
