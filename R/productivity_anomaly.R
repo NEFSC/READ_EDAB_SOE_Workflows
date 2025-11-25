@@ -117,12 +117,12 @@ survdat_nefsc <- survdat_nefsc  |>
                              SEX))
 
 
-# species <- readRDS(inputPathSpecies) |> 
-#               dplyr::filter(!is.na(SVSPP)) |> 
-#               dplyr::mutate(COMNAME = as.factor(COMNAME))
+species <- readRDS(inputPathSpecies) |>
+              dplyr::filter(!is.na(SVSPP)) |>
+              dplyr::mutate(COMNAME = as.factor(COMNAME))
 
-load("~/EDAB_Dev/grezlik/trawlr_files/svspp_table.rda")
-load("~/EDAB_Dev/grezlik/trawlr_files/tax_table.rda")
+# load("~/EDAB_Dev/grezlik/trawlr_files/svspp_table.rda")
+# load("~/EDAB_Dev/grezlik/trawlr_files/tax_table.rda")
 
 # Combine surveys:
 survdat <-
@@ -139,8 +139,8 @@ survdat <-
                                 levels =
                                   c("WINTER", "SPRING",
                                     "SUMMER", "FALL"))) |> 
-  dplyr::left_join(svspp_table, by = "SVSPP") |>
-  dplyr::left_join(tax_table)
+  dplyr::left_join(species, by = "SVSPP") #|>
+  # dplyr::left_join(tax_table)
 
 # Fix some SCINAMES
 survdat <- survdat |> 

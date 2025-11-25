@@ -2,10 +2,10 @@
 
 # run workflow_productivity anomaly from the container --------
 ## set paths for data inputs generated in workflow ------------
-# input_survey_bio_epu <- "~/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds"
-input_survey_bio_epu <- "~/EDAB_Dev/grezlik/trawlr_files/Survdat_bio_EPU.rds"
-# input_survey_bio <- "~/EDAB_Datasets/Workflows/surveyBiologicalData.rds"
-input_survey_bio <- "~/EDAB_Dev/grezlik/trawlr_files/Survdat.bio.rds"
+input_survey_bio_epu <- "~/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds"
+# input_survey_bio_epu <- "~/EDAB_Dev/grezlik/trawlr_files/Survdat_bio_EPU.rds"
+input_survey_bio <- "~/EDAB_Datasets/Workflows/surveyBiologicalData.rds"
+# input_survey_bio <- "~/EDAB_Dev/grezlik/trawlr_files/Survdat.bio.rds"
 input_lw_table <- "~/EDAB_Datasets/Workflows/df_lw.rda"
 inputPathSpecies <- "~/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
 outputPath <- "~/EDAB_Indicators/"
@@ -63,7 +63,7 @@ trawlr <- readRDS("~/EDAB_Dev/grezlik/trawlr_files/trawlr_productivity_anomaly.r
 old <- ecodata::productivity_anomaly |> 
             dplyr::mutate(source = 'ecodata')
 
-compare <- dplyr::bind_rows(old, trawlr)
+compare <- dplyr::bind_rows(new,old, trawlr)
 
 library(ggplot2)
 library(dplyr)
@@ -72,7 +72,7 @@ library(purrr)
 # loop through Vars and plot
 
 # Create a directory to save the plots
-out_dir <- "~/EDAB_Dev/grezlik/plots_productivity_ecodata_trawlr"
+out_dir <- "~/EDAB_Dev/grezlik/plots_productivity_workflow_ecodata_trawlr"
 dir.create(out_dir, showWarnings = FALSE)
 
 # Loop through each unique Var
