@@ -18,7 +18,8 @@
 #' create_productivity_anomaly(
 #'   input_survey_bio = "survey_bio.rds"
 #'   input_survey_bio_epu = "survey_bio_epu.rds",
-#'   input_lw_table = "lw_table.rda",
+#'   input_static_lw_table = "lw_table.rda",
+#'   input_static_length_convert = "df_lconv.rda",
 #'   inputPathSpecies = "species_lookup.rds"
 #' )
 #' }
@@ -28,8 +29,9 @@
 create_productivity_anomaly <- function(
     input_survey_bio,
     input_survey_bio_epu,
-    input_lw_table,
+    input_static_lw_table,
     inputPathSpecies,
+    input_static_length_convert,
     species2include = c(
       "ACADIAN REDFISH", "AMERICAN PLAICE", "ATLANTIC COD", "BLACK SEA BASS",
       "BUTTERFISH", "HADDOCK", "POLLOCK", "RED HAKE", "SCUP", "SILVER HAKE",
@@ -74,7 +76,6 @@ station_epus <-
                 SEASON = as.character(SEASON))
 
 # Load survdat bio without epu's
-#load(file.path(raw.dir,"SurvdatBio.RData"))
 bio.data <- readRDS(input_survey_bio)
 survdat.bio <- bio.data$survdat
 
@@ -121,9 +122,6 @@ species <- readRDS(inputPathSpecies) |>
               dplyr::filter(!is.na(SVSPP)) |>
               dplyr::mutate(COMNAME = as.factor(COMNAME))
 
-# load("~/EDAB_Dev/grezlik/trawlr_files/svspp_table.rda")
-# load("~/EDAB_Dev/grezlik/trawlr_files/tax_table.rda")
-
 # Combine surveys:
 survdat <-
   survdat_nefsc  |> 
@@ -139,8 +137,7 @@ survdat <-
                                 levels =
                                   c("WINTER", "SPRING",
                                     "SUMMER", "FALL"))) |> 
-  dplyr::left_join(species, by = "SVSPP") #|>
-  # dplyr::left_join(tax_table)
+  dplyr::left_join(species, by = "SVSPP") 
 
 # Fix some SCINAMES
 survdat <- survdat |> 
@@ -161,7 +158,7 @@ survdat <- survdat  |>
 # Perform length conversions where available
 # Load length-conversions and combine into one df
 # (conversions from Miller 2013)
-load(input_length_convert)
+load(input_static_length_convert)
 
 # Add offshore hake to length conversion which is identical
 # to silver hake (per Larry Alade 2016)
@@ -180,10 +177,9 @@ survdat <- survdat |>
 
 
 # Load length-weight table
-load(input_lw_table)
+load(input_static_lw_table)
 df_lw <- df_lw |> 
   dplyr::mutate(SEX = as.character(SEX))
-#data(df_lw)
 
 survdat <- survdat  |> 
   dplyr::left_join(df_lw) |> 
@@ -645,7 +641,7 @@ productivity_anomaly1 <- dat_spec_rec_forSOE  |>
 message("Pulling and tidying stockSMART data")
 
 # following https://github.com/NOAA-EDAB/stockstatusindicator/blob/master/MultisppRec2024.Rmd
-# old script adds prelim assessment data. I am leaving out for now
+# old script adds prelim assessment data which is now in stockSMART
 
 ## get stocksmart info -----------------------
 
