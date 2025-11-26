@@ -20,27 +20,44 @@
 #' @return ecodata::bennet data frame
 #'
 #' @section Dependencies:
-#' 
+#'
 #' This assumes that the commercial data has been pulled and resides in the path `inputPathBennet`
 #'
 #' @export
 
-
-
-workflow_bennet <- function(inputPathBennet, inputPathSpecies, outputPath = NULL) {
-  
+workflow_bennet <- function(
+  inputPathBennet,
+  inputPathSpecies,
+  outputPath = NULL
+) {
   # Assumes that commercial data has been pulled
   #get_commercial_data(channel,outputPathDatasets = outputPath)
-  
+
   # Add check to skip running workflow if data not present
-  if(file.exists(inputPathBennet) && file.exists(inputPathSpecies) && (!is.null(outputPath))) {
-    
-    indicatorData <- SOEworkflows::create_bennet(inputPathBennet = inputPathBennet,
-                                                 inputPathSpecies = inputPathSpecies)
-    # write data to file
-    saveRDS(indicatorData,paste0(outputPath,"/bennet.rds"))
-  } else {
-    #
-    message("One or more of the input files are not present in the location specified")
-  }
+  tryCatch(
+    {
+      if (
+        !all(
+          file.exists(inputPathBennet),
+          file.exists(inputPathSpecies),
+          (!is.null(outputPath))
+        )
+      ) {
+        stop("Incorrect file path or file missing")
+      }
+
+      # calculate indicator
+      indicatorData <- SOEworkflows::create_bennet(
+        inputPathBennet = inputPathBennet,
+        inputPathSpecies = inputPathSpecies
+      )
+      # write data to file
+      saveRDS(indicatorData, paste0(outputPath, "/bennet.rds"))
+      return(indicatorData)
+    },
+    error = function(e) {
+      message("An error occurred: ", conditionMessage(e))
+      return(NULL)
+    }
+  )
 }

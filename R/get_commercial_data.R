@@ -17,7 +17,17 @@
 #'@export
 
 get_commercial_data <- function(channel) {
+  # commercial data lags by an additional year.
+  # SOE 2025 uses data through 2023
+  # Bennet then uses a reference year of January 2023
+  # Since cycle should be over by May any time the workflow is run prior to May we assume it is for existing cycle
   end.year <- as.numeric(format(Sys.Date(), "%Y"))
+  currentMonth <- lubridate::month(Sys.Date())
+  if (currentMonth > 4) {
+    end.year <- end.year
+  } else {
+    end.year <- end.year - 1
+  }
 
   ## These EPU definitions should/could be in an external file or a data package
   #Set up EPU definitions
@@ -38,9 +48,9 @@ get_commercial_data <- function(channel) {
 
   message("Pulling Commercial data by EPU ...")
   # Get the commercial data for comdat and bennet
-  comland1 <- comlandr::get_comland_data(
+  comdat <- comlandr::get_comland_data(
     channel,
-    filterByYear = 1964:end.year,
+    filterByYear = 1964:(end.year-1),
     refYear = end.year - 1,
     refMonth = 1,
     aggArea = T,
@@ -51,13 +61,16 @@ get_commercial_data <- function(channel) {
     knStrata = c('HY', 'QY', 'MONTH', 'NEGEAR', 'TONCL2', 'AREA')
   )
   # Remove menhaden
-  comland1$comland <- comland1$comland |>
+  comdat$comland <- comdat$comland |>
     dplyr::filter(!(NESPP3 == 221))
+  
+  # Bennet indicator
+  bennet <- comdat
 
   # create a list of data sets
   commercial_data <- list(
-    comdat = comland1,
-    bennet = comland1
+    comdat = comdat,
+    bennet = bennet
   )
 
   return(commercial_data)

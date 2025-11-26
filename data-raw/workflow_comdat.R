@@ -20,37 +20,46 @@
 #' }
 #'
 #' @section Dependencies:
-#' 
+#'
 #' This assumes that the commercial data has been pulled and resides in the path `comdat_path`
 #' and that create_menhaden_input.R has been run and outputs saved to `menhaden_path`
 #'
 #' @export
 
-
-
-workflow_comdat <- function(comdat_path,
-                            input_path_species,
-                            menhaden_path,
-                            outputPathDataSets) {
-  
-  
+workflow_comdat <- function(
+  comdat_path,
+  input_path_species,
+  menhaden_path,
+  outputPathDataSets
+) {
   # Add check to skip running workflow if data not present
-  if(file.exists(comdat_path) && 
-     file.exists(input_path_species) && 
-     file.exists(menhaden_path) &&
-     !is.null(outputPathDataSets)) {
-    
-    indicatorData <- SOEworkflows::create_comdat(
-      comdat_path = comdat_path,
-      input_path_species =  input_path_species,
-      menhaden_path = menhaden_path,
-      outputPathDataSets = outputPathDataSets
+
+  tryCatch(
+    {
+      if (
+        !all(
+          !is.null(outputPathDataSets),
+          file.exists(comdat_path),
+          file.exists(input_path_species),
+          file.exists(menhaden_path)
+        )
+      ) {
+        stop("Incorrect file path or file missing")
+      }
+
+      # calculate indicator
+      indicatorData <- SOEworkflows::create_comdat(
+        comdat_path = comdat_path,
+        input_path_species = input_path_species,
+        menhaden_path = menhaden_path,
+        outputPathDataSets = outputPathDataSets
       )
-    
-    return(indicatorData)
-    
-  } else {
-    message("One or more of the input files are missing or the output path is NULL.")
-    return(NULL)
-  }
+
+      return(indicatorData)
+    },
+    error = function(e) {
+      message("An error occurred: ", conditionMessage(e))
+      return(NULL)
+    }
+  )
 }
