@@ -37,7 +37,7 @@ workflow_productivity_anomaly <- function(input_survey_bio_epu,
   prod_anom <- SOEworkflows::create_productivity_anomaly(
     input_survey_bio_epu = input_survey_bio_epu,
     input_survey_bio = input_survey_bio,
-    input_static_lw_table = input_lw_table,
+    input_static_lw_table = input_static_lw_table,
     inputPathSpecies = inputPathSpecies,
     input_static_length_convert = input_static_length_convert
     )

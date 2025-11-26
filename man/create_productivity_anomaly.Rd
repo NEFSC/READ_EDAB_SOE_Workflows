@@ -7,7 +7,9 @@
 create_productivity_anomaly(
   input_survey_bio,
   input_survey_bio_epu,
+  input_static_lw_table,
   inputPathSpecies,
+  input_static_length_convert,
   species2include = c("ACADIAN REDFISH", "AMERICAN PLAICE", "ATLANTIC COD",
     "BLACK SEA BASS", "BUTTERFISH", "HADDOCK", "POLLOCK", "RED HAKE", "SCUP",
     "SILVER HAKE", "SUMMER FLOUNDER", "WHITE HAKE", "WINDOWPANE", "WINTER FLOUNDER",
@@ -19,7 +21,11 @@ create_productivity_anomaly(
 
 \item{input_survey_bio_epu}{File path to survey data with bio data and epu (.rds format)}
 
+\item{input_static_lw_table}{File path to length weight table from Miller 2013 (.rda format)}
+
 \item{inputPathSpecies}{File path to species lookup table (.rds format)}
+
+\item{input_static_length_convert}{File path to length conversion table (.rda format)}
 
 \item{species2include}{Character vector of species to include (default: commonly surveyed species)}
 }
@@ -34,8 +40,11 @@ for State of the Ecosystem (SOE) reporting.
 \examples{
 \dontrun{
 create_productivity_anomaly(
+  input_survey_bio = "survey_bio.rds"
   input_survey_bio_epu = "survey_bio_epu.rds",
-  inputPathSpecies = "species_lookup.rds",
+  input_static_lw_table = "lw_table.rda",
+  input_static_length_convert = "df_lconv.rda",
+  inputPathSpecies = "species_lookup.rds"
 )
 }
 

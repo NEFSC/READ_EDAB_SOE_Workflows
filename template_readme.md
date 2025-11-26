@@ -117,7 +117,9 @@ To run the "workflow" below, it is assumed that the "raw" survey data has been p
 workflow_productivity_anomaly(
                               input_survey_bio_epu,
                               input_survey_bio,
+                              input_static_lw_table,
                               inputPathSpecies,
+                              input_static_length_convert,
                               outputPath
                               )
 
@@ -125,7 +127,9 @@ workflow_productivity_anomaly(
 
 * `input_survey_bio_epu` is the path to the dynamically created survey data `EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds`.
 * `input_survey_bio` is the path to the dynamically created survey data `EDAB_Datasets/Workflows/surveyBiologicalData.rds`.
+* `input_static_lw_table` is the path to the static length weight table from Miller 2013 `EDAB_Datasets/Workflows/df_lw.rda`.
 * `inputPathSpecies` is the path to static data set `EDAB_Datasets/Workflows/SOE_species_list_24.rds`.
+* `input_static_length_convert` is the path to the static length conversion table `EDAB_Datasets/Workflows/df_lconv.rda`.
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 
 The rds file name is hardcoded as `productivity_anomaly.rds` to match the `ecodata` package dataset
