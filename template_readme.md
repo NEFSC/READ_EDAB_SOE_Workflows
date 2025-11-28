@@ -107,7 +107,6 @@ workflow_species_dist(inputPathSurvey,inputPathSpecies, static_depth,
 The rds file name is hardcoded as `species_dist.rds` to match the `ecodata` package dataset
 
 ### productivity_anomaly
-
 To run the "workflow" below, it is assumed that the "raw" survey data has been pulled using the 
 `get_survey_data` function above.
 
@@ -122,7 +121,6 @@ workflow_productivity_anomaly(
                               input_static_length_convert,
                               outputPath
                               )
-
 ```
 
 * `input_survey_bio_epu` is the path to the dynamically created survey data `EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds`.
@@ -133,6 +131,16 @@ workflow_productivity_anomaly(
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 
 The rds file name is hardcoded as `productivity_anomaly.rds` to match the `ecodata` package dataset
+
+### species_condition
+```
+workflow_condition(inputPath, inputpathLW, inputpathSpecies, outputPath)
+```
+* `inputPath` is the path to the static data set `EDAB_Dev/beet/condition.rds`
+* `inputPathSpecies` is the path to static data set `EDAB_Resources/workflow_resources/soe_workflows/species.codes.csv`
+* `inputPathLW` is the path to the static data set `EDAB_Resources/workflow_resources/soe_workflows/LWparams.csv`
+* `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+The rds file name is hardcoded as `condition.rds` to match the `ecodata` package dataset
 
 
 ## Commercial Landings Based Indicators
@@ -215,3 +223,52 @@ workflow_trans_dates(inputPath, outputPath)
 * `inputPath` is the path to static data set `EDAB_Datasets/TS_SHP_adv rep MAB GOM GBK NES SCSPoly.csv`.
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `trans_dates.rds` to match the `ecodata` package dataset
+
+### Heatwave (heatwave & heatwave_year)
+
+To run the "workflow" below, it is assumed that the static, detrended input files from Joe Caracappa and Vince Saba are present.
+
+*Note: the following function resides in the folder `data-raw` and is NOT part of the package*
+
+
+```
+workflow_heatwave(inputPathGBBot,inputPathGOMBot,inputPathMABBot,inputPathGBSurf,inputPathGOMSurf,inputPathMABSurf)
+workflow_heatwave_year(inputPathGBBot,inputPathGOMBot,inputPathMABBot,inputPathGBSurf,inputPathGOMSurf,inputPathMABSurf)
+```
+
+* `inputPathGBxxx` is the path to static, detrended data sets `EDAB_Datasets/GB_SST_1982_to_2024_detrended.csv` or `EDAB_Datasets/daily_bottomT_GB_1959_2024_detrended.csv`for Georges Bank surface and bottom heatwaves, respectively.
+* `inputPathGOMxxx` is the path to static, detrended data sets `EDAB_Datasets/GOM_SST_1982_to_2024_detrended.csv` or `EDAB_Datasets/daily_bottomT_GOM_1959_2024_detrended.csv`for Gulf of Maine surface and bottom heatwaves, respectively.
+* `inputPathMABxxx` is the path to static, detrended data sets `EDAB_Datasets/MAB_SST_1982_to_2024_detrended.csv` or `EDAB_Datasets/daily_bottomT_MAB_1959_2024_detrended.csv`for Mid-Atlantic Bight surface and bottom heatwaves, respectively.
+* `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+The rds file names are hardcoded as `heatwave.rds`, `heatwave_year.rds` to match the `ecodata` package dataset
+
+
+
+## Recreational Landings Based Indicators
+
+### rec_hms
+
+Recreational data will pulled using the function below.
+
+*Note: the following function resides in the folder `data-raw` and is NOT part of the package*
+
+```
+workflow_pull_rec_hms(outputDir)
+```
+
+* `outputDir` is the path to the folder where "raw" data is stored, currently `EDAB_Dev/atyrell`
+* The data set created is `hms_mrip_(Sys.Date).csv`
+
+To run the "workflow" below, it is assumed that the recreational data has been pulled using the 
+`workflow_pull_rec_hms` function above. 
+
+*Note: the following function resides in the folder `data-raw` and is NOT part of the package*
+
+```
+workflow_rec_hms(inputPath,inputKey, outputPath)
+```
+
+* `inputPath` is the path to the data set created by `workflow_pull_rec_hms`, currently residing in `EDAB_Dev/atyrell/hms_mrip_(Sys.Date).csv`.
+* `inputKey` is the path to the static data set `EDAB_Resources/workflow_resources/soe_workflows/hms_key.csv`
+* `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+The rds file name is hardcoded as `rec_hms.rds` to match the `ecodata` package dataset

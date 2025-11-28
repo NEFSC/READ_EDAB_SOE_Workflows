@@ -133,5 +133,23 @@ create_exp_n <- function(inputPathAlbatross,inputPathBigelow) {
   ESn.epu <- expanded |>
     dplyr::left_join(ESn.epu, by = c("Time", "Var"))
   
+  exp_n2<- ESn.epu  |> 
+    dplyr::filter(stringr::str_detect(Var,  'Species - Bigelow|Species - Albatross')) |> 
+    tidyr::separate(Var, c("Season", "EPU", "trash1","trash2", "trash3", "trash4", "Var")) |> 
+    dplyr::select(-trash1, -trash2, -trash3, -trash4)
+  
+  ESn.epu <- ESn.epu |>
+    dplyr::filter(stringr::str_detect(Var,  'Standard Deviation')) |>
+    tidyr::separate(Var, c("Season", "EPU", "trash1", "trash2", "trash3","trash4",
+                           "trash5", "trash6","Var")) |>
+    dplyr::mutate(Var=dplyr::recode(Var,
+                                    `Albatross`="AlbatrossSD",
+                                    `Bigelow`="BigelowSD")) |>
+    dplyr::select(-trash1, -trash2, -trash3, -trash4, -trash5, -trash6) |>
+    rbind(exp_n2)|>
+    tibble::as_tibble() |>
+    dplyr::mutate(Var = paste0(Var, "-", Season)) |>
+    dplyr::select(Time, Var, Value, EPU, Units)
+  
   return(ESn.epu)
 }

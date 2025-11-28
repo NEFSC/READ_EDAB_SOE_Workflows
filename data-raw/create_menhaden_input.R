@@ -30,7 +30,7 @@ library(dplyr)
 file1 <- "/home/mgrezlik/EDAB_Datasets/AM Landings by Gaichas Regions 1967-2024.xlsx" #for workflow
 
 reduction <- read_excel(path = file1,
-                        range = "A7:F64")   # HARDCODED RANGE NEED TO UPDATE EACH YEAR
+                        range = "A7:F65")   # HARDCODED RANGE NEED TO UPDATE EACH YEAR
 
 reductiontons <- reduction[,c(1, 5:6)]
 names(reductiontons) <- c("year", "MAB", "GOM")
@@ -326,7 +326,7 @@ ggplot2::ggplot(menhadencatch, ggplot2::aes(x = year, y=NEUScatch)) +
 menhadenEOF <- menhadencatch  |> 
   dplyr::select(year, NEUScatch, MABcatch, GOMcatch, units)
 
-saveRDS(menhadenEOF,"/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds")
+saveRDS(menhadenEOF,"/home/mgrezlik/EDAB_Datasets/Workflows/menhadenEOF.rds")
 
 
 # This R data object will be transferred securely to Andy Beet for incorporation into the Ecosystem Overfishing indicators.
