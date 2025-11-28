@@ -683,6 +683,7 @@ recyr <- NErec  |>
 NErecN <- NErec  |> 
   dplyr::filter(AssessmentYear>2018,
          Units %in% c("Thousand Recruits",
+                      "Thousand recruits",
                       "Number x 1,000,000",
                       "Number x 1,000",
                       "Million Recruits")) 
@@ -704,6 +705,7 @@ bothyr <- NEbiohasrec  |>
 
 NErecNstd <- NErecN  |> 
   dplyr::mutate(NfishRec = dplyr::case_when(Units == "Thousand Recruits" ~ Value*1000,
+                              Units == "Thousand recruits" ~ Value*1000,
                               Units == "Number x 1,000,000" ~ Value*1000000,
                               Units == "Number x 1,000" ~ Value*1000,
                               Units == "Million Recruits" ~ Value*1000000,

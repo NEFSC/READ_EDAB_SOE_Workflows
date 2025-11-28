@@ -291,8 +291,7 @@ p3 <- plot_productivity_anomaly(report = "MidAtlantic", varName = 'assessment')
 p4 <- ecodata::plot_productivity_anomaly(varName = 'assessment')
 
 cowplot::plot_grid(p3, p4, ncol = 1)
-# tilefish is not in workflow but is in ecodata
-# should I add them?
+
 
 p5 <- plot_productivity_anomaly(report = "NewEngland", EPU = "GOM")
 p6 <- ecodata::plot_productivity_anomaly(report = "NewEngland", EPU = "GOM")
