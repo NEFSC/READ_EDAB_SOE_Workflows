@@ -34,14 +34,38 @@ workflow_productivity_anomaly <- function(input_survey_bio_epu,
                                           input_static_length_convert,
                                           outputPath) {
   
-  prod_anom <- SOEworkflows::create_productivity_anomaly(
-    input_survey_bio_epu = input_survey_bio_epu,
-    input_survey_bio = input_survey_bio,
-    input_static_lw_table = input_static_lw_table,
-    inputPathSpecies = inputPathSpecies,
-    input_static_length_convert = input_static_length_convert
-    )
+  tryCatch(
+    {
+      if (
+        !all(
+          !is.null(outputPath),
+          file.exists(input_survey_bio_epu),
+          file.exists(input_survey_bio),
+          file.exists(input_static_lw_table),
+          file.exists(inputPathSpecies),
+          file.exists(input_static_length_convert)
+        )
+      ) {
+        stop("Incorrect file path or file missing")
+      }
+      
+      # calculate indicator
+      indicatorData <- SOEworkflows::create_productivity_anomaly(
+        input_survey_bio_epu = input_survey_bio_epu,
+        input_survey_bio = input_survey_bio,
+        input_static_lw_table = input_static_lw_table,
+        inputPathSpecies = inputPathSpecies,
+        input_static_length_convert = input_static_length_convert
+      )
+      
+      # write data to file
+      saveRDS(indicatorData, paste0(outputPath, "/productivity_anomaly.rds"))
+      return(indicatorData)
+    },
+    error = function(e) {
+      message("An error occurred: ", conditionMessage(e))
+      return(NULL)
+    }
+  )
   
-  saveRDS(prod_anom,
-          file = file.path(outputPath, "productivity_anomaly.rds"))
 }
