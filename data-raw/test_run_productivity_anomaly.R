@@ -283,25 +283,58 @@ p1 <- plot_productivity_anomaly()
 p2 <- ecodata::plot_productivity_anomaly()
 
 # Combine
-cowplot::plot_grid(p1, p2, ncol = 1)
-# SOE 2024 didn't have Atlanic Cod in this plot
+# comparison_plot <- cowplot::plot_grid(p1, p2, ncol = 1)
+
+# Save to file
+# ggplot2::ggsave(
+#   filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/MA_fig36a.png",
+#   plot = comparison_plot,
+#   width = 8,      # adjust as needed
+#   height = 10,    # adjust as needed
+#   dpi = 300       # publication quality
+# )
+# SOE 2024 didn't have Atlantic Cod in this plot
+# I'm not sure why.
 # Do we want to remove them?
 
 p3 <- plot_productivity_anomaly(report = "MidAtlantic", varName = 'assessment')
 p4 <- ecodata::plot_productivity_anomaly(varName = 'assessment')
 
-cowplot::plot_grid(p3, p4, ncol = 1)
-
+# comparison_plot <- cowplot::plot_grid(p3, p4, ncol = 1)
+# 
+# ggplot2::ggsave(
+#   filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/MA_fig36b.png",
+#   plot = comparison_plot,
+#   width = 8,      # adjust as needed
+#   height = 10,    # adjust as needed
+#   dpi = 300       # publication quality
+# )
 
 p5 <- plot_productivity_anomaly(report = "NewEngland", EPU = "GOM")
 p6 <- ecodata::plot_productivity_anomaly(report = "NewEngland", EPU = "GOM")
 
-cowplot::plot_grid(p5, p6, ncol = 1)
+# comparison_plot <- cowplot::plot_grid(p5, p6, ncol = 1)
+# 
+# ggplot2::ggsave(
+#   filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/NE_fig36a.png",
+#   plot = comparison_plot,
+#   width = 8,      # adjust as needed
+#   height = 10,    # adjust as needed
+#   dpi = 300       # publication quality
+# )
 # Summer flounder is not in workflow but is in ecodata
 # should I add them?
 
 p7 <- plot_productivity_anomaly(report = "NewEngland", varName = 'assessment')
 p8 <- ecodata::plot_productivity_anomaly(report = "NewEngland", varName = 'assessment')
-cowplot::plot_grid(p7, p8, ncol = 1)
+# comparison_plot <- cowplot::plot_grid(p7, p8, ncol = 1)
+# 
+# ggplot2::ggsave(
+#   filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/NE_fig36b.png",
+#   plot = comparison_plot,
+#   width = 8,      # adjust as needed
+#   height = 10,    # adjust as needed
+#   dpi = 300       # publication quality
+# )
 # workflow doesn't have Atlantic Cod but ecodata does
 # should I add them?
