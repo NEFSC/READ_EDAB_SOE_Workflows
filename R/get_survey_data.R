@@ -56,27 +56,34 @@ get_survey_data <- function(channel) {
   # Get Biological data
   message("##############################################################")
   message("Getting bottom trawl survey with biological info")
-  bio <- survdat::get_survdat_data(channel,
-                            filterByYear = NA, 
-                            all.season = F,
-                            shg.check = T,
-                            conversion.factor = T, 
-                            use.SAD = F, 
-                            getBio = T,
-                            getLengths = T,
-                            getWeightLength = F)
+  bio <- survdat::get_survdat_data(
+    channel,
+    filterByYear = NA,
+    all.season = F,
+    shg.check = T,
+    conversion.factor = T,
+    use.SAD = F,
+    getBio = T,
+    getLengths = T,
+    getWeightLength = F
+  )
   # Assign EPUs to biological data pull.
   # Note that records in Strata not defined by an EPU will be omitted
-  bio_epu <- dplyr::left_join(bio$survdat,SOEworkflows::epu_strata , by = c("STRATUM")) |> 
+  bio_epu <- dplyr::left_join(
+    bio$survdat,
+    SOEworkflows::epu_strata,
+    by = c("STRATUM")
+  ) |>
     dplyr::filter(!is.na(EPU))
-  
-  
+
   # Get mass inshore survey data
   message("##############################################################")
   message("Getting the Massachusetts Inshore Survey Data")
-  mass_inshore <- survdat::get_mass_inshore_survey(channel,
-                                                   filterByYear = 1963:end.year)
-  
+  mass_inshore <- survdat::get_mass_inshore_survey_data(
+    channel,
+    filterByYear = 1963:end.year
+  )
+
   # create a list of three datasets
   survey_data <- list(
     survey1 = survey1,
