@@ -298,7 +298,9 @@ dat_spec_rec_epu <- survdat1 |>
                 rs_abund   = recruits_abund_lead1/
                   spawners_abund,
                 rs_biom    = recruits_biom_lead1/
-                  spawners_biom,
+                  spawners_biom) |> 
+  dplyr::mutate(across(where(is.numeric), ~ ifelse(!is.finite(.), NA, .))) |>               
+  dplyr::mutate(
                 logr_abund = log(recruits_abund_lead1),
                 logr_biom  = log(recruits_biom_lead1),
                 logs_abund = log(spawners_abund),
