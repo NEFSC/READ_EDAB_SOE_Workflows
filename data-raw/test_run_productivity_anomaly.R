@@ -323,7 +323,7 @@ p6 <- ecodata::plot_productivity_anomaly(report = "NewEngland", EPU = "GOM")
 #   dpi = 300       # publication quality
 # )
 # Summer flounder is not in workflow but is in ecodata
-# should I add them?
+# Fixed that issue but now BSB and Butterfish were added which are not in ecodata
 
 p7 <- plot_productivity_anomaly(report = "NewEngland", varName = 'assessment')
 p8 <- ecodata::plot_productivity_anomaly(report = "NewEngland", varName = 'assessment')
