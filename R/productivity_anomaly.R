@@ -289,11 +289,15 @@ dat_spec_rec_epu <- survdat1 |>
                  COMNAME, SCINAME, EPU, YEAR)  |> 
   dplyr::group_by(SEASON,
                   COMNAME, SCINAME, EPU) |> 
-  dplyr::mutate(recruits_biom_lead1 = dplyr::lead(recruits_biom,
+  dplyr::mutate(bad_pair = !is.na(dplyr::lead(YEAR)) &
+                  ((YEAR +1 != dplyr::lead(YEAR)) | (SEASON != dplyr::lead(SEASON))),
+                recruits_biom_lead1 = dplyr::lead(recruits_biom,
                                                   n = 1),
                 recruits_abund_lead1 = dplyr::lead(recruits_abund,
-                                                   n = 1),
-                rs         = recruits_abund_lead1/
+                                                   n = 1))  |> 
+  dplyr::mutate(across(c(recruits_biom_lead1, recruits_abund_lead1),
+                       ~ ifelse(bad_pair, NA, .)))  |> 
+  dplyr::mutate(rs         = recruits_abund_lead1/
                   spawners_biom,
                 rs_abund   = recruits_abund_lead1/
                   spawners_abund,
@@ -475,11 +479,15 @@ dat_spec_rec <- survdat1 |>
                  COMNAME, SCINAME, YEAR)  |> 
   dplyr::group_by(SEASON,
                   COMNAME, SCINAME) |> 
-  dplyr::mutate(recruits_biom_lead1 = dplyr::lead(recruits_biom,
+  dplyr::mutate(bad_pair = !is.na(dplyr::lead(YEAR)) &
+                  ((YEAR +1 != dplyr::lead(YEAR)) | (SEASON != dplyr::lead(SEASON))),
+                recruits_biom_lead1 = dplyr::lead(recruits_biom,
                                                   n = 1),
                 recruits_abund_lead1 = dplyr::lead(recruits_abund,
-                                                   n = 1),
-                rs         = recruits_abund_lead1/
+                                                   n = 1))  |> 
+  dplyr::mutate(across(c(recruits_biom_lead1, recruits_abund_lead1),
+                       ~ ifelse(bad_pair, NA, .)))  |> 
+  dplyr::mutate(rs         = recruits_abund_lead1/
                   spawners_biom,
                 rs_abund   = recruits_abund_lead1/
                   spawners_abund,
