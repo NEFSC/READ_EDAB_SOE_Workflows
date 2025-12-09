@@ -288,7 +288,7 @@ comparison_plot <- cowplot::plot_grid(p1, p2, ncol = 1)
 
 # Save to file
 ggplot2::ggsave(
-  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/SApatch_MA_fig36a.png",
+  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/LuceyFix_SApatch_MA_fig36a.png",
   plot = comparison_plot,
   width = 8,      # adjust as needed
   height = 10,    # adjust as needed
