@@ -637,11 +637,11 @@ plot_stackbarcpts_single_trawlr <- function(YEAR, var2bar,
 trawlr_p1 <- plot_productivity_anomaly_trawlr(report = "MidAtlantic")
 
 # Combine
-comparison_plot <- cowplot::plot_grid(trawlr_p1, p1, ncol = 1)
+comparison_plot <- cowplot::plot_grid(trawlr_p1, p2, ncol = 1)
 
 # Save to file
 ggplot2::ggsave(
-  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/trawlr_LuceyFix_SApatch_MA_fig36a.png",
+  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/trawlr_ecodata_MA_fig36a.png",
   plot = comparison_plot,
   width = 8,      # adjust as needed
   height = 10,    # adjust as needed
@@ -651,10 +651,10 @@ ggplot2::ggsave(
 
 trawlr_p3 <- plot_productivity_anomaly_trawlr(report = "MidAtlantic", varName = 'assessment')
 
-comparison_plot <- cowplot::plot_grid(trawlr_p3, p3, ncol = 1)
+comparison_plot <- cowplot::plot_grid(trawlr_p3, p4, ncol = 1)
 
 ggplot2::ggsave(
-  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/trawlr_LuceyFix_SApatch_MA_fig36b.png",
+  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/trawlr_ecodata_fig36b.png",
   plot = comparison_plot,
   width = 8,      # adjust as needed
   height = 10,    # adjust as needed
@@ -663,10 +663,10 @@ ggplot2::ggsave(
 
 trawlr_p5 <- plot_productivity_anomaly_trawlr(report = "NewEngland", EPU = "GOM")
 
-comparison_plot <- cowplot::plot_grid(trawlr_p5, p5, ncol = 1)
+comparison_plot <- cowplot::plot_grid(trawlr_p5, p6, ncol = 1)
 
 ggplot2::ggsave(
-  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/trawlr_LuceyFix_SApatch_NE_fig36a.png",
+  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/trawlr_ecodata_fig36a.png",
   plot = comparison_plot,
   width = 8,      # adjust as needed
   height = 10,    # adjust as needed
@@ -676,10 +676,10 @@ ggplot2::ggsave(
 # Fixed that issue but now BSB and Butterfish were added which are not in ecodata
 
 trawlr_p7 <- plot_productivity_anomaly(report = "NewEngland", varName = 'assessment')
-comparison_plot <- cowplot::plot_grid(trawlr_p7, p7, ncol = 1)
+comparison_plot <- cowplot::plot_grid(trawlr_p7, p8, ncol = 1)
 
 ggplot2::ggsave(
-  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/trawlr_LuceyFix_SApatch_NE_fig36b.png",
+  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/trawlr_ecodata_NE_fig36b.png",
   plot = comparison_plot,
   width = 8,      # adjust as needed
   height = 10,    # adjust as needed
