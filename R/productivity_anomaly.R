@@ -651,11 +651,6 @@ productivity_anomaly1 <- dat_spec_rec_forSOE  |>
 
 message("Pulling and tidying stockSMART data")
 
-# Seeing if reading in patchRec and patchBio
-# fixes the issues with species in plots
-patchBio <- readRDS("~/EDAB_Dev/grezlik/patchBIO.rds")
-patchRec <- readRDS("~/EDAB_Dev/grezlik/patchRec.rds")
-
 # following https://github.com/NOAA-EDAB/stockstatusindicator/blob/master/MultisppRec2024.Rmd
 # old script adds prelim assessment data which is now in stockSMART
 
@@ -664,7 +659,7 @@ patchRec <- readRDS("~/EDAB_Dev/grezlik/patchRec.rds")
 NErec <- stocksmart::stockAssessmentData  |> 
   dplyr::filter(RegionalEcosystem == "Northeast Shelf",
          Metric == "Recruitment") |> 
-  dplyr::full_join(patchRec) |>
+  # dplyr::full_join(patchRec) |>
   dplyr::group_by(StockName)  |> 
   dplyr::filter(AssessmentYear == max(AssessmentYear))  |> 
   dplyr::ungroup() 
@@ -676,7 +671,7 @@ NErec_sppunits <- NErec  |>
 NEbio <- stocksmart::stockAssessmentData  |> 
   dplyr::filter(RegionalEcosystem == "Northeast Shelf",
          Metric == "Abundance")  |> 
-  dplyr::full_join(patchBio) |>
+  # dplyr::full_join(patchBio) |>
   dplyr::group_by(StockName) |> 
   dplyr::filter(AssessmentYear == max(AssessmentYear)) |> 
   dplyr::ungroup() 
