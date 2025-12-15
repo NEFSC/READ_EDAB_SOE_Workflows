@@ -38,6 +38,16 @@ test_productivity_anomaly <- workflow_productivity_anomaly(
 
 # 3. plotting functions ---------
 
+# filter for species plotted in SOE reports
+
+# test_productivity_anomaly <- test_productivity_anomaly |> 
+#   dplyr::filter(Var %in% c("Acadian redfish -rs-Assessment","American plaice -rs-Assessment",
+#                            "Atlantic wolffish -rs-Assessment", "Haddock -rs-Assessment",
+#                            "Pollock -rs-Assessment", "White hake -rs-Assessment",
+#                            "Winter flounder -rs-Assessment", "Yellowtail flounder -rs-Assessment"  
+#                            ))
+                                
+
 # using plot_productivity_anomaly function from ecodata
 # replacing ecodata productivity_anomaly with the indicator generated above
 
@@ -76,7 +86,7 @@ plot_productivity_anomaly <- function(shadedRegion = NULL,
   # e.g., calculate mean, max or other needed values to join below
   
   if (varName == "assessment") {
-    fix<- readRDS(paste0(outputPath,"productivity_anomaly.rds")) |>
+    fix<- test_productivity_anomaly |>
       tidyr::separate(Var, into = c("Stock", "Var"), sep = "-")  |>
       dplyr::filter(EPU == filterEPUs,
                     Var == "rs_anom") |>
@@ -87,7 +97,7 @@ plot_productivity_anomaly <- function(shadedRegion = NULL,
                     Total = ifelse(Count < max(Count), NA, Total)) |>
       dplyr::filter(!is.na(Total))
     
-    prod<- readRDS(paste0(outputPath,"productivity_anomaly.rds")) |>
+    prod<- test_productivity_anomaly |>
       tidyr::separate(Var, into = c("Stock", "Var"), sep = "-")  |>
       dplyr::filter(EPU == filterEPUs,
                     Var == "rs_anom") |>
@@ -124,7 +134,7 @@ plot_productivity_anomaly <- function(shadedRegion = NULL,
   }
   
   if (varName == "anomaly") {
-    bar_dat <- readRDS(paste0(outputPath,"productivity_anomaly.rds")) |>
+    bar_dat <- test_productivity_anomaly |>
       dplyr::filter(EPU == filterEPUs) |>
       tidyr::separate(Var, into = c("Var", "Survey"), sep = "_")
     
@@ -288,7 +298,7 @@ comparison_plot <- cowplot::plot_grid(p1, p2, ncol = 1)
 
 # Save to file
 ggplot2::ggsave(
-  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/LuceyFix_SApatch_MA_fig36a.png",
+  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/MA_fig36a.png",
   plot = comparison_plot,
   width = 8,      # adjust as needed
   height = 10,    # adjust as needed
@@ -304,7 +314,7 @@ p4 <- ecodata::plot_productivity_anomaly(varName = 'assessment')
 comparison_plot <- cowplot::plot_grid(p3, p4, ncol = 1)
 
 ggplot2::ggsave(
-  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/SApatch_MA_fig36b.png",
+  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/MA_fig36b.png",
   plot = comparison_plot,
   width = 8,      # adjust as needed
   height = 10,    # adjust as needed
@@ -317,7 +327,7 @@ p6 <- ecodata::plot_productivity_anomaly(report = "NewEngland", EPU = "GOM")
 comparison_plot <- cowplot::plot_grid(p5, p6, ncol = 1)
 
 ggplot2::ggsave(
-  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/SApatch_NE_fig36a.png",
+  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/NE_fig36a.png",
   plot = comparison_plot,
   width = 8,      # adjust as needed
   height = 10,    # adjust as needed
@@ -331,7 +341,7 @@ p8 <- ecodata::plot_productivity_anomaly(report = "NewEngland", varName = 'asses
 comparison_plot <- cowplot::plot_grid(p7, p8, ncol = 1)
 
 ggplot2::ggsave(
-  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/SApatch_NE_fig36b.png",
+  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/NE_fig36b.png",
   plot = comparison_plot,
   width = 8,      # adjust as needed
   height = 10,    # adjust as needed
@@ -343,347 +353,347 @@ ggplot2::ggsave(
 
 # 5. Trawlr comparisons ----------
 
-## ecodata::get_productivity_anomaly --------
-# trawlr files
-load("~/EDAB_Dev/grezlik/trawlr_files/dat_spec_rec_epu_forSOE.Rdata")
-load("~/EDAB_Dev/grezlik/trawlr_files/dat_spec_rec_forSOE.Rdata")
-`AssessFishProdAnomaly - Sarah Gaichas - NOAA Federal` <- readRDS("~/EDAB_Dev/grezlik/trawlr_files/AssessFishProdAnomaly - Sarah Gaichas - NOAA Federal.rds")
-
-#Select and rename
-epu_rec_anom <- dat_spec_rec_epu_forSOE %>%
-  dplyr::select(Time, EPU = Region, Value, Units, -Source,Var) %>%
-  dplyr::filter(!Time == "2020")
-
-#Select, rename, and bind
-productivity_anomaly1 <- dat_spec_rec_forSOE %>%
-  dplyr::select(-Source) %>%
-  dplyr::mutate(EPU = "All",
-                Var = paste("NE LME",Var)) %>%
-  rbind(.,epu_rec_anom) %>%
-  as.data.frame()%>%
-  tibble::as_tibble() %>%
-  dplyr::select(Time, Var, Value, EPU, Units) %>%
-  dplyr::mutate(Var = paste0(Var, "_Survey"))
-
-
-prod_assess<- `AssessFishProdAnomaly - Sarah Gaichas - NOAA Federal`
-prod_assess1<- prod_assess %>%
-  tidyr::separate(StockName, into= c("Stock", "Region"), sep = "-") %>%
-  dplyr::mutate(EPU = dplyr::recode(Region, " Gulf of Maine / Georges Bank" = "NE",
-                                    " Gulf of Maine / Cape Hatteras" = "ALL",
-                                    " Mid" = "MA",
-                                    " Atlantic Coast" = "ALL",
-                                    " Georges Bank" = "NE",
-                                    " Northwestern Atlantic Coast" = "ALL",
-                                    " Gulf of Maine" = "NE",
-                                    " Southern New England / Mid" = "MA",
-                                    " Cape Cod / Gulf of Maine" = "NE")) %>%
-  tidyr::pivot_longer(cols = c("spawners_biom_lag0", "spawners_biom_lag0_anom",
-                               "recruits_abund_lead1","recruits_abund_lead1_anom",
-                               "rs","rs_anom","logr_abund_anom",
-                               "logs_biom_anom","logrs_anom"),
-                      names_to = "Var", values_to = "Value") %>%
-  dplyr::mutate(Var = paste0(Stock, "-", Var, "-Assessment"),
-                Time = YEAR,
-                Units = c("NA")) %>%
-  dplyr::ungroup() %>%
-  dplyr::select(Time, Var, Value, EPU, Units)
-
-trawlr_productivity_anomaly<- rbind(productivity_anomaly1, prod_assess1)
-
-## plot_productivity_anomaly ----------
-# using plot_productivity_anomaly function from ecodata
-# replacing ecodata productivity_anomaly with the indicator generated above
-
-plot_productivity_anomaly_trawlr <- function(shadedRegion = NULL,
-                                      report="MidAtlantic",
-                                      varName = "anomaly",
-                                      EPU = "MAB") {
-  
-  # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
-                               report=report)
-  
-  # this should be added to plot_setip
-  leg_font_size <- 6
-  
-  # which report? this may be bypassed for some figures
-  if (report == "MidAtlantic") {
-    if (varName == "anomaly") {
-      filterEPUs <- "MAB"
-    } else {
-      filterEPUs <- c("MA")
-    }
-  } else {
-    if (varName == "anomaly") {
-      if (!(EPU %in% c("GB","GOM"))) {
-        stop("For NewEngland the epu must be either 'GB' or 'GOM'")
-      }
-      filterEPUs <- EPU
-    } else {
-      filterEPUs <- c("NE")
-    }
-  }
-  
-  
-  # optional code to wrangle ecodata object prior to plotting
-  # e.g., calculate mean, max or other needed values to join below
-  
-  if (varName == "assessment") {
-    fix<- trawlr_productivity_anomaly |>
-      tidyr::separate(Var, into = c("Stock", "Var"), sep = "-")  |>
-      dplyr::filter(EPU == filterEPUs,
-                    Var == "rs_anom") |>
-      dplyr::group_by(Time) |>
-      dplyr::summarise(Total = sum(Value, na.rm = T),
-                       Count = dplyr::n()) |> # SG add a count of species
-      dplyr::mutate(Totalold = ifelse(Total == 0, NA, Total),
-                    Total = ifelse(Count < max(Count), NA, Total)) |>
-      dplyr::filter(!is.na(Total))
-    
-    prod<- trawlr_productivity_anomaly |>
-      tidyr::separate(Var, into = c("Stock", "Var"), sep = "-")  |>
-      dplyr::filter(EPU == filterEPUs,
-                    Var == "rs_anom") |>
-      dplyr::mutate(Stock = toupper(Stock))
-    
-    # code for generating plot object p
-    # ensure that setup list objects are called as setup$...
-    # e.g. fill = setup$shade.fill, alpha = setup$shade.alpha,
-    # xmin = setup$x.shade.min , xmax = setup$x.shade.max
-    #
-    p <-
-      ggplot2::ggplot(prod, ggplot2::aes(x = Time)) +
-      ggplot2::geom_bar(data = prod |> dplyr::filter(Value > 0),
-                        ggplot2::aes(y = Value, fill = Stock),
-                        stat = "identity") +
-      ggplot2::geom_bar(data = prod |> dplyr::filter(Value < 0),
-                        ggplot2::aes(y = Value, fill = Stock),
-                        stat = "identity") +
-      ggplot2::geom_line(data = fix, ggplot2::aes(x = Time, y = Total),
-                         linewidth = 1) +
-      ggplot2::geom_hline(size = 0.3, ggplot2::aes(yintercept = 0)) +
-      ggplot2::xlab("") +
-      ggplot2::ylab("Recruitment Anomaly") +
-      ggplot2::ggtitle(paste0(filterEPUs," Recruitment Anomaly from Stock Assessments_trawlr")) +
-      #ggplot2::guides(fill = guide_legend(ncol = leg_ncol)) +
-      ecodata::theme_ts()+
-      ggplot2::theme(axis.title   = ggplot2::element_text(size = 10),
-                     axis.text    = ggplot2::element_text(size = 10),
-                     plot.title   = ggplot2::element_text(size = 12),
-                     #legend.text  = element_text(size = leg_font_size),
-                     legend.title = ggplot2::element_blank(),
-                     legend.text=ggplot2::element_text(size=6))
-    
-  }
-  
-  if (varName == "anomaly") {
-    bar_dat <- trawlr_productivity_anomaly |>
-      dplyr::filter(EPU == filterEPUs) |>
-      tidyr::separate(Var, into = c("Var", "Survey"), sep = "_")
-    
-    adjustAxes <-
-      ggplot2::theme(axis.title   = ggplot2::element_text(size = 10),
-                     axis.text    = ggplot2::element_text(size = 10),
-                     plot.title   = ggplot2::element_text(size = 15))
-    
-    p <- plot_stackbarcpts_single(YEAR = bar_dat$Time,
-                                  var2bar = bar_dat$Var,
-                                  x = bar_dat$Value,
-                                  titl = paste0(EPU, " from survey data_trawlr"),
-                                  xlab = "",
-                                  ylab = "Small fish per large fish biomass (anomaly)",
-                                  height = 5.5,
-                                  width = 9,
-                                  filt = FALSE,
-                                  leg_font_size = leg_font_size,
-                                  label = "",
-                                  y.text = 10,
-                                  aggregate = TRUE)
-    
-    
-    
-  }
-  
-  if (varName == "assessment" & EPU == "GOM") {
-    p <- "Assessment variable includes GB and GOM. See plot for EPU = GB."
-  }
-  
-  return(p)
-  
-}
-
-attr(plot_productivity_anomaly,"report") <- c("MidAtlantic","NewEngland")
-attr(plot_productivity_anomaly,"varName") <- c("anomaly","assessment")
-attr(plot_productivity_anomaly,"EPU") <- c("MAB","GB","GOM")
-
-
-#' anomaly stacked barchart. needs to be reworked
-#' @noRd
-plot_stackbarcpts_single_trawlr <- function(YEAR, var2bar,
-                                     x, xlab, ylab,
-                                     titl,
-                                     file_suffix,
-                                     leg_font_size = leg_font_size,
-                                     remove_leg = FALSE,
-                                     leg_ncol = 1,
-                                     wcpts = TRUE,
-                                     wdashed = TRUE,
-                                     height = 5.5,
-                                     width = 8,
-                                     filt = TRUE,
-                                     label = label,
-                                     y.text = y.text,
-                                     aggregate = FALSE) {
-  
-  dat2bar <- data.frame(YEAR, var2bar,x)
-  
-  if (filt == TRUE){mab_species <-  list("SUMMER FLOUNDER","SCUP","BLACK SEA BASS","BLUEFISH",
-                                         "NORTHERN SHORTFIN SQUID", "LONGFIN SQUID", "ATLANTIC MACKEREL",
-                                         "BUTTERFISH","ATLANTIC SURFCLAM", "OCEAN QUAHOG", "TILEFISH",
-                                         "BLUELINE TILEFISH","SPINY DOGFISH", "GOOSEFISH")
-  dat2plot <- dat2bar |>
-    tidyr::gather(variable, value, -YEAR, -var2bar) |>
-    dplyr::mutate(var2bar = gsub(pattern      = "_",
-                                 replacement  = " ",
-                                 x            = var2bar),
-                  var2bar = gsub(pattern      = "Atl.",
-                                 replacement  = "ATLANTIC",
-                                 x            = var2bar),
-                  var2bar = gsub(pattern      = "Atl",
-                                 replacement  = "ATLANTIC",
-                                 x            = var2bar),
-                  var2bar = gsub(pattern      = "NS and combined",
-                                 replacement  = "",
-                                 x            = var2bar),
-                  var2bar = gsub(pattern      = "YT",
-                                 replacement  = "Yellowtail",
-                                 x            = var2bar),
-                  var2bar = gsub(pattern      = " GoM",
-                                 replacement  = " GOM",
-                                 x            = var2bar),
-                  var2bar = gsub(pattern      = " by EPU",
-                                 replacement  = "",
-                                 x            = var2bar)) |>
-    dplyr::filter(var2bar %in% mab_species)
-  } else if (filt == FALSE){
-    dat2plot <-
-      dat2bar |>
-      tidyr::gather(variable, value, -YEAR, -var2bar) |>
-      dplyr::mutate(var2bar = gsub(pattern      = "_",
-                                   replacement  = " ",
-                                   x            = var2bar),
-                    var2bar = gsub(pattern      = "Atl.",
-                                   replacement  = "ATLANTIC",
-                                   x            = var2bar),
-                    var2bar = gsub(pattern      = "Atl",
-                                   replacement  = "ATLANTIC",
-                                   x            = var2bar),
-                    var2bar = gsub(pattern      = "NS and combined",
-                                   replacement  = "",
-                                   x            = var2bar),
-                    var2bar = gsub(pattern      = "YT",
-                                   replacement  = "Yellowtail",
-                                   x            = var2bar),
-                    var2bar = gsub(pattern      = " GoM",
-                                   replacement  = " GOM",
-                                   x            = var2bar),
-                    var2bar = gsub(pattern      = " by EPU",
-                                   replacement  = "",
-                                   x            = var2bar))
-  }
-  if (aggregate){
-    agg <- dat2plot |>
-      dplyr::group_by(YEAR) |>
-      dplyr::summarise(Total = sum(value, na.rm = T)) |>
-      dplyr::mutate(Total = ifelse(Total == 0, NA, Total)) |>
-      dplyr::filter(!is.na(Total))
-  }
-  
-  p <-
-    ggplot2::ggplot(dat2plot,
-                    ggplot2::aes(x = YEAR)) +
-    ggplot2::geom_bar(data = dat2plot |> dplyr::filter(value > 0),
-                      ggplot2::aes(y = value, fill = var2bar),
-                      stat = "identity") +
-    ggplot2::geom_bar(data = dat2plot |> dplyr::filter(value < 0),
-                      ggplot2::aes(y = value, fill = var2bar),
-                      stat = "identity") +
-    {if(aggregate) ggplot2::geom_line(data = agg,ggplot2::aes(x = YEAR, y = Total),
-                                      linewidth = 1)} +
-    ggplot2::geom_hline(size = 0.3, ggplot2::aes(yintercept = 0)) +
-    ggplot2::xlab(xlab) +
-    ggplot2::ylab(ylab) +
-    ggplot2::ggtitle(titl) +
-    ggplot2::guides(fill = ggplot2::guide_legend(ncol = leg_ncol)) +
-    ecodata::theme_ts()+
-    ggplot2::theme(axis.title   = ggplot2::element_text(size = 12),
-                   axis.text    = ggplot2::element_text(size = 12),
-                   plot.title   = ggplot2::element_text(size = 15),
-                   legend.text  = ggplot2::element_text(size = leg_font_size),
-                   legend.title = ggplot2::element_blank()) +
-    ggplot2::annotate("text", label = label, x = 1980, y = y.text,size = 8, colour = "black")
-  
-  
-  
-  if(remove_leg) p <- p + theme(legend.position = "none")
-  
-  return(p)
-}
-
-## plot comparisons -------------
-
-# Generate individual plots
-trawlr_p1 <- plot_productivity_anomaly_trawlr(report = "MidAtlantic")
-
-# Combine
-comparison_plot <- cowplot::plot_grid(trawlr_p1, p2, ncol = 1)
-
-# Save to file
-ggplot2::ggsave(
-  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/trawlr_ecodata_MA_fig36a.png",
-  plot = comparison_plot,
-  width = 8,      # adjust as needed
-  height = 10,    # adjust as needed
-  dpi = 300       # publication quality
-)
-
-
-trawlr_p3 <- plot_productivity_anomaly_trawlr(report = "MidAtlantic", varName = 'assessment')
-
-comparison_plot <- cowplot::plot_grid(trawlr_p3, p4, ncol = 1)
-
-ggplot2::ggsave(
-  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/trawlr_ecodata_fig36b.png",
-  plot = comparison_plot,
-  width = 8,      # adjust as needed
-  height = 10,    # adjust as needed
-  dpi = 300       # publication quality
-)
-
-trawlr_p5 <- plot_productivity_anomaly_trawlr(report = "NewEngland", EPU = "GOM")
-
-comparison_plot <- cowplot::plot_grid(trawlr_p5, p6, ncol = 1)
-
-ggplot2::ggsave(
-  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/trawlr_ecodata_fig36a.png",
-  plot = comparison_plot,
-  width = 8,      # adjust as needed
-  height = 10,    # adjust as needed
-  dpi = 300       # publication quality
-)
-# Summer flounder is not in workflow but is in ecodata
-# Fixed that issue but now BSB and Butterfish were added which are not in ecodata
-
-trawlr_p7 <- plot_productivity_anomaly(report = "NewEngland", varName = 'assessment')
-comparison_plot <- cowplot::plot_grid(trawlr_p7, p8, ncol = 1)
-
-ggplot2::ggsave(
-  filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/trawlr_ecodata_NE_fig36b.png",
-  plot = comparison_plot,
-  width = 8,      # adjust as needed
-  height = 10,    # adjust as needed
-  dpi = 300       # publication quality
-)
-# workflow doesn't have Atlantic Cod but ecodata does
-# should I add them?
+#' ## ecodata::get_productivity_anomaly --------
+#' # trawlr files
+#' load("~/EDAB_Dev/grezlik/trawlr_files/dat_spec_rec_epu_forSOE.Rdata")
+#' load("~/EDAB_Dev/grezlik/trawlr_files/dat_spec_rec_forSOE.Rdata")
+#' `AssessFishProdAnomaly - Sarah Gaichas - NOAA Federal` <- readRDS("~/EDAB_Dev/grezlik/trawlr_files/AssessFishProdAnomaly - Sarah Gaichas - NOAA Federal.rds")
+#' 
+#' #Select and rename
+#' epu_rec_anom <- dat_spec_rec_epu_forSOE %>%
+#'   dplyr::select(Time, EPU = Region, Value, Units, -Source,Var) %>%
+#'   dplyr::filter(!Time == "2020")
+#' 
+#' #Select, rename, and bind
+#' productivity_anomaly1 <- dat_spec_rec_forSOE %>%
+#'   dplyr::select(-Source) %>%
+#'   dplyr::mutate(EPU = "All",
+#'                 Var = paste("NE LME",Var)) %>%
+#'   rbind(.,epu_rec_anom) %>%
+#'   as.data.frame()%>%
+#'   tibble::as_tibble() %>%
+#'   dplyr::select(Time, Var, Value, EPU, Units) %>%
+#'   dplyr::mutate(Var = paste0(Var, "_Survey"))
+#' 
+#' 
+#' prod_assess<- `AssessFishProdAnomaly - Sarah Gaichas - NOAA Federal`
+#' prod_assess1<- prod_assess %>%
+#'   tidyr::separate(StockName, into= c("Stock", "Region"), sep = "-") %>%
+#'   dplyr::mutate(EPU = dplyr::recode(Region, " Gulf of Maine / Georges Bank" = "NE",
+#'                                     " Gulf of Maine / Cape Hatteras" = "ALL",
+#'                                     " Mid" = "MA",
+#'                                     " Atlantic Coast" = "ALL",
+#'                                     " Georges Bank" = "NE",
+#'                                     " Northwestern Atlantic Coast" = "ALL",
+#'                                     " Gulf of Maine" = "NE",
+#'                                     " Southern New England / Mid" = "MA",
+#'                                     " Cape Cod / Gulf of Maine" = "NE")) %>%
+#'   tidyr::pivot_longer(cols = c("spawners_biom_lag0", "spawners_biom_lag0_anom",
+#'                                "recruits_abund_lead1","recruits_abund_lead1_anom",
+#'                                "rs","rs_anom","logr_abund_anom",
+#'                                "logs_biom_anom","logrs_anom"),
+#'                       names_to = "Var", values_to = "Value") %>%
+#'   dplyr::mutate(Var = paste0(Stock, "-", Var, "-Assessment"),
+#'                 Time = YEAR,
+#'                 Units = c("NA")) %>%
+#'   dplyr::ungroup() %>%
+#'   dplyr::select(Time, Var, Value, EPU, Units)
+#' 
+#' trawlr_productivity_anomaly<- rbind(productivity_anomaly1, prod_assess1)
+#' 
+#' ## plot_productivity_anomaly ----------
+#' # using plot_productivity_anomaly function from ecodata
+#' # replacing ecodata productivity_anomaly with the indicator generated above
+#' 
+#' plot_productivity_anomaly <- function(shadedRegion = NULL,
+#'                                       report="MidAtlantic",
+#'                                       varName = "anomaly",
+#'                                       EPU = "MAB") {
+#'   
+#'   # generate plot setup list (same for all plot functions)
+#'   setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+#'                                report=report)
+#'   
+#'   # this should be added to plot_setip
+#'   leg_font_size <- 6
+#'   
+#'   # which report? this may be bypassed for some figures
+#'   if (report == "MidAtlantic") {
+#'     if (varName == "anomaly") {
+#'       filterEPUs <- "MAB"
+#'     } else {
+#'       filterEPUs <- c("MA")
+#'     }
+#'   } else {
+#'     if (varName == "anomaly") {
+#'       if (!(EPU %in% c("GB","GOM"))) {
+#'         stop("For NewEngland the epu must be either 'GB' or 'GOM'")
+#'       }
+#'       filterEPUs <- EPU
+#'     } else {
+#'       filterEPUs <- c("NE")
+#'     }
+#'   }
+#'   
+#'   
+#'   # optional code to wrangle ecodata object prior to plotting
+#'   # e.g., calculate mean, max or other needed values to join below
+#'   
+#'   if (varName == "assessment") {
+#'     fix<- trawlr_productivity_anomaly |>
+#'       tidyr::separate(Var, into = c("Stock", "Var"), sep = "-")  |>
+#'       dplyr::filter(EPU == filterEPUs,
+#'                     Var == "rs_anom") |>
+#'       dplyr::group_by(Time) |>
+#'       dplyr::summarise(Total = sum(Value, na.rm = T),
+#'                        Count = dplyr::n()) |> # SG add a count of species
+#'       dplyr::mutate(Totalold = ifelse(Total == 0, NA, Total),
+#'                     Total = ifelse(Count < max(Count), NA, Total)) |>
+#'       dplyr::filter(!is.na(Total))
+#'     
+#'     prod<- trawlr_productivity_anomaly |>
+#'       tidyr::separate(Var, into = c("Stock", "Var"), sep = "-")  |>
+#'       dplyr::filter(EPU == filterEPUs,
+#'                     Var == "rs_anom") |>
+#'       dplyr::mutate(Stock = toupper(Stock))
+#'     
+#'     # code for generating plot object p
+#'     # ensure that setup list objects are called as setup$...
+#'     # e.g. fill = setup$shade.fill, alpha = setup$shade.alpha,
+#'     # xmin = setup$x.shade.min , xmax = setup$x.shade.max
+#'     #
+#'     p <-
+#'       ggplot2::ggplot(prod, ggplot2::aes(x = Time)) +
+#'       ggplot2::geom_bar(data = prod |> dplyr::filter(Value > 0),
+#'                         ggplot2::aes(y = Value, fill = Stock),
+#'                         stat = "identity") +
+#'       ggplot2::geom_bar(data = prod |> dplyr::filter(Value < 0),
+#'                         ggplot2::aes(y = Value, fill = Stock),
+#'                         stat = "identity") +
+#'       ggplot2::geom_line(data = fix, ggplot2::aes(x = Time, y = Total),
+#'                          linewidth = 1) +
+#'       ggplot2::geom_hline(size = 0.3, ggplot2::aes(yintercept = 0)) +
+#'       ggplot2::xlab("") +
+#'       ggplot2::ylab("Recruitment Anomaly") +
+#'       ggplot2::ggtitle(paste0(filterEPUs," Recruitment Anomaly from Stock Assessments_trawlr")) +
+#'       #ggplot2::guides(fill = guide_legend(ncol = leg_ncol)) +
+#'       ecodata::theme_ts()+
+#'       ggplot2::theme(axis.title   = ggplot2::element_text(size = 10),
+#'                      axis.text    = ggplot2::element_text(size = 10),
+#'                      plot.title   = ggplot2::element_text(size = 12),
+#'                      #legend.text  = element_text(size = leg_font_size),
+#'                      legend.title = ggplot2::element_blank(),
+#'                      legend.text=ggplot2::element_text(size=6))
+#'     
+#'   }
+#'   
+#'   if (varName == "anomaly") {
+#'     bar_dat <- trawlr_productivity_anomaly |>
+#'       dplyr::filter(EPU == filterEPUs) |>
+#'       tidyr::separate(Var, into = c("Var", "Survey"), sep = "_")
+#'     
+#'     adjustAxes <-
+#'       ggplot2::theme(axis.title   = ggplot2::element_text(size = 10),
+#'                      axis.text    = ggplot2::element_text(size = 10),
+#'                      plot.title   = ggplot2::element_text(size = 15))
+#'     
+#'     p <- plot_stackbarcpts_single(YEAR = bar_dat$Time,
+#'                                   var2bar = bar_dat$Var,
+#'                                   x = bar_dat$Value,
+#'                                   titl = paste0(EPU, " from survey data_trawlr"),
+#'                                   xlab = "",
+#'                                   ylab = "Small fish per large fish biomass (anomaly)",
+#'                                   height = 5.5,
+#'                                   width = 9,
+#'                                   filt = FALSE,
+#'                                   leg_font_size = leg_font_size,
+#'                                   label = "",
+#'                                   y.text = 10,
+#'                                   aggregate = TRUE)
+#'     
+#'     
+#'     
+#'   }
+#'   
+#'   if (varName == "assessment" & EPU == "GOM") {
+#'     p <- "Assessment variable includes GB and GOM. See plot for EPU = GB."
+#'   }
+#'   
+#'   return(p)
+#'   
+#' }
+#' 
+#' attr(plot_productivity_anomaly,"report") <- c("MidAtlantic","NewEngland")
+#' attr(plot_productivity_anomaly,"varName") <- c("anomaly","assessment")
+#' attr(plot_productivity_anomaly,"EPU") <- c("MAB","GB","GOM")
+#' 
+#' 
+#' #' anomaly stacked barchart. needs to be reworked
+#' #' @noRd
+#' plot_stackbarcpts_single <- function(YEAR, var2bar,
+#'                                      x, xlab, ylab,
+#'                                      titl,
+#'                                      file_suffix,
+#'                                      leg_font_size = leg_font_size,
+#'                                      remove_leg = FALSE,
+#'                                      leg_ncol = 1,
+#'                                      wcpts = TRUE,
+#'                                      wdashed = TRUE,
+#'                                      height = 5.5,
+#'                                      width = 8,
+#'                                      filt = TRUE,
+#'                                      label = label,
+#'                                      y.text = y.text,
+#'                                      aggregate = FALSE) {
+#'   
+#'   dat2bar <- data.frame(YEAR, var2bar,x)
+#'   
+#'   if (filt == TRUE){mab_species <-  list("SUMMER FLOUNDER","SCUP","BLACK SEA BASS","BLUEFISH",
+#'                                          "NORTHERN SHORTFIN SQUID", "LONGFIN SQUID", "ATLANTIC MACKEREL",
+#'                                          "BUTTERFISH","ATLANTIC SURFCLAM", "OCEAN QUAHOG", "TILEFISH",
+#'                                          "BLUELINE TILEFISH","SPINY DOGFISH", "GOOSEFISH")
+#'   dat2plot <- dat2bar |>
+#'     tidyr::gather(variable, value, -YEAR, -var2bar) |>
+#'     dplyr::mutate(var2bar = gsub(pattern      = "_",
+#'                                  replacement  = " ",
+#'                                  x            = var2bar),
+#'                   var2bar = gsub(pattern      = "Atl.",
+#'                                  replacement  = "ATLANTIC",
+#'                                  x            = var2bar),
+#'                   var2bar = gsub(pattern      = "Atl",
+#'                                  replacement  = "ATLANTIC",
+#'                                  x            = var2bar),
+#'                   var2bar = gsub(pattern      = "NS and combined",
+#'                                  replacement  = "",
+#'                                  x            = var2bar),
+#'                   var2bar = gsub(pattern      = "YT",
+#'                                  replacement  = "Yellowtail",
+#'                                  x            = var2bar),
+#'                   var2bar = gsub(pattern      = " GoM",
+#'                                  replacement  = " GOM",
+#'                                  x            = var2bar),
+#'                   var2bar = gsub(pattern      = " by EPU",
+#'                                  replacement  = "",
+#'                                  x            = var2bar)) |>
+#'     dplyr::filter(var2bar %in% mab_species)
+#'   } else if (filt == FALSE){
+#'     dat2plot <-
+#'       dat2bar |>
+#'       tidyr::gather(variable, value, -YEAR, -var2bar) |>
+#'       dplyr::mutate(var2bar = gsub(pattern      = "_",
+#'                                    replacement  = " ",
+#'                                    x            = var2bar),
+#'                     var2bar = gsub(pattern      = "Atl.",
+#'                                    replacement  = "ATLANTIC",
+#'                                    x            = var2bar),
+#'                     var2bar = gsub(pattern      = "Atl",
+#'                                    replacement  = "ATLANTIC",
+#'                                    x            = var2bar),
+#'                     var2bar = gsub(pattern      = "NS and combined",
+#'                                    replacement  = "",
+#'                                    x            = var2bar),
+#'                     var2bar = gsub(pattern      = "YT",
+#'                                    replacement  = "Yellowtail",
+#'                                    x            = var2bar),
+#'                     var2bar = gsub(pattern      = " GoM",
+#'                                    replacement  = " GOM",
+#'                                    x            = var2bar),
+#'                     var2bar = gsub(pattern      = " by EPU",
+#'                                    replacement  = "",
+#'                                    x            = var2bar))
+#'   }
+#'   if (aggregate){
+#'     agg <- dat2plot |>
+#'       dplyr::group_by(YEAR) |>
+#'       dplyr::summarise(Total = sum(value, na.rm = T)) |>
+#'       dplyr::mutate(Total = ifelse(Total == 0, NA, Total)) |>
+#'       dplyr::filter(!is.na(Total))
+#'   }
+#'   
+#'   p <-
+#'     ggplot2::ggplot(dat2plot,
+#'                     ggplot2::aes(x = YEAR)) +
+#'     ggplot2::geom_bar(data = dat2plot |> dplyr::filter(value > 0),
+#'                       ggplot2::aes(y = value, fill = var2bar),
+#'                       stat = "identity") +
+#'     ggplot2::geom_bar(data = dat2plot |> dplyr::filter(value < 0),
+#'                       ggplot2::aes(y = value, fill = var2bar),
+#'                       stat = "identity") +
+#'     {if(aggregate) ggplot2::geom_line(data = agg,ggplot2::aes(x = YEAR, y = Total),
+#'                                       linewidth = 1)} +
+#'     ggplot2::geom_hline(size = 0.3, ggplot2::aes(yintercept = 0)) +
+#'     ggplot2::xlab(xlab) +
+#'     ggplot2::ylab(ylab) +
+#'     ggplot2::ggtitle(titl) +
+#'     ggplot2::guides(fill = ggplot2::guide_legend(ncol = leg_ncol)) +
+#'     ecodata::theme_ts()+
+#'     ggplot2::theme(axis.title   = ggplot2::element_text(size = 12),
+#'                    axis.text    = ggplot2::element_text(size = 12),
+#'                    plot.title   = ggplot2::element_text(size = 15),
+#'                    legend.text  = ggplot2::element_text(size = leg_font_size),
+#'                    legend.title = ggplot2::element_blank()) +
+#'     ggplot2::annotate("text", label = label, x = 1980, y = y.text,size = 8, colour = "black")
+#'   
+#'   
+#'   
+#'   if(remove_leg) p <- p + theme(legend.position = "none")
+#'   
+#'   return(p)
+#' }
+#' 
+#' ## plot comparisons -------------
+#' 
+#' # Generate individual plots
+#' p1 <- plot_productivity_anomaly(report = "MidAtlantic")
+#' 
+#' # Combine
+#' comparison_plot <- cowplot::plot_grid(trawlr_p1, p2, ncol = 1)
+#' 
+#' # Save to file
+#' ggplot2::ggsave(
+#'   filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/trawlr_ecodata_MA_fig36a.png",
+#'   plot = comparison_plot,
+#'   width = 8,      # adjust as needed
+#'   height = 10,    # adjust as needed
+#'   dpi = 300       # publication quality
+#' )
+#' 
+#' 
+#' trawlr_p3 <- plot_productivity_anomaly_trawlr(report = "MidAtlantic", varName = 'assessment')
+#' 
+#' comparison_plot <- cowplot::plot_grid(trawlr_p3, p4, ncol = 1)
+#' 
+#' ggplot2::ggsave(
+#'   filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/trawlr_ecodata_fig36b.png",
+#'   plot = comparison_plot,
+#'   width = 8,      # adjust as needed
+#'   height = 10,    # adjust as needed
+#'   dpi = 300       # publication quality
+#' )
+#' 
+#' trawlr_p5 <- plot_productivity_anomaly_trawlr(report = "NewEngland", EPU = "GOM")
+#' 
+#' comparison_plot <- cowplot::plot_grid(trawlr_p5, p6, ncol = 1)
+#' 
+#' ggplot2::ggsave(
+#'   filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/trawlr_ecodata_fig36a.png",
+#'   plot = comparison_plot,
+#'   width = 8,      # adjust as needed
+#'   height = 10,    # adjust as needed
+#'   dpi = 300       # publication quality
+#' )
+#' # Summer flounder is not in workflow but is in ecodata
+#' # Fixed that issue but now BSB and Butterfish were added which are not in ecodata
+#' 
+#' trawlr_p7 <- plot_productivity_anomaly(report = "NewEngland", varName = 'assessment')
+#' comparison_plot <- cowplot::plot_grid(trawlr_p7, p8, ncol = 1)
+#' 
+#' ggplot2::ggsave(
+#'   filename = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows/data-raw/productivity_anomaly_comparison_plots/trawlr_ecodata_NE_fig36b.png",
+#'   plot = comparison_plot,
+#'   width = 8,      # adjust as needed
+#'   height = 10,    # adjust as needed
+#'   dpi = 300       # publication quality
+#' )
+#' # workflow doesn't have Atlantic Cod but ecodata does
+#' # should I add them?
