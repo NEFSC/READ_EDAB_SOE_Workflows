@@ -1,9 +1,115 @@
-# Example of how to test on the Rstudio container 
+# To review pull request for productivity_anomaly
+
+# If you are on the container edit this section --------------
+# enter your name here
+user <- mgrezlik
+
+
+# If you are running locally edit this section ---------------
+
+
+# run workflow_productivity anomaly from the container --------
+## set paths for data inputs generated in workflow ------------
+input_survey_bio_epu <- "~/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds"
+input_survey_bio <- "~/EDAB_Datasets/Workflows/surveyBiologicalData.rds"
+inputPathSpecies <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
+outputPath <- "/home/mgrezlik/EDAB_Dev/grezlik"
+
+
+## run workflow ------------------
+test_productivity_anomaly <- workflow_productivity_anomaly(
+  input_survey_bio_epu = input_survey_bio_epu,
+  inputPathSpecies = inputPathSpecies
+)
+
+
+
+## plot and compare to ecodata version ------------
+new <- productivity_anomaly |>
+  dplyr::mutate(source = 'workflow')
+
+old <- ecodata::productivity_anomaly |> 
+  dplyr::mutate(source = 'ecodata')
+
+combined <- dplyr::bind_rows(old,new)
+
+
+library(ggplot2)
+library(dplyr)
+
+# pick your region, e.g., GOM or MAB
+filter_epu <- "All"
+
+combined_plot <- combined |> 
+  dplyr::filter(EPU == filter_epu)  |> 
+  ggplot(aes(x = Time, y = Value, color = source)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  facet_wrap(~ source) +
+  theme_bw() +
+  labs(
+    title = paste("Comparison of Productivity Anomaly (", filter_epu, ")", sep = ""),
+    subtitle = "Workflow vs ecodata",
+    y = "Anomaly Value",
+    x = "Year",
+    color = "Source"
+  ) +
+  theme(
+    text = element_text(size = 12),
+    plot.title = element_text(face = "bold")
+  )
+
+combined_plot
+
+
+# new has ~80,000 more observations than old
+# looking into that
+
+library(dplyr)
+
+# Compare column names
+names(old)
+names(new)
+
+# Compare column types
+compare_types <- bind_rows(
+  old |> summarise(across(everything(), ~class(.))),
+  new |> summarise(across(everything(), ~class(.)))
+)
+compare_types
+
+# Define key columns
+keys <- c("Time", "Var", "EPU", "Units")
+
+# Exact matches
+both <- inner_join(old, new, by = keys)
+
+# In old only
+only_old <- anti_join(old, new, by = keys)
+
+# In new only
+only_new <- anti_join(new, old, by = keys)
+
+# Count summary
+tibble(
+  In_Both = nrow(both),
+  Only_in_Old = nrow(only_old),
+  Only_in_New = nrow(only_new)
+)
+
+
+
+
+
+
+
+
+# file paths used in all indicators I have worked on ---------------
 outputPathDataSets <- "/home/mgrezlik/EDAB_Dev/grezlik"
 outputPath <- "/home/mgrezlik/EDAB_Dev/grezlik"
 input_path_commercial_comdat <- "/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds"
-inputPathSurvey <- "/home/mgrezlik/EDAB_Dev/beet/surveyNoLengths.rds"
-inputPathSpecies <- "/home/mgrezlik/EDAB_Datasets/SOE_species_list_24.rds"
+inputPathSurvey <- "/home/mgrezlik/EDAB_Datasets/Workflows/surveyNoLengthsData.rds"
+inputPathSpecies <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
 # ditching camel case moving forward
 input_path_species <- "/home/mgrezlik/EDAB_Datasets/SOE_species_list_24.rds"
 inputPathAlbatross <- "/home/mgrezlik/EDAB_Dev/beet/albatrossData.rds"
@@ -18,6 +124,28 @@ comland_old_path <- '/home/mgrezlik/EDAB_Dev/beet/comlandr_old.rds'
 old_menh_path24 <- '/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF2024.rds'
 old_menh_path <- '/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds'
 old_comdat_path <- '/home/mgrezlik/EDAB_Dev/grezlik/Commercial_data_pull_25.RData'
+input_survey_bio_epu <- "~/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds"
+input_survey_bio <- 'home/mgrezlik/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds'
+prod_anom_sarah <- "~/EDAB_Dev/grezlik/AssessFishProdAnomaly - Sarah Gaichas - NOAA Federal.rds"
+
+
+# having issues with SOEworkflows being locked ------------------
+# creating a local library as a workaround
+# Create a new library folder
+dir.create("~/R/soe_local_lib", recursive = TRUE)
+
+# Install your local copy there
+devtools::install_local(
+  path = "/home/mgrezlik/Maxwell.Grezlik/Rprojects/READ_EDAB_SOE_Workflows",
+  lib = "~/R/soe_local_lib",
+  force = TRUE
+)
+
+## load from local ----------
+library(SOEworkflows, lib.loc = "~/R/soe_local_lib")
+
+
+
 
 
 source(here::here("data-raw/workflow_species_dist.R"))

@@ -106,13 +106,33 @@ workflow_species_dist(inputPathSurvey,inputPathSpecies, static_depth,
 
 The rds file name is hardcoded as `species_dist.rds` to match the `ecodata` package dataset
 
-### species_condition
-
+### productivity_anomaly
 To run the "workflow" below, it is assumed that the "raw" survey data has been pulled using the 
 `get_survey_data` function above.
 
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
+```
+workflow_productivity_anomaly(
+                              input_survey_bio_epu,
+                              input_survey_bio,
+                              input_static_lw_table,
+                              inputPathSpecies,
+                              input_static_length_convert,
+                              outputPath
+                              )
+```
+
+* `input_survey_bio_epu` is the path to the dynamically created survey data `EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds`.
+* `input_survey_bio` is the path to the dynamically created survey data `EDAB_Datasets/Workflows/surveyBiologicalData.rds`.
+* `input_static_lw_table` is the path to the static length weight table from Miller 2013 `EDAB_Datasets/Workflows/df_lw.rda`.
+* `inputPathSpecies` is the path to static data set `EDAB_Datasets/Workflows/SOE_species_list_24.rds`.
+* `input_static_length_convert` is the path to the static length conversion table `EDAB_Datasets/Workflows/df_lconv.rda`.
+* `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+
+The rds file name is hardcoded as `productivity_anomaly.rds` to match the `ecodata` package dataset
+
+### species_condition
 ```
 workflow_condition(inputPath, inputpathLW, inputpathSpecies, outputPath)
 ```
@@ -121,6 +141,7 @@ workflow_condition(inputPath, inputpathLW, inputpathSpecies, outputPath)
 * `inputPathLW` is the path to the static data set `EDAB_Resources/workflow_resources/soe_workflows/LWparams.csv`
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `condition.rds` to match the `ecodata` package dataset
+
 
 ## Commercial Landings Based Indicators
 
