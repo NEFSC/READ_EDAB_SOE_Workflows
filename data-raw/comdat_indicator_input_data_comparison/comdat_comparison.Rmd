@@ -94,7 +94,7 @@ values_from = Value
 
 The scatterplots below show strong correlation between old and new values for most variables.
 Slight differences exist for Benthivore data including MAFMC managed species.
-Larger differences exist in Planktivore Seafood Landings including for NEFMC managed species (likely Herring)
+Larger differences exist in Planktivore Seafood Landings including for NEFMC managed species (likely Herring). Herring previously was added via a static csv file. The chunk of code doing this is commented out of the script on GitHub. It is unclear if Herring data was added this way past 2022. https://github.com/NOAA-EDAB/SOE_data/blob/fca8096eb67c054cef4b98a9ca8916f5eb7860eb/R/create_comdat.R#L64-L87 
 
 ```{r scatterplots-old-vs-new}
 n_per_page <- 4
