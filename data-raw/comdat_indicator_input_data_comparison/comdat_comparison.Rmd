@@ -10,7 +10,7 @@ output:
     theme: cosmo
 ---
 
-# 1. Purpose of This Comparison
+# Purpose of this comparison
 
 Prior to 2025 (when the SOE workflow was implemented), the comdat indicator
 was generated from three primary sources. Two of these data sources required
@@ -42,6 +42,7 @@ legacy (ecodata) process and the new workflow.
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
+  echo = FALSE,
   fig.align = "center"
 )
 
@@ -58,9 +59,8 @@ new_comdat <- readRDS("~/EDAB_Indicators/comdat.rds")
 
 # Legacy ecodata output
 
-load("~/EDAB_Dev/grezlik/comdat_inputs_comparison/comdat.rda")
-ecodata_comdat <- comdat
-rm(comdat)
+ecodata_comdat <- ecodata::comdat
+
 
 # Confirm identical structure
 
