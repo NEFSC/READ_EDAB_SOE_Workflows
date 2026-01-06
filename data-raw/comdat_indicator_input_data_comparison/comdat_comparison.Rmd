@@ -130,6 +130,16 @@ print(p)
 }
 ```
 
+
+```{r}
+seafood <- comdat_compare |> dplyr::filter(Var %in% c("Piscivore Seafood Landings", "Planktivore Seafood Landings",
+                                           "Other Seafood Landings", "Benthos Seafood Landings",
+                                           "Benthivore Seafood Landings", "Apex Predator Seafood Landings") ) |> dplyr::mutate(difference = old - new)
+
+
+```
+
+
 Overlaying the time series shows strong correlation between data sets.
 Slight differences in Revenue are due to a difference in reference year when accounting for inflation.
 
@@ -195,6 +205,27 @@ by = c("Time", "Var", "EPU"))
 anti_join(ecodata_comdat, new_comdat,
 by = c("Time", "Var", "EPU"))
 ```
+
+
+Comparing input raw values for Herring
+
+```{r}
+# Raw data for new indicator
+comdat_path <- '~/EDAB_Datasets/Workflows/commercial_comdat.rds'
+  comland_list <- readRDS(comdat_path)
+  new_comland <- comland_list$comland |>
+    tibble::as_tibble() |>
+    dplyr::filter(NESPP3 != 221, NESPP3 != 789)
+
+# Raw data for old indicator 
+
+  load("~/EDAB_Dev/grezlik/comdat_inputs_comparison/Commercial_data_pull_25.RData")
+  
+  old_comland <- comdat
+rm(comdat)
+  
+```
+
 
 
 
