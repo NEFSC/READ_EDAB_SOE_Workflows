@@ -211,11 +211,17 @@ Comparing input raw values for Herring
 
 ```{r}
 # Raw data for new indicator
-comdat_path <- '~/EDAB_Datasets/Workflows/commercial_comdat.rds'
-  comland_list <- readRDS(comdat_path)
-  new_comland <- comland_list$comland |>
-    tibble::as_tibble() |>
-    dplyr::filter(NESPP3 != 221, NESPP3 != 789)
+# comdat_path <- '~/EDAB_Datasets/Workflows/commercial_comdat.rds'
+# comland_list <- readRDS(comdat_path)
+# new_comland <- comland_list$comland |>
+#     tibble::as_tibble() |>
+#     dplyr::filter(NESPP3 != 221, NESPP3 != 789)
+
+new_comdat_plank_land_GB <- readRDS("~/EDAB_Indicators/comdat.rds") |> 
+                dplyr::filter(Var == "Planktivore Seafood Landings" ) |> 
+                dplyr::filter(EPU == 'GB') |> 
+                dplyr::select(Time, Value) |> 
+                dplyr::rename(new = Value)
 
 # Raw data for old indicator 
 
@@ -223,6 +229,19 @@ comdat_path <- '~/EDAB_Datasets/Workflows/commercial_comdat.rds'
   
   old_comland <- comdat
 rm(comdat)
+
+old_comland_plank_land_GB <- old_comland |> 
+                dplyr::filter(Var ==  "Planktivore Seafood Landings" ) |> 
+                dplyr::select(-Source) |> 
+                dplyr::rename(EPU = Region) |> 
+                dplyr::filter(EPU == 'GB') |> 
+                dplyr::select(Time, Value) |> 
+                dplyr::rename(old = Value)
+
+
+GB_plank_land_compare <- dplyr::full_join(new_comdat_plank_land_GB, old_comland_plank_land_GB) |> 
+                            dplyr::mutate(diff = old - new)
+
   
 ```
 
