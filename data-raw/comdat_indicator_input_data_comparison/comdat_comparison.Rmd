@@ -61,12 +61,14 @@ new_comdat <- readRDS("~/EDAB_Indicators/comdat.rds")
 
 ecodata_comdat <- ecodata::comdat
 
+# test output (ran workflow with old comm input)
 
+test_comdat <- readRDS('~/EDAB_Dev/grezlik/test_indicators/comdat.rds')
 # Confirm identical structure
 
 names(new_comdat)
 names(ecodata_comdat)
-
+names(test_comdat)
 
 ```
 
@@ -85,11 +87,9 @@ mutate(source = "new")
 old_comdat2 <- ecodata_comdat %>%
 mutate(source = "old")
 
-comdat_compare <- bind_rows(new_comdat2, old_comdat2) %>%
-pivot_wider(
-names_from  = source,
-values_from = Value
-)
+test_comdat2 <- test_comdat |> 
+  mutate(source = 'test')
+
 ```
 
 The scatterplots below show strong correlation between old and new values for most variables.
@@ -97,6 +97,12 @@ Slight differences exist for Benthivore data including MAFMC managed species.
 Larger differences exist in Planktivore Seafood Landings including for NEFMC managed species (likely Herring). Herring previously was added via a static csv file. The chunk of code doing this is commented out of the script on GitHub. It is unclear if Herring data was added this way past 2022. https://github.com/NOAA-EDAB/SOE_data/blob/fca8096eb67c054cef4b98a9ca8916f5eb7860eb/R/create_comdat.R#L64-L87 
 
 ```{r scatterplots-old-vs-new}
+comdat_compare <- bind_rows(new_comdat2, old_comdat2) %>%
+pivot_wider(
+names_from  = source,
+values_from = Value
+)
+
 n_per_page <- 4
 n_pages <- ceiling(
 n_distinct(comdat_compare$Var) / n_per_page
@@ -131,39 +137,39 @@ print(p)
 ```
 
 
-```{r}
-seafood <- comdat_compare |> dplyr::filter(Var %in% c("Piscivore Seafood Landings", "Planktivore Seafood Landings",
-                                           "Other Seafood Landings", "Benthos Seafood Landings",
-                                           "Benthivore Seafood Landings", "Apex Predator Seafood Landings") ) |> dplyr::mutate(difference = old - new)
+```{r scatterplots-test-vs-new}
+comdat_compare <- bind_rows(new_comdat2, test_comdat2) %>%
+pivot_wider(
+names_from  = source,
+values_from = Value
+)
 
+n_per_page <- 4
+n_pages <- ceiling(
+n_distinct(comdat_compare$Var) / n_per_page
+)
 
-```
-
-
-Overlaying the time series shows strong correlation between data sets.
-Slight differences in Revenue are due to a difference in reference year when accounting for inflation.
-
-
-
-```{r time-series-comparison}
 for (i in seq_len(n_pages)) {
-p <- ggplot(comdat_compare, aes(x = Time)) +
-geom_line(aes(y = old, color = "old")) +
-geom_line(aes(y = new, color = "new")) +
+p <- ggplot(comdat_compare, aes(x = test, y = new)) +
+geom_abline(
+slope = 1, intercept = 0,
+linetype = "dashed", color = "gray50"
+) +
+geom_point(alpha = 0.6) +
 facet_wrap_paginate(
 ~ Var,
 ncol = 2,
 nrow = 2,
-scales = "free_y",
+scales = "free",
 page = i
 ) +
 labs(
 title = paste(
-"Old vs New comdat Time Series (page",
+"Test vs New comdat Values (page",
 i, "of", n_pages, ")"
 ),
-y = "Value",
-color = "Version"
+x = "Test comdat Value",
+y = "New comdat Value"
 ) +
 theme_minimal()
 
@@ -171,27 +177,46 @@ print(p)
 }
 ```
 
-```{r quantify-differences, include=FALSE}
-comdat_compare <- comdat_compare %>%
-mutate(
-diff = new - old,
-pct_diff = ifelse(
-  is.na(old) | old == 0,
-  NA_real_,
-  100 * (new - old) / abs(old)
+
+```{r scatterplots-test-vs-old}
+comdat_compare <- bind_rows(old_comdat2, test_comdat2) %>%
+pivot_wider(
+names_from  = source,
+values_from = Value
 )
 
+n_per_page <- 4
+n_pages <- ceiling(
+n_distinct(comdat_compare$Var) / n_per_page
 )
+
+for (i in seq_len(n_pages)) {
+p <- ggplot(comdat_compare, aes(x = test, y = old)) +
+geom_abline(
+slope = 1, intercept = 0,
+linetype = "dashed", color = "gray50"
+) +
+geom_point(alpha = 0.6) +
+facet_wrap_paginate(
+~ Var,
+ncol = 2,
+nrow = 2,
+scales = "free",
+page = i
+) +
+labs(
+title = paste(
+"Test vs Old comdat Values (page",
+i, "of", n_pages, ")"
+),
+x = "Test comdat Value",
+y = "Old comdat Value"
+) +
+theme_minimal()
+
+print(p)
+}
 ```
-```{r nonzero-differences}
-tol <- 1e-6
-
-comdat_compare_nonzero <- comdat_compare %>%
-  filter(!is.na(diff) & abs(diff) > tol) |> 
-  filter(Time <= 2023)
-
-```
-
 
 
 
@@ -209,41 +234,93 @@ by = c("Time", "Var", "EPU"))
 
 Comparing input raw values for Herring
 
-```{r}
+```{r raw comm compare}
 # Raw data for new indicator
-# comdat_path <- '~/EDAB_Datasets/Workflows/commercial_comdat.rds'
-# comland_list <- readRDS(comdat_path)
-# new_comland <- comland_list$comland |>
-#     tibble::as_tibble() |>
-#     dplyr::filter(NESPP3 != 221, NESPP3 != 789)
+comdat_path <- '~/EDAB_Datasets/Workflows/commercial_comdat.rds'
+comland_list <- readRDS(comdat_path)
+new_comland <- comland_list$comland |>
+    tibble::as_tibble() |>
+    dplyr::filter(NESPP3 != 221, NESPP3 != 789)
 
-new_comdat_plank_land_GB <- readRDS("~/EDAB_Indicators/comdat.rds") |> 
-                dplyr::filter(Var == "Planktivore Seafood Landings" ) |> 
-                dplyr::filter(EPU == 'GB') |> 
-                dplyr::select(Time, Value) |> 
-                dplyr::rename(new = Value)
+# Raw data for old indicator
+old_comland_list <- readRDS("~/EDAB_Dev/grezlik/comdat_inputs_comparison/comlandpull_comdatbennet_wmenhaden.rds")
+old_comland <- old_comland_list$comland |> 
+  tibble::as_tibble() |> 
+  dplyr::filter(NESPP3 != 221)
 
-# Raw data for old indicator 
+# call just herring for both
+new_herring <- new_comland |> 
+                  dplyr::filter(NESPP3 == 168)
 
-  load("~/EDAB_Dev/grezlik/comdat_inputs_comparison/Commercial_data_pull_25.RData")
-  
-  old_comland <- comdat
-rm(comdat)
+old_herring <- old_comland |> 
+                  dplyr::filter(NESPP3 == 168)
 
-old_comland_plank_land_GB <- old_comland |> 
-                dplyr::filter(Var ==  "Planktivore Seafood Landings" ) |> 
-                dplyr::select(-Source) |> 
-                dplyr::rename(EPU = Region) |> 
-                dplyr::filter(EPU == 'GB') |> 
-                dplyr::select(Time, Value) |> 
-                dplyr::rename(old = Value)
+# old herring has more observations
+
+# combine data sets for plotting
+herring_compare_new <- new_herring |> dplyr::mutate(data_source = 'new')
+herring_compare_old <- old_herring |> dplyr::mutate(data_source = 'old')
+
+herring_compare <- dplyr::bind_rows(herring_compare_new, herring_compare_old)
+
+# 1. Aggregate the data
+herring_summary <- herring_compare |> 
+  group_by(YEAR, data_source, EPU) |> 
+  summarise(SPPVALUE_sum = sum(SPPVALUE, na.rm = TRUE), .groups = "drop")
+
+# 2. Create the plot
+ggplot(herring_summary, aes(x = YEAR, y = SPPVALUE_sum, color = data_source)) +
+  geom_line(linewidth = 1) +
+  geom_point(alpha = 0.5) + 
+  facet_wrap(~EPU, scales = 'free_y') + 
+  theme_minimal() +
+  labs(
+    title = "Total Herring Value (SPPVALUE) by Year and Source",
+    subtitle = "Faceted by Ecological Production Unit (EPU)",
+    x = "Year",
+    y = "Total SPPVALUE",
+    color = "Data Source"
+  ) +
+  theme(legend.position = "bottom")
+
+# plot data sources seperately 
+herring_summary |> dplyr::filter(data_source == 'new') |> 
+ggplot( aes(x = YEAR, y = SPPVALUE_sum, color = data_source)) +
+  geom_line(linewidth = 1) +
+  geom_point(alpha = 0.5) + 
+  facet_wrap(~EPU, scales = "free_y") + 
+  theme_minimal() +
+  labs(
+    title = "Total Herring Value (SPPVALUE) by Year and Source",
+    subtitle = "Faceted by Ecological Production Unit (EPU)",
+    x = "Year",
+    y = "Total SPPVALUE",
+    color = "Data Source"
+  ) +
+  theme(legend.position = "bottom")
+
+herring_summary |> dplyr::filter(data_source == 'old') |> 
+ggplot( aes(x = YEAR, y = SPPVALUE_sum, color = data_source)) +
+  geom_line(linewidth = 1) +
+  geom_point(alpha = 0.5) + 
+  facet_wrap(~EPU, scales = "free_y") + 
+  theme_minimal() +
+  labs(
+    title = "Total Herring Value (SPPVALUE) by Year and Source",
+    subtitle = "Faceted by Ecological Production Unit (EPU)",
+    x = "Year",
+    y = "Total SPPVALUE",
+    color = "Data Source"
+  ) +
+  theme(legend.position = "bottom")
 
 
-GB_plank_land_compare <- dplyr::full_join(new_comdat_plank_land_GB, old_comland_plank_land_GB) |> 
-                            dplyr::mutate(diff = old - new)
 
-  
 ```
+
+
+
+
 
 
 
