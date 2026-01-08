@@ -248,6 +248,19 @@ old_comland <- old_comland_list$comland |>
   tibble::as_tibble() |> 
   dplyr::filter(NESPP3 != 221)
 
+# create comparison table from both comlands
+compare_new_comland <- new_comland |> 
+                          dplyr::mutate(data_source = 'new')
+
+compare_old_comland <- old_comland |> 
+                          dplyr::mutate(data_source = 'old')
+
+comdat_compare <- dplyr::bind_rows(compare_new_comland, compare_old_comland)
+
+comdat_summary <- comdat_compare |> 
+  group_by(YEAR, data_source, UTILCD) |> 
+  summarise(SPPVALUE_sum = sum(SPPVALUE, na.rm = TRUE), .groups = "drop")
+
 # call just herring for both
 new_herring <- new_comland |> 
                   dplyr::filter(NESPP3 == 168)
@@ -263,10 +276,26 @@ herring_compare_old <- old_herring |> dplyr::mutate(data_source = 'old')
 
 herring_compare <- dplyr::bind_rows(herring_compare_new, herring_compare_old)
 
+# compare utilcd
+utilcd_summary <- herring_compare  |> 
+  count(data_source, UTILCD)
+
+utilcd_comparison <- utilcd_summary |> 
+  tidyr::pivot_wider(names_from = data_source, values_from = n, values_fill = 0) |> 
+  dplyr::mutate(difference = new - old)
+
+# View the result
+print(utilcd_comparison)
+
 # 1. Aggregate the data
 herring_summary <- herring_compare |> 
   group_by(YEAR, data_source, EPU) |> 
   summarise(SPPVALUE_sum = sum(SPPVALUE, na.rm = TRUE), .groups = "drop")
+
+herring_UTILCD_summary <- herring_compare |> 
+  group_by(YEAR, data_source, EPU, UTILCD) |> 
+  summarise(SPPVALUE_sum = sum(SPPVALUE, na.rm = TRUE), .groups = "drop")
+
 
 # 2. Create the plot
 ggplot(herring_summary, aes(x = YEAR, y = SPPVALUE_sum, color = data_source)) +
@@ -283,41 +312,93 @@ ggplot(herring_summary, aes(x = YEAR, y = SPPVALUE_sum, color = data_source)) +
   ) +
   theme(legend.position = "bottom")
 
-# plot data sources seperately 
-herring_summary |> dplyr::filter(data_source == 'new') |> 
-ggplot( aes(x = YEAR, y = SPPVALUE_sum, color = data_source)) +
-  geom_line(linewidth = 1) +
+# Comparison plots from full comdat
+
+ggplot(comdat_summary, aes(x = YEAR, y = SPPVALUE_sum, color = data_source)) +
+  geom_line() +
   geom_point(alpha = 0.5) + 
-  facet_wrap(~EPU, scales = "free_y") + 
+  facet_wrap(~UTILCD, scales = 'free_y') + 
   theme_minimal() +
   labs(
-    title = "Total Herring Value (SPPVALUE) by Year and Source",
-    subtitle = "Faceted by Ecological Production Unit (EPU)",
+    title = "Total SPPVALUE by Year and Source",
+    subtitle = "Faceted by UTILCD",
     x = "Year",
     y = "Total SPPVALUE",
     color = "Data Source"
   ) +
   theme(legend.position = "bottom")
 
-herring_summary |> dplyr::filter(data_source == 'old') |> 
-ggplot( aes(x = YEAR, y = SPPVALUE_sum, color = data_source)) +
-  geom_line(linewidth = 1) +
+# Comparison plot from herring UTILCD summary
+ggplot(herring_UTILCD_summary, aes(x = YEAR, y = SPPVALUE_sum, color = data_source)) +
+  geom_line() +
   geom_point(alpha = 0.5) + 
-  facet_wrap(~EPU, scales = "free_y") + 
+  facet_wrap(~UTILCD, scales = 'free_y') + 
   theme_minimal() +
   labs(
-    title = "Total Herring Value (SPPVALUE) by Year and Source",
-    subtitle = "Faceted by Ecological Production Unit (EPU)",
+    title = "Total Herring SPPVALUE by Year and Source",
+    subtitle = "Faceted by UTILCD",
     x = "Year",
     y = "Total SPPVALUE",
     color = "Data Source"
   ) +
   theme(legend.position = "bottom")
-
 
 
 ```
 
+
+It looks like some of the Herring that was seafood last year is now considered bait.
+I will now look at the difference in weight per year and see if that matches the difference
+in GB planktivore landings seen in Brandon's plots
+
+```{r change in seafood}
+
+# first quantify the difference in GB planktivore seafood
+
+new_GB_plank_seafood <- new_comdat |> 
+                          dplyr::filter(Var ==  "Planktivore Seafood Landings" ) |> 
+                          dplyr::filter(EPU == "GB") |> 
+                          dplyr::mutate(data_source = 'workflow')
+
+ecodata_GB_plank_seafood <- ecodata_comdat |> 
+                          dplyr::filter(Var ==  "Planktivore Seafood Landings" ) |> 
+                          dplyr::filter(EPU == "GB") |> 
+                          dplyr::mutate(data_source = 'ecodata')
+
+compare_GB_plank_seafood <- dplyr::bind_rows(new_GB_plank_seafood, ecodata_GB_plank_seafood)
+
+GB_plank_seafood_comparison <- compare_GB_plank_seafood |> 
+  tidyr::pivot_wider(names_from = data_source, values_from = Value) |> 
+  dplyr::mutate(difference = workflow - ecodata) |> 
+  dplyr::mutate(comdat_planktivore_seafood_difference = ifelse(abs(difference) <= 1, 0, difference))
+
+# now quantify the difference in GB Herring landings from raw data
+
+herring_GB_seafood <-  herring_compare |> 
+                            dplyr::filter(EPU == 'GB') |> 
+                            dplyr::filter(UTILCD == 0) |> 
+                            dplyr::group_by(YEAR, data_source) |> 
+                            summarise(SPPLIVMT_sum = sum(SPPLIVMT, na.rm = TRUE), .groups = "drop") |> 
+                            tidyr::pivot_wider(names_from = data_source, values_from = SPPLIVMT_sum) |> 
+                            dplyr::mutate(raw_herring_difference = new - old)
+
+
+# combine the data sets for easy comparison
+GB_plank_seafood_for_merge <- GB_plank_seafood_comparison |> 
+                                  dplyr::select(Time, comdat_planktivore_seafood_difference) |> 
+                                  dplyr::rename(YEAR = Time)
+
+herring_GB_seafood_for_merge <- herring_GB_seafood |> 
+                                    dplyr::select(YEAR, raw_herring_difference)
+
+
+seafood_check <- dplyr::full_join(GB_plank_seafood_for_merge, herring_GB_seafood_for_merge)
+
+print(seafood_check)
+
+```
+
+The difference in the raw data continues all the way through to the end product and explains the difference we are seeing in Brandon's plots.
 
 
 
