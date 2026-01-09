@@ -836,7 +836,8 @@ productivity_anomaly<- rbind(productivity_anomaly1, prod_assess1)
 
 species_groupings <- ecodata::species_groupings |> 
                           dplyr::select(COMNAME,Fed.Managed) |> 
-                          unique()
+                          unique() |> 
+                          dplyr::mutate(Fed.Managed = replace(Fed.Managed, COMNAME == "WINDOWPANE", "NEFMC"))
 
 ## Create clean species column to match with ---------------
 
