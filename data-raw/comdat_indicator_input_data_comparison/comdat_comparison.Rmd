@@ -343,6 +343,25 @@ ggplot(herring_UTILCD_summary, aes(x = YEAR, y = SPPVALUE_sum, color = data_sour
   ) +
   theme(legend.position = "bottom")
 
+# Which species are bait?
+species <- readRDS("~/EDAB_Datasets/Workflows/SOE_species_list_24.rds") |> 
+                dplyr::select(NESPP3, COMNAME)
+
+new_bait <- new_comland |> dplyr::filter(UTILCD == 0)
+new_bait_species <- new_bait |> 
+                        dplyr::distinct(NESPP3) |> 
+                        dplyr::left_join(species) |> 
+                        dplyr::distinct()
+old_bait <- old_comland |> dplyr::filter(UTILCD == 0)
+old_bait_species <- old_bait |> 
+                        dplyr::distinct(NESPP3) |> 
+                        dplyr::left_join(species) |> 
+                        dplyr::distinct()
+
+
+
+
+
 
 ```
 
