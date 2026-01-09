@@ -830,6 +830,38 @@ prod_assess1<- AssessFishProdAnomaly |>
 message("Combining final product")
 productivity_anomaly<- rbind(productivity_anomaly1, prod_assess1)
 
+# add Jurisdiction column ------------------
+
+## Get needed columns from ecodata::species_groupings ----------
+
+species_groupings <- ecodata::species_groupings |> 
+                          dplyr::select(COMNAME,Fed.Managed) |> 
+                          unique() |> 
+                          dplyr::mutate(Fed.Managed = replace(Fed.Managed, COMNAME == "WINDOWPANE", "NEFMC"))
+
+## Create clean species column to match with ---------------
+
+productivity_anomaly <- productivity_anomaly  |> 
+  dplyr::mutate(
+    COMNAME = Var  |> 
+      # remove NE LME and similar prefixes
+      stringr::str_remove("^NE LME\\s+")  |> 
+      # keep text before "_" or " -"
+      stringr::str_extract("^[^_-]+") |> 
+      # trim leading/trailing whitespace
+      stringr::str_trim() |> 
+      # force to all caps to match species_groupings
+      stringr::str_to_upper()
+  )
+
+## Bind species_groupings by COMNAME--------------------------
+
+productivity_anomaly <- productivity_anomaly |> 
+                              dplyr::left_join(species_groupings) |> 
+                              dplyr::select(-COMNAME) |> 
+                              dplyr::rename(Jurisdiction = Fed.Managed)
+
+
 # Return productivity_anomaly -----------------------
 
 return(productivity_anomaly)
