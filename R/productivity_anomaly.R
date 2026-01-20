@@ -34,10 +34,23 @@ create_productivity_anomaly <- function(
     inputPathSpecies,
     input_static_length_convert,
     species2include = c(
-      "ACADIAN REDFISH", "AMERICAN PLAICE", "ATLANTIC COD", "BLACK SEA BASS",
-      "BUTTERFISH", "HADDOCK", "POLLOCK", "RED HAKE", "SCUP", "SILVER HAKE",
-      "SUMMER FLOUNDER", "WHITE HAKE", "WINDOWPANE", "WINTER FLOUNDER",
-      "WITCH FLOUNDER", "YELLOWTAIL FLOUNDER"
+      "SPINY DOGFISH", "BARNDOOR SKATE",
+      "WINTER SKATE", "CLEARNOSE SKATE", 
+      "ROSETTE SKATE", "LITTLE SKATE", 
+      "SMOOTH SKATE", "THORNY SKATE", 
+      "OFFSHORE HAKE", "SILVER HAKE", 
+      "ATLANTIC COD", "HADDOCK", 
+      "POLLOCK", "WHITE HAKE",  
+      "RED HAKE", "ATLANTIC HALIBUT", 
+      "AMERICAN PLAICE", "SUMMER FLOUNDER", 
+      "YELLOWTAIL FLOUNDER", "WINTER FLOUNDER", 
+      "WITCH FLOUNDER", "WINDOWPANE", 
+      "BUTTERFISH", "BLUEFISH", 
+      "BLACK SEA BASS", "SCUP", 
+      "TILEFISH", "ACADIAN REDFISH", 
+      "ATLANTIC WOLFFISH", "OCEAN POUT", 
+      "GOOSEFISH", "BLUELINE TILEFISH", 
+      "ATLANTIC SALMON"
     )
 ) {
   
@@ -228,6 +241,10 @@ dat_tows_epu <- survdat1  |>
 # merge and calculate recruitment-related variables ---------------------
 
 message("Calculating recruitment-related variables by EPU")
+
+# setting length cutoff for species without length_at_age1
+# value taken from 2-load.R from trawlr repo
+len_cutoff = 0.2
 
 dat_spec_rec_epu <- survdat1 |> 
   dplyr::left_join(dat_tows_epu, by = c("CRUISE6", "YEAR", "SEASON")) |> 
