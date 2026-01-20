@@ -53,6 +53,7 @@ test_productivity_anomaly <- workflow_productivity_anomaly(
 
 plot_productivity_anomaly <- function(shadedRegion = NULL,
                                       report="MidAtlantic",
+                                      plottype = "region",
                                       varName = "anomaly",
                                       EPU = "MAB") {
   
@@ -62,6 +63,26 @@ plot_productivity_anomaly <- function(shadedRegion = NULL,
   
   # this should be added to plot_setip
   leg_font_size <- 6
+  
+  # base data object
+  prod_dat <- test_productivity_anomaly
+  
+  # council-level filtering
+  if (plottype == "council") {
+    
+    if (report == "MidAtlantic") {
+      prod_dat <- prod_dat |>
+        dplyr::filter(Jurisdiction %in% c("MAFMC", "JOINT"))
+      
+    } else if (report == "NewEngland") {
+      prod_dat <- prod_dat |>
+        dplyr::filter(Jurisdiction %in% c("NEFMC", "JOINT"))
+      
+    } else {
+      stop("Invalid report value")
+    }
+  }
+  
   
   # which report? this may be bypassed for some figures
   if (report == "MidAtlantic") {
@@ -86,18 +107,25 @@ plot_productivity_anomaly <- function(shadedRegion = NULL,
   # e.g., calculate mean, max or other needed values to join below
   
   if (varName == "assessment") {
-    fix<- test_productivity_anomaly |>
-      tidyr::separate(Var, into = c("Stock", "Var"), sep = "-")  |>
+    fix <- prod_dat |>
+      tidyr::separate(Var, into = c("Stock", "Var"), sep = "-") |>
       dplyr::filter(EPU == filterEPUs,
                     Var == "rs_anom") |>
       dplyr::group_by(Time) |>
-      dplyr::summarise(Total = sum(Value, na.rm = T),
-                       Count = dplyr::n()) |> # SG add a count of species
-      dplyr::mutate(Totalold = ifelse(Total == 0, NA, Total),
-                    Total = ifelse(Count < max(Count), NA, Total)) |>
-      dplyr::filter(!is.na(Total))
+      dplyr::summarise(
+        Total = sum(Value, na.rm = TRUE),
+        Count = dplyr::n(),
+        .groups = "drop"
+      ) |>
+      dplyr::mutate(
+        Total = ifelse(Count < max(Count), NA, Total)
+      ) |>
+      tidyr::complete(
+        Time = seq(min(Time), max(Time), by = 1),
+        fill = list(Total = NA)
+      )
     
-    prod<- test_productivity_anomaly |>
+    prod<- prod_dat |>
       tidyr::separate(Var, into = c("Stock", "Var"), sep = "-")  |>
       dplyr::filter(EPU == filterEPUs,
                     Var == "rs_anom") |>
@@ -121,7 +149,7 @@ plot_productivity_anomaly <- function(shadedRegion = NULL,
       ggplot2::geom_hline(size = 0.3, ggplot2::aes(yintercept = 0)) +
       ggplot2::xlab("") +
       ggplot2::ylab("Recruitment Anomaly") +
-      ggplot2::ggtitle(paste0(filterEPUs," Recruitment Anomaly from Stock Assessments_workflow")) +
+      ggplot2::ggtitle(paste0(filterEPUs," Recruitment Anomaly from Stock Assessments")) +
       #ggplot2::guides(fill = guide_legend(ncol = leg_ncol)) +
       ecodata::theme_ts()+
       ggplot2::theme(axis.title   = ggplot2::element_text(size = 10),
@@ -134,8 +162,11 @@ plot_productivity_anomaly <- function(shadedRegion = NULL,
   }
   
   if (varName == "anomaly") {
-    bar_dat <- test_productivity_anomaly |>
-      dplyr::filter(EPU == filterEPUs) |>
+    bar_dat <- prod_dat |>
+      dplyr::filter(
+        EPU == filterEPUs,
+        abs(Value) < 20        # anomalies only; previous code included raw values
+      ) |>
       tidyr::separate(Var, into = c("Var", "Survey"), sep = "_")
     
     adjustAxes <-
@@ -146,7 +177,7 @@ plot_productivity_anomaly <- function(shadedRegion = NULL,
     p <- plot_stackbarcpts_single(YEAR = bar_dat$Time,
                                   var2bar = bar_dat$Var,
                                   x = bar_dat$Value,
-                                  titl = paste0(EPU, " from survey data_workflow"),
+                                  titl = paste0(EPU, " from survey data"),
                                   xlab = "",
                                   ylab = "Small fish per large fish biomass (anomaly)",
                                   height = 5.5,
@@ -172,6 +203,8 @@ plot_productivity_anomaly <- function(shadedRegion = NULL,
 attr(plot_productivity_anomaly,"report") <- c("MidAtlantic","NewEngland")
 attr(plot_productivity_anomaly,"varName") <- c("anomaly","assessment")
 attr(plot_productivity_anomaly,"EPU") <- c("MAB","GB","GOM")
+attr(plot_productivity_anomaly,"plottype") <- c("region","council")
+
 
 
 #' anomaly stacked barchart. needs to be reworked
@@ -251,9 +284,15 @@ plot_stackbarcpts_single <- function(YEAR, var2bar,
   if (aggregate){
     agg <- dat2plot |>
       dplyr::group_by(YEAR) |>
-      dplyr::summarise(Total = sum(value, na.rm = T)) |>
-      dplyr::mutate(Total = ifelse(Total == 0, NA, Total)) |>
-      dplyr::filter(!is.na(Total))
+      dplyr::summarise(
+        Total = sum(value, na.rm = TRUE),
+        .groups = "drop"
+      ) |>
+      tidyr::complete(
+        YEAR = seq(min(YEAR), max(YEAR), by = 1),
+        fill = list(Total = NA)
+      )
+    
   }
   
   p <-
