@@ -54,8 +54,13 @@ create_productivity_anomaly <- function(
     )
 ) {
   
-  end.year <- format(Sys.Date(),"%Y")
-  end.year <- as.numeric(end.year)
+  currentMonth <- lubridate::month(Sys.Date())
+  currentYear <- lubridate::year(Sys.Date())
+  if (currentMonth > 4) {
+    end.year <- currentYear
+  } else {
+    end.year <- currentYear - 1
+  }
 
 # species lookup
 message("Filtering for focal species")
