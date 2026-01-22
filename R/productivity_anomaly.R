@@ -743,6 +743,7 @@ bothyr <- NEbiohasrec  |>
 
 NErecNstd <- NErecN  |> 
   dplyr::mutate(NfishRec = dplyr::case_when(Units == "Thousand Recruits" ~ Value*1000,
+                              Units == "Thousands of Recruits" ~ Value*1000,              
                               Units == "Thousand recruits" ~ Value*1000,
                               Units == "Number x 1,000,000" ~ Value*1000000,
                               Units == "Number x 1,000" ~ Value*1000,
