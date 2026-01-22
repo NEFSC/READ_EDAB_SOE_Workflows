@@ -678,6 +678,9 @@ message("Pulling and tidying stockSMART data")
 
 ## get stocksmart info -----------------------
 
+# reinstall stocksmart to be sure we are getting the latest data
+pak::pak("NOAA-EDAB/stocksmart")
+
 NErec <- stocksmart::stockAssessmentData  |> 
   dplyr::filter(RegionalEcosystem == "Northeast Shelf",
          Metric == "Recruitment") |> 
@@ -717,6 +720,7 @@ recyr <- NErec  |>
 NErecN <- NErec  |> 
   dplyr::filter(AssessmentYear>2018,
          Units %in% c("Thousand Recruits",
+                      "Thousands of Recruits",
                       "Thousand recruits",
                       "Number x 1,000,000",
                       "Number x 1,000",
