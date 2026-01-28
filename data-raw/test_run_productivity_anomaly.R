@@ -14,11 +14,11 @@
 
 # 1. set paths --------
 
-input_survey_bio_epu <- "~/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds"
-input_survey_bio <- "~/EDAB_Datasets/Workflows/surveyBiologicalData.rds"
+input_survey_bio_epu <- "~/EDAB_Dev/beet/surveyBiologicalByEPUData.rds"
+input_survey_bio <- "~/EDAB_Dev/beet/surveyBiologicalData.rds"
 input_static_lw_table <- "~/EDAB_Datasets/Workflows/df_lw.rda"
 inputPathSpecies <- "~/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
-outputPath <- "~/EDAB_Indicators/"
+outputPath <- "~/EDAB_Dev/grezlik"
 input_static_length_convert <- "~/EDAB_Datasets/Workflows/df_lconv.rda"
 
 # 2. run workflow ------------------
