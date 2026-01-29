@@ -74,13 +74,45 @@ join_decoder <- function(data,
       "Stock" = "Entity.Name"
     ) |> # rename variables for clarity
     dplyr::mutate(
-      Units = "unitless",
+      Units = "unitless"
+    )
+  
+  # Fix known missing Council and Code values
+  
+  output <- output |>
+    dplyr::mutate(
+      Council = dplyr::case_when(
+        Stock == "Blueline tilefish - Mid-Atlantic Coast" &
+          is.na(Council) ~ "MAFMC",
+        
+        Stock == "Atlantic salmon - Gulf of Maine" &
+          is.na(Council) ~ "NEFMC",
+        
+        Stock == "Atlantic wolffish - Gulf of Maine / Georges Bank" &
+          is.na(Council) ~ "NEFMC",
+        
+        TRUE ~ Council
+      ),
+      
+      Code = dplyr::case_when(
+        Stock == "Atlantic wolffish - Gulf of Maine / Georges Bank" &
+          is.na(Code) ~ "Wolffish",
+        
+        TRUE ~ Code
+      )
+    )
+  
+  # Add EPU after Council has been corrected
+  
+  output <- output |>
+    dplyr::mutate(
       EPU = dplyr::case_when(
         Council == "MAFMC" ~ "MAB",
         Council == "NEFMC" ~ "NE",
         TRUE ~ Council
       )
     )
+  
   
   # Add Atlantic Chub Mackerel manually if not already present
   chub_stock <- "Atlantic Chub Mackerel - Atlantic Coast"
@@ -99,6 +131,20 @@ join_decoder <- function(data,
     )
     
     output <- dplyr::bind_rows(output, manual_rows)
+  }
+  
+  # Check for any remaining NA Councils
+  missing_council <- output |>
+    dplyr::filter(is.na(Council)) |>
+    dplyr::distinct(Stock)
+  
+  if (nrow(missing_council) > 0) {
+    warning(
+      paste0(
+        "Warning: Council is NA for ",
+        paste0(missing_council$Stock, collapse = ", ")
+      )
+    )
   }
 
   missing_codes <- dplyr::anti_join(
