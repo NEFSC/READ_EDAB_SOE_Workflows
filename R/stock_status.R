@@ -9,12 +9,18 @@
 #' @importFrom rlang .data
 #' @export
 
-create_stock_status <- function(data = stocksmart::stockAssessmentSummary,
-                                decode) {
+create_stock_status <- function(data,decode) {
+  
+  # reload stocksmart to be sure we are using the latest data
+  pak::pak("NOAA-EDAB/stocksmart")
+  
+  # call in data
+  data <- stocksmart::stockAssessmentSummary
+  
   # this will wrangle stocksmart data only (not PDB data)
-  if ("Science Center" %in% names(data)) {
+  if ("Jurisdiction" %in% names(data)) {
     data <- data |>
-      dplyr::filter(.data$`Science Center` == "NEFSC") |>
+      dplyr::filter(Jurisdiction %in% c('MAFMC','NEFMC','NEFMC / MAFMC')) |>
       dplyr::rename(
         "Entity.Name" = "Stock Name",
         "Assessment.Year" = "Assessment Year",
@@ -75,6 +81,25 @@ join_decoder <- function(data,
         TRUE ~ Council
       )
     )
+  
+  # Add Atlantic Chub Mackerel manually if not already present
+  chub_stock <- "Atlantic Chub Mackerel - Atlantic Coast"
+  
+  if (!chub_stock %in% output$Stock) {
+    
+    manual_rows <- tibble::tibble(
+      Stock = chub_stock,
+      `Last assessment` = as.integer(NA),
+      Council = "MAFMC",
+      Code = NA_character_,
+      Var = c("F.Fmsy", "B.Bmsy"),
+      Value = as.numeric(NA),
+      Units = "unitless",
+      EPU = "Both"
+    )
+    
+    output <- dplyr::bind_rows(output, manual_rows)
+  }
 
   missing_codes <- dplyr::anti_join(
     output,
