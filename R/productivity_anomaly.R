@@ -661,6 +661,7 @@ epu_rec_anom <- dat_spec_rec_epu_forSOE  |>
 
 #Select, rename, and bind
 productivity_anomaly1 <- dat_spec_rec_forSOE  |> 
+  dplyr::filter(!Time == "2020") |> 
   dplyr::select(-Source) |> 
   dplyr::mutate(EPU = "All",
                 Var = paste("NE LME",Var)) |> 
