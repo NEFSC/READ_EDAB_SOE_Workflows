@@ -663,7 +663,7 @@ epu_rec_anom <- dat_spec_rec_epu_forSOE  |>
 productivity_anomaly1 <- dat_spec_rec_forSOE  |> 
   dplyr::filter(!Time == "2020") |> 
   dplyr::select(-Source) |> 
-  dplyr::mutate(EPU = "ALL",
+  dplyr::mutate(EPU = "All",
                 Var = paste("NE LME",Var)) |> 
   dplyr::bind_rows(epu_rec_anom) |>  
   dplyr::select(Time, Var, Value, EPU, Units) |> 
@@ -837,7 +837,6 @@ prod_assess1<- AssessFishProdAnomaly |>
                                     " Mid" = "MA",
                                     " Atlantic Coast" = "ALL",
                                     " Georges Bank" = "NE",
-                                    " Eastern Georges Bank" = "NE",
                                     " Northwestern Atlantic Coast" = "ALL",
                                     " Gulf of Maine" = "NE",
                                     " Southern New England / Mid" = "MA",
