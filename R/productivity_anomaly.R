@@ -34,15 +34,33 @@ create_productivity_anomaly <- function(
     inputPathSpecies,
     input_static_length_convert,
     species2include = c(
-      "ACADIAN REDFISH", "AMERICAN PLAICE", "ATLANTIC COD", "BLACK SEA BASS",
-      "BUTTERFISH", "HADDOCK", "POLLOCK", "RED HAKE", "SCUP", "SILVER HAKE",
-      "SUMMER FLOUNDER", "WHITE HAKE", "WINDOWPANE", "WINTER FLOUNDER",
-      "WITCH FLOUNDER", "YELLOWTAIL FLOUNDER"
+      "SPINY DOGFISH", "BARNDOOR SKATE",
+      "WINTER SKATE", "CLEARNOSE SKATE", 
+      "ROSETTE SKATE", "LITTLE SKATE", 
+      "SMOOTH SKATE", "THORNY SKATE", 
+      "OFFSHORE HAKE", "SILVER HAKE", 
+      "ATLANTIC COD", "HADDOCK", 
+      "POLLOCK", "WHITE HAKE",  
+      "RED HAKE", "ATLANTIC HALIBUT", 
+      "AMERICAN PLAICE", "SUMMER FLOUNDER", 
+      "YELLOWTAIL FLOUNDER", "WINTER FLOUNDER", 
+      "WITCH FLOUNDER", "WINDOWPANE", 
+      "BUTTERFISH", "BLUEFISH", 
+      "BLACK SEA BASS", "SCUP", 
+      "TILEFISH", "ACADIAN REDFISH", 
+      "ATLANTIC WOLFFISH", "OCEAN POUT", 
+      "GOOSEFISH", "BLUELINE TILEFISH", 
+      "ATLANTIC SALMON"
     )
 ) {
   
-  end.year <- format(Sys.Date(),"%Y")
-  end.year <- as.numeric(end.year)
+  currentMonth <- lubridate::month(Sys.Date())
+  currentYear <- lubridate::year(Sys.Date())
+  if (currentMonth > 4) {
+    end.year <- currentYear
+  } else {
+    end.year <- currentYear - 1
+  }
 
 # species lookup
 message("Filtering for focal species")
@@ -228,6 +246,10 @@ dat_tows_epu <- survdat1  |>
 # merge and calculate recruitment-related variables ---------------------
 
 message("Calculating recruitment-related variables by EPU")
+
+# setting length cutoff for species without length_at_age1
+# value taken from 2-load.R from trawlr repo
+len_cutoff = 0.2
 
 dat_spec_rec_epu <- survdat1 |> 
   dplyr::left_join(dat_tows_epu, by = c("CRUISE6", "YEAR", "SEASON")) |> 
@@ -639,6 +661,7 @@ epu_rec_anom <- dat_spec_rec_epu_forSOE  |>
 
 #Select, rename, and bind
 productivity_anomaly1 <- dat_spec_rec_forSOE  |> 
+  dplyr::filter(!Time == "2020") |> 
   dplyr::select(-Source) |> 
   dplyr::mutate(EPU = "All",
                 Var = paste("NE LME",Var)) |> 
@@ -655,6 +678,9 @@ message("Pulling and tidying stockSMART data")
 # old script adds prelim assessment data which is now in stockSMART
 
 ## get stocksmart info -----------------------
+
+# reinstall stocksmart to be sure we are getting the latest data
+pak::pak("NOAA-EDAB/stocksmart")
 
 NErec <- stocksmart::stockAssessmentData  |> 
   dplyr::filter(RegionalEcosystem == "Northeast Shelf",
@@ -695,6 +721,7 @@ recyr <- NErec  |>
 NErecN <- NErec  |> 
   dplyr::filter(AssessmentYear>2018,
          Units %in% c("Thousand Recruits",
+                      "Thousands of Recruits",
                       "Thousand recruits",
                       "Number x 1,000,000",
                       "Number x 1,000",
@@ -717,6 +744,7 @@ bothyr <- NEbiohasrec  |>
 
 NErecNstd <- NErecN  |> 
   dplyr::mutate(NfishRec = dplyr::case_when(Units == "Thousand Recruits" ~ Value*1000,
+                              Units == "Thousands of Recruits" ~ Value*1000,              
                               Units == "Thousand recruits" ~ Value*1000,
                               Units == "Number x 1,000,000" ~ Value*1000000,
                               Units == "Number x 1,000" ~ Value*1000,
