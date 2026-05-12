@@ -10,6 +10,7 @@ pullRawData <- FALSE
 rootPath <- "~/EDAB_Datasets/Workflows/" 
 # suite of paths to input and output files
 outputPath <- "~/EDAB_Indicators/"
+#outputPath <- "~/EDAB_Dev/beet/"
 outputPathDatasets <- rootPath
 inputPathSurvey <- paste0(rootPath,"surveyNoLengthsData.rds")
 inputPathMassSurvey <- paste0(rootPath,"massInshoreData.rds")
@@ -36,6 +37,11 @@ inputPathGOMSurf <- paste0(rootPath,"GOM_SST_1982_to_2024_detrended.csv")
 inputPathGOMBot <- paste0(rootPath,"daily_bottomT_GOM_1959_2024_detrended.csv")
 inputPathMABSurf <- paste0(rootPath,"MAB_SST_1982_to_2024_detrended.csv")
 inputPathMABBot <- paste0(rootPath,"daily_bottomT_MAB_1959_2024_detrended.csv")
+input_survey_bio_epu <-  paste0(rootPath,"surveyBiologicalByEPUData.rds")
+input_survey_bio <-  paste0(rootPath,"surveyBiologicalData.rds")
+input_static_lw_table <-  paste0(rootPath,"df_lw.rda")
+inputPathSpecies <-  paste0(rootPath,"SOE_species_list_24.rds")
+input_static_length_convert <-  paste0(rootPath,"df_lconv.rda")
 
 # source workflow functions from data-raw since they are not accessible from the package installation
 source(here::here("data-raw/workflow_pull_survey_data.R"))
@@ -55,6 +61,7 @@ source(here::here("data-raw/workflow_survey_shannon.R"))
 source(here::here("data-raw/workflow_trans_dates.R"))
 source(here::here("data-raw/workflow_heatwave.R"))
 source(here::here("data-raw/workflow_heatwave_year.R"))
+source(here::here("data-raw/workflow_productivity_anomaly.R"))
 
 if (pullRawData) {
   ## Connects to the data base.
@@ -163,4 +170,14 @@ indicator_heatwave_year <- workflow_heatwave_year(inputPathGBBot = inputPathGBBo
                                                   inputPathGOMSurf = inputPathGOMSurf,
                                                   inputPathMABSurf = inputPathMABSurf,
                                                   outputPath)
+
+
+message("Running productivity_anomaly . .")
+
+indicator_productivity_anomaly <- workflow_productivity_anomaly(input_survey_bio_epu = input_survey_bio_epu,
+                                                                input_survey_bio = input_survey_bio,
+                                                                input_static_lw_table = input_static_lw_table,
+                                                                inputPathSpecies = inputPathSpecies,
+                                                                input_static_length_convert = input_static_length_convert,
+                                                                outputPath = outputPath)
 

@@ -9,12 +9,18 @@
 #' @importFrom rlang .data
 #' @export
 
-create_stock_status <- function(data = stocksmart::stockAssessmentSummary,
-                                decode) {
+create_stock_status <- function(data,decode) {
+  
+  # reload stocksmart to be sure we are using the latest data
+  pak::pak("NOAA-EDAB/stocksmart")
+  
+  # call in data
+  data <- stocksmart::stockAssessmentSummary
+  
   # this will wrangle stocksmart data only (not PDB data)
-  if ("Science Center" %in% names(data)) {
+  if ("Jurisdiction" %in% names(data)) {
     data <- data |>
-      dplyr::filter(.data$`Science Center` == "NEFSC") |>
+      dplyr::filter(Jurisdiction %in% c('MAFMC','NEFMC','NEFMC / MAFMC')) |>
       dplyr::rename(
         "Entity.Name" = "Stock Name",
         "Assessment.Year" = "Assessment Year",
@@ -68,13 +74,78 @@ join_decoder <- function(data,
       "Stock" = "Entity.Name"
     ) |> # rename variables for clarity
     dplyr::mutate(
-      Units = "unitless",
+      Units = "unitless"
+    )
+  
+  # Fix known missing Council and Code values
+  
+  output <- output |>
+    dplyr::mutate(
+      Council = dplyr::case_when(
+        Stock == "Blueline tilefish - Mid-Atlantic Coast" &
+          is.na(Council) ~ "MAFMC",
+        
+        Stock == "Atlantic salmon - Gulf of Maine" &
+          is.na(Council) ~ "NEFMC",
+        
+        Stock == "Atlantic wolffish - Gulf of Maine / Georges Bank" &
+          is.na(Council) ~ "NEFMC",
+        
+        TRUE ~ Council
+      ),
+      
+      Code = dplyr::case_when(
+        Stock == "Atlantic wolffish - Gulf of Maine / Georges Bank" &
+          is.na(Code) ~ "Wolffish",
+        
+        TRUE ~ Code
+      )
+    )
+  
+  # Add EPU after Council has been corrected
+  
+  output <- output |>
+    dplyr::mutate(
       EPU = dplyr::case_when(
         Council == "MAFMC" ~ "MAB",
         Council == "NEFMC" ~ "NE",
         TRUE ~ Council
       )
     )
+  
+  
+  # Add Atlantic Chub Mackerel manually if not already present
+  chub_stock <- "Atlantic Chub Mackerel - Atlantic Coast"
+  
+  if (!chub_stock %in% output$Stock) {
+    
+    manual_rows <- tibble::tibble(
+      Stock = chub_stock,
+      `Last assessment` = as.integer(NA),
+      Council = "MAFMC",
+      Code = NA_character_,
+      Var = c("F.Fmsy", "B.Bmsy"),
+      Value = as.numeric(NA),
+      Units = "unitless",
+      EPU = "Both"
+    )
+    
+    output <- dplyr::bind_rows(output, manual_rows)
+  }
+  
+  # Check for any remaining NA Councils
+  missing_council <- output |>
+    dplyr::filter(is.na(Council)) |>
+    dplyr::distinct(Stock)
+  
+  if (nrow(missing_council) > 0) {
+    warning(
+      paste0(
+        "Warning: Council is NA for ",
+        paste0(missing_council$Stock, collapse = ", ")
+      )
+    )
+  }
 
   missing_codes <- dplyr::anti_join(
     output,
