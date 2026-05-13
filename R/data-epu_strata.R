@@ -1,9 +1,9 @@
 #' Bottom Trawl Survey Strata and associated EPUs
 #'
-#' Ecological Production Units (EPUs) are defined (for Bottom Trawl Survey data) by 
+#' Ecological Production Units (EPUs) are defined (for Bottom Trawl Survey data) by
 #' a set of strata in which the survey samples were taken
 #'
-#' @format A data frame 
+#' @format A data frame
 #'
 #' \describe{
 #'   \item{EPU}{Ecological Production Unit}

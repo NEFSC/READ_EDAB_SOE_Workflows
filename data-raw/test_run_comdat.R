@@ -7,23 +7,27 @@ outputPathDataSets <- "~/EDAB_Indicators"
 
 source(here::here("data-raw/workflow_comdat.R"))
 
-workflow_comdat(comdat_path = comdat_path,
-                  input_path_species = input_path_species,
-                  menhaden_path = menhaden_path,
-                  outputPathDataSets = outputPathDataSets)
+workflow_comdat(
+  comdat_path = comdat_path,
+  input_path_species = input_path_species,
+  menhaden_path = menhaden_path,
+  outputPathDataSets = outputPathDataSets
+)
 
 # compare to ecodata::comdat
 
-new_comdat <- workflow_comdat(comdat_path = comdat_path,
-                                   input_path_species = input_path_species,
-                                   menhaden_path = menhaden_path,
-                                   outputPathDataSets = outputPathDataSets)
+new_comdat <- workflow_comdat(
+  comdat_path = comdat_path,
+  input_path_species = input_path_species,
+  menhaden_path = menhaden_path,
+  outputPathDataSets = outputPathDataSets
+)
 
-new_comdat <- new_comdat |> 
-                  dplyr::mutate(source = 'workflow')
+new_comdat <- new_comdat |>
+  dplyr::mutate(source = 'workflow')
 
-old_comdat <- ecodata::comdat |> 
-                  dplyr::mutate(source = 'ecodata')
+old_comdat <- ecodata::comdat |>
+  dplyr::mutate(source = 'ecodata')
 
 comdat_compare <- dplyr::bind_rows(new_comdat, old_comdat)
 
@@ -64,14 +68,15 @@ guilddat <- dplyr::bind_rows(total_landings, managed_landings) |>
   dplyr::filter(!feeding.guild %in% c("Apex", "Other", "Landings")) |>
   dplyr::group_by(Time, EPU, source, feeding.guild, grouping) |>
   dplyr::summarise(Value = sum(Value, na.rm = TRUE), .groups = "drop") |>
-  dplyr::mutate(feeding.guild = factor(feeding.guild, levels = setup$feeding.guilds))
+  dplyr::mutate(
+    feeding.guild = factor(feeding.guild, levels = setup$feeding.guilds)
+  )
 
 
 plot_guild_landings <- guilddat |>
   ggplot(aes(x = Time, y = Value, color = source, linetype = grouping)) +
   geom_line(linewidth = setup$lwd) +
   facet_grid(feeding.guild ~ EPU, scales = "free_y")
-
 
 
 # Prepare data for the "total" plot
@@ -119,7 +124,9 @@ guilddat <- bind_rows(total_revenue, managed_revenue) |>
   dplyr::filter(!feeding.guild %in% c("Apex", "Other", "Revenue")) |>
   dplyr::group_by(Time, EPU, source, feeding.guild, grouping) |>
   dplyr::summarise(Value = sum(Value, na.rm = TRUE) / 1000, .groups = "drop") |>
-  dplyr::mutate(feeding.guild = factor(feeding.guild, levels = setup$feeding.guilds))
+  dplyr::mutate(
+    feeding.guild = factor(feeding.guild, levels = setup$feeding.guilds)
+  )
 
 plot_guild_revenue <- guilddat |>
   ggplot(aes(x = Time, y = Value, color = source, linetype = grouping)) +
@@ -144,7 +151,10 @@ plot_total_revenue <- totdat |>
 
 # Apply common aesthetics
 p_tot_rev <- plot_total_revenue +
-  scale_x_continuous(breaks = seq(1980, 2020, by = 10), expand = c(0.01, 0.01)) +
+  scale_x_continuous(
+    breaks = seq(1980, 2020, by = 10),
+    expand = c(0.01, 0.01)
+  ) +
   labs(y = rev_ylabdat, x = NULL) +
   ecodata::theme_ts() +
   ecodata::theme_title() +
@@ -152,7 +162,10 @@ p_tot_rev <- plot_total_revenue +
   theme(legend.position = "bottom", legend.title = element_blank())
 
 p_guild_rev <- plot_guild_revenue +
-  scale_x_continuous(breaks = seq(1980, 2020, by = 10), expand = c(0.01, 0.01)) +
+  scale_x_continuous(
+    breaks = seq(1980, 2020, by = 10),
+    expand = c(0.01, 0.01)
+  ) +
   labs(y = rev_ylabdat, x = NULL) +
   ecodata::theme_ts() +
   ecodata::theme_title() +
@@ -160,7 +173,10 @@ p_guild_rev <- plot_guild_revenue +
   theme(legend.position = "bottom", legend.title = element_blank())
 
 p_tot_land <- plot_total_landings +
-  scale_x_continuous(breaks = seq(1980, 2020, by = 10), expand = c(0.01, 0.01)) +
+  scale_x_continuous(
+    breaks = seq(1980, 2020, by = 10),
+    expand = c(0.01, 0.01)
+  ) +
   labs(y = land_ylabdat, x = NULL) +
   ecodata::theme_ts() +
   ecodata::theme_title() +
@@ -168,7 +184,10 @@ p_tot_land <- plot_total_landings +
   theme(legend.position = "bottom", legend.title = element_blank())
 
 p_guild_land <- plot_guild_landings +
-  scale_x_continuous(breaks = seq(1980, 2020, by = 10), expand = c(0.01, 0.01)) +
+  scale_x_continuous(
+    breaks = seq(1980, 2020, by = 10),
+    expand = c(0.01, 0.01)
+  ) +
   labs(y = land_ylabdat, x = NULL) +
   ecodata::theme_ts() +
   ecodata::theme_title() +

@@ -1,4 +1,3 @@
-
 # dir.create(here::here("data-raw/temp"))
 
 inputPath <- '~/EDAB_Dev/grezlik/decoder - Sarah Gaichas - NOAA Federal.csv'
@@ -8,8 +7,7 @@ outputPath <- '~/EDAB_Dev/grezlik'
 
 source(here::here("data-raw/workflow_stock_status.R"))
 
-workflow_stock_status(outputPath = outputPath,
-                      inputPath = inputPath)
+workflow_stock_status(outputPath = outputPath, inputPath = inputPath)
 
 # unlink(here::here("data-raw/temp"),
 #        recursive = TRUE)

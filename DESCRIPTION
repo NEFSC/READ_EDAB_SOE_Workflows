@@ -39,7 +39,8 @@ Imports:
     zoo,
     janitor,
     NEFSCspatial,
-    ncdf4
+    ncdf4,
+    lubridate
 Remotes:
   NOAA-EDAB/survdat,
   NOAA-EDAB/stocksmart,
