@@ -12,3 +12,6 @@
 ^CONTRIBUTING.md
 ^renv.*
 ^air.toml
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
