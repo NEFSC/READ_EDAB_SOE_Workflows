@@ -28,29 +28,27 @@ create_condition <- function(
   inputPathLW,
   inputPathSpecies
 ) {
-  
   dat <- readRDS(inputPath)
   # pull out dataframe from survdat list output
-  if(is.list(dat)) {
+  if (is.list(dat)) {
     dat <- dat$survdat
   }
-  
+
   output <- NEesp2::species_condition(
     data = dat,
     LWparams = read.csv(inputPathLW),
     species.codes = read.csv(inputPathSpecies),
     by_EPU = TRUE,
     by_sex = FALSE,
-    length_break = NULL, 
+    length_break = NULL,
     more_than_20_years = TRUE,
     record_outliers = FALSE,
     output = "soe"
   )
-  
+
   # Remove all NAs
-  output <- output |> 
-    dplyr::filter(!(is.na(EPU)| is.na(Var))) 
+  output <- output |>
+    dplyr::filter(!(is.na(EPU) | is.na(Var)))
 
   return(output)
 }
-

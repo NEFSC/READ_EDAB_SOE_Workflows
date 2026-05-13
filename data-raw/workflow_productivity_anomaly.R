@@ -27,13 +27,14 @@
 #' @return productivity_anomaly
 #' @export
 
-workflow_productivity_anomaly <- function(input_survey_bio_epu,
-                                          input_survey_bio,
-                                          input_static_lw_table,
-                                          inputPathSpecies,
-                                          input_static_length_convert,
-                                          outputPath) {
-  
+workflow_productivity_anomaly <- function(
+  input_survey_bio_epu,
+  input_survey_bio,
+  input_static_lw_table,
+  inputPathSpecies,
+  input_static_length_convert,
+  outputPath
+) {
   tryCatch(
     {
       if (
@@ -48,7 +49,7 @@ workflow_productivity_anomaly <- function(input_survey_bio_epu,
       ) {
         stop("Incorrect file path or file missing")
       }
-      
+
       # calculate indicator
       indicatorData <- SOEworkflows::create_productivity_anomaly(
         input_survey_bio_epu = input_survey_bio_epu,
@@ -57,7 +58,7 @@ workflow_productivity_anomaly <- function(input_survey_bio_epu,
         inputPathSpecies = inputPathSpecies,
         input_static_length_convert = input_static_length_convert
       )
-      
+
       # write data to file
       saveRDS(indicatorData, paste0(outputPath, "/productivity_anomaly.rds"))
       return(indicatorData)
@@ -67,5 +68,4 @@ workflow_productivity_anomaly <- function(input_survey_bio_epu,
       return(NULL)
     }
   )
-  
 }

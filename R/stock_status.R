@@ -9,18 +9,17 @@
 #' @importFrom rlang .data
 #' @export
 
-create_stock_status <- function(data,decode) {
-  
+create_stock_status <- function(data, decode) {
   # reload stocksmart to be sure we are using the latest data
   pak::pak("NOAA-EDAB/stocksmart")
-  
+
   # call in data
   data <- stocksmart::stockAssessmentSummary
-  
+
   # this will wrangle stocksmart data only (not PDB data)
   if ("Jurisdiction" %in% names(data)) {
     data <- data |>
-      dplyr::filter(Jurisdiction %in% c('MAFMC','NEFMC','NEFMC / MAFMC')) |>
+      dplyr::filter(Jurisdiction %in% c('MAFMC', 'NEFMC', 'NEFMC / MAFMC')) |>
       dplyr::rename(
         "Entity.Name" = "Stock Name",
         "Assessment.Year" = "Assessment Year",
@@ -54,21 +53,27 @@ create_stock_status <- function(data,decode) {
 #' @importFrom rlang .data
 #' @export
 
-join_decoder <- function(data,
-                         decoder) {
+join_decoder <- function(data, decoder) {
   output <- data |>
     dplyr::group_by(.data$Entity.Name) |>
     dplyr::filter(.data$Assessment.Year == max(.data$Assessment.Year)) |>
     # Find last year assessment occurred for each stock
     dplyr::ungroup() |>
     dplyr::left_join(decoder, by = "Entity.Name") |> # Join in list of managed species
-    dplyr::select(.data$Entity.Name, .data$Assessment.Year, .data$F.Fmsy, .data$B.Bmsy, .data$Council, .data$Code) |>
+    dplyr::select(
+      .data$Entity.Name,
+      .data$Assessment.Year,
+      .data$F.Fmsy,
+      .data$B.Bmsy,
+      .data$Council,
+      .data$Code
+    ) |>
     tidyr::pivot_longer(
       cols = c(.data$F.Fmsy, .data$B.Bmsy),
       names_to = "Var",
       values_to = "Value"
     ) |>
-    dplyr::mutate(Assessment.Year = as.integer(Assessment.Year)) |> 
+    dplyr::mutate(Assessment.Year = as.integer(Assessment.Year)) |>
     dplyr::rename(
       "Last assessment" = "Assessment.Year",
       "Stock" = "Entity.Name"
@@ -76,34 +81,34 @@ join_decoder <- function(data,
     dplyr::mutate(
       Units = "unitless"
     )
-  
+
   # Fix known missing Council and Code values
-  
+
   output <- output |>
     dplyr::mutate(
       Council = dplyr::case_when(
         Stock == "Blueline tilefish - Mid-Atlantic Coast" &
           is.na(Council) ~ "MAFMC",
-        
+
         Stock == "Atlantic salmon - Gulf of Maine" &
           is.na(Council) ~ "NEFMC",
-        
+
         Stock == "Atlantic wolffish - Gulf of Maine / Georges Bank" &
           is.na(Council) ~ "NEFMC",
-        
+
         TRUE ~ Council
       ),
-      
+
       Code = dplyr::case_when(
         Stock == "Atlantic wolffish - Gulf of Maine / Georges Bank" &
           is.na(Code) ~ "Wolffish",
-        
+
         TRUE ~ Code
       )
     )
-  
+
   # Add EPU after Council has been corrected
-  
+
   output <- output |>
     dplyr::mutate(
       EPU = dplyr::case_when(
@@ -112,13 +117,11 @@ join_decoder <- function(data,
         TRUE ~ Council
       )
     )
-  
-  
+
   # Add Atlantic Chub Mackerel manually if not already present
   chub_stock <- "Atlantic Chub Mackerel - Atlantic Coast"
-  
+
   if (!chub_stock %in% output$Stock) {
-    
     manual_rows <- tibble::tibble(
       Stock = chub_stock,
       `Last assessment` = as.integer(NA),
@@ -129,15 +132,15 @@ join_decoder <- function(data,
       Units = "unitless",
       EPU = "Both"
     )
-    
+
     output <- dplyr::bind_rows(output, manual_rows)
   }
-  
+
   # Check for any remaining NA Councils
   missing_council <- output |>
     dplyr::filter(is.na(Council)) |>
     dplyr::distinct(Stock)
-  
+
   if (nrow(missing_council) > 0) {
     warning(
       paste0(

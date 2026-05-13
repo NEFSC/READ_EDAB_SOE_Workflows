@@ -4,8 +4,8 @@
 #' @param inputPathSpecies Character string. Full path to the species list data pull rds file
 #'
 #' @return ecodata::bennet data frame
-#' 
-#' 
+#'
+#'
 #' History, R code to construct Bennet Indicator for Ecosystem Project
 #' Author: John Walden
 #' Date: October 4, 2017
@@ -28,7 +28,6 @@
 #' @export
 
 create_bennet <- function(inputPathBennet, inputPathSpecies) {
-  
   end.year <- format(Sys.Date(), "%Y")
   # read in comland data
   comland.data <- readRDS(inputPathBennet)$comland |>
@@ -38,7 +37,10 @@ create_bennet <- function(inputPathBennet, inputPathSpecies) {
   species <- readRDS(inputPathSpecies)
 
   #Only take U.S. landings where the value is greater than zero
-  ecosys2 <- base::subset(comland.data, US == 'TRUE' & YEAR >= 1982 & SPPVALUE >= 0)
+  ecosys2 <- base::subset(
+    comland.data,
+    US == 'TRUE' & YEAR >= 1982 & SPPVALUE >= 0
+  )
   ecosys2[, NESPP3 := as.numeric(NESPP3)]
   #Note, Next Line is to take out Eastern Oysters from the 2024 Report.
   #This may need to be revised once the problem with Eastern Oyster value
@@ -125,15 +127,27 @@ create_bennet <- function(inputPathBennet, inputPathSpecies) {
   #The next lines are to calculate base year values for landings
   #and value for the time series by feeding guild
   gb.baseval <- gb.landsum[YEAR == 1982, list(SOE.24, SPPVALUE, SPPLIVMT)]
-  data.table::setnames(gb.baseval, c('SPPVALUE', 'SPPLIVMT'), c('BASEV', 'BASEQ'))
+  data.table::setnames(
+    gb.baseval,
+    c('SPPVALUE', 'SPPLIVMT'),
+    c('BASEV', 'BASEQ')
+  )
   gb.baseval[, BASEP := BASEV / BASEQ]
 
   gom.baseval <- gom.landsum[YEAR == 1982, list(SOE.24, SPPVALUE, SPPLIVMT)]
-  data.table::setnames(gom.baseval, c('SPPVALUE', 'SPPLIVMT'), c('BASEV', 'BASEQ'))
+  data.table::setnames(
+    gom.baseval,
+    c('SPPVALUE', 'SPPLIVMT'),
+    c('BASEV', 'BASEQ')
+  )
   gom.baseval[, BASEP := BASEV / BASEQ]
 
   mab.baseval <- mab.landsum[YEAR == 1982, list(SOE.24, SPPVALUE, SPPLIVMT)]
-  data.table::setnames(mab.baseval, c('SPPVALUE', 'SPPLIVMT'), c('BASEV', 'BASEQ'))
+  data.table::setnames(
+    mab.baseval,
+    c('SPPVALUE', 'SPPLIVMT'),
+    c('BASEV', 'BASEQ')
+  )
   mab.baseval[, BASEP := BASEV / BASEQ]
 
   #Managed Mid
@@ -141,7 +155,11 @@ create_bennet <- function(inputPathBennet, inputPathSpecies) {
     YEAR == 1982,
     list(SOE.24, SPPVALUE, SPPLIVMT)
   ]
-  data.table::setnames(mab.baseval.managed, c('SPPVALUE', 'SPPLIVMT'), c('BASEV', 'BASEQ'))
+  data.table::setnames(
+    mab.baseval.managed,
+    c('SPPVALUE', 'SPPLIVMT'),
+    c('BASEV', 'BASEQ')
+  )
   mab.baseval.managed[, BASEP := BASEV / BASEQ]
 
   #Merge Value data frame with Base Year Value Data Frame

@@ -50,7 +50,7 @@ get_commercial_data <- function(channel) {
   # Get the commercial data for comdat and bennet
   comdat <- comlandr::get_comland_data(
     channel,
-    filterByYear = 1964:(end.year-1),
+    filterByYear = 1964:(end.year - 1),
     refYear = end.year - 1,
     refMonth = 1,
     aggArea = T,
@@ -63,7 +63,7 @@ get_commercial_data <- function(channel) {
   # Remove menhaden
   comdat$comland <- comdat$comland |>
     dplyr::filter(!(NESPP3 == 221))
-  
+
   # Bennet indicator
   bennet <- comdat
 

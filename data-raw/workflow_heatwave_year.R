@@ -2,11 +2,11 @@
 #'
 #' Bottom temperature - This uses a static input file from Joe Caracappa.
 #' This is expected to be replaced by a workflow-generated GLORYS input file that
-#' Joe C is tasked with. Scripts included here will be refactored to accept the 
+#' Joe C is tasked with. Scripts included here will be refactored to accept the
 #' new GLORYS input when available.
 #' Surface temperature - This uses a static input file from Kim Hyde.
 #' This is expected to be replaced by a workflow-generated OISST input file that
-#' Kim H is tasked with. Scripts included here will be refactored to accept the 
+#' Kim H is tasked with. Scripts included here will be refactored to accept the
 #' new OISST input when available.
 #' It is formatted exactly like the ecodata data object
 #'
@@ -35,22 +35,22 @@
 #' @return ecodata::heatwave data frame
 #'
 #' @section Dependencies:
-#' 
+#'
 #' This assumes that the input data files from Joe Caracappa and Kim Hyde has been provided and resides in the appropriate directory
 #'
 #' @export
 
-
-workflow_heatwave_year <- function(inputPathGBBot,
-                              inputPathGOMBot, 
-                              inputPathMABBot,
-                              inputPathGBSurf,
-                              inputPathGOMSurf, 
-                              inputPathMABSurf, 
-                              outputPath = NULL) {
-  
+workflow_heatwave_year <- function(
+  inputPathGBBot,
+  inputPathGOMBot,
+  inputPathMABBot,
+  inputPathGBSurf,
+  inputPathGOMSurf,
+  inputPathMABSurf,
+  outputPath = NULL
+) {
   # Assumes that input data has been provided
-  
+
   # Add check to skip running workflow if data not present
   tryCatch(
     {
@@ -69,16 +69,17 @@ workflow_heatwave_year <- function(inputPathGBBot,
       }
 
       # calculate indicator
-      indicatorData <- SOEworkflows::create_heatwave_year(inputPathGBBot = inputPathGBBot,
-                                                     inputPathGOMBot = inputPathGOMBot,
-                                                     inputPathMABBot = inputPathMABBot,
-                                                     inputPathGBSurf = inputPathGBSurf,
-                                                     inputPathGOMSurf = inputPathGOMSurf,
-                                                     inputPathMABSurf = inputPathMABSurf)
+      indicatorData <- SOEworkflows::create_heatwave_year(
+        inputPathGBBot = inputPathGBBot,
+        inputPathGOMBot = inputPathGOMBot,
+        inputPathMABBot = inputPathMABBot,
+        inputPathGBSurf = inputPathGBSurf,
+        inputPathGOMSurf = inputPathGOMSurf,
+        inputPathMABSurf = inputPathMABSurf
+      )
       # write data to file
-      saveRDS(indicatorData,paste0(outputPath,"/heatwave_year.rds"))
+      saveRDS(indicatorData, paste0(outputPath, "/heatwave_year.rds"))
       return(indicatorData)
-      
     },
     error = function(e) {
       message("An error occurred: ", conditionMessage(e))
