@@ -3,7 +3,7 @@
 <!-- badges: start -->
 [![R-CMD-check.yaml](https://github.com/NEFSC/READ_EDAB_SOE_Workflows/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/NEFSC/READ_EDAB_SOE_Workflows/actions/workflows/R-CMD-check.yaml)
 [![format-check.yaml](https://github.com/NEFSC/READ_EDAB_SOE_Workflows/actions/workflows/format-check.yml/badge.svg)](https://github.com/NEFSC/READ_EDAB_SOE_Workflows/actions/workflows/format-check.yml)
-
+[![pkgdown.yaml](https://github.com/NEFSC/READ_EDAB_SOE_Workflows/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/NEFSC/READ_EDAB_SOE_Workflows/actions/workflows/pkgdown.yaml)
 <!-- badges: end -->
 
 `SOEWorkflows` is intended to hold all of the R based functions that generate State of the Ecosystem indicators.
