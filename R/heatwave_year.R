@@ -80,7 +80,7 @@ create_heatwave_year <- function(
 #'
 #' @importFrom dplyr `%>%`
 #'
-#' @export
+#' @noRd
 
 create_heatwave_year_surface <- function(
   inputPathGB,
@@ -192,7 +192,7 @@ create_heatwave_year_surface <- function(
 #'
 #' @importFrom dplyr `%>%`
 #'
-#' @export
+#' @noRd
 
 create_heatwave_year_bottom <- function(
   inputPathGB,
