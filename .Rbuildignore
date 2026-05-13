@@ -1,5 +1,14 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
-^template_readme.md
 ^\.github$
+
+# Folders
+^renv$
+
+# Files
+^template_readme.md
+^CODE_OF_CONDUCT.md
+^CONTRIBUTING.md
+^renv.*
+^air.toml
