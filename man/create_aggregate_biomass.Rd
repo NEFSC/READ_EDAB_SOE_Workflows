@@ -12,7 +12,7 @@ create_aggregate_biomass(inputPathSurvey, inputPathSpecies)
 \item{inputPathSpecies}{Character string. Full path to the species list data pull rds file}
 }
 \value{
-ecodata::aggregate_biomass data frame
+\code{ecodata::aggregate_biomass} data frame
 }
 \description{
 This uses the survdat data pull from the survey package and creates EPU
@@ -20,8 +20,8 @@ and shelfwide indicators. It is formatted exactly like the ecodata data object
 }
 \examples{
 \dontrun{
-# create the ecodata::aggregate_biomass indicator for 2025
-create_aggregate_biomass(inputPathSurvey = "path/to/survdatData.rds"),
+# create the ecodata::aggregate_biomass indicator
+create_aggregate_biomass(inputPathSurvey = "path/to/survdatData.rds",
                          inputPathSpecies = "path/to/species.rds")
 
 }

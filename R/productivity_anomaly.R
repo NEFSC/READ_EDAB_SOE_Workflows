@@ -17,7 +17,7 @@
 #' @examples
 #' \dontrun{
 #' create_productivity_anomaly(
-#'   input_survey_bio = "survey_bio.rds"
+#'   input_survey_bio = "survey_bio.rds",
 #'   input_survey_bio_epu = "survey_bio_epu.rds",
 #'   input_static_lw_table = "lw_table.rda",
 #'   input_static_length_convert = "df_lconv.rda",
