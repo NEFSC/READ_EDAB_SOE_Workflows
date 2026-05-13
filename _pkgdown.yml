@@ -31,8 +31,8 @@ reference:
   desc: "Indicators that use recreational fishing data"
 - contents:
   - create_rec_hms
-- title: "Environmental indicators"
-  desc: ""
+- title: "Oceanographic indicators"
+  desc: "Indicators that use oceanographic or environmental data"
 - contents:
   - create_heatwave
   - create_heatwave_year
