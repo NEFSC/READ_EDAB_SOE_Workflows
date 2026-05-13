@@ -35,7 +35,7 @@ into a single indicator
 }
 \examples{
 \dontrun{
-# create the ecodata::heatwave_year indicator 
+# create the ecodata::heatwave_year indicator
 create_heatwave_year(inputPathGBBot = "path/to/input/GBdata.csv",
                         inputPathGOMBot = "path/to/input/GOMdata.csv",
                         inputPathMABBot = "path/to/input/MABdata.csv",

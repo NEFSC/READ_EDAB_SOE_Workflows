@@ -4,7 +4,7 @@
 \alias{create_stock_status}
 \title{Creates the stock status data frame for the SOE}
 \usage{
-create_stock_status(data = stocksmart::stockAssessmentSummary, decode)
+create_stock_status(data, decode)
 }
 \arguments{
 \item{data}{the stock status data frame, typically from \code{stocksmart::stockAssessmentSummary}}

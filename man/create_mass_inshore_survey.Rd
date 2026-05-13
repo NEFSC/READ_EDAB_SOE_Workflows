@@ -21,7 +21,7 @@ MA inshore surveys have been performed biannually in the spring and fall since 1
 \examples{
 \dontrun{
 # create the ecodata::mass_inshore_survey indicator
-create_mass_inshore_survey(inputPathMassSurvey <- here::here("mass_inshore.rds"), 
+create_mass_inshore_survey(inputPathMassSurvey <- here::here("mass_inshore.rds"),
                          inputPathSpecies <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds")
 
 }

@@ -35,7 +35,7 @@ into a single indicator
 }
 \examples{
 \dontrun{
-# create the ecodata::heatwave indicator 
+# create the ecodata::heatwave indicator
 create_heatwave(inputPathGBBot = "path/to/input/GBdata.csv",
                         inputPathGOMBot = "path/to/input/GOMdata.csv",
                         inputPathMABBot = "path/to/input/MABdata.csv",

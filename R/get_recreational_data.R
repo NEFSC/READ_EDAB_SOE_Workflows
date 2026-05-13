@@ -18,7 +18,6 @@
 #' @export
 
 get_recreational_data <- function(outputPath) {
-  
   # pulls data for rec_hms
   ## set up query ----
   species_list <- c(
