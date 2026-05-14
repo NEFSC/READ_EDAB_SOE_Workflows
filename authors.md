@@ -17,7 +17,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/v0.1.0/DESCRIPTION)
 
 Caracappa J, Beet A, Tyrell A, Owen S, Grezlik M, Beltz B (2026).
 *SOEworkflows: Generates Indicators for the State of the Ecosystem
