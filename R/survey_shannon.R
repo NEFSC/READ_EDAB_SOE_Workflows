@@ -11,7 +11,7 @@
 #' @examples
 #' \dontrun{
 #' # create the ecodata::survey_shannon indicator
-#' create_aggregate_biomass(inputPathAlbatros = "path/to/albatross.rds"),
+#' create_aggregate_biomass(inputPathAlbatros = "path/to/albatross.rds",
 #'                          inputPathBigelow = "path/to/bigelow.rds")
 #'
 #' }

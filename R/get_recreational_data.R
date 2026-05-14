@@ -8,8 +8,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' pull_rec_hms(
-#   outputPath = "path/to/output/directory/hms_mrip_date.csv")
+#' get_recreational_data(outputPath = "path/to/output/directory/hms_mrip_date.csv")
 #'
 #' }
 #'

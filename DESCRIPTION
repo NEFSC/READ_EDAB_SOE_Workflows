@@ -1,19 +1,21 @@
 Package: SOEworkflows
 Title: Generates Indicators for the State of the Ecosystem report
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     c(person(given = "Joseph", family = "Caracappa", email = "joseph.caracappa@noaa.gov", role = c("aut", "cre")),
     person(given = "Andy", family = "Beet", email = "andrew.beet@noaa.gov", role = c("aut"), comment = c(ORCID = "0000-0001-8270-7090")),
     person(given = "Abigail", family = "Tyrell", email = "abigail.tyrell@noaa.gov", role = c("aut")),
     person(given = "Stephanie", family = "Owen", email = "stephanie.owen@noaa.gov", role = c("aut")),
-    person(given = "Maxwell", family = "Grezlik", email = "maxwell.grezlik@noaa.gov", role = c("aut")))
+    person(given = "Maxwell", family = "Grezlik", email = "maxwell.grezlik@noaa.gov", role = c("aut")),
+    person(given = "Brandon", family = "Beltz", email = "brandon.beltz@noaa.gov", role = c("aut"))
+    )
 Description: A package to generate indicators for the State of the Ecosystem report.
 License: file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
+URL: https://nefsc.github.io/READ_EDAB_SOE_Workflows, https://github.com/NEFSC/READ_EDAB_SOE_Workflows
 Depends: 
-    R (>= 3.5)
+    R (>= 4.1.0)
 LazyData: true
 Imports: 
     dplyr,
@@ -47,3 +49,9 @@ Remotes:
   NOAA-EDAB/comlandr,
   NEesp2=NEFSC/READ-EDAB-NEesp2,
   NEFSCspatial=NEFSC/NEFSC-Spatial
+Config/roxygen2/version: 8.0.0
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+RoxygenNote: 7.3.2

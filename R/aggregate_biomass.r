@@ -8,14 +8,14 @@
 #'
 #' @examples
 #' \dontrun{
-#' # create the ecodata::aggregate_biomass indicator for 2025
-#' create_aggregate_biomass(inputPathSurvey = "path/to/survdatData.rds"),
+#' # create the ecodata::aggregate_biomass indicator
+#' create_aggregate_biomass(inputPathSurvey = "path/to/survdatData.rds",
 #'                          inputPathSpecies = "path/to/species.rds")
 #'
 #' }
 #'
 #'
-#' @return ecodata::aggregate_biomass data frame
+#' @return `ecodata::aggregate_biomass` data frame
 #'
 #' @export
 
@@ -53,9 +53,18 @@ create_aggregate_biomass <- function(inputPathSurvey, inputPathSpecies) {
 #'
 #' @importFrom data.table `:=`
 #'
+#' @examples
+#' \dontrun{
+#' # create the ecodata::aggregate_biomass epu component
+#' create_aggregate_biomass_epu(inputPathSurvey = "path/to/survdatData.rds",
+#'                          inputPathSpecies = "path/to/species.rds",
+#'                          end.year = 2024)
+#'
+#' }
+#'
 #' @return data frame
 #'
-#' @export
+#' @noRd
 
 create_aggregate_biomass_epu <- function(
   inputPathSurvey,
@@ -290,9 +299,9 @@ create_aggregate_biomass_epu <- function(
 #'
 #' @examples
 #' \dontrun{
-#' # create the ecodata::aggregate_biomass shelfwide component for 2025
-#' create_aggregate_biomass_shelfwide(inputSurvey = "path/to/survdatData.rds"),
-#'                          inputSpecies = "path/to/species.rds"),
+#' # create the ecodata::aggregate_biomass shelfwide component
+#' create_aggregate_biomass_shelfwide(inputSurvey = "path/to/survdatData.rds",
+#'                          inputSpecies = "path/to/species.rds",
 #'                          end.year = 2024)
 #'
 #' }
@@ -301,7 +310,7 @@ create_aggregate_biomass_epu <- function(
 #'
 #' @return data frame
 #'
-#' @export
+#' @noRd
 
 create_aggregate_biomass_shelfwide <- function(
   inputPathSurvey,

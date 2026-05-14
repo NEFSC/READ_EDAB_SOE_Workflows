@@ -10,7 +10,7 @@
 #' @examples
 #' \dontrun{
 #' # create the ecodata::exp_n indicator
-#' create_exp_n(inputPathAlbatros = "path/to/albatross.rds"),
+#' create_exp_n(inputPathAlbatros = "path/to/albatross.rds",
 #'                          inputPathBigelow = "path/to/bigelow.rds")
 #'
 #' }
