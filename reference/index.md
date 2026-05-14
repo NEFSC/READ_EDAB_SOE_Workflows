@@ -1,0 +1,66 @@
+# Package index
+
+## Database pulls
+
+Pull underlying data for indicators
+
+- [`get_commercial_data()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/get_commercial_data.md)
+  : Get commercial data set to store somewhere
+- [`get_recreational_data()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/get_recreational_data.md)
+  : Pulls recreational HMS data from MRIP
+- [`get_survey_data()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/get_survey_data.md)
+  : Get survey data using survdat
+
+## Commercial fishing indicators
+
+Indicators that use commercial fishing data
+
+- [`create_bennet()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/create_bennet.md)
+  : create the bennet indicator
+- [`create_comdat()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/create_comdat.md)
+  : Create data for ecodata::comdat
+- [`create_stock_status()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/create_stock_status.md)
+  : Creates the stock status data frame for the SOE
+
+## Survey based indicators
+
+Indicators that use independent survey data
+
+- [`create_survey_shannon()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/create_survey_shannon.md)
+  : Calculates survey_shannon diversity index for automated workflow
+- [`create_aggregate_biomass()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/create_aggregate_biomass.md)
+  : Calculates aggregate_biomass data set for automated workflow
+- [`create_condition()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/create_condition.md)
+  : Create species condition indicator
+- [`create_exp_n()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/create_exp_n.md)
+  : Calculates expected number of species for automated workflow
+- [`create_mass_inshore_survey()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/create_mass_inshore_survey.md)
+  : Function to process Massachusetts inshore bottom trawl survey for
+  automated workflow
+- [`create_productivity_anomaly()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/create_productivity_anomaly.md)
+  : Calculate Productivity Anomalies from Survey Data
+- [`create_species_dist()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/create_species_dist.md)
+  : Species distribution on the NES.
+
+## Recreational fishing indicators
+
+Indicators that use recreational fishing data
+
+- [`create_rec_hms()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/create_rec_hms.md)
+  : Creates recreational HMS indicator
+
+## Oceanographic indicators
+
+Indicators that use oceanographic or environmental data
+
+- [`create_heatwave()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/create_heatwave.md)
+  : Calculates the heatwave indicator
+- [`create_heatwave_year()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/create_heatwave_year.md)
+  : Calculates the heatwave_year indicator
+- [`create_trans_dates()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/create_trans_dates.md)
+  : Calculates trans_dates data set for automated workflow
+
+## Supporting data
+
+- [`epu_strata`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/epu_strata.md)
+  : Bottom Trawl Survey Strata and associated EPUs
