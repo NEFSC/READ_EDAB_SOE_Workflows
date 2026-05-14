@@ -35,7 +35,7 @@ create_stock_status <- function(data, decode) {
 
   if (!isFALSE(decode)) {
     output <- assess |>
-      SOEworkflows::join_decoder(decoder = decode)
+      join_decoder(decoder = decode)
     return(output)
   }
 
@@ -51,7 +51,7 @@ create_stock_status <- function(data, decode) {
 #' @return a tibble
 #'
 #' @importFrom rlang .data
-#' @export
+#' @noRd
 
 join_decoder <- function(data, decoder) {
   output <- data |>

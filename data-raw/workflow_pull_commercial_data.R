@@ -29,11 +29,11 @@ workflow_pull_commercial_data <- function(channel, outputPath = NULL) {
       # Save these to a specific location
       saveRDS(
         commercial_data$comdat,
-        paste0(outputPath, "commercial_comdat.rds")
+        paste0(outputPath, "/commercial_comdatData.rds")
       )
       saveRDS(
         commercial_data$bennet,
-        paste0(outputPath, "commercial_bennet.rds")
+        paste0(outputPath, "/commercial_bennetData.rds")
       )
 
       return(commercial_data)

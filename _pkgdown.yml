@@ -1,0 +1,44 @@
+url: https://nefsc.github.io/READ_EDAB_SOE_Workflows
+
+template:
+  bootstrap: 5
+
+deploy:
+  install_metadata: true
+
+reference:
+- title: "Database pulls"
+  desc: "Pull underlying data for indicators"
+- contents:
+  - starts_with("get_")
+- title: "Commercial fishing indicators"
+  desc: "Indicators that use commercial fishing data"
+- contents:
+  - create_bennet
+  - create_comdat
+  - create_stock_status
+- title: "Survey based indicators"
+  desc: "Indicators that use independent survey data"
+- contents:
+  - create_survey_shannon
+  - create_aggregate_biomass
+  - create_condition
+  - create_exp_n
+  - create_mass_inshore_survey
+  - create_productivity_anomaly
+  - create_species_dist
+- title: "Recreational fishing indicators"
+  desc: "Indicators that use recreational fishing data"
+- contents:
+  - create_rec_hms
+- title: "Oceanographic indicators"
+  desc: "Indicators that use oceanographic or environmental data"
+- contents:
+  - create_heatwave
+  - create_heatwave_year
+  - create_trans_dates
+- title: "Supporting data"
+  desc: ""
+- contents:
+  - epu_strata
+

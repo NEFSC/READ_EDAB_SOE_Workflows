@@ -19,7 +19,7 @@ The function then combines all individual output files and saves as 'hms_mrip_' 
 }
 \examples{
 \dontrun{
-pull_rec_hms(
+get_recreational_data(outputPath = "path/to/output/directory/hms_mrip_date.csv")
 
 }
 

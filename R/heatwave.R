@@ -96,7 +96,7 @@ create_heatwave <- function(
 #' @return surface temperature portion of ecodata::heatwave data frame
 #'
 #' @importFrom dplyr `%>%`
-#' @export
+#' @noRd
 
 create_heatwave_surface <- function(inputPathGB, inputPathGOM, inputPathMAB) {
   ## Define inputs
@@ -278,7 +278,7 @@ create_heatwave_surface <- function(inputPathGB, inputPathGOM, inputPathMAB) {
 #'
 #' @importFrom dplyr `%>%`
 #'
-#' @export
+#' @noRd
 
 create_heatwave_bottom <- function(inputPathGB, inputPathGOM, inputPathMAB) {
   ## Define inputs
