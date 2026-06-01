@@ -30,7 +30,7 @@ workflow_comdat <- function(
   comdat_path,
   input_path_species,
   menhaden_path,
-  outputPathDataSets
+  outputPath
 ) {
   # Add check to skip running workflow if data not present
 
@@ -38,7 +38,7 @@ workflow_comdat <- function(
     {
       if (
         !all(
-          !is.null(outputPathDataSets),
+          !is.null(outputPath),
           file.exists(comdat_path),
           file.exists(input_path_species),
           file.exists(menhaden_path)
@@ -52,9 +52,14 @@ workflow_comdat <- function(
         comdat_path = comdat_path,
         input_path_species = input_path_species,
         menhaden_path = menhaden_path,
-        outputPathDataSets = outputPathDataSets
+        outputPathDataSets = outputPath
       )
 
+      saveRDS(indicatorData$comdat, paste0(outputPath, "/comdat.rds"))
+      saveRDS(
+        indicatorData$comdat_species,
+        paste0(outputPath, "/comdat_species.rds")
+      )
       return(indicatorData)
     },
     error = function(e) {
