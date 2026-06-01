@@ -37,25 +37,9 @@ create_comdat <- function(
     )
   }
 
-  # 1. Define EPU Areas ----
-  # Define each EPU area as a tibble
-  gom <- tibble::tibble(AREA = c(500, 510, 512:515), EPU = "GOM")
-  gb <- tibble::tibble(AREA = c(521:526, 551, 552, 561, 562), EPU = "GB")
-  mab <- tibble::tibble(
-    AREA = c(537, 539, 600, 612:616, 621, 622, 625, 626, 631, 632),
-    EPU = "MAB"
-  )
-  ss <- tibble::tibble(AREA = c(463:467, 511), EPU = "SS")
-
-  # Combine all into one tibble
-  epuAreas <- dplyr::bind_rows(gom, gb, mab, ss) |>
-    dplyr::mutate(
-      NESPP3 = 1,
-      MeanProp = 1
-    )
-
   # 2. Load and Process All Data Sources ----
   comland_list <- readRDS(comdat_path)
+  # Remove menhaden(221) and esastern oyster(789)
   comland_raw <- comland_list$comland |>
     tibble::as_tibble() |>
     dplyr::filter(NESPP3 != 221, NESPP3 != 789)
@@ -107,6 +91,8 @@ create_comdat <- function(
     dplyr::distinct()
 
   # 3. Combine and Clean Base Data ----
+  # Convert scallop live to landed weight for foreign landings to match up with
+  # landed weights of comlandr pull
   comland.agg <- dplyr::bind_rows(comland_raw, menhaden_data) |>
     dplyr::mutate(NESPP3 = as.numeric(NESPP3)) |>
     dplyr::left_join(species_codes, by = "NESPP3") |>
@@ -118,6 +104,13 @@ create_comdat <- function(
 
   # 4. Landings section from create_comdat ----------
   # Not adding NAFO landings like was done previously
+  species_contrib <- comland.agg |>
+    dplyr::group_by(YEAR, EPU, NESPP3, US, UTILCD, SOE.24, Fed.Managed) |>
+    dplyr::summarise(
+      V1 = sum(SPPLIVMT, na.rm = TRUE),
+      V2 = sum(SPPVALUE, na.rm = TRUE),
+      .groups = "drop"
+    )
 
   # Summarize comland.agg landings
   landings <- comland.agg |>
@@ -434,9 +427,5 @@ create_comdat <- function(
     dplyr::arrange(Var, Time) |>
     tibble::as_tibble()
 
-  if (!is.null(outputPathDataSets)) {
-    saveRDS(comdat, file.path(outputPathDataSets, "comdat.rds"))
-  }
-
-  return(comdat)
+  return(list(comdat = comdat, comdat_species = species_contrib))
 }
