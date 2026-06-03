@@ -21,7 +21,9 @@ create_comdat(
 \item{outputPathDataSets}{Character string. Path to folder where data pull should be saved}
 }
 \value{
-A single tibble containing all summarized commercial data.
+list
+\item{comdat}{\code{ecodata::comdat} data frame}
+\item{comdat_species}{species data used to create the \code{comdat} indicator}
 }
 \description{
 Processes and combines commercial landings and Menhaden data to produce a
