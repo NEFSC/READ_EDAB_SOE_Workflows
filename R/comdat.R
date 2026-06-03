@@ -8,7 +8,9 @@
 #' @param menhaden_path Character string. Path to the menhaden data output by data-raw/create_menhaden_input.R
 #' @param outputPathDataSets Character string. Path to folder where data pull should be saved
 #'
-#' @return A single tibble containing all summarized commercial data.
+#' @return list
+#' \item{comdat}{`ecodata::comdat` data frame}
+#' \item{comdat_species}{species data used to create the `comdat` indicator}
 #'
 #'
 #' @importFrom dplyr bind_rows case_when distinct filter group_by left_join mutate rename select summarise tribble

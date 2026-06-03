@@ -4,10 +4,12 @@
 #'
 #' @param comdat_path Character string. Full path to the commercial data rds file for comdat indicator
 #' @param input_path_species Character string. Full path to the species list data pull rds file
-#' @param outputPathDataSets Character string. Path to folder where data pull should be saved
+#' @param outputPath Character string. Path to folder where data pull should be saved
 #' @param menhaden_path Character string. Full path to the menhaden data .rds file
 #'
-#' @return ecodata::comdat data frame
+#' @return list
+#' \item{comdat}{`ecodata::comdat` data frame}
+#' \item{comdat_species}{species data used to create the `comdat` indicator}
 #'
 #' @example
 #' \dontrun{
