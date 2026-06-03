@@ -107,8 +107,8 @@ create_comdat <- function(
   species_contrib <- comland.agg |>
     dplyr::group_by(YEAR, EPU, NESPP3, US, UTILCD, SOE.24, Fed.Managed) |>
     dplyr::summarise(
-      V1 = sum(SPPLIVMT, na.rm = TRUE),
-      V2 = sum(SPPVALUE, na.rm = TRUE),
+      SPPLIVMT = sum(SPPLIVMT, na.rm = TRUE),
+      SPPVALUE = sum(SPPVALUE, na.rm = TRUE),
       .groups = "drop"
     )
 
