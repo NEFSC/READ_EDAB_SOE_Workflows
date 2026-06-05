@@ -48,7 +48,14 @@ workflow_aggregate_biomass <- function(
       )
 
       # Write data to file
-      saveRDS(indicatorData, paste0(outputPath, "/aggregate_biomass.rds"))
+      saveRDS(
+        indicatorData$aggregate_biomass,
+        paste0(outputPath, "/aggregate_biomass.rds")
+      )
+      saveRDS(
+        indicatorData$aggregate_biomass_species,
+        paste0(outputPath, "/aggregate_biomass_species.rds")
+      )
       return(indicatorData)
     },
     error = function(e) {
