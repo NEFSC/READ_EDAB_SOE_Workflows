@@ -17,7 +17,7 @@
 #'    comdat_path = "path/to/commerical_comdat.rds",
 #'    input_path_species = "path/to/species/data/.rds",
 #'    menhaden_path = "path/to/menhaden/data/.rds",
-#'    outputPathDataSets = "path/to/output/folder"
+#'    outputPath = "path/to/output/folder"
 #'    )
 #' }
 #'
