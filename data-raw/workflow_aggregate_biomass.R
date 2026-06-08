@@ -4,7 +4,11 @@
 #' @param inputPathSpecies Character string. Full path to the species list data pull rds file
 #' @param outputPath Character string. Path to folder where data pull should be saved
 #'
-#' @return Nothing. rds file exported
+#' @return List
+#'
+#' \item{aggregate_biomass}{The `ecodata::aggregate_biomass` data frame}
+#' \item{aggregate_biomass_species}{Stratified mean for each species/Season at EPU level that make up the aggregate}
+#'
 #'
 #' @section Dependencies:
 #'
