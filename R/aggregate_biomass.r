@@ -15,7 +15,10 @@
 #' }
 #'
 #'
-#' @return `ecodata::aggregate_biomass` data frame
+#' @return list
+#' \item{aggregate_biomass}{The `ecodata::aggregate_biomass` data frame}
+#' \item{aggregate_biomass_species}{Stratified mean for each species/Season at EPU level that make up the aggregate}
+#'
 #'
 #' @export
 
@@ -37,11 +40,14 @@ create_aggregate_biomass <- function(inputPathSurvey, inputPathSpecies) {
   )
 
   # Combine the two data frames
-  combined_data <- rbind(epubio, shelfbio) |>
+  combined_data <- rbind(epubio$aggregate_biomass_epu, shelfbio) |>
     dplyr::as_tibble() |>
     dplyr::relocate(Time, Var, Value, EPU, Units)
 
-  return(combined_data)
+  return(list(
+    aggregate_biomass = combined_data,
+    aggregate_biomass_species = epubio$aggregate_biomass_species
+  ))
 }
 
 
@@ -62,7 +68,9 @@ create_aggregate_biomass <- function(inputPathSurvey, inputPathSpecies) {
 #'
 #' }
 #'
-#' @return data frame
+#' @return list
+#' \item{aggregate_biomass_epu}{stratified means for EPU, at council, nearshore/offshore level }
+#' \item{aggregate_biomass_species}{stratified mean for each species/Season at EPU level}
 #'
 #' @noRd
 
@@ -114,6 +122,7 @@ create_aggregate_biomass_epu <- function(
   SS <- c(1300:1352, 3840:3990)
 
   survey.data <- c()
+  aggregate_biomass_species <- NULL
 
   for (iepu in 1:length(EPU)) {
     epu.strata <- get(EPU[iepu])
@@ -121,7 +130,20 @@ create_aggregate_biomass_epu <- function(
     epu.inshore <- epu.strata[which(epu.strata >= 2000)]
     epu.offshore <- epu.strata[which(epu.strata < 2000)]
 
+    message(paste0("EPU = ", EPU[iepu], ". SVSPP stratified means"))
+    # calculate species specific stratified means
+    species <- survdat::calc_stratified_mean(
+      survdat,
+      filterByArea = epu.strata,
+      filterBySeason = c('Fall', 'Spring'),
+      groupDescription = 'SVSPP',
+      tidy = T
+    ) |>
+      dplyr::mutate(EPU = EPU[iepu])
+    aggregate_biomass_species <- rbind(aggregate_biomass_species, species)
+
     #Calculate stratified means
+    message(paste0("EPU = ", EPU[iepu], ". Guild stratified means"))
     all <- survdat::calc_stratified_mean(
       survdat,
       filterByArea = epu.strata,
@@ -129,6 +151,7 @@ create_aggregate_biomass_epu <- function(
       groupDescription = 'SOE.24',
       tidy = T
     )
+    message(paste0("EPU = ", EPU[iepu], ". FMC stratified means"))
     all.fmc <- survdat::calc_stratified_mean(
       survdat,
       filterByArea = epu.strata,
@@ -136,6 +159,8 @@ create_aggregate_biomass_epu <- function(
       groupDescription = 'SOE.Managed',
       tidy = T
     )
+
+    message(paste0("EPU = ", EPU[iepu], "(Inshore). Guild stratified means"))
     inshore.all <- survdat::calc_stratified_mean(
       survdat,
       filterByArea = epu.inshore,
@@ -143,6 +168,7 @@ create_aggregate_biomass_epu <- function(
       groupDescription = 'SOE.24',
       tidy = T
     )
+    message(paste0("EPU = ", EPU[iepu], "(Offshore). Guild stratified means"))
     offshore.all <- survdat::calc_stratified_mean(
       survdat,
       filterByArea = epu.offshore,
@@ -150,6 +176,8 @@ create_aggregate_biomass_epu <- function(
       groupDescription = 'SOE.24',
       tidy = T
     )
+    message(paste0("EPU = ", EPU[iepu], "(Inshore). FMC stratified means"))
+
     inshore.fmc <- survdat::calc_stratified_mean(
       survdat,
       filterByArea = epu.inshore,
@@ -157,6 +185,8 @@ create_aggregate_biomass_epu <- function(
       groupDescription = 'SOE.Managed',
       tidy = T
     )
+    message(paste0("EPU = ", EPU[iepu], "(Offshore). FMC stratified means"))
+
     offshore.fmc <- survdat::calc_stratified_mean(
       survdat,
       filterByArea = epu.offshore,
@@ -289,7 +319,10 @@ create_aggregate_biomass_epu <- function(
   survey.data <- expanded |>
     dplyr::left_join(survey.data, by = c("Time", "Var", "EPU"))
 
-  return(survey.data)
+  return(list(
+    aggregate_biomass_epu = survey.data,
+    aggregate_biomass_species = aggregate_biomass_species
+  ))
 }
 
 

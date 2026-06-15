@@ -12,7 +12,9 @@ create_aggregate_biomass(inputPathSurvey, inputPathSpecies)
 \item{inputPathSpecies}{Character string. Full path to the species list data pull rds file}
 }
 \value{
-\code{ecodata::aggregate_biomass} data frame
+list
+\item{aggregate_biomass}{The \code{ecodata::aggregate_biomass} data frame}
+\item{aggregate_biomass_species}{Stratified mean for each species/Season at EPU level that make up the aggregate}
 }
 \description{
 This uses the survdat data pull from the survey package and creates EPU
