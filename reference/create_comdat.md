@@ -36,4 +36,12 @@ create_comdat(
 
 ## Value
 
-A single tibble containing all summarized commercial data.
+list
+
+- comdat:
+
+  `ecodata::comdat` data frame
+
+- comdat_species:
+
+  species data used to create the `comdat` indicator

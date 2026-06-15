@@ -1,5 +1,14 @@
 # Changelog
 
+## SOEworkflows 0.2.0
+
+#### Minor changes
+
+- `aggregate_biomass` function exports species specific biomass in
+  addition to the aggregate
+- `comdat` function exports species specific landings in addition to the
+  aggregate
+
 ## SOEworkflows 0.1.0
 
 Added workflows for following indicators used in the State of the

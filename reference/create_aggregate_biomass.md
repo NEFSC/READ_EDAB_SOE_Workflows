@@ -22,7 +22,16 @@ create_aggregate_biomass(inputPathSurvey, inputPathSpecies)
 
 ## Value
 
-`ecodata::aggregate_biomass` data frame
+list
+
+- aggregate_biomass:
+
+  The `ecodata::aggregate_biomass` data frame
+
+- aggregate_biomass_species:
+
+  Stratified mean for each species/Season at EPU level that make up the
+  aggregate
 
 ## Examples
 

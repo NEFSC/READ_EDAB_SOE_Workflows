@@ -17,17 +17,17 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/v0.1.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/main/DESCRIPTION)
 
 Caracappa J, Beet A, Tyrell A, Owen S, Grezlik M, Beltz B (2026).
 *SOEworkflows: Generates Indicators for the State of the Ecosystem
-report*. R package version 0.1.0,
+report*. R package version 0.2.0,
 <https://nefsc.github.io/READ_EDAB_SOE_Workflows>.
 
     @Manual{,
       title = {SOEworkflows: Generates Indicators for the State of the Ecosystem report},
       author = {Joseph Caracappa and Andy Beet and Abigail Tyrell and Stephanie Owen and Maxwell Grezlik and Brandon Beltz},
       year = {2026},
-      note = {R package version 0.1.0},
+      note = {R package version 0.2.0},
       url = {https://nefsc.github.io/READ_EDAB_SOE_Workflows},
     }
