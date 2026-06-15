@@ -1,6 +1,6 @@
 Package: SOEworkflows
 Title: Generates Indicators for the State of the Ecosystem report
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     c(person(given = "Joseph", family = "Caracappa", email = "joseph.caracappa@noaa.gov", role = c("aut", "cre")),
     person(given = "Andy", family = "Beet", email = "andrew.beet@noaa.gov", role = c("aut"), comment = c(ORCID = "0000-0001-8270-7090")),
