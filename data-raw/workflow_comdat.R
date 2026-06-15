@@ -4,10 +4,12 @@
 #'
 #' @param comdat_path Character string. Full path to the commercial data rds file for comdat indicator
 #' @param input_path_species Character string. Full path to the species list data pull rds file
-#' @param outputPathDataSets Character string. Path to folder where data pull should be saved
+#' @param outputPath Character string. Path to folder where data pull should be saved
 #' @param menhaden_path Character string. Full path to the menhaden data .rds file
 #'
-#' @return ecodata::comdat data frame
+#' @return list
+#' \item{comdat}{`ecodata::comdat` data frame}
+#' \item{comdat_species}{species data used to create the `comdat` indicator}
 #'
 #' @example
 #' \dontrun{
@@ -15,7 +17,7 @@
 #'    comdat_path = "path/to/commerical_comdat.rds",
 #'    input_path_species = "path/to/species/data/.rds",
 #'    menhaden_path = "path/to/menhaden/data/.rds",
-#'    outputPathDataSets = "path/to/output/folder"
+#'    outputPath = "path/to/output/folder"
 #'    )
 #' }
 #'
@@ -30,7 +32,7 @@ workflow_comdat <- function(
   comdat_path,
   input_path_species,
   menhaden_path,
-  outputPathDataSets
+  outputPath
 ) {
   # Add check to skip running workflow if data not present
 
@@ -38,7 +40,7 @@ workflow_comdat <- function(
     {
       if (
         !all(
-          !is.null(outputPathDataSets),
+          !is.null(outputPath),
           file.exists(comdat_path),
           file.exists(input_path_species),
           file.exists(menhaden_path)
@@ -52,9 +54,14 @@ workflow_comdat <- function(
         comdat_path = comdat_path,
         input_path_species = input_path_species,
         menhaden_path = menhaden_path,
-        outputPathDataSets = outputPathDataSets
+        outputPathDataSets = outputPath
       )
 
+      saveRDS(indicatorData$comdat, paste0(outputPath, "/comdat.rds"))
+      saveRDS(
+        indicatorData$comdat_species,
+        paste0(outputPath, "/comdat_species.rds")
+      )
       return(indicatorData)
     },
     error = function(e) {
