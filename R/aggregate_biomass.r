@@ -3,14 +3,14 @@
 #' This uses the survdat data pull from the survey package and creates EPU
 #' and shelfwide indicators. It is formatted exactly like the ecodata data object
 #'
-#' @param inputPathSurvey Character string. Full path to the survdat data pull rds file
-#' @param inputPathSpecies Character string. Full path to the species list data pull rds file
+#' @param input_path_survey Character string. Full path to the survdat data pull rds file
+#' @param input_path_species Character string. Full path to the species list data pull rds file
 #'
 #' @examples
 #' \dontrun{
 #' # create the ecodata::aggregate_biomass indicator
-#' create_aggregate_biomass(inputPathSurvey = "path/to/survdatData.rds",
-#'                          inputPathSpecies = "path/to/species.rds")
+#' create_aggregate_biomass(input_path_survey = "path/to/survdatData.rds",
+#'                          input_path_species = "path/to/species.rds")
 #'
 #' }
 #'
@@ -22,20 +22,20 @@
 #'
 #' @export
 
-create_aggregate_biomass <- function(inputPathSurvey, inputPathSpecies) {
+create_aggregate_biomass <- function(input_path_survey, input_path_species) {
   end.year <- format(Sys.Date(), "%Y")
   # Add some checks (maybe create a check function to be used by other functions)
   # Currently checks are duplicated in create_aggregate_biomass_shelfwide and create_aggregate_biomass_epu
 
   # processes EPU level indicators and shelfwide indicators
   epubio <- create_aggregate_biomass_epu(
-    inputPathSurvey,
-    inputPathSpecies,
+    input_path_survey,
+    input_path_species,
     end.year
   )
   shelfbio <- create_aggregate_biomass_shelfwide(
-    inputPathSurvey,
-    inputPathSpecies,
+    input_path_survey,
+    input_path_species,
     end.year
   )
 
@@ -53,8 +53,8 @@ create_aggregate_biomass <- function(inputPathSurvey, inputPathSpecies) {
 
 #'Calculates Aggregate biomass data set by epu for automated workflow
 #'
-#' @param inputPathSurvey Input survey data full file path
-#' @param inputPathSpecies Input species list full file path
+#' @param input_path_survey Input survey data full file path
+#' @param input_path_species Input species list full file path
 #' @param end.year End year for the data
 #'
 #' @importFrom data.table `:=`
@@ -62,8 +62,8 @@ create_aggregate_biomass <- function(inputPathSurvey, inputPathSpecies) {
 #' @examples
 #' \dontrun{
 #' # create the ecodata::aggregate_biomass epu component
-#' create_aggregate_biomass_epu(inputPathSurvey = "path/to/survdatData.rds",
-#'                          inputPathSpecies = "path/to/species.rds",
+#' create_aggregate_biomass_epu(input_path_survey = "path/to/survdatData.rds",
+#'                          input_path_species = "path/to/species.rds",
 #'                          end.year = 2024)
 #'
 #' }
@@ -75,14 +75,14 @@ create_aggregate_biomass <- function(inputPathSurvey, inputPathSpecies) {
 #' @noRd
 
 create_aggregate_biomass_epu <- function(
-  inputPathSurvey,
-  inputPathSpecies,
+  input_path_survey,
+  input_path_species,
   end.year
 ) {
   ####################################################
   # read in data from RDS files
   # check to make sure data is in the right format
-  survey <- readRDS(inputPathSurvey)
+  survey <- readRDS(input_path_survey)
   if (!is.data.frame(survey$survdat)) {
     stop("Input data is not a data frame")
   }
@@ -91,7 +91,7 @@ create_aggregate_biomass_epu <- function(
     dplyr::filter(YEAR <= end.year) |>
     data.table::as.data.table()
   #Grab species list
-  species <- readRDS(inputPathSpecies) |>
+  species <- readRDS(input_path_species) |>
     dplyr::as_tibble() |>
     data.table::as.data.table()
 
@@ -346,14 +346,14 @@ create_aggregate_biomass_epu <- function(
 #' @noRd
 
 create_aggregate_biomass_shelfwide <- function(
-  inputPathSurvey,
-  inputPathSpecies,
+  input_path_survey,
+  input_path_species,
   end.year
 ) {
   ####################################################
   # read in data from RDS files
   # check to make sure data is in the right format
-  survey <- readRDS(inputPathSurvey)
+  survey <- readRDS(input_path_survey)
   if (!is.data.frame(survey$survdat)) {
     stop("Input data is not a data frame")
   }
@@ -362,7 +362,7 @@ create_aggregate_biomass_shelfwide <- function(
     dplyr::filter(YEAR <= end.year) |>
     data.table::as.data.table()
   #Grab species list
-  species <- readRDS(inputPathSpecies) |>
+  species <- readRDS(input_path_species) |>
     data.table::as.data.table()
 
   #######################################################
