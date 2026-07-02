@@ -60,7 +60,10 @@ workflow_productivity_anomaly <- function(
       )
 
       # write data to file
-      saveRDS(indicatorData, paste0(output_path_indicators, "/productivity_anomaly.rds"))
+      saveRDS(
+        indicatorData,
+        paste0(output_path_indicators, "/productivity_anomaly.rds")
+      )
       return(indicatorData)
     },
     error = function(e) {
