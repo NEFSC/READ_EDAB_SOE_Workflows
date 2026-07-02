@@ -3,7 +3,7 @@
 input_path_comdat <- '~/EDAB_Datasets/Workflows/commercial_comdat.rds'
 input_path_species <- "~/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
 input_path_menhaden <- "~/EDAB_Datasets/Workflows/menhadenEOF.rds"
-outputPathDataSets <- "~/EDAB_Indicators"
+output_path_datasets <- "~/EDAB_Indicators"
 
 source(here::here("data-raw/workflow_comdat.R"))
 
@@ -11,7 +11,7 @@ workflow_comdat(
   input_path_comdat = input_path_comdat,
   input_path_species = input_path_species,
   input_path_menhaden = input_path_menhaden,
-  outputPathDataSets = outputPathDataSets
+  output_path_datasets = output_path_datasets
 )
 
 # compare to ecodata::comdat
@@ -20,7 +20,7 @@ new_comdat <- workflow_comdat(
   input_path_comdat = input_path_comdat,
   input_path_species = input_path_species,
   input_path_menhaden = input_path_menhaden,
-  outputPathDataSets = outputPathDataSets
+  output_path_datasets = output_path_datasets
 )
 
 new_comdat <- new_comdat |>

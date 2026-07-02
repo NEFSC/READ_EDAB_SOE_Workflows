@@ -102,7 +102,7 @@ tibble(
 
 
 # file paths used in all indicators I have worked on ---------------
-outputPathDataSets <- "/home/mgrezlik/EDAB_Dev/grezlik"
+output_path_datasets <- "/home/mgrezlik/EDAB_Dev/grezlik"
 outputPath <- "/home/mgrezlik/EDAB_Dev/grezlik"
 input_path_commercial_comdat <- "/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds"
 input_path_survey <- "/home/mgrezlik/EDAB_Datasets/Workflows/surveyNoLengthsData.rds"
@@ -147,7 +147,7 @@ source(here::here('data-raw/workflow_comdat.R'))
 
 # channel <- dbutils::connect_to_database("NEFSC_USERS","mgrezlik")
 
-# rawData <- SOEworkflows::get_survey_data(channel,outputPathDataSets)
+# rawData <- SOEworkflows::get_survey_data(channel,output_path_datasets)
 
 indD <- workflow_species_dist(
   input_path_survey = input_path_survey,
@@ -156,7 +156,7 @@ indD <- workflow_species_dist(
   input_path_static_diagonal = input_path_static_diagonal,
   input_path_static_coast_coord = input_path_static_coast_coord,
   input_path_static_strat_areas = input_path_static_strat_areas,
-  outputPath = outputPathDataSets
+  outputPath = output_path_datasets
 )
 
 
@@ -186,7 +186,7 @@ indicator_comdat <- workflow_comdat(
   input_path_comdat = input_path_comdat,
   input_path_species = input_path_species,
   input_path_menhaden = input_path_menhaden,
-  outputPathDataSets = outputPathDataSets
+  output_path_datasets = output_path_datasets
 )
 
 

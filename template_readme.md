@@ -8,11 +8,11 @@ When all indicators have been added to the repo we can provide a list of package
 The survey data will pulled from the Oracle database via a cron job (quarterly?) using R function
 
 ```
-workflow_pull_survey_data(channel,outputPathDatasets)
+workflow_pull_survey_data(channel,output_path_datasets)
 ```
 
 * `channel` is a connection object created using `ROracle::dbConnect()`
-* `outputPathDatasets` is the path to the folder where "raw" data is stored (`EDAB_Datasets`)
+* `output_path_datasets` is the path to the folder where "raw" data is stored (`EDAB_Datasets`)
 * Currently the data sets created are:
   - `surveyNoLengths.rds` - used in `aggregate_biomass`
   - `bigelowData.rds` - used in `survey_shannon`
@@ -148,11 +148,11 @@ The rds file name is hardcoded as `condition.rds` to match the `ecodata` package
 The commercial data will pulled from the Oracle database via a cron job (quarterly?) using R function
 
 ```
-workflows_pull_commercial_data(channel,outputPathDatasets)
+workflows_pull_commercial_data(channel,output_path_datasets)
 ```
 
 * `channel` is a connection object created using `ROracle::dbConnect()`
-* `outputPathDatasets` is the path to the folder where "raw" data is stored (`EDAB_Datasets`)
+* `output_path_datasets` is the path to the folder where "raw" data is stored (`EDAB_Datasets`)
 * Currently the data sets created are:
   - `commercial_comdat.rds` - used in `comdat`
   - `commercial_bennet.rds` - used in `bennet`
@@ -183,13 +183,13 @@ To run the "workflow" below, it is assumed that the commercial data has been pul
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```R
-workflow_comdat(input_path_comdat, input_path_species, input_path_menhaden, outputPathDataSets)
+workflow_comdat(input_path_comdat, input_path_species, input_path_menhaden, output_path_datasets)
 ```
 
 * `input_path_comdat` is the path to the raw, comprehensive commercial landings data file, e.g., `EDAB_Datasets/commercial_comdat.rds`.
 * `input_path_species` is the path to the species list used for grouping, e.g., `EDAB_Datasets/SOE_species_list_24.rds`.
 * `input_path_menhaden` is the path to the Menhaden landings data output by create_`create_menhaden_input.R`.
-* `outputPathDataSets` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+* `output_path_datasets` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `comdat.rds` to match the `ecodata` package dataset
 
 ## `stocksmart` Based Indicators

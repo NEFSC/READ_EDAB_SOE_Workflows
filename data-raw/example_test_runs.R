@@ -10,17 +10,17 @@ rootPath <- "~/EDAB_Datasets/Workflows/"
 # suite of paths to input and output files
 outputPath <- "~/EDAB_Indicators/"
 #outputPath <- "~/EDAB_Dev/beet/"
-outputPathDatasets <- rootPath
+output_path_datasets <- rootPath
 input_path_survey <- paste0(rootPath, "surveyNoLengthsData.rds")
 input_path_mass_survey <- paste0(rootPath, "massInshoreData.rds")
 input_path_species <- paste0(rootPath, "SOE_species_list_24.rds")
 input_path_albatross <- paste0(rootPath, "albatrossData.rds")
 input_path_bigelow <- paste0(rootPath, "bigelowData.rds")
-inputRecHMSPath <- paste0(rootPath, "hms_mrip_2025-10-03.rds")
-inputPathCondition <- paste0(rootPath, "conditionData.rds")
+input_path_rec <- paste0(rootPath, "hms_mrip_2025-10-03.rds")
+input_path_condition <- paste0(rootPath, "conditionData.rds")
 input_path_bennet <- paste0(rootPath, "commercial_bennetData.rds")
-inputPathComdat <- paste0(rootPath, "commercial_comdatData.rds")
-menhadenPath <- paste0(rootPath, "menhadenEOF.rds")
+input_path_comdat <- paste0(rootPath, "commercial_comdatData.rds")
+input_path_menhaden <- paste0(rootPath, "menhadenEOF.rds")
 input_path_static_depth <- paste0(rootPath, "nes_bath_data.nc")
 input_path_static_diagonal <- paste0(rootPath, "diag.csv")
 input_path_static_coast_coord <- paste0(rootPath, "nes_coast_2.csv")
@@ -29,7 +29,7 @@ inputPathDecoder <- paste0(rootPath, "decoder.csv")
 inputPathSST <- paste0(rootPath, "TS_SHP_adv_rep_MAB_GOM_GBK_NES_SCSPoly.csv")
 input_path_rec_key <- paste0(rootPath, "hms_key.csv")
 input_path_lw_coeffs <- paste0(rootPath, "LWparams.csv")
-inputPathConditionSpecies <- paste0(rootPath, "species.codes.csv")
+input_path_conditionSpecies <- paste0(rootPath, "species.codes.csv")
 input_path_gb_surf <- paste0(rootPath, "GB_SST_1982_to_2024_detrended.csv")
 input_path_gb_bot <- paste0(rootPath, "daily_bottomT_GB_1959_2024_detrended.csv")
 input_path_gom_surf <- paste0(rootPath, "GOM_SST_1982_to_2024_detrended.csv")
@@ -70,11 +70,11 @@ if (pullRawData) {
   # workflows for pulling data
   # This is required to be run first. All indicators rely on these
   # pull and write survey data
-  workflow_pull_survey_data(channel, outputPath = outputPathDatasets)
+  workflow_pull_survey_data(channel, outputPath = output_path_datasets)
   # pull and write commercial data
-  workflow_pull_commercial_data(channel, outputPath = outputPathDatasets)
+  workflow_pull_commercial_data(channel, outputPath = output_path_datasets)
   # pull and write recreational data
-  workflow_pull_recreational_data(outputPathDatasets)
+  workflow_pull_recreational_data(output_path_datasets)
 }
 
 # calculate the aggregate biomass index
@@ -95,19 +95,19 @@ indicator_bennet <- workflow_bennet(
 # calculate the comdat index
 message("Running comdat ...")
 indicator_comdat <- workflow_comdat(
-  input_path_comdat = inputPathComdat,
+  input_path_comdat = input_path_comdat,
   input_path_species = input_path_species,
-  input_path_menhaden = menhadenPath,
-  outputPathDataSets = outputPath
+  input_path_menhaden = input_path_menhaden,
+  output_path_datasets = outputPath
 )
 
 
 # calculate condition index
 message("Running condition ...")
 indicator_condition <- workflow_condition(
-  inputPath = inputPathCondition,
+  inputPath = input_path_condition,
   input_path_lw_coeffs,
-  input_path_species = inputPathConditionSpecies,
+  input_path_species = input_path_conditionSpecies,
   outputPath
 )
 
@@ -123,7 +123,7 @@ indicator_exp_n <- workflow_exp_n(
 message("Running rec_hms ...")
 indicator_rec_hms <- workflow_rec_hms(
   outputPath,
-  inputPath = inputRecHMSPath,
+  inputPath = input_path_rec,
   input_path_rec_key
 )
 

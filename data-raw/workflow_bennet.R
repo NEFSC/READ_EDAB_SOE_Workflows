@@ -31,7 +31,7 @@ workflow_bennet <- function(
   outputPath = NULL
 ) {
   # Assumes that commercial data has been pulled
-  #get_commercial_data(channel,outputPathDatasets = outputPath)
+  #get_commercial_data(channel,output_path_datasets = outputPath)
 
   # Add check to skip running workflow if data not present
   tryCatch(

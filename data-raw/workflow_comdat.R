@@ -54,7 +54,7 @@ workflow_comdat <- function(
         input_path_comdat = input_path_comdat,
         input_path_species = input_path_species,
         input_path_menhaden = input_path_menhaden,
-        outputPathDataSets = outputPath
+        output_path_datasets = outputPath
       )
 
       saveRDS(indicatorData$comdat, paste0(outputPath, "/comdat.rds"))

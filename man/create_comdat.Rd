@@ -8,7 +8,7 @@ create_comdat(
   input_path_comdat,
   input_path_species,
   input_path_menhaden,
-  outputPathDataSets
+  output_path_datasets
 )
 }
 \arguments{
@@ -18,7 +18,7 @@ create_comdat(
 
 \item{input_path_menhaden}{Character string. Path to the menhaden data output by data-raw/create_menhaden_input.R}
 
-\item{outputPathDataSets}{Character string. Path to folder where data pull should be saved}
+\item{output_path_datasets}{Character string. Path to folder where data pull should be saved}
 }
 \value{
 list
