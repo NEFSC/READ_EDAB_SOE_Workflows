@@ -20,7 +20,10 @@
 #'
 #' @export
 
-create_mass_inshore_survey <- function(input_path_mass_survey, input_path_species) {
+create_mass_inshore_survey <- function(
+  input_path_mass_survey,
+  input_path_species
+) {
   end.year <- format(Sys.Date(), "%Y")
 
   # Read survey data & species-------------------------------------------
