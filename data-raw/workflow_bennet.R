@@ -3,14 +3,14 @@
 #' This uses the commercial data pull from the comlandr package.
 #' It is formatted exactly like the ecodata data object
 #'
-#' @param inputPathBennet Character string. Full path to the commercial data rds file for bennet indicator
+#' @param input_path_bennet Character string. Full path to the commercial data rds file for bennet indicator
 #' @param inputPathSpecies Character string. Full path to the species list data pull rds file
 #' @param outputPath Character string. Path to folder where data pull should be saved
 #'
 #' @example
 #' \dontrun{
 #' # create the ecodata::bennet indicator
-#' workflow_bennet(inputPathBennet = "path/to/commerical_bennet.rds",
+#' workflow_bennet(input_path_bennet = "path/to/commerical_bennet.rds",
 #'                       inputPathSpecies = "path/to/species/data/.rds",
 #'                       outputPath = "path/to/output/folder")
 #'
@@ -21,12 +21,12 @@
 #'
 #' @section Dependencies:
 #'
-#' This assumes that the commercial data has been pulled and resides in the path `inputPathBennet`
+#' This assumes that the commercial data has been pulled and resides in the path `input_path_bennet`
 #'
 #' @export
 
 workflow_bennet <- function(
-  inputPathBennet,
+  input_path_bennet,
   inputPathSpecies,
   outputPath = NULL
 ) {
@@ -38,7 +38,7 @@ workflow_bennet <- function(
     {
       if (
         !all(
-          file.exists(inputPathBennet),
+          file.exists(input_path_bennet),
           file.exists(inputPathSpecies),
           (!is.null(outputPath))
         )
@@ -48,7 +48,7 @@ workflow_bennet <- function(
 
       # calculate indicator
       indicatorData <- SOEworkflows::create_bennet(
-        inputPathBennet = inputPathBennet,
+        input_path_bennet = input_path_bennet,
         inputPathSpecies = inputPathSpecies
       )
       # write data to file

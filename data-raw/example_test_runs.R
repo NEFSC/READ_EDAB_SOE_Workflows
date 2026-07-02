@@ -18,7 +18,7 @@ inputPathAlbatross <- paste0(rootPath, "albatrossData.rds")
 inputPathBigelow <- paste0(rootPath, "bigelowData.rds")
 inputRecHMSPath <- paste0(rootPath, "hms_mrip_2025-10-03.rds")
 inputPathCondition <- paste0(rootPath, "conditionData.rds")
-inputPathBennet <- paste0(rootPath, "commercial_bennetData.rds")
+input_path_bennet <- paste0(rootPath, "commercial_bennetData.rds")
 inputPathComdat <- paste0(rootPath, "commercial_comdatData.rds")
 menhadenPath <- paste0(rootPath, "menhadenEOF.rds")
 static_depth <- paste0(rootPath, "nes_bath_data.nc")
@@ -87,7 +87,7 @@ indicator_aggegegate_biomass <- workflow_aggregate_biomass(
 # calculate the bennet index
 message("Running bennet ...")
 indicator_bennet <- workflow_bennet(
-  inputPathBennet,
+  input_path_bennet,
   inputPathSpecies,
   outputPath
 )

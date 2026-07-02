@@ -1,6 +1,6 @@
 #' create the bennet indicator
 #'
-#' @param inputPathBennet Character string. Full path to the comland data pull rds file
+#' @param input_path_bennet Character string. Full path to the comland data pull rds file
 #' @param inputPathSpecies Character string. Full path to the species list data pull rds file
 #'
 #' @return ecodata::bennet data frame
@@ -27,10 +27,10 @@
 #' Revised by ABeet 10/2024 for 2025 report
 #' @export
 
-create_bennet <- function(inputPathBennet, inputPathSpecies) {
+create_bennet <- function(input_path_bennet, inputPathSpecies) {
   end.year <- format(Sys.Date(), "%Y")
   # read in comland data
-  comland.data <- readRDS(inputPathBennet)$comland |>
+  comland.data <- readRDS(input_path_bennet)$comland |>
     dplyr::filter(YEAR <= end.year)
   # Load species data
   # This may need to be updated if the species in the feeding guilds changes

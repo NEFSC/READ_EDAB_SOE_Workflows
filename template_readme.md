@@ -166,11 +166,11 @@ To run the "workflow" below, it is assumed that the commercial data has been pul
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```
-workflow_bennet(inputPathBennet, inputPathSpecies, outputPath)
+workflow_bennet(input_path_bennet, inputPathSpecies, outputPath)
 ```
 
 * `inputPathSpecies` is the path to static data set `EDAB_Datasets/SOE_species_list_24.rds`.
-* `inputPathBennet` is the path to the dynamically created commercial data `EDAB_Datasets/commercial_benent.rds`. 
+* `input_path_bennet` is the path to the dynamically created commercial data `EDAB_Datasets/commercial_benent.rds`. 
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `bennet.rds` to match the `ecodata` package dataset
 
