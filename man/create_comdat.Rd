@@ -5,14 +5,14 @@
 \title{Create data for ecodata::comdat}
 \usage{
 create_comdat(
-  comdat_path,
+  input_path_comdat,
   input_path_species,
   menhaden_path,
   outputPathDataSets
 )
 }
 \arguments{
-\item{comdat_path}{Character string. Path to commercial_comdat.rds}
+\item{input_path_comdat}{Character string. Path to commercial_comdat.rds}
 
 \item{input_path_species}{Character string. Path to the 'SOE_species_list_24.RData' file.}
 

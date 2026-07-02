@@ -1,6 +1,6 @@
 # dir.create(here::here("data-raw/temp"))
 
-comdat_path <- '~/EDAB_Datasets/Workflows/commercial_comdat.rds'
+input_path_comdat <- '~/EDAB_Datasets/Workflows/commercial_comdat.rds'
 input_path_species <- "~/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
 menhaden_path <- "~/EDAB_Datasets/Workflows/menhadenEOF.rds"
 outputPathDataSets <- "~/EDAB_Indicators"
@@ -8,7 +8,7 @@ outputPathDataSets <- "~/EDAB_Indicators"
 source(here::here("data-raw/workflow_comdat.R"))
 
 workflow_comdat(
-  comdat_path = comdat_path,
+  input_path_comdat = input_path_comdat,
   input_path_species = input_path_species,
   menhaden_path = menhaden_path,
   outputPathDataSets = outputPathDataSets
@@ -17,7 +17,7 @@ workflow_comdat(
 # compare to ecodata::comdat
 
 new_comdat <- workflow_comdat(
-  comdat_path = comdat_path,
+  input_path_comdat = input_path_comdat,
   input_path_species = input_path_species,
   menhaden_path = menhaden_path,
   outputPathDataSets = outputPathDataSets

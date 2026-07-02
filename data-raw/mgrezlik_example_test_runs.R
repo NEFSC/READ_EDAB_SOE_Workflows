@@ -116,11 +116,11 @@ static_diagonal <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflo
 static_coast_coord <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"
 static_strat_areas <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds"
 menhaden_path <- "/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds"
-comdat_path <- '/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds'
+input_path_comdat <- '/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds'
 comland_old_path <- '/home/mgrezlik/EDAB_Dev/beet/comlandr_old.rds'
 old_menh_path24 <- '/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF2024.rds'
 old_menh_path <- '/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds'
-old_comdat_path <- '/home/mgrezlik/EDAB_Dev/grezlik/Commercial_data_pull_25.RData'
+old_input_path_comdat <- '/home/mgrezlik/EDAB_Dev/grezlik/Commercial_data_pull_25.RData'
 input_survey_bio_epu <- "~/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds"
 input_survey_bio <- 'home/mgrezlik/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds'
 prod_anom_sarah <- "~/EDAB_Dev/grezlik/AssessFishProdAnomaly - Sarah Gaichas - NOAA Federal.rds"
@@ -183,7 +183,7 @@ indD <- workflow_species_dist(
 
 # calculate the comdat index ----------------
 indicator_comdat <- workflow_comdat(
-  comdat_path = comdat_path,
+  input_path_comdat = input_path_comdat,
   input_path_species = input_path_species,
   menhaden_path = menhaden_path,
   outputPathDataSets = outputPathDataSets
@@ -193,7 +193,7 @@ indicator_comdat <- workflow_comdat(
 # # testing comdat ---------------------
 #
 # commercial_summary <- create_comdat(
-#   comdat_path <- '/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds',
+#   input_path_comdat <- '/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds',
 #   report_year = 2025,
 #   end_year = 2024,
 #   input_path_species <- "/home/mgrezlik/EDAB_Datasets/SOE_species_list_24.rds",
@@ -206,9 +206,9 @@ indicator_comdat <- workflow_comdat(
 # )
 #
 ## comparing my comdat outputs to old comdat ---------------
-# max_comdat_path <-  '/home/mgrezlik/EDAB_Dev/grezlik/comdat.rds'
+# max_input_path_comdat <-  '/home/mgrezlik/EDAB_Dev/grezlik/comdat.rds'
 #
-# comdat_max <- readRDS(max_comdat_path) |>
+# comdat_max <- readRDS(max_input_path_comdat) |>
 #                 dplyr::mutate(source = 'max')
 comdat_max <- indicator_comdat |>
   dplyr::mutate(source = 'max')

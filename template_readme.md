@@ -183,10 +183,10 @@ To run the "workflow" below, it is assumed that the commercial data has been pul
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```R
-workflow_comdat(comdat_path, input_path_species, menhaden_path, outputPathDataSets)
+workflow_comdat(input_path_comdat, input_path_species, menhaden_path, outputPathDataSets)
 ```
 
-* `comdat_path` is the path to the raw, comprehensive commercial landings data file, e.g., `EDAB_Datasets/commercial_comdat.rds`.
+* `input_path_comdat` is the path to the raw, comprehensive commercial landings data file, e.g., `EDAB_Datasets/commercial_comdat.rds`.
 * `input_path_species` is the path to the species list used for grouping, e.g., `EDAB_Datasets/SOE_species_list_24.rds`.
 * `menhaden_path` is the path to the Menhaden landings data output by create_`create_menhaden_input.R`.
 * `outputPathDataSets` is the path to folder where indicator data should be saved, `EDAB_Indicators`.

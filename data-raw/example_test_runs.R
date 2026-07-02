@@ -95,7 +95,7 @@ indicator_bennet <- workflow_bennet(
 # calculate the comdat index
 message("Running comdat ...")
 indicator_comdat <- workflow_comdat(
-  comdat_path = inputPathComdat,
+  input_path_comdat = inputPathComdat,
   input_path_species = input_path_species,
   menhaden_path = menhadenPath,
   outputPathDataSets = outputPath
