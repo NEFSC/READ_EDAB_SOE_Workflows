@@ -86,7 +86,10 @@ workflow_species_dist <- function(
       )
 
       # write data to file
-      saveRDS(indicatorData, file.path(output_path_indicators, "species_dist.rds"))
+      saveRDS(
+        indicatorData,
+        file.path(output_path_indicators, "species_dist.rds")
+      )
       message(
         "species_dist.rds saved to ",
         file.path(output_path_indicators, "species_dist.rds")
