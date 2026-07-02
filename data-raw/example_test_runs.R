@@ -27,7 +27,7 @@ static_coast_coord <- paste0(rootPath, "nes_coast_2.csv")
 static_strat_areas <- paste0(rootPath, "stratareas.rds")
 inputPathDecoder <- paste0(rootPath, "decoder.csv")
 inputPathSST <- paste0(rootPath, "TS_SHP_adv_rep_MAB_GOM_GBK_NES_SCSPoly.csv")
-inputKey <- paste0(rootPath, "hms_key.csv")
+input_path_rec_key <- paste0(rootPath, "hms_key.csv")
 input_path_lw_coeffs <- paste0(rootPath, "LWparams.csv")
 inputPathConditionSpecies <- paste0(rootPath, "species.codes.csv")
 input_path_gb_surf <- paste0(rootPath, "GB_SST_1982_to_2024_detrended.csv")
@@ -124,7 +124,7 @@ message("Running rec_hms ...")
 indicator_rec_hms <- workflow_rec_hms(
   outputPath,
   inputPath = inputRecHMSPath,
-  inputKey
+  input_path_rec_key
 )
 
 # calculate the mass_inshore_survey index

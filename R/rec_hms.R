@@ -4,15 +4,15 @@
 #' The function formats the data to be used in the SOE
 #' It is formatted exactly like the ecodata data object
 #'
-#' @param inputPath Character string. Full path to the data from the 'pull_rec_hms' csv file in EDAB_Dev.
-#' @param inputKey Character string. Full path to the hms_key file in EDAB_Resources ("EDAB_Resources/workflow_resources/soe_workflows/hms_key.csv")
+#' @param input_path_rec Character string. Full path to the data from the 'pull_rec_hms' csv file in EDAB_Dev.
+#' @param input_path_rec_key Character string. Full path to the hms_key file in EDAB_Resources ("EDAB_Resources/workflow_resources/soe_workflows/hms_key.csv")
 #'
 #' @examples
 #' \dontrun{
 #' #create the ecodata::rec_hms indicator
 #' create_rec_hms(
-#   inputPath = "path/to/hms_mrip_2025-08-26.csv",
-#'  inputKey = "path/to/hms_key.csv")
+#   input_path_rec = "path/to/hms_mrip_2025-08-26.csv",
+#'  input_path_rec_key = "path/to/hms_key.csv")
 #'
 #' }
 #'
@@ -21,13 +21,13 @@
 #' @export
 
 create_rec_hms <- function(
-  inputPath,
-  inputKey
+  input_path_rec,
+  input_path_rec_key
 ) {
   # data wrangling ----
-  rec_hms <- readRDS(inputPath) |>
+  rec_hms <- readRDS(input_path_rec) |>
     dplyr::left_join(
-      read.csv(inputKey) |>
+      read.csv(input_path_rec_key) |>
         dplyr::select(COMMON_NAME, SP_CATEGORY),
       by = c("SPECIES" = "COMMON_NAME")
     ) |>

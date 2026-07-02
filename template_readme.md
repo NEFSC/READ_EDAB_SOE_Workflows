@@ -265,10 +265,10 @@ To run the "workflow" below, it is assumed that the recreational data has been p
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```
-workflow_rec_hms(inputPath,inputKey, outputPath)
+workflow_rec_hms(inputPath,input_path_rec_key, outputPath)
 ```
 
 * `inputPath` is the path to the data set created by `workflow_pull_rec_hms`, currently residing in `EDAB_Dev/atyrell/hms_mrip_(Sys.Date).csv`.
-* `inputKey` is the path to the static data set `EDAB_Resources/workflow_resources/soe_workflows/hms_key.csv`
+* `input_path_rec_key` is the path to the static data set `EDAB_Resources/workflow_resources/soe_workflows/hms_key.csv`
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `rec_hms.rds` to match the `ecodata` package dataset

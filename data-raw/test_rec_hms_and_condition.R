@@ -10,7 +10,7 @@ workflow_rec_hms(
   # the input file is produced in the previous step
   # change filename if needed
   inputPath = here::here("data-raw/hms_mrip_2025-09-26.csv"),
-  inputKey = "~/EDAB_Resources/workflow_resources/soe_workflows/hms_key.csv",
+  input_path_rec_key = "~/EDAB_Resources/workflow_resources/soe_workflows/hms_key.csv",
   outputPath = here::here("data-raw")
 )
 
