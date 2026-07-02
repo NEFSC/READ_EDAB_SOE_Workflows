@@ -28,7 +28,7 @@ static_strat_areas <- paste0(rootPath, "stratareas.rds")
 inputPathDecoder <- paste0(rootPath, "decoder.csv")
 inputPathSST <- paste0(rootPath, "TS_SHP_adv_rep_MAB_GOM_GBK_NES_SCSPoly.csv")
 inputKey <- paste0(rootPath, "hms_key.csv")
-inputPathLW <- paste0(rootPath, "LWparams.csv")
+input_path_lw_coeffs <- paste0(rootPath, "LWparams.csv")
 inputPathConditionSpecies <- paste0(rootPath, "species.codes.csv")
 inputPathGBSurf <- paste0(rootPath, "GB_SST_1982_to_2024_detrended.csv")
 inputPathGBBot <- paste0(rootPath, "daily_bottomT_GB_1959_2024_detrended.csv")
@@ -106,7 +106,7 @@ indicator_comdat <- workflow_comdat(
 message("Running condition ...")
 indicator_condition <- workflow_condition(
   inputPath = inputPathCondition,
-  inputPathLW,
+  input_path_lw_coeffs,
   input_path_species = inputPathConditionSpecies,
   outputPath
 )

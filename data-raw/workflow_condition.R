@@ -5,7 +5,7 @@
 #' It is formatted exactly like the ecodata data object
 #'
 #' @param inputPath Character string. Full path to the condition data pull rds file.
-#' @param inputPathLW Character string. Full path to the LWparams rda file in 'EDAB_Resources/workflow_resources/soe_workflows'.
+#' @param input_path_lw_coeffs Character string. Full path to the LWparams rda file in 'EDAB_Resources/workflow_resources/soe_workflows'.
 #' @param input_path_species Character string. Full path to the species.codes rda file in 'EDAB_Resources/workflow_resources/soe_workflows'.
 #' @param outputPath Character string. Path to folder where data pull should be saved.
 #'
@@ -13,7 +13,7 @@
 #' \dontrun{
 #' # create the ecodata::condition indicator
 #' workflow_condition(inputPath = "path/to/conditionData.rds",
-#'  inputPathLW = "path/to/hms_key.rda,
+#'  input_path_lw_coeffs = "path/to/hms_key.rda,
 #'  input_path_species = "path/to/species.codes.rda",
 #'  outputPath = "path/to/output/folder")
 #'
@@ -26,7 +26,7 @@
 
 workflow_condition <- function(
   inputPath,
-  inputPathLW,
+  input_path_lw_coeffs,
   input_path_species,
   outputPath = NULL
 ) {
@@ -40,7 +40,7 @@ workflow_condition <- function(
         !all(
           !is.null(outputPath),
           file.exists(inputPath),
-          file.exists(inputPathLW),
+          file.exists(input_path_lw_coeffs),
           file.exists(input_path_species)
         )
       ) {
@@ -49,7 +49,7 @@ workflow_condition <- function(
       # calculate indicator
       indicatorData <- SOEworkflows::create_condition(
         inputPath = inputPath,
-        inputPathLW = inputPathLW,
+        input_path_lw_coeffs = input_path_lw_coeffs,
         input_path_species = input_path_species
       )
       # write data to file
