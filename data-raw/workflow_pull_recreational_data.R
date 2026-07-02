@@ -18,7 +18,9 @@ workflow_pull_recreational_data <- function(output_path_indicators = NULL) {
         stop("output file path file missing")
       }
       # pull MRIP data
-      rec_hms_data <- SOEworkflows::get_recreational_data(output_path_indicators)
+      rec_hms_data <- SOEworkflows::get_recreational_data(
+        output_path_indicators
+      )
 
       # Save these to a specific location
       #write.csv(rec_hms_data, paste0(output_path_indicators, "/hms_mrip_", Sys.Date(), ".csv"))
