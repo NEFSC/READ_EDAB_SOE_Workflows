@@ -12,7 +12,7 @@ outputPath <- "~/EDAB_Indicators/"
 #outputPath <- "~/EDAB_Dev/beet/"
 outputPathDatasets <- rootPath
 input_path_survey <- paste0(rootPath, "surveyNoLengthsData.rds")
-inputPathMassSurvey <- paste0(rootPath, "massInshoreData.rds")
+input_path_mass_survey <- paste0(rootPath, "massInshoreData.rds")
 input_path_species <- paste0(rootPath, "SOE_species_list_24.rds")
 input_path_albatross <- paste0(rootPath, "albatrossData.rds")
 input_path_bigelow <- paste0(rootPath, "bigelowData.rds")
@@ -131,7 +131,7 @@ indicator_rec_hms <- workflow_rec_hms(
 message("Running mass_inshore_survey ...")
 indicator_mass_inshore_survey <- workflow_mass_inshore_survey(
   outputPath = outputPath,
-  inputPathMassSurvey = inputPathMassSurvey,
+  input_path_mass_survey = input_path_mass_survey,
   input_path_species = input_path_species
 )
 

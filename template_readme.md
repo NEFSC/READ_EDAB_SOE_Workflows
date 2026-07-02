@@ -60,10 +60,10 @@ To run the "workflow" below, it is assumed that the "raw" survey data has been p
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```
-workflow_mass_inshore_survey(outputPath,inputPathMassSurvey,input_path_species)
+workflow_mass_inshore_survey(outputPath,input_path_mass_survey,input_path_species)
 ```
 
-* `inputPathMassSurvey` is the path to data set `EDAB_Datasets/massInshoreData.rds`.
+* `input_path_mass_survey` is the path to data set `EDAB_Datasets/massInshoreData.rds`.
 * `input_path_species` is the path to static data set `EDAB_Datasets/SOE_species_list_24.rds`.
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `mass_inshore_survey.rds` to match the `ecodata` package dataset
