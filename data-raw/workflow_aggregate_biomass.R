@@ -25,9 +25,9 @@
 #'
 
 workflow_aggregate_biomass <- function(
-  output_path_indicators,
   input_path_survey,
-  input_path_species
+  input_path_species,
+  output_path_indicators
 ) {
   # Assumes that survey data has been pulled and is located in input_path_survey
   #get_survey_data(channel,output_path_indicators = output_path_indicators)

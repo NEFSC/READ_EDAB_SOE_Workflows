@@ -53,11 +53,13 @@ workflow_comdat <- function(
       indicatorData <- SOEworkflows::create_comdat(
         input_path_comdat = input_path_comdat,
         input_path_species = input_path_species,
-        input_path_menhaden = input_path_menhaden,
-        output_path_datasets = output_path_indicators
+        input_path_menhaden = input_path_menhaden
       )
 
-      saveRDS(indicatorData$comdat, paste0(output_path_indicators, "/comdat.rds"))
+      saveRDS(
+        indicatorData$comdat,
+        paste0(output_path_indicators, "/comdat.rds")
+      )
       saveRDS(
         indicatorData$comdat_species,
         paste0(output_path_indicators, "/comdat_species.rds")

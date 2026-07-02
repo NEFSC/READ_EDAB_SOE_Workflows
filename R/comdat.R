@@ -6,7 +6,6 @@
 #' @param input_path_comdat Character string. Path to commercial_comdat.rds
 #' @param input_path_species Character string. Path to the 'SOE_species_list_24.RData' file.
 #' @param input_path_menhaden Character string. Path to the menhaden data output by data-raw/create_menhaden_input.R
-#' @param output_path_datasets Character string. Path to folder where data pull should be saved
 #'
 #' @return list
 #' \item{comdat}{`ecodata::comdat` data frame}
@@ -25,8 +24,7 @@
 create_comdat <- function(
   input_path_comdat,
   input_path_species,
-  input_path_menhaden,
-  output_path_datasets
+  input_path_menhaden
 ) {
   # Check if the input files exist ---------------------------
   if (

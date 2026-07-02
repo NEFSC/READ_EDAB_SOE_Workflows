@@ -16,9 +16,9 @@
 #'
 
 workflow_mass_inshore_survey <- function(
-  output_path_indicators = NULL,
   input_path_mass_survey,
-  input_path_species
+  input_path_species,
+  output_path_indicators = NULL
 ) {
   # Assumes that survey data has been pulled and is located in input_path_mass_survey
   # workflow_pull_survey_data(channel,output_path_indicators = output_path_indicators)
@@ -43,7 +43,10 @@ workflow_mass_inshore_survey <- function(
       )
 
       # Write data to file
-      saveRDS(indicatorData, paste0(output_path_indicators, "/mass_inshore_survey.rds"))
+      saveRDS(
+        indicatorData,
+        paste0(output_path_indicators, "/mass_inshore_survey.rds")
+      )
       return(indicatorData)
     },
     error = function(e) {
