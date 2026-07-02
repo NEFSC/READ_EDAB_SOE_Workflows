@@ -17,7 +17,10 @@
 #' }
 #'
 
-workflow_pull_commercial_data <- function(channel, output_path_indicators = NULL) {
+workflow_pull_commercial_data <- function(
+  channel,
+  output_path_indicators = NULL
+) {
   # check to skip running workflow
   tryCatch(
     {
