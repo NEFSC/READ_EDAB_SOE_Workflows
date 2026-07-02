@@ -2,22 +2,22 @@
 #'
 #' Data include time series of depth, distance from shelf and distance along shelf.
 #'
-#' @param inputPathSurvey Character string. Full path to the survdat data pull rds file
+#' @param input_path_survey Character string. Full path to the survdat data pull rds file
 #' @param input_path_species Character string. Full path to the species list data pull rds file
-#' @param static_depth Character string. Path to file with depth data for NE shelf
-#' @param static_diagonal Character string. Path to file with along shelf diagonal data
-#' @param static_coast_coord Character string. Path to file with lat lon coordinates defining the coastline
-#' @param static_strat_areas Character string. Path to file defining NEFSC trawl survey strata
+#' @param input_path_static_depth Character string. Path to file with depth data for NE shelf
+#' @param input_path_static_diagonal Character string. Path to file with along shelf diagonal data
+#' @param input_path_static_coast_coord Character string. Path to file with lat lon coordinates defining the coastline
+#' @param input_path_static_strat_areas Character string. Path to file defining NEFSC trawl survey strata
 #'
 #' @examples
 #' \dontrun{
 #' # create the ecodata::species_dist indicator
-#' create_species_dist(inputPathSurvey = here::here("surveyNoLengths.rds"),
+#' create_species_dist(input_path_survey = here::here("surveyNoLengths.rds"),
 #'  input_path_species = "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds",
-#'  static_depth =  "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc",
-#'  static_diagonal = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/diag.csv",
-#'  static_coast_coord = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv",
-#'  static_strat_areas = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds")
+#'  input_path_static_depth =  "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc",
+#'  input_path_static_diagonal = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/diag.csv",
+#'  input_path_static_coast_coord = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv",
+#'  input_path_static_strat_areas = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds")
 #'
 #' }
 #'
@@ -27,23 +27,23 @@
 #' @export
 
 create_species_dist <- function(
-  inputPathSurvey,
+  input_path_survey,
   input_path_species,
-  static_depth,
-  static_diagonal,
-  static_coast_coord,
-  static_strat_areas
+  input_path_static_depth,
+  input_path_static_diagonal,
+  input_path_static_coast_coord,
+  input_path_static_strat_areas
 ) {
   end.year <- format(Sys.Date(), "%Y")
 
   # Check if the input files exist ---------------------------
   required_files <- list(
-    survey = inputPathSurvey,
+    survey = input_path_survey,
     species = input_path_species,
-    depth = static_depth,
-    diagonal = static_diagonal,
-    coast_coord = static_coast_coord,
-    strat_areas = static_strat_areas
+    depth = input_path_static_depth,
+    diagonal = input_path_static_diagonal,
+    coast_coord = input_path_static_coast_coord,
+    strat_areas = input_path_static_strat_areas
   )
 
   missing_files <- names(required_files)[!file.exists(unlist(required_files))]
@@ -56,7 +56,7 @@ create_species_dist <- function(
 
   # read survey data -------------------------------------------
   # and check to make sure data is in the right format
-  survey <- readRDS((inputPathSurvey))
+  survey <- readRDS((input_path_survey))
   if (!is.data.frame(survey$survdat)) {
     stop("Input data is not a data frame")
   }
@@ -132,20 +132,20 @@ create_species_dist <- function(
   )
 
   # raster depth grid ------------------------------------------------
-  gdepth <- raster::raster(static_depth, band = 1)
+  gdepth <- raster::raster(input_path_static_depth, band = 1)
 
   # read coordinates for along shelf diagonal -----------------
-  diag <- read.csv(static_diagonal)
+  diag <- read.csv(input_path_static_diagonal)
 
   # read coordinate for coast --------------------
-  nescoast2 <- read.csv(static_coast_coord)
+  nescoast2 <- read.csv(input_path_static_coast_coord)
 
   # constants ------------------------------------------------------------
   radt = pi / 180
   R <- 6371 # Earth mean radius [km]
 
   # load stratareas ---------------------------------------------------
-  stratareas <- readRDS(static_strat_areas)
+  stratareas <- readRDS(input_path_static_strat_areas)
 
   # tidy data ---------------------------------------------------
   # trim the data, filter for chosen season

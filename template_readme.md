@@ -28,11 +28,11 @@ To run the "workflow" below, it is assumed that the "raw" survey data has been p
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```
-workflow_aggregate_biomass(outputPath,inputPathSurvey,input_path_species)
+workflow_aggregate_biomass(outputPath,input_path_survey,input_path_species)
 ```
 
 * `input_path_species` is the path to static data set `EDAB_Datasets/SOE_species_list_24.rds`.
-* `inputPathSurvey` is the path to the dynamically created survey data `EDAB_Datasets/surveyNoLengths.rds`. 
+* `input_path_survey` is the path to the dynamically created survey data `EDAB_Datasets/surveyNoLengths.rds`. 
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `aggregate_biomass.rds` to match the `ecodata` package dataset
 
@@ -93,16 +93,16 @@ To run the "workflow" below, it is assumed that the "raw" survey data has been p
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```
-workflow_species_dist(inputPathSurvey,input_path_species, static_depth,
-                      static_diagonal, static_coast_coord, static_strat_areas)
+workflow_species_dist(input_path_survey,input_path_species, input_path_static_depth,
+                      input_path_static_diagonal, input_path_static_coast_coord, input_path_static_strat_areas)
 ```
 
 * `input_path_species` is the path to static data set `EDAB_Datasets/SOE_species_list_24.rds`.
-* `inputPathSurvey` is the path to the dynamically created survey data `EDAB_Datasets/surveyNoLengths.rds`. 
-* `static_depth` is the path to the file `nes_bath_data.nc`
-* `static_diagonal` is the path to the file `diag.csv`
-* `static_coast_coord` is the path to the file `nes_coast_2.csv`
-* `static_strat_areas` is the path to the file `stratareas.rds`
+* `input_path_survey` is the path to the dynamically created survey data `EDAB_Datasets/surveyNoLengths.rds`. 
+* `input_path_static_depth` is the path to the file `nes_bath_data.nc`
+* `input_path_static_diagonal` is the path to the file `diag.csv`
+* `input_path_static_coast_coord` is the path to the file `nes_coast_2.csv`
+* `input_path_static_strat_areas` is the path to the file `stratareas.rds`
 
 The rds file name is hardcoded as `species_dist.rds` to match the `ecodata` package dataset
 

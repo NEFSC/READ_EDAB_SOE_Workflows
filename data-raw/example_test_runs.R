@@ -11,7 +11,7 @@ rootPath <- "~/EDAB_Datasets/Workflows/"
 outputPath <- "~/EDAB_Indicators/"
 #outputPath <- "~/EDAB_Dev/beet/"
 outputPathDatasets <- rootPath
-inputPathSurvey <- paste0(rootPath, "surveyNoLengthsData.rds")
+input_path_survey <- paste0(rootPath, "surveyNoLengthsData.rds")
 inputPathMassSurvey <- paste0(rootPath, "massInshoreData.rds")
 input_path_species <- paste0(rootPath, "SOE_species_list_24.rds")
 input_path_albatross <- paste0(rootPath, "albatrossData.rds")
@@ -21,10 +21,10 @@ inputPathCondition <- paste0(rootPath, "conditionData.rds")
 input_path_bennet <- paste0(rootPath, "commercial_bennetData.rds")
 inputPathComdat <- paste0(rootPath, "commercial_comdatData.rds")
 menhadenPath <- paste0(rootPath, "menhadenEOF.rds")
-static_depth <- paste0(rootPath, "nes_bath_data.nc")
-static_diagonal <- paste0(rootPath, "diag.csv")
-static_coast_coord <- paste0(rootPath, "nes_coast_2.csv")
-static_strat_areas <- paste0(rootPath, "stratareas.rds")
+input_path_static_depth <- paste0(rootPath, "nes_bath_data.nc")
+input_path_static_diagonal <- paste0(rootPath, "diag.csv")
+input_path_static_coast_coord <- paste0(rootPath, "nes_coast_2.csv")
+input_path_static_strat_areas <- paste0(rootPath, "stratareas.rds")
 inputPathDecoder <- paste0(rootPath, "decoder.csv")
 inputPathSST <- paste0(rootPath, "TS_SHP_adv_rep_MAB_GOM_GBK_NES_SCSPoly.csv")
 input_path_rec_key <- paste0(rootPath, "hms_key.csv")
@@ -81,7 +81,7 @@ if (pullRawData) {
 message("Running aggregate_biomass ...")
 indicator_aggegegate_biomass <- workflow_aggregate_biomass(
   outputPath,
-  inputPathSurvey,
+  input_path_survey,
   input_path_species
 )
 # calculate the bennet index
@@ -138,12 +138,12 @@ indicator_mass_inshore_survey <- workflow_mass_inshore_survey(
 # calculate the species_dist index
 message("Running species_dist ...")
 indicator_species_dist <- workflow_species_dist(
-  inputPathSurvey,
+  input_path_survey,
   input_path_species,
-  static_depth,
-  static_diagonal,
-  static_coast_coord,
-  static_strat_areas,
+  input_path_static_depth,
+  input_path_static_diagonal,
+  input_path_static_coast_coord,
+  input_path_static_strat_areas,
   outputPath
 )
 
