@@ -232,8 +232,8 @@ To run the "workflow" below, it is assumed that the static, detrended input file
 
 
 ```
-workflow_heatwave(inputPathGBBot,inputPathGOMBot,inputPathMABBot,inputPathGBSurf,inputPathGOMSurf,inputPathMABSurf)
-workflow_heatwave_year(inputPathGBBot,inputPathGOMBot,inputPathMABBot,inputPathGBSurf,inputPathGOMSurf,inputPathMABSurf)
+workflow_heatwave(input_path_gb_bot,input_path_gom_bot,input_path_mab_bot,input_path_gb_surf,input_path_gom_surf,input_path_mab_surf)
+workflow_heatwave_year(input_path_gb_bot,input_path_gom_bot,input_path_mab_bot,input_path_gb_surf,input_path_gom_surf,input_path_mab_surf)
 ```
 
 * `inputPathGBxxx` is the path to static, detrended data sets `EDAB_Datasets/GB_SST_1982_to_2024_detrended.csv` or `EDAB_Datasets/daily_bottomT_GB_1959_2024_detrended.csv`for Georges Bank surface and bottom heatwaves, respectively.

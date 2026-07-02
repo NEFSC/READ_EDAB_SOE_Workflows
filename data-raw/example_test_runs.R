@@ -30,12 +30,12 @@ inputPathSST <- paste0(rootPath, "TS_SHP_adv_rep_MAB_GOM_GBK_NES_SCSPoly.csv")
 inputKey <- paste0(rootPath, "hms_key.csv")
 input_path_lw_coeffs <- paste0(rootPath, "LWparams.csv")
 inputPathConditionSpecies <- paste0(rootPath, "species.codes.csv")
-inputPathGBSurf <- paste0(rootPath, "GB_SST_1982_to_2024_detrended.csv")
-inputPathGBBot <- paste0(rootPath, "daily_bottomT_GB_1959_2024_detrended.csv")
-inputPathGOMSurf <- paste0(rootPath, "GOM_SST_1982_to_2024_detrended.csv")
-inputPathGOMBot <- paste0(rootPath, "daily_bottomT_GOM_1959_2024_detrended.csv")
-inputPathMABSurf <- paste0(rootPath, "MAB_SST_1982_to_2024_detrended.csv")
-inputPathMABBot <- paste0(rootPath, "daily_bottomT_MAB_1959_2024_detrended.csv")
+input_path_gb_surf <- paste0(rootPath, "GB_SST_1982_to_2024_detrended.csv")
+input_path_gb_bot <- paste0(rootPath, "daily_bottomT_GB_1959_2024_detrended.csv")
+input_path_gom_surf <- paste0(rootPath, "GOM_SST_1982_to_2024_detrended.csv")
+input_path_gom_bot <- paste0(rootPath, "daily_bottomT_GOM_1959_2024_detrended.csv")
+input_path_mab_surf <- paste0(rootPath, "MAB_SST_1982_to_2024_detrended.csv")
+input_path_mab_bot <- paste0(rootPath, "daily_bottomT_MAB_1959_2024_detrended.csv")
 input_survey_bio_epu <- paste0(rootPath, "surveyBiologicalByEPUData.rds")
 input_survey_bio <- paste0(rootPath, "surveyBiologicalData.rds")
 input_static_lw_table <- paste0(rootPath, "df_lw.rda")
@@ -172,12 +172,12 @@ indicator_trans_dates <- workflow_trans_dates(
 # calculate the heatwave index
 message("Running heatwave ...")
 indicator_heatwave <- workflow_heatwave(
-  inputPathGBBot = inputPathGBBot,
-  inputPathGOMBot = inputPathGOMBot,
-  inputPathMABBot = inputPathMABBot,
-  inputPathGBSurf = inputPathGBSurf,
-  inputPathGOMSurf = inputPathGOMSurf,
-  inputPathMABSurf = inputPathMABSurf,
+  input_path_gb_bot = input_path_gb_bot,
+  input_path_gom_bot = input_path_gom_bot,
+  input_path_mab_bot = input_path_mab_bot,
+  input_path_gb_surf = input_path_gb_surf,
+  input_path_gom_surf = input_path_gom_surf,
+  input_path_mab_surf = input_path_mab_surf,
   outputPath
 )
 
@@ -185,12 +185,12 @@ indicator_heatwave <- workflow_heatwave(
 # calculate the heatwave_year index
 message("Running heatwave_year ...")
 indicator_heatwave_year <- workflow_heatwave_year(
-  inputPathGBBot = inputPathGBBot,
-  inputPathGOMBot = inputPathGOMBot,
-  inputPathMABBot = inputPathMABBot,
-  inputPathGBSurf = inputPathGBSurf,
-  inputPathGOMSurf = inputPathGOMSurf,
-  inputPathMABSurf = inputPathMABSurf,
+  input_path_gb_bot = input_path_gb_bot,
+  input_path_gom_bot = input_path_gom_bot,
+  input_path_mab_bot = input_path_mab_bot,
+  input_path_gb_surf = input_path_gb_surf,
+  input_path_gom_surf = input_path_gom_surf,
+  input_path_mab_surf = input_path_mab_surf,
   outputPath
 )
 

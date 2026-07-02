@@ -4,24 +4,24 @@
 #' into a single indicator
 #'
 #'
-#' @param inputPathGBBot Character string. Full path to the GB GLORYS input file from Joe Caracappa
-#' @param inputPathGOMBot Character string. Full path to the GOM GLORYS input file from Joe Caracappa
-#' @param inputPathMABBot Character string. Full path to the MAB GLORYS input file from Joe Caracappa
-#' @param inputPathGBSurf Character string. Full path to the GB OISST input file from Kim Hyde
-#' @param inputPathGOMSurf Character string. Full path to the GOM OISST input file from Kim Hyde
-#' @param inputPathMABSurf Character string. Full path to the MAB OISST input file from Kim Hyde
+#' @param input_path_gb_bot Character string. Full path to the GB GLORYS input file from Joe Caracappa
+#' @param input_path_gom_bot Character string. Full path to the GOM GLORYS input file from Joe Caracappa
+#' @param input_path_mab_bot Character string. Full path to the MAB GLORYS input file from Joe Caracappa
+#' @param input_path_gb_surf Character string. Full path to the GB OISST input file from Kim Hyde
+#' @param input_path_gom_surf Character string. Full path to the GOM OISST input file from Kim Hyde
+#' @param input_path_mab_surf Character string. Full path to the MAB OISST input file from Kim Hyde
 #'
 #' @return ecodata::heatwave data frame
 #'
 #' @examples
 #' \dontrun{
 #' # create the ecodata::heatwave_year indicator
-#' create_heatwave_year(inputPathGBBot = "path/to/input/GBdata.csv",
-#'                         inputPathGOMBot = "path/to/input/GOMdata.csv",
-#'                         inputPathMABBot = "path/to/input/MABdata.csv",
-#'                         inputPathGBSurf = "path/to/input/GBdata.csv",
-#'                         inputPathGOMSurf = "path/to/input/GOMdata.csv",
-#'                         inputPathMABSurf = "path/to/input/MABdata.csv")
+#' create_heatwave_year(input_path_gb_bot = "path/to/input/GBdata.csv",
+#'                         input_path_gom_bot = "path/to/input/GOMdata.csv",
+#'                         input_path_mab_bot = "path/to/input/MABdata.csv",
+#'                         input_path_gb_surf = "path/to/input/GBdata.csv",
+#'                         input_path_gom_surf = "path/to/input/GOMdata.csv",
+#'                         input_path_mab_surf = "path/to/input/MABdata.csv")
 #'
 #' }
 #'
@@ -30,25 +30,25 @@
 #' @export
 
 create_heatwave_year <- function(
-  inputPathGBBot,
-  inputPathGOMBot,
-  inputPathMABBot,
-  inputPathGBSurf,
-  inputPathGOMSurf,
-  inputPathMABSurf
+  input_path_gb_bot,
+  input_path_gom_bot,
+  input_path_mab_bot,
+  input_path_gb_surf,
+  input_path_gom_surf,
+  input_path_mab_surf
 ) {
   # create surface temperature portion of heatwave_year
   surface <- create_heatwave_year_surface(
-    inputPathGB = inputPathGBSurf,
-    inputPathGOM = inputPathGOMSurf,
-    inputPathMAB = inputPathMABSurf
+    inputPathGB = input_path_gb_surf,
+    inputPathGOM = input_path_gom_surf,
+    inputPathMAB = input_path_mab_surf
   )
 
   # create bottom temperature portion of heatwave_year
   bottom <- create_heatwave_year_bottom(
-    inputPathGB = inputPathGBBot,
-    inputPathGOM = inputPathGOMBot,
-    inputPathMAB = inputPathMABBot
+    inputPathGB = input_path_gb_bot,
+    inputPathGOM = input_path_gom_bot,
+    inputPathMAB = input_path_mab_bot
   )
 
   # combine into one data frame
