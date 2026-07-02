@@ -14,8 +14,8 @@ outputPathDatasets <- rootPath
 inputPathSurvey <- paste0(rootPath, "surveyNoLengthsData.rds")
 inputPathMassSurvey <- paste0(rootPath, "massInshoreData.rds")
 input_path_species <- paste0(rootPath, "SOE_species_list_24.rds")
-inputPathAlbatross <- paste0(rootPath, "albatrossData.rds")
-inputPathBigelow <- paste0(rootPath, "bigelowData.rds")
+input_path_albatross <- paste0(rootPath, "albatrossData.rds")
+input_path_bigelow <- paste0(rootPath, "bigelowData.rds")
 inputRecHMSPath <- paste0(rootPath, "hms_mrip_2025-10-03.rds")
 inputPathCondition <- paste0(rootPath, "conditionData.rds")
 input_path_bennet <- paste0(rootPath, "commercial_bennetData.rds")
@@ -114,8 +114,8 @@ indicator_condition <- workflow_condition(
 # calculate the exp_n index
 message("Running exp_n ...")
 indicator_exp_n <- workflow_exp_n(
-  inputPathBigelow,
-  inputPathAlbatross,
+  input_path_bigelow,
+  input_path_albatross,
   outputPath
 )
 
@@ -158,8 +158,8 @@ indicator_stock_status <- workflow_stock_status(
 message("Running survey_shannon ...")
 indicator_survey_shannon <- workflow_survey_shannon(
   outputPath = outputPath,
-  inputPathBigelow = inputPathBigelow,
-  inputPathAlbatross = inputPathAlbatross
+  input_path_bigelow = input_path_bigelow,
+  input_path_albatross = input_path_albatross
 )
 
 # calculate the trans_dates index

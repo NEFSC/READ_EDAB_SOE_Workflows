@@ -109,8 +109,8 @@ inputPathSurvey <- "/home/mgrezlik/EDAB_Datasets/Workflows/surveyNoLengthsData.r
 input_path_species <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
 # ditching camel case moving forward
 input_path_species <- "/home/mgrezlik/EDAB_Datasets/SOE_species_list_24.rds"
-inputPathAlbatross <- "/home/mgrezlik/EDAB_Dev/beet/albatrossData.rds"
-inputPathBigelow <- "/home/mgrezlik/EDAB_Dev/beet/bigelowData.rds"
+input_path_albatross <- "/home/mgrezlik/EDAB_Dev/beet/albatrossData.rds"
+input_path_bigelow <- "/home/mgrezlik/EDAB_Dev/beet/bigelowData.rds"
 static_depth <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc"
 static_diagonal <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/diag.csv"
 static_coast_coord <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"

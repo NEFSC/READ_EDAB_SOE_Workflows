@@ -44,11 +44,11 @@ To run the "workflow" below, it is assumed that the "raw" survey data has been p
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```
-workflow_survey_shannon(outputPath,inputPathBigelow,inputPathAlbatross)
+workflow_survey_shannon(outputPath,input_path_bigelow,input_path_albatross)
 ```
 
-* `inputPathBigelow` is the path to the data set `EDAB_Datasets/bigelowData.rds`.
-* `inputPathAlbatross` is the path to the created survey data `EDAB_Datasets/albatrossData.rds`. 
+* `input_path_bigelow` is the path to the data set `EDAB_Datasets/bigelowData.rds`.
+* `input_path_albatross` is the path to the created survey data `EDAB_Datasets/albatrossData.rds`. 
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `survey_shannon.rds` to match the `ecodata` package dataset
 
@@ -77,11 +77,11 @@ To run the "workflow" below, it is assumed that the "raw" survey data has been p
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```
-workflow_exp_n(outputPath,inputPathBigelow,inputPathAlbatross)
+workflow_exp_n(outputPath,input_path_bigelow,input_path_albatross)
 ```
 
-* `inputPathBigelow` is the path to static data set `EDAB_Datasets/bigelowData.rds`.
-* `inputPathAlbatross` is the path to static data set `EDAB_Datasets/albatrossData.rds`. 
+* `input_path_bigelow` is the path to static data set `EDAB_Datasets/bigelowData.rds`.
+* `input_path_albatross` is the path to static data set `EDAB_Datasets/albatrossData.rds`. 
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `exp_n.rds` to match the `ecodata` package dataset
 

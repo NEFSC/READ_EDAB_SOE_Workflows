@@ -3,14 +3,14 @@
 #' This uses the survdat data pull from the survey package.
 #' It is formatted exactly like the ecodata data object
 #'
-#' @param inputPathBigelow Character string. Full path to the Bigelow data pull rds file
-#' @param inputPathAlbatross Character string. Full path to the Albatross data pull rds file
+#' @param input_path_bigelow Character string. Full path to the Bigelow data pull rds file
+#' @param input_path_albatross Character string. Full path to the Albatross data pull rds file
 #' @param outputPath Character string. Path to folder where data pull should be saved
 #'
 #' @example
 #' \dontrun{
 #' # create the ecodata::survey_shannon indicator
-#' workflow_survey_shannon(inputPathBigelow = "path/to/Bigelow/data.rds",
+#' workflow_survey_shannon(input_path_bigelow = "path/to/Bigelow/data.rds",
 #'                       inputPathAlbatros = "path/to/Albatross/data.rds",
 #'                       outputPath = "path/to/output/folder")
 #'
@@ -21,13 +21,13 @@
 #'
 #' @section Dependencies:
 #'
-#' This assumes that the survey data has been pulled and resides in the path `inputPathBigelow` and `inputPathAlbatross`
+#' This assumes that the survey data has been pulled and resides in the path `input_path_bigelow` and `input_path_albatross`
 #'
 #' @export
 
 workflow_survey_shannon <- function(
-  inputPathBigelow,
-  inputPathAlbatross,
+  input_path_bigelow,
+  input_path_albatross,
   outputPath = NULL
 ) {
   # Assumes that survey data has been pulled
@@ -39,8 +39,8 @@ workflow_survey_shannon <- function(
       if (
         !all(
           !is.null(outputPath),
-          file.exists(inputPathBigelow),
-          file.exists(inputPathAlbatross)
+          file.exists(input_path_bigelow),
+          file.exists(input_path_albatross)
         )
       ) {
         stop("Incorrect file path or file missing")
@@ -48,8 +48,8 @@ workflow_survey_shannon <- function(
 
       # calculate indicator
       indicatorData <- SOEworkflows::create_survey_shannon(
-        inputPathBigelow = inputPathBigelow,
-        inputPathAlbatross = inputPathAlbatross
+        input_path_bigelow = input_path_bigelow,
+        input_path_albatross = input_path_albatross
       )
       # write data to file
       saveRDS(indicatorData, paste0(outputPath, "/survey_shannon.rds"))

@@ -4,14 +4,14 @@
 #' It is formatted exactly like the ecodata data object
 #' This calculates the expected number of species per tow in the NEFSC Bottom Trawl Survey for Fall and Spring
 #'
-#' @param inputPathBigelow Character string. Full path to the Bigelow data pull rds file
-#' @param inputPathAlbatross Character string. Full path to the Albatross data pull rds file
+#' @param input_path_bigelow Character string. Full path to the Bigelow data pull rds file
+#' @param input_path_albatross Character string. Full path to the Albatross data pull rds file
 #'
 #' @examples
 #' \dontrun{
 #' # create the ecodata::exp_n indicator
 #' create_exp_n(inputPathAlbatros = "path/to/albatross.rds",
-#'                          inputPathBigelow = "path/to/bigelow.rds")
+#'                          input_path_bigelow = "path/to/bigelow.rds")
 #'
 #' }
 #'
@@ -19,12 +19,12 @@
 #'
 #' @export
 
-create_exp_n <- function(inputPathAlbatross, inputPathBigelow) {
+create_exp_n <- function(input_path_albatross, input_path_bigelow) {
   end.year <- format(Sys.Date(), "%Y")
   #Grab Albatross time series
-  al.catch <- readRDS(inputPathAlbatross)$survdat
+  al.catch <- readRDS(input_path_albatross)$survdat
   #Grab data without Bigelow conversions
-  big.catch <- readRDS(inputPathBigelow)$survdat
+  big.catch <- readRDS(input_path_bigelow)$survdat
 
   #Merge sexed species
   data.table::setkey(

@@ -5,14 +5,14 @@
 #' This calculates the shannon diversity at the station level (by year, cruise etc)
 #' Then takes the mean of the shannon indices for each year
 #'
-#' @param inputPathBigelow Character string. Full path to the Bigelow data pull rds file
-#' @param inputPathAlbatross Character string. Full path to the Albatross data pull rds file
+#' @param input_path_bigelow Character string. Full path to the Bigelow data pull rds file
+#' @param input_path_albatross Character string. Full path to the Albatross data pull rds file
 #'
 #' @examples
 #' \dontrun{
 #' # create the ecodata::survey_shannon indicator
 #' create_aggregate_biomass(inputPathAlbatros = "path/to/albatross.rds",
-#'                          inputPathBigelow = "path/to/bigelow.rds")
+#'                          input_path_bigelow = "path/to/bigelow.rds")
 #'
 #' }
 #'
@@ -21,12 +21,12 @@
 #'
 #' @export
 
-create_survey_shannon <- function(inputPathAlbatross, inputPathBigelow) {
+create_survey_shannon <- function(input_path_albatross, input_path_bigelow) {
   end.year <- format(Sys.Date(), "%Y")
   #Grab Albatross time series
-  al.catch <- readRDS(inputPathAlbatross)$survdat
+  al.catch <- readRDS(input_path_albatross)$survdat
   #Grab data without Bigelow conversions
-  big.catch <- readRDS(inputPathBigelow)$survdat
+  big.catch <- readRDS(input_path_bigelow)$survdat
 
   #Need station data and community matrix
   #Station data----
