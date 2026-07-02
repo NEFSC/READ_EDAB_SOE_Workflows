@@ -141,7 +141,7 @@ create_species_dist <- function(
   nescoast2 <- read.csv(input_path_static_coast_coord)
 
   # constants ------------------------------------------------------------
-  radt = pi / 180
+  radt <- pi / 180
   R <- 6371 # Earth mean radius [km]
 
   # load stratareas ---------------------------------------------------
