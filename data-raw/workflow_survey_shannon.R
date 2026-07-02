@@ -52,7 +52,10 @@ workflow_survey_shannon <- function(
         input_path_albatross = input_path_albatross
       )
       # write data to file
-      saveRDS(indicatorData, paste0(output_path_indicators, "/survey_shannon.rds"))
+      saveRDS(
+        indicatorData,
+        paste0(output_path_indicators, "/survey_shannon.rds")
+      )
       return(indicatorData)
     },
     error = function(e) {
