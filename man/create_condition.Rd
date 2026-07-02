@@ -4,10 +4,14 @@
 \alias{create_condition}
 \title{Create species condition indicator}
 \usage{
-create_condition(inputPath, input_path_lw_coeffs, input_path_species)
+create_condition(
+  input_path_condition,
+  input_path_lw_coeffs,
+  input_path_species
+)
 }
 \arguments{
-\item{inputPath}{Character string. Full path to the condition data pull rds file.}
+\item{input_path_condition}{Character string. Full path to the condition data pull rds file.}
 
 \item{input_path_lw_coeffs}{Character string. Full path to the LWparams csv file in 'EDAB_Resources/workflow_resources/soe_workflows'.}
 
