@@ -6,7 +6,7 @@
 \usage{
 create_species_dist(
   inputPathSurvey,
-  inputPathSpecies,
+  input_path_species,
   static_depth,
   static_diagonal,
   static_coast_coord,
@@ -16,7 +16,7 @@ create_species_dist(
 \arguments{
 \item{inputPathSurvey}{Character string. Full path to the survdat data pull rds file}
 
-\item{inputPathSpecies}{Character string. Full path to the species list data pull rds file}
+\item{input_path_species}{Character string. Full path to the species list data pull rds file}
 
 \item{static_depth}{Character string. Path to file with depth data for NE shelf}
 
@@ -36,7 +36,7 @@ Data include time series of depth, distance from shelf and distance along shelf.
 \dontrun{
 # create the ecodata::species_dist indicator
 create_species_dist(inputPathSurvey = here::here("surveyNoLengths.rds"),
- inputPathSpecies = "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds",
+ input_path_species = "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds",
  static_depth =  "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc",
  static_diagonal = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/diag.csv",
  static_coast_coord = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv",

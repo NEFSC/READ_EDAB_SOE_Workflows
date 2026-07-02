@@ -5,7 +5,7 @@
 #'
 #' @param inputPath Character string. Full path to the condition data pull rds file.
 #' @param inputPathLW Character string. Full path to the LWparams csv file in 'EDAB_Resources/workflow_resources/soe_workflows'.
-#' @param inputPathSpecies Character string. Full path to the species.codes csv file in 'EDAB_Resources/workflow_resources/soe_workflows'.
+#' @param input_path_species Character string. Full path to the species.codes csv file in 'EDAB_Resources/workflow_resources/soe_workflows'.
 #'
 #' @importFrom magrittr %>%
 #'
@@ -15,7 +15,7 @@
 #' create_condition(
 #   inputPath = "path/to/conditionData.rds",
 #'  inputPathLW = "path/to/LWparams.csv",
-#'  inputPathSpecies = "path/to/species.codes.csv")
+#'  input_path_species = "path/to/species.codes.csv")
 #'
 #' }
 #'
@@ -26,7 +26,7 @@
 create_condition <- function(
   inputPath,
   inputPathLW,
-  inputPathSpecies
+  input_path_species
 ) {
   dat <- readRDS(inputPath)
   # pull out dataframe from survdat list output
@@ -37,7 +37,7 @@ create_condition <- function(
   output <- NEesp2::species_condition(
     data = dat,
     LWparams = read.csv(inputPathLW),
-    species.codes = read.csv(inputPathSpecies),
+    species.codes = read.csv(input_path_species),
     by_EPU = TRUE,
     by_sex = FALSE,
     length_break = NULL,

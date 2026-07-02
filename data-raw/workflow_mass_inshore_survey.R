@@ -1,24 +1,24 @@
 #' Creates mass_inshore_survey indicator for SOE
 #'
 #' @param inputPathMassSurvey Character string. Full path to the mass inshore data pull rds file created by workflow_pull_survey_data
-#' @param inputPathSpecies Character string. Full path to the species list rds file
+#' @param input_path_species Character string. Full path to the species list rds file
 #' @param outputPath Character string. Path to folder where processed data should be saved
 #'
 #' @return Nothing. rds file exported
 
 #' @examples
 #' \dontrun{
-#'   inputPathSpecies <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds"
+#'   input_path_species <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds"
 #'   inputPathMassSurvey <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds"
 #'   outputPath = "path/to/output/folder"
-#'   workflow_ma_inshore_survey(inputPathMassSurvey, inputPathSpecies, outputPath)
+#'   workflow_ma_inshore_survey(inputPathMassSurvey, input_path_species, outputPath)
 #' }
 #'
 
 workflow_mass_inshore_survey <- function(
   outputPath = NULL,
   inputPathMassSurvey,
-  inputPathSpecies
+  input_path_species
 ) {
   # Assumes that survey data has been pulled and is located in inputPathMassSurvey
   # workflow_pull_survey_data(channel,outputPath = outputPath)
@@ -30,7 +30,7 @@ workflow_mass_inshore_survey <- function(
         !all(
           !is.null(outputPath),
           file.exists(inputPathMassSurvey),
-          file.exists(inputPathSpecies)
+          file.exists(input_path_species)
         )
       ) {
         stop("Incorrect file path or file missing")
@@ -39,7 +39,7 @@ workflow_mass_inshore_survey <- function(
       # calculate indicator
       indicatorData <- SOEworkflows::create_mass_inshore_survey(
         inputPathMassSurvey = inputPathMassSurvey,
-        inputPathSpecies = inputPathSpecies
+        input_path_species = input_path_species
       )
 
       # Write data to file

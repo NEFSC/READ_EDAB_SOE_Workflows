@@ -6,7 +6,7 @@
 #'
 #'
 #' @param inputPathSurvey Character string. Full path to the survdat data pull rds file
-#' @param inputPathSpecies Character string. Full path to the species list data pull rds file
+#' @param input_path_species Character string. Full path to the species list data pull rds file
 #' @param static_depth Character string. Path to file with depth data for NE shelf
 #' @param static_diagonal Character string. Path to file with along shelf diagonal data
 #' @param static_coast_coord Character string. Path to file with lat lon coordinates defining the coastline
@@ -18,24 +18,24 @@
 #' @section Dependencies:
 #'
 #' This assumes that the survey data has been pulled and resides in the path `inputPathSurvey` and that
-#' the species data resides in `inputPathSpecies`
+#' the species data resides in `input_path_species`
 #'
 #' @examples
 #' \dontrun{
 #'   outputPath <- here::here()
 #'   inputPathSurvey <- here::here("surveyNoLengths.rds")
-#'   inputPathSpecies <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds"
+#'   input_path_species <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds"
 #'   static_depth <-  "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc"
 #'   static_diagonal <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/diag.csv"
 #'   static_coast_coord <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"
 #'   static_strat_areas <- "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rdata"
-#'   workflow_species_dist(inputPathSurvey, inputPathSpecies, static_depth, static_diagonal, static_coast_coord, static_strat_areas, outputPath)
+#'   workflow_species_dist(inputPathSurvey, input_path_species, static_depth, static_diagonal, static_coast_coord, static_strat_areas, outputPath)
 #' }
 #'
 
 workflow_species_dist <- function(
   inputPathSurvey,
-  inputPathSpecies,
+  input_path_species,
   static_depth,
   static_diagonal,
   static_coast_coord,
@@ -67,7 +67,7 @@ workflow_species_dist <- function(
         !all(
           !is.null(outputPath),
           file.exists(inputPathSurvey),
-          file.exists(inputPathSpecies)
+          file.exists(input_path_species)
         )
       ) {
         stop("Incorrect file path or file missing")
@@ -78,7 +78,7 @@ workflow_species_dist <- function(
       )
       indicatorData <- SOEworkflows::create_species_dist(
         inputPathSurvey = inputPathSurvey,
-        inputPathSpecies = inputPathSpecies,
+        input_path_species = input_path_species,
         static_depth = static_depth,
         static_diagonal = static_diagonal,
         static_coast_coord = static_coast_coord,

@@ -28,10 +28,10 @@ To run the "workflow" below, it is assumed that the "raw" survey data has been p
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```
-workflow_aggregate_biomass(outputPath,inputPathSurvey,inputPathSpecies)
+workflow_aggregate_biomass(outputPath,inputPathSurvey,input_path_species)
 ```
 
-* `inputPathSpecies` is the path to static data set `EDAB_Datasets/SOE_species_list_24.rds`.
+* `input_path_species` is the path to static data set `EDAB_Datasets/SOE_species_list_24.rds`.
 * `inputPathSurvey` is the path to the dynamically created survey data `EDAB_Datasets/surveyNoLengths.rds`. 
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `aggregate_biomass.rds` to match the `ecodata` package dataset
@@ -60,11 +60,11 @@ To run the "workflow" below, it is assumed that the "raw" survey data has been p
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```
-workflow_mass_inshore_survey(outputPath,inputPathMassSurvey,inputPathSpecies)
+workflow_mass_inshore_survey(outputPath,inputPathMassSurvey,input_path_species)
 ```
 
 * `inputPathMassSurvey` is the path to data set `EDAB_Datasets/massInshoreData.rds`.
-* `inputPathSpecies` is the path to static data set `EDAB_Datasets/SOE_species_list_24.rds`.
+* `input_path_species` is the path to static data set `EDAB_Datasets/SOE_species_list_24.rds`.
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `mass_inshore_survey.rds` to match the `ecodata` package dataset
 
@@ -93,11 +93,11 @@ To run the "workflow" below, it is assumed that the "raw" survey data has been p
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```
-workflow_species_dist(inputPathSurvey,inputPathSpecies, static_depth,
+workflow_species_dist(inputPathSurvey,input_path_species, static_depth,
                       static_diagonal, static_coast_coord, static_strat_areas)
 ```
 
-* `inputPathSpecies` is the path to static data set `EDAB_Datasets/SOE_species_list_24.rds`.
+* `input_path_species` is the path to static data set `EDAB_Datasets/SOE_species_list_24.rds`.
 * `inputPathSurvey` is the path to the dynamically created survey data `EDAB_Datasets/surveyNoLengths.rds`. 
 * `static_depth` is the path to the file `nes_bath_data.nc`
 * `static_diagonal` is the path to the file `diag.csv`
@@ -117,7 +117,7 @@ workflow_productivity_anomaly(
                               input_survey_bio_epu,
                               input_survey_bio,
                               input_static_lw_table,
-                              inputPathSpecies,
+                              input_path_species,
                               input_static_length_convert,
                               outputPath
                               )
@@ -126,7 +126,7 @@ workflow_productivity_anomaly(
 * `input_survey_bio_epu` is the path to the dynamically created survey data `EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds`.
 * `input_survey_bio` is the path to the dynamically created survey data `EDAB_Datasets/Workflows/surveyBiologicalData.rds`.
 * `input_static_lw_table` is the path to the static length weight table from Miller 2013 `EDAB_Datasets/Workflows/df_lw.rda`.
-* `inputPathSpecies` is the path to static data set `EDAB_Datasets/Workflows/SOE_species_list_24.rds`.
+* `input_path_species` is the path to static data set `EDAB_Datasets/Workflows/SOE_species_list_24.rds`.
 * `input_static_length_convert` is the path to the static length conversion table `EDAB_Datasets/Workflows/df_lconv.rda`.
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 
@@ -134,10 +134,10 @@ The rds file name is hardcoded as `productivity_anomaly.rds` to match the `ecoda
 
 ### species_condition
 ```
-workflow_condition(inputPath, inputpathLW, inputpathSpecies, outputPath)
+workflow_condition(inputPath, inputpathLW, input_path_species, outputPath)
 ```
 * `inputPath` is the path to the static data set `EDAB_Dev/beet/condition.rds`
-* `inputPathSpecies` is the path to static data set `EDAB_Resources/workflow_resources/soe_workflows/species.codes.csv`
+* `input_path_species` is the path to static data set `EDAB_Resources/workflow_resources/soe_workflows/species.codes.csv`
 * `inputPathLW` is the path to the static data set `EDAB_Resources/workflow_resources/soe_workflows/LWparams.csv`
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `condition.rds` to match the `ecodata` package dataset
@@ -166,10 +166,10 @@ To run the "workflow" below, it is assumed that the commercial data has been pul
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```
-workflow_bennet(input_path_bennet, inputPathSpecies, outputPath)
+workflow_bennet(input_path_bennet, input_path_species, outputPath)
 ```
 
-* `inputPathSpecies` is the path to static data set `EDAB_Datasets/SOE_species_list_24.rds`.
+* `input_path_species` is the path to static data set `EDAB_Datasets/SOE_species_list_24.rds`.
 * `input_path_bennet` is the path to the dynamically created commercial data `EDAB_Datasets/commercial_benent.rds`. 
 * `outputPath` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `bennet.rds` to match the `ecodata` package dataset

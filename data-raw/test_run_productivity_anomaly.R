@@ -16,7 +16,7 @@
 input_survey_bio_epu <- "~/EDAB_Dev/beet/surveyBiologicalByEPUData.rds"
 input_survey_bio <- "~/EDAB_Dev/beet/surveyBiologicalData.rds"
 input_static_lw_table <- "~/EDAB_Datasets/Workflows/df_lw.rda"
-inputPathSpecies <- "~/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
+input_path_species <- "~/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
 outputPath <- "~/EDAB_Dev/grezlik"
 input_static_length_convert <- "~/EDAB_Datasets/Workflows/df_lconv.rda"
 
@@ -30,7 +30,7 @@ test_productivity_anomaly <- workflow_productivity_anomaly(
   input_survey_bio_epu = input_survey_bio_epu,
   input_survey_bio = input_survey_bio,
   input_static_lw_table = input_static_lw_table,
-  inputPathSpecies = inputPathSpecies,
+  input_path_species = input_path_species,
   input_static_length_convert = input_static_length_convert,
   outputPath = outputPath
 )

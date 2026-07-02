@@ -13,7 +13,7 @@ outputPath <- "~/EDAB_Indicators/"
 outputPathDatasets <- rootPath
 inputPathSurvey <- paste0(rootPath, "surveyNoLengthsData.rds")
 inputPathMassSurvey <- paste0(rootPath, "massInshoreData.rds")
-inputPathSpecies <- paste0(rootPath, "SOE_species_list_24.rds")
+input_path_species <- paste0(rootPath, "SOE_species_list_24.rds")
 inputPathAlbatross <- paste0(rootPath, "albatrossData.rds")
 inputPathBigelow <- paste0(rootPath, "bigelowData.rds")
 inputRecHMSPath <- paste0(rootPath, "hms_mrip_2025-10-03.rds")
@@ -39,7 +39,7 @@ inputPathMABBot <- paste0(rootPath, "daily_bottomT_MAB_1959_2024_detrended.csv")
 input_survey_bio_epu <- paste0(rootPath, "surveyBiologicalByEPUData.rds")
 input_survey_bio <- paste0(rootPath, "surveyBiologicalData.rds")
 input_static_lw_table <- paste0(rootPath, "df_lw.rda")
-inputPathSpecies <- paste0(rootPath, "SOE_species_list_24.rds")
+input_path_species <- paste0(rootPath, "SOE_species_list_24.rds")
 input_static_length_convert <- paste0(rootPath, "df_lconv.rda")
 
 # source workflow functions from data-raw since they are not accessible from the package installation
@@ -82,13 +82,13 @@ message("Running aggregate_biomass ...")
 indicator_aggegegate_biomass <- workflow_aggregate_biomass(
   outputPath,
   inputPathSurvey,
-  inputPathSpecies
+  input_path_species
 )
 # calculate the bennet index
 message("Running bennet ...")
 indicator_bennet <- workflow_bennet(
   input_path_bennet,
-  inputPathSpecies,
+  input_path_species,
   outputPath
 )
 
@@ -96,7 +96,7 @@ indicator_bennet <- workflow_bennet(
 message("Running comdat ...")
 indicator_comdat <- workflow_comdat(
   comdat_path = inputPathComdat,
-  input_path_species = inputPathSpecies,
+  input_path_species = input_path_species,
   menhaden_path = menhadenPath,
   outputPathDataSets = outputPath
 )
@@ -107,7 +107,7 @@ message("Running condition ...")
 indicator_condition <- workflow_condition(
   inputPath = inputPathCondition,
   inputPathLW,
-  inputPathSpecies = inputPathConditionSpecies,
+  input_path_species = inputPathConditionSpecies,
   outputPath
 )
 
@@ -132,14 +132,14 @@ message("Running mass_inshore_survey ...")
 indicator_mass_inshore_survey <- workflow_mass_inshore_survey(
   outputPath = outputPath,
   inputPathMassSurvey = inputPathMassSurvey,
-  inputPathSpecies = inputPathSpecies
+  input_path_species = input_path_species
 )
 
 # calculate the species_dist index
 message("Running species_dist ...")
 indicator_species_dist <- workflow_species_dist(
   inputPathSurvey,
-  inputPathSpecies,
+  input_path_species,
   static_depth,
   static_diagonal,
   static_coast_coord,
@@ -201,7 +201,7 @@ indicator_productivity_anomaly <- workflow_productivity_anomaly(
   input_survey_bio_epu = input_survey_bio_epu,
   input_survey_bio = input_survey_bio,
   input_static_lw_table = input_static_lw_table,
-  inputPathSpecies = inputPathSpecies,
+  input_path_species = input_path_species,
   input_static_length_convert = input_static_length_convert,
   outputPath = outputPath
 )

@@ -6,7 +6,7 @@
 #' @param input_survey_bio_epu Character string. Full path to the survey data with bio and epu rds file
 #' @param input_survey_bio Character string. Full path to the survey data with bio rds file
 #' @param input_static_lw_table Character string. Full path to the static length weight table rda file
-#' @param inputPathSpecies Character string. Full path to the species list data pull rds file
+#' @param input_path_species Character string. Full path to the species list data pull rds file
 #' @param input_static_length_convert Character string. Full path to length conversion rda file
 #' @param outputPath Character string. Path to folder where data pull should be saved
 #'
@@ -17,7 +17,7 @@
 #'   input_survey_bio_epu <- "path/to/survey/bio/epu/.rds"
 #'   input_survey_bio <- "path/to/survey/bio/.rds",
 #'   input_static_lw_table <- "path/to/lw/table/.rda",
-#'   inputPathSpecies = "path/to/species/data/.rds",
+#'   input_path_species = "path/to/species/data/.rds",
 #'   input_static_length_convert = "path/to/length/table/.rda"
 #'   outputPath = "path/to/output/folder"
 #'   )
@@ -31,7 +31,7 @@ workflow_productivity_anomaly <- function(
   input_survey_bio_epu,
   input_survey_bio,
   input_static_lw_table,
-  inputPathSpecies,
+  input_path_species,
   input_static_length_convert,
   outputPath
 ) {
@@ -43,7 +43,7 @@ workflow_productivity_anomaly <- function(
           file.exists(input_survey_bio_epu),
           file.exists(input_survey_bio),
           file.exists(input_static_lw_table),
-          file.exists(inputPathSpecies),
+          file.exists(input_path_species),
           file.exists(input_static_length_convert)
         )
       ) {
@@ -55,7 +55,7 @@ workflow_productivity_anomaly <- function(
         input_survey_bio_epu = input_survey_bio_epu,
         input_survey_bio = input_survey_bio,
         input_static_lw_table = input_static_lw_table,
-        inputPathSpecies = inputPathSpecies,
+        input_path_species = input_path_species,
         input_static_length_convert = input_static_length_convert
       )
 

@@ -4,14 +4,14 @@
 #' MA inshore surveys have been performed biannually in the spring and fall since 1978.
 #'
 #' @param inputPathMassSurvey Character string. Full path to the mass inshore data pull rds file created by workflow_pull_survey_data
-#' @param inputPathSpecies Character string. Full path to the species list data pull rds file
+#' @param input_path_species Character string. Full path to the species list data pull rds file
 #'
 #'
 #' @examples
 #' \dontrun{
 #' # create the ecodata::mass_inshore_survey indicator
 #' create_mass_inshore_survey(inputPathMassSurvey <- here::here("mass_inshore.rds"),
-#'                          inputPathSpecies <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds")
+#'                          input_path_species <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds")
 #'
 #' }
 #'
@@ -20,7 +20,7 @@
 #'
 #' @export
 
-create_mass_inshore_survey <- function(inputPathMassSurvey, inputPathSpecies) {
+create_mass_inshore_survey <- function(inputPathMassSurvey, input_path_species) {
   end.year <- format(Sys.Date(), "%Y")
 
   # Read survey data & species-------------------------------------------
@@ -28,7 +28,7 @@ create_mass_inshore_survey <- function(inputPathMassSurvey, inputPathSpecies) {
     dplyr::filter(YEAR <= end.year)
 
   # Read species list -------------
-  species <- readRDS(inputPathSpecies)
+  species <- readRDS(input_path_species)
 
   # Find unique species codes and groups---
   uniqueSpecies <- species |>

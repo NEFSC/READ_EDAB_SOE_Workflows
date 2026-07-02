@@ -11,14 +11,14 @@ user <- mgrezlik
 ## set paths for data inputs generated in workflow ------------
 input_survey_bio_epu <- "~/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds"
 input_survey_bio <- "~/EDAB_Datasets/Workflows/surveyBiologicalData.rds"
-inputPathSpecies <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
+input_path_species <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
 outputPath <- "/home/mgrezlik/EDAB_Dev/grezlik"
 
 
 ## run workflow ------------------
 test_productivity_anomaly <- workflow_productivity_anomaly(
   input_survey_bio_epu = input_survey_bio_epu,
-  inputPathSpecies = inputPathSpecies
+  input_path_species = input_path_species
 )
 
 
@@ -106,7 +106,7 @@ outputPathDataSets <- "/home/mgrezlik/EDAB_Dev/grezlik"
 outputPath <- "/home/mgrezlik/EDAB_Dev/grezlik"
 input_path_commercial_comdat <- "/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds"
 inputPathSurvey <- "/home/mgrezlik/EDAB_Datasets/Workflows/surveyNoLengthsData.rds"
-inputPathSpecies <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
+input_path_species <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
 # ditching camel case moving forward
 input_path_species <- "/home/mgrezlik/EDAB_Datasets/SOE_species_list_24.rds"
 inputPathAlbatross <- "/home/mgrezlik/EDAB_Dev/beet/albatrossData.rds"
@@ -151,7 +151,7 @@ source(here::here('data-raw/workflow_comdat.R'))
 
 indD <- workflow_species_dist(
   inputPathSurvey = inputPathSurvey,
-  inputPathSpecies = inputPathSpecies,
+  input_path_species = input_path_species,
   static_depth = static_depth,
   static_diagonal = static_diagonal,
   static_coast_coord = static_coast_coord,

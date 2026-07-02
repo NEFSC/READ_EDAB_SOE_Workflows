@@ -6,7 +6,7 @@
 #'
 #' @param inputPath Character string. Full path to the condition data pull rds file.
 #' @param inputPathLW Character string. Full path to the LWparams rda file in 'EDAB_Resources/workflow_resources/soe_workflows'.
-#' @param inputPathSpecies Character string. Full path to the species.codes rda file in 'EDAB_Resources/workflow_resources/soe_workflows'.
+#' @param input_path_species Character string. Full path to the species.codes rda file in 'EDAB_Resources/workflow_resources/soe_workflows'.
 #' @param outputPath Character string. Path to folder where data pull should be saved.
 #'
 #' @example
@@ -14,7 +14,7 @@
 #' # create the ecodata::condition indicator
 #' workflow_condition(inputPath = "path/to/conditionData.rds",
 #'  inputPathLW = "path/to/hms_key.rda,
-#'  inputPathSpecies = "path/to/species.codes.rda",
+#'  input_path_species = "path/to/species.codes.rda",
 #'  outputPath = "path/to/output/folder")
 #'
 #' }
@@ -27,7 +27,7 @@
 workflow_condition <- function(
   inputPath,
   inputPathLW,
-  inputPathSpecies,
+  input_path_species,
   outputPath = NULL
 ) {
   # Assumes that survey data has been pulled
@@ -41,7 +41,7 @@ workflow_condition <- function(
           !is.null(outputPath),
           file.exists(inputPath),
           file.exists(inputPathLW),
-          file.exists(inputPathSpecies)
+          file.exists(input_path_species)
         )
       ) {
         stop("Incorrect file path or file missing")
@@ -50,7 +50,7 @@ workflow_condition <- function(
       indicatorData <- SOEworkflows::create_condition(
         inputPath = inputPath,
         inputPathLW = inputPathLW,
-        inputPathSpecies = inputPathSpecies
+        input_path_species = input_path_species
       )
       # write data to file
       saveRDS(indicatorData, paste0(outputPath, "/condition.rds"))

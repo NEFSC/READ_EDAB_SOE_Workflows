@@ -19,6 +19,6 @@ source(here::here("data-raw/workflow_species_condition.R"))
 workflow_condition(
   inputPath = "~/EDAB_Dev/beet/condition.rds",
   inputpathLW = "~/EDAB_Resources/workflow_resources/soe_workflows/LWparams.csv",
-  inputpathSpecies = "~/EDAB_Resources/workflow_resources/soe_workflows/species.codes.csv",
+  input_path_species = "~/EDAB_Resources/workflow_resources/soe_workflows/species.codes.csv",
   outputPath = here::here("data-raw")
 )
