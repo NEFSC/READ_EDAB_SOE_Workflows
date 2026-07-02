@@ -30,8 +30,14 @@ workflow_pull_survey_data <- function(channel, output_path_indicators = NULL) {
 
       # Save these to a specific location
 
-      saveRDS(survey_data$al.data, paste0(output_path_indicators, "/albatrossData.rds"))
-      saveRDS(survey_data$big.data, paste0(output_path_indicators, "/bigelowData.rds"))
+      saveRDS(
+        survey_data$al.data,
+        paste0(output_path_indicators, "/albatrossData.rds")
+      )
+      saveRDS(
+        survey_data$big.data,
+        paste0(output_path_indicators, "/bigelowData.rds")
+      )
       saveRDS(
         survey_data$survey1,
         paste0(output_path_indicators, "/surveyNoLengthsData.rds")
