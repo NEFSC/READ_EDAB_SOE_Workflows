@@ -11,7 +11,7 @@ workflow_rec_hms(
   # change filename if needed
   inputPath = here::here("data-raw/hms_mrip_2025-09-26.csv"),
   input_path_rec_key = "~/EDAB_Resources/workflow_resources/soe_workflows/hms_key.csv",
-  outputPath = here::here("data-raw")
+  output_path_indicators = here::here("data-raw")
 )
 
 ## step 3: calculate species condition
@@ -20,5 +20,5 @@ workflow_condition(
   inputPath = "~/EDAB_Dev/beet/condition.rds",
   input_path_lw_coeffs = "~/EDAB_Resources/workflow_resources/soe_workflows/LWparams.csv",
   input_path_species = "~/EDAB_Resources/workflow_resources/soe_workflows/species.codes.csv",
-  outputPath = here::here("data-raw")
+  output_path_indicators = here::here("data-raw")
 )

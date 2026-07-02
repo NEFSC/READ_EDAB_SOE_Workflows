@@ -2,9 +2,9 @@
 #'
 #' @param channel an Object inherited from DBIConnection-class. .
 #' This object is used to connect to communicate with the database engine.
-#' @param outputPath Character string. Path to folder where data pull should be saved.
+#' @param output_path_indicators Character string. Path to folder where data pull should be saved.
 #' If not NULL the pull will be saved to the
-#' folder `outputPath` with names (`albatrossData.rds`,
+#' folder `output_path_indicators` with names (`albatrossData.rds`,
 #' `bigelowData.rds`,`surveyNoLengths.rds`, `condition.rds`,`massInshoreData.rds`)
 #'
 #' @return list of data objects. rds files exported
@@ -13,16 +13,16 @@
 #' @examples
 #' \dontrun{
 #'   channel <- dbutils::connect_to_database("server","user")
-#'   outputPath <- here::here()
-#'   workflow_pull_survey_data(channel,outputPath)
+#'   output_path_indicators <- here::here()
+#'   workflow_pull_survey_data(channel,output_path_indicators)
 #' }
 #'
 
-workflow_pull_survey_data <- function(channel, outputPath = NULL) {
+workflow_pull_survey_data <- function(channel, output_path_indicators = NULL) {
   # check to skip running workflow
   tryCatch(
     {
-      if (is.null(outputPath)) {
+      if (is.null(output_path_indicators)) {
         stop("output file path file missing")
       }
       # pull survey data
@@ -30,21 +30,21 @@ workflow_pull_survey_data <- function(channel, outputPath = NULL) {
 
       # Save these to a specific location
 
-      saveRDS(survey_data$al.data, paste0(outputPath, "/albatrossData.rds"))
-      saveRDS(survey_data$big.data, paste0(outputPath, "/bigelowData.rds"))
+      saveRDS(survey_data$al.data, paste0(output_path_indicators, "/albatrossData.rds"))
+      saveRDS(survey_data$big.data, paste0(output_path_indicators, "/bigelowData.rds"))
       saveRDS(
         survey_data$survey1,
-        paste0(outputPath, "/surveyNoLengthsData.rds")
+        paste0(output_path_indicators, "/surveyNoLengthsData.rds")
       )
-      saveRDS(survey_data$condition, paste0(outputPath, "/conditionData.rds"))
-      saveRDS(survey_data$bio, paste0(outputPath, "/surveyBiologicalData.rds"))
+      saveRDS(survey_data$condition, paste0(output_path_indicators, "/conditionData.rds"))
+      saveRDS(survey_data$bio, paste0(output_path_indicators, "/surveyBiologicalData.rds"))
       saveRDS(
         survey_data$bio_epu,
-        paste0(outputPath, "/surveyBiologicalByEPUData.rds")
+        paste0(output_path_indicators, "/surveyBiologicalByEPUData.rds")
       )
       saveRDS(
         survey_data$mass_inshore,
-        paste0(outputPath, "/massInshoreData.rds")
+        paste0(output_path_indicators, "/massInshoreData.rds")
       )
       return(survey_data)
     },

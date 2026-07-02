@@ -4,7 +4,7 @@
 #'
 #' @param input_path_comdat Character string. Full path to the commercial data rds file for comdat indicator
 #' @param input_path_species Character string. Full path to the species list data pull rds file
-#' @param outputPath Character string. Path to folder where data pull should be saved
+#' @param output_path_indicators Character string. Path to folder where data pull should be saved
 #' @param input_path_menhaden Character string. Full path to the menhaden data .rds file
 #'
 #' @return list
@@ -17,7 +17,7 @@
 #'    input_path_comdat = "path/to/commerical_comdat.rds",
 #'    input_path_species = "path/to/species/data/.rds",
 #'    input_path_menhaden = "path/to/menhaden/data/.rds",
-#'    outputPath = "path/to/output/folder"
+#'    output_path_indicators = "path/to/output/folder"
 #'    )
 #' }
 #'
@@ -32,7 +32,7 @@ workflow_comdat <- function(
   input_path_comdat,
   input_path_species,
   input_path_menhaden,
-  outputPath
+  output_path_indicators
 ) {
   # Add check to skip running workflow if data not present
 
@@ -40,7 +40,7 @@ workflow_comdat <- function(
     {
       if (
         !all(
-          !is.null(outputPath),
+          !is.null(output_path_indicators),
           file.exists(input_path_comdat),
           file.exists(input_path_species),
           file.exists(input_path_menhaden)
@@ -54,13 +54,13 @@ workflow_comdat <- function(
         input_path_comdat = input_path_comdat,
         input_path_species = input_path_species,
         input_path_menhaden = input_path_menhaden,
-        output_path_datasets = outputPath
+        output_path_datasets = output_path_indicators
       )
 
-      saveRDS(indicatorData$comdat, paste0(outputPath, "/comdat.rds"))
+      saveRDS(indicatorData$comdat, paste0(output_path_indicators, "/comdat.rds"))
       saveRDS(
         indicatorData$comdat_species,
-        paste0(outputPath, "/comdat_species.rds")
+        paste0(output_path_indicators, "/comdat_species.rds")
       )
       return(indicatorData)
     },

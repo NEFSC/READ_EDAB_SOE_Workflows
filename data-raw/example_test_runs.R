@@ -8,8 +8,8 @@
 pullRawData <- FALSE
 rootPath <- "~/EDAB_Datasets/Workflows/"
 # suite of paths to input and output files
-outputPath <- "~/EDAB_Indicators/"
-#outputPath <- "~/EDAB_Dev/beet/"
+output_path_indicators <- "~/EDAB_Indicators/"
+#output_path_indicators <- "~/EDAB_Dev/beet/"
 output_path_datasets <- rootPath
 input_path_survey <- paste0(rootPath, "surveyNoLengthsData.rds")
 input_path_mass_survey <- paste0(rootPath, "massInshoreData.rds")
@@ -70,9 +70,9 @@ if (pullRawData) {
   # workflows for pulling data
   # This is required to be run first. All indicators rely on these
   # pull and write survey data
-  workflow_pull_survey_data(channel, outputPath = output_path_datasets)
+  workflow_pull_survey_data(channel, output_path_indicators = output_path_datasets)
   # pull and write commercial data
-  workflow_pull_commercial_data(channel, outputPath = output_path_datasets)
+  workflow_pull_commercial_data(channel, output_path_indicators = output_path_datasets)
   # pull and write recreational data
   workflow_pull_recreational_data(output_path_datasets)
 }
@@ -80,7 +80,7 @@ if (pullRawData) {
 # calculate the aggregate biomass index
 message("Running aggregate_biomass ...")
 indicator_aggegegate_biomass <- workflow_aggregate_biomass(
-  outputPath,
+  output_path_indicators,
   input_path_survey,
   input_path_species
 )
@@ -89,7 +89,7 @@ message("Running bennet ...")
 indicator_bennet <- workflow_bennet(
   input_path_bennet,
   input_path_species,
-  outputPath
+  output_path_indicators
 )
 
 # calculate the comdat index
@@ -98,7 +98,7 @@ indicator_comdat <- workflow_comdat(
   input_path_comdat = input_path_comdat,
   input_path_species = input_path_species,
   input_path_menhaden = input_path_menhaden,
-  output_path_datasets = outputPath
+  output_path_datasets = output_path_indicators
 )
 
 
@@ -108,7 +108,7 @@ indicator_condition <- workflow_condition(
   inputPath = input_path_condition,
   input_path_lw_coeffs,
   input_path_species = input_path_conditionSpecies,
-  outputPath
+  output_path_indicators
 )
 
 # calculate the exp_n index
@@ -116,13 +116,13 @@ message("Running exp_n ...")
 indicator_exp_n <- workflow_exp_n(
   input_path_bigelow,
   input_path_albatross,
-  outputPath
+  output_path_indicators
 )
 
 # calculate rec_hms index
 message("Running rec_hms ...")
 indicator_rec_hms <- workflow_rec_hms(
-  outputPath,
+  output_path_indicators,
   inputPath = input_path_rec,
   input_path_rec_key
 )
@@ -130,7 +130,7 @@ indicator_rec_hms <- workflow_rec_hms(
 # calculate the mass_inshore_survey index
 message("Running mass_inshore_survey ...")
 indicator_mass_inshore_survey <- workflow_mass_inshore_survey(
-  outputPath = outputPath,
+  output_path_indicators = output_path_indicators,
   input_path_mass_survey = input_path_mass_survey,
   input_path_species = input_path_species
 )
@@ -144,20 +144,20 @@ indicator_species_dist <- workflow_species_dist(
   input_path_static_diagonal,
   input_path_static_coast_coord,
   input_path_static_strat_areas,
-  outputPath
+  output_path_indicators
 )
 
 # calculate the stock_status index
 message("Running stock_status ...")
 indicator_stock_status <- workflow_stock_status(
   inputPath = inputPathDecoder,
-  outputPath
+  output_path_indicators
 )
 
 # calculate the survey_shannon index
 message("Running survey_shannon ...")
 indicator_survey_shannon <- workflow_survey_shannon(
-  outputPath = outputPath,
+  output_path_indicators = output_path_indicators,
   input_path_bigelow = input_path_bigelow,
   input_path_albatross = input_path_albatross
 )
@@ -166,7 +166,7 @@ indicator_survey_shannon <- workflow_survey_shannon(
 message("Running trans_dates ...")
 indicator_trans_dates <- workflow_trans_dates(
   inputPath = inputPathSST,
-  outputPath
+  output_path_indicators
 )
 
 # calculate the heatwave index
@@ -178,7 +178,7 @@ indicator_heatwave <- workflow_heatwave(
   input_path_gb_surf = input_path_gb_surf,
   input_path_gom_surf = input_path_gom_surf,
   input_path_mab_surf = input_path_mab_surf,
-  outputPath
+  output_path_indicators
 )
 
 
@@ -191,7 +191,7 @@ indicator_heatwave_year <- workflow_heatwave_year(
   input_path_gb_surf = input_path_gb_surf,
   input_path_gom_surf = input_path_gom_surf,
   input_path_mab_surf = input_path_mab_surf,
-  outputPath
+  output_path_indicators
 )
 
 
@@ -203,5 +203,5 @@ indicator_productivity_anomaly <- workflow_productivity_anomaly(
   input_static_lw_table = input_static_lw_table,
   input_path_species = input_path_species,
   input_static_length_convert = input_static_length_convert,
-  outputPath = outputPath
+  output_path_indicators = output_path_indicators
 )

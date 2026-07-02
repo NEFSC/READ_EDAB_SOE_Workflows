@@ -5,14 +5,14 @@
 #'
 #' @param input_path_bennet Character string. Full path to the commercial data rds file for bennet indicator
 #' @param input_path_species Character string. Full path to the species list data pull rds file
-#' @param outputPath Character string. Path to folder where data pull should be saved
+#' @param output_path_indicators Character string. Path to folder where data pull should be saved
 #'
 #' @example
 #' \dontrun{
 #' # create the ecodata::bennet indicator
 #' workflow_bennet(input_path_bennet = "path/to/commerical_bennet.rds",
 #'                       input_path_species = "path/to/species/data/.rds",
-#'                       outputPath = "path/to/output/folder")
+#'                       output_path_indicators = "path/to/output/folder")
 #'
 #' }
 #'
@@ -28,10 +28,10 @@
 workflow_bennet <- function(
   input_path_bennet,
   input_path_species,
-  outputPath = NULL
+  output_path_indicators = NULL
 ) {
   # Assumes that commercial data has been pulled
-  #get_commercial_data(channel,output_path_datasets = outputPath)
+  #get_commercial_data(channel,output_path_datasets = output_path_indicators)
 
   # Add check to skip running workflow if data not present
   tryCatch(
@@ -40,7 +40,7 @@ workflow_bennet <- function(
         !all(
           file.exists(input_path_bennet),
           file.exists(input_path_species),
-          (!is.null(outputPath))
+          (!is.null(output_path_indicators))
         )
       ) {
         stop("Incorrect file path or file missing")
@@ -52,7 +52,7 @@ workflow_bennet <- function(
         input_path_species = input_path_species
       )
       # write data to file
-      saveRDS(indicatorData, paste0(outputPath, "/bennet.rds"))
+      saveRDS(indicatorData, paste0(output_path_indicators, "/bennet.rds"))
       return(indicatorData)
     },
     error = function(e) {

@@ -6,14 +6,14 @@
 #'
 #' @param inputPath Character string. Full path to the data from the 'pull_rec_hms' csv file in EDAB_Dev.
 #' @param input_path_rec_key Character string. Full path to the hms_key file in EDAB_Resources ("EDAB_Resources/workflow_resources/soe_workflows/hms_key.csv").
-#' @param outputPath Character string. Path to folder where data pull should be saved
+#' @param output_path_indicators Character string. Path to folder where data pull should be saved
 #'
 #' @example
 #' \dontrun{
 #' # create the ecodata::rec_hms indicator
 #' workflow_rec_hms(inputPath = "path/to/hms_mrip_2025-08-26.csv",
 #'  input_path_rec_key = "path/to/hms_key.rda",
-#'  outputPath = "path/to/output/folder")
+#'  output_path_indicators = "path/to/output/folder")
 #'
 #' }
 #'
@@ -26,7 +26,7 @@
 #' @export
 #'
 
-workflow_rec_hms <- function(outputPath, inputPath, input_path_rec_key) {
+workflow_rec_hms <- function(output_path_indicators, inputPath, input_path_rec_key) {
   # Assumes that rec HMS data has been pulled and is located in inputPath
   #pull_rec_hms(channel,outputDir = outPutDir)
 
@@ -35,7 +35,7 @@ workflow_rec_hms <- function(outputPath, inputPath, input_path_rec_key) {
     {
       if (
         !all(
-          !is.null(outputPath),
+          !is.null(output_path_indicators),
           file.exists(inputPath),
           file.exists(input_path_rec_key)
         )
@@ -49,7 +49,7 @@ workflow_rec_hms <- function(outputPath, inputPath, input_path_rec_key) {
         input_path_rec_key = input_path_rec_key
       )
       # write data to file
-      saveRDS(indicatorData, paste0(outputPath, "/rec_hms.rds"))
+      saveRDS(indicatorData, paste0(output_path_indicators, "/rec_hms.rds"))
       return(indicatorData)
     },
     error = function(e) {

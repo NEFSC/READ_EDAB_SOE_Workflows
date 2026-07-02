@@ -7,13 +7,13 @@
 #' It is formatted exactly like the ecodata data object
 #'
 #' @param input_path_sst Character string. Full path to the SST input file from Kevin Friedland
-#' @param outputPath Character string. Path to folder where data pull should be saved
+#' @param output_path_indicators Character string. Path to folder where data pull should be saved
 #'
 #' @example
 #' \dontrun{
 #' # create the ecodata::trans_dates indicator
 #' workflow_trans_dates(input_path_sst = "path/to/input/data.csv",
-#'                      outputPath = "path/to/output/folder")
+#'                      output_path_indicators = "path/to/output/folder")
 #'
 #' }
 #'
@@ -26,7 +26,7 @@
 #'
 #' @export
 
-workflow_trans_dates <- function(input_path_sst, outputPath = NULL) {
+workflow_trans_dates <- function(input_path_sst, output_path_indicators = NULL) {
   # Assumes that input data has been provided
 
   # Add check to skip running workflow if data not present
@@ -34,7 +34,7 @@ workflow_trans_dates <- function(input_path_sst, outputPath = NULL) {
     {
       if (
         !all(
-          !is.null(outputPath),
+          !is.null(output_path_indicators),
           file.exists(input_path_sst)
         )
       ) {
@@ -48,7 +48,7 @@ workflow_trans_dates <- function(input_path_sst, outputPath = NULL) {
       )
 
       # write data to file
-      saveRDS(indicatorData, paste0(outputPath, "/trans_dates.rds"))
+      saveRDS(indicatorData, paste0(output_path_indicators, "/trans_dates.rds"))
       return(indicatorData)
     },
     error = function(e) {

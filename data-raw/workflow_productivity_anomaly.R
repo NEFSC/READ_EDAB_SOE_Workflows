@@ -8,7 +8,7 @@
 #' @param input_static_lw_table Character string. Full path to the static length weight table rda file
 #' @param input_path_species Character string. Full path to the species list data pull rds file
 #' @param input_static_length_convert Character string. Full path to length conversion rda file
-#' @param outputPath Character string. Path to folder where data pull should be saved
+#' @param output_path_indicators Character string. Path to folder where data pull should be saved
 #'
 #' @example
 #' \dontrun{
@@ -19,7 +19,7 @@
 #'   input_static_lw_table <- "path/to/lw/table/.rda",
 #'   input_path_species = "path/to/species/data/.rds",
 #'   input_static_length_convert = "path/to/length/table/.rda"
-#'   outputPath = "path/to/output/folder"
+#'   output_path_indicators = "path/to/output/folder"
 #'   )
 #' }
 #'
@@ -33,13 +33,13 @@ workflow_productivity_anomaly <- function(
   input_static_lw_table,
   input_path_species,
   input_static_length_convert,
-  outputPath
+  output_path_indicators
 ) {
   tryCatch(
     {
       if (
         !all(
-          !is.null(outputPath),
+          !is.null(output_path_indicators),
           file.exists(input_survey_bio_epu),
           file.exists(input_survey_bio),
           file.exists(input_static_lw_table),
@@ -60,7 +60,7 @@ workflow_productivity_anomaly <- function(
       )
 
       # write data to file
-      saveRDS(indicatorData, paste0(outputPath, "/productivity_anomaly.rds"))
+      saveRDS(indicatorData, paste0(output_path_indicators, "/productivity_anomaly.rds"))
       return(indicatorData)
     },
     error = function(e) {

@@ -2,9 +2,9 @@
 #'
 #' @param channel an Object inherited from DBIConnection-class. .
 #' This object is used to connect to communicate with the database engine.
-#' @param outputPath Character string. Path to folder where data pull should be saved.
+#' @param output_path_indicators Character string. Path to folder where data pull should be saved.
 #' If not NULL the pull will be saved to the
-#' folder `outputPath` with names (`comdat.rds`,`bennet.rds`)
+#' folder `output_path_indicators` with names (`comdat.rds`,`bennet.rds`)
 #'
 #' @return list of data objects. rds files exported
 #'
@@ -12,16 +12,16 @@
 #' @examples
 #' \dontrun{
 #'   channel <- dbutils::connect_to_database("server","user")
-#'   outputPath <- here::here()
-#'   workflow_data_pull(channel,outputPath)
+#'   output_path_indicators <- here::here()
+#'   workflow_data_pull(channel,output_path_indicators)
 #' }
 #'
 
-workflow_pull_commercial_data <- function(channel, outputPath = NULL) {
+workflow_pull_commercial_data <- function(channel, output_path_indicators = NULL) {
   # check to skip running workflow
   tryCatch(
     {
-      if (is.null(outputPath)) {
+      if (is.null(output_path_indicators)) {
         stop("output file path file missing")
       }
       # pull commercial data
@@ -29,11 +29,11 @@ workflow_pull_commercial_data <- function(channel, outputPath = NULL) {
       # Save these to a specific location
       saveRDS(
         commercial_data$comdat,
-        paste0(outputPath, "/commercial_comdatData.rds")
+        paste0(output_path_indicators, "/commercial_comdatData.rds")
       )
       saveRDS(
         commercial_data$bennet,
-        paste0(outputPath, "/commercial_bennetData.rds")
+        paste0(output_path_indicators, "/commercial_bennetData.rds")
       )
 
       return(commercial_data)

@@ -4,13 +4,13 @@
 #' It is formatted exactly like the ecodata data object
 #'
 #' @param inputPath Character string. Full path to a csv lookup table that joins species abbreviations with their formal stock names
-#' @param outputPath Character string. Path to folder where data pull should be saved
+#' @param output_path_indicators Character string. Path to folder where data pull should be saved
 #'
 #' @example
 #' \dontrun{
 #' # create the ecodata::stock_status indicator
 #' workflow_stock_status(inputPath = "path/to/decoder.csv",
-#'                       outputPath = "path/to/output/folder")
+#'                       output_path_indicators = "path/to/output/folder")
 #'
 #' }
 #'
@@ -23,13 +23,13 @@
 #'
 #' @export
 
-workflow_stock_status <- function(inputPath, outputPath = NULL) {
+workflow_stock_status <- function(inputPath, output_path_indicators = NULL) {
   # Add check to skip inputPath workflow if data not present
   tryCatch(
     {
       if (
         !all(
-          !is.null(outputPath),
+          !is.null(output_path_indicators),
           file.exists(inputPath)
         )
       ) {
@@ -43,7 +43,7 @@ workflow_stock_status <- function(inputPath, outputPath = NULL) {
         decode = utils::read.csv(inputPath)
       )
       # write data to file
-      saveRDS(indicatorData, paste0(outputPath, "/stock_status.rds"))
+      saveRDS(indicatorData, paste0(output_path_indicators, "/stock_status.rds"))
       return(indicatorData)
     },
     error = function(e) {

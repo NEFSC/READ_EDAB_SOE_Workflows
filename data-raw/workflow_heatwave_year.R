@@ -16,7 +16,7 @@
 #' @param input_path_gb_surf Character string. Full path to the GB OISST input file from Kim Hyde
 #' @param input_path_gom_surf Character string. Full path to the GOM OISST input file from Kim Hyde
 #' @param input_path_mab_surf Character string. Full path to the MAB OISST input file from Kim Hyde
-#' @param outputPath Character string. Path to folder where data pull should be saved
+#' @param output_path_indicators Character string. Path to folder where data pull should be saved
 #'
 #' @example
 #' \dontrun{
@@ -27,7 +27,7 @@
 #'                          input_path_gb_surf = "path/to/input/GBdata.csv",
 #'                          input_path_gom_surf = "path/to/input/GOMdata.csv",
 #'                          input_path_mab_surf = "path/to/input/MABdata.csv",
-#'                          outputPath = "path/to/output/folder")
+#'                          output_path_indicators = "path/to/output/folder")
 #'
 #' }
 #'
@@ -47,7 +47,7 @@ workflow_heatwave_year <- function(
   input_path_gb_surf,
   input_path_gom_surf,
   input_path_mab_surf,
-  outputPath = NULL
+  output_path_indicators = NULL
 ) {
   # Assumes that input data has been provided
 
@@ -56,7 +56,7 @@ workflow_heatwave_year <- function(
     {
       if (
         !all(
-          !is.null(outputPath),
+          !is.null(output_path_indicators),
           file.exists(input_path_gb_surf),
           file.exists(input_path_gom_surf),
           file.exists(input_path_mab_surf),
@@ -78,7 +78,7 @@ workflow_heatwave_year <- function(
         input_path_mab_surf = input_path_mab_surf
       )
       # write data to file
-      saveRDS(indicatorData, paste0(outputPath, "/heatwave_year.rds"))
+      saveRDS(indicatorData, paste0(output_path_indicators, "/heatwave_year.rds"))
       return(indicatorData)
     },
     error = function(e) {

@@ -12,7 +12,7 @@ user <- mgrezlik
 input_survey_bio_epu <- "~/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds"
 input_survey_bio <- "~/EDAB_Datasets/Workflows/surveyBiologicalData.rds"
 input_path_species <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
-outputPath <- "/home/mgrezlik/EDAB_Dev/grezlik"
+output_path_indicators <- "/home/mgrezlik/EDAB_Dev/grezlik"
 
 
 ## run workflow ------------------
@@ -103,7 +103,7 @@ tibble(
 
 # file paths used in all indicators I have worked on ---------------
 output_path_datasets <- "/home/mgrezlik/EDAB_Dev/grezlik"
-outputPath <- "/home/mgrezlik/EDAB_Dev/grezlik"
+output_path_indicators <- "/home/mgrezlik/EDAB_Dev/grezlik"
 input_path_commercial_comdat <- "/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds"
 input_path_survey <- "/home/mgrezlik/EDAB_Datasets/Workflows/surveyNoLengthsData.rds"
 input_path_species <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
@@ -156,7 +156,7 @@ indD <- workflow_species_dist(
   input_path_static_diagonal = input_path_static_diagonal,
   input_path_static_coast_coord = input_path_static_coast_coord,
   input_path_static_strat_areas = input_path_static_strat_areas,
-  outputPath = output_path_datasets
+  output_path_indicators = output_path_datasets
 )
 
 
@@ -253,9 +253,9 @@ vars_in_both <- intersect(unique_vars_ecodata, unique_vars_max)
 # Print the result
 print(vars_only_in_max)
 
-# saveRDS(unique_vars_max, file = file.path(outputPath, "unique_vars_max.rds"))
-# saveRDS(unique_vars_ecodata, file = file.path(outputPath, "unique_vars_ecodata.rds"))
-# saveRDS(vars_only_in_max, file = file.path(outputPath, "vars_only_in_max.rds"))
+# saveRDS(unique_vars_max, file = file.path(output_path_indicators, "unique_vars_max.rds"))
+# saveRDS(unique_vars_ecodata, file = file.path(output_path_indicators, "unique_vars_ecodata.rds"))
+# saveRDS(vars_only_in_max, file = file.path(output_path_indicators, "vars_only_in_max.rds"))
 
 #
 # comparison plots using ecodata::plot_comdat() as a template ---------------

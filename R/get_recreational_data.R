@@ -4,11 +4,11 @@
 #' The function creates an rds and csv file for each species, to be stored in the designated output directory.
 #' The function then combines all individual output files and saves as 'hms_mrip_' followed by the date in the output directory.
 #'
-#' @param outputPath Character string. Full path the directory in which to store files.
+#' @param output_path_indicators Character string. Full path the directory in which to store files.
 #'
 #' @examples
 #' \dontrun{
-#' get_recreational_data(outputPath = "path/to/output/directory/hms_mrip_date.csv")
+#' get_recreational_data(output_path_indicators = "path/to/output/directory/hms_mrip_date.csv")
 #'
 #' }
 #'
@@ -16,7 +16,7 @@
 #'
 #' @export
 
-get_recreational_data <- function(outputPath) {
+get_recreational_data <- function(output_path_indicators) {
   # pulls data for rec_hms
   ## set up query ----
   species_list <- c(
@@ -80,7 +80,7 @@ get_recreational_data <- function(outputPath) {
         this_species = .x,
         this_region = .y,
         this_data_type = "numbers of fish",
-        out_folder = paste0(outputPath, "/hms_mrip_data"),
+        out_folder = paste0(output_path_indicators, "/hms_mrip_data"),
         catch_type = "landings",
         wait = FALSE
       )
