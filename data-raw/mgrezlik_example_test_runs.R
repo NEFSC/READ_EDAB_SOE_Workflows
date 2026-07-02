@@ -115,7 +115,7 @@ static_depth <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/
 static_diagonal <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/diag.csv"
 static_coast_coord <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"
 static_strat_areas <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds"
-menhaden_path <- "/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds"
+input_path_menhaden <- "/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds"
 input_path_comdat <- '/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds'
 comland_old_path <- '/home/mgrezlik/EDAB_Dev/beet/comlandr_old.rds'
 old_menh_path24 <- '/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF2024.rds'
@@ -185,7 +185,7 @@ indD <- workflow_species_dist(
 indicator_comdat <- workflow_comdat(
   input_path_comdat = input_path_comdat,
   input_path_species = input_path_species,
-  menhaden_path = menhaden_path,
+  input_path_menhaden = input_path_menhaden,
   outputPathDataSets = outputPathDataSets
 )
 
@@ -197,7 +197,7 @@ indicator_comdat <- workflow_comdat(
 #   report_year = 2025,
 #   end_year = 2024,
 #   input_path_species <- "/home/mgrezlik/EDAB_Datasets/SOE_species_list_24.rds",
-#   menhaden_path <- "/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds"
+#   input_path_menhaden <- "/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds"
 # )
 #
 # comdat <- get_comdat(

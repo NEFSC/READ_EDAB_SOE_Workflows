@@ -7,7 +7,7 @@
 create_comdat(
   input_path_comdat,
   input_path_species,
-  menhaden_path,
+  input_path_menhaden,
   outputPathDataSets
 )
 }
@@ -16,7 +16,7 @@ create_comdat(
 
 \item{input_path_species}{Character string. Path to the 'SOE_species_list_24.RData' file.}
 
-\item{menhaden_path}{Character string. Path to the menhaden data output by data-raw/create_menhaden_input.R}
+\item{input_path_menhaden}{Character string. Path to the menhaden data output by data-raw/create_menhaden_input.R}
 
 \item{outputPathDataSets}{Character string. Path to folder where data pull should be saved}
 }

@@ -97,7 +97,7 @@ message("Running comdat ...")
 indicator_comdat <- workflow_comdat(
   input_path_comdat = inputPathComdat,
   input_path_species = input_path_species,
-  menhaden_path = menhadenPath,
+  input_path_menhaden = menhadenPath,
   outputPathDataSets = outputPath
 )
 
