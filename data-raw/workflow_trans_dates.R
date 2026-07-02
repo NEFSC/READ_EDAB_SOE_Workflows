@@ -26,7 +26,10 @@
 #'
 #' @export
 
-workflow_trans_dates <- function(input_path_sst, output_path_indicators = NULL) {
+workflow_trans_dates <- function(
+  input_path_sst,
+  output_path_indicators = NULL
+) {
   # Assumes that input data has been provided
 
   # Add check to skip running workflow if data not present
