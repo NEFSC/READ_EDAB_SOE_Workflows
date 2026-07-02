@@ -78,7 +78,10 @@ workflow_heatwave_year <- function(
         input_path_mab_surf = input_path_mab_surf
       )
       # write data to file
-      saveRDS(indicatorData, paste0(output_path_indicators, "/heatwave_year.rds"))
+      saveRDS(
+        indicatorData,
+        paste0(output_path_indicators, "/heatwave_year.rds")
+      )
       return(indicatorData)
     },
     error = function(e) {
