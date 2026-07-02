@@ -105,16 +105,16 @@ tibble(
 outputPathDataSets <- "/home/mgrezlik/EDAB_Dev/grezlik"
 outputPath <- "/home/mgrezlik/EDAB_Dev/grezlik"
 input_path_commercial_comdat <- "/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds"
-inputPathSurvey <- "/home/mgrezlik/EDAB_Datasets/Workflows/surveyNoLengthsData.rds"
+input_path_survey <- "/home/mgrezlik/EDAB_Datasets/Workflows/surveyNoLengthsData.rds"
 input_path_species <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
 # ditching camel case moving forward
 input_path_species <- "/home/mgrezlik/EDAB_Datasets/SOE_species_list_24.rds"
 input_path_albatross <- "/home/mgrezlik/EDAB_Dev/beet/albatrossData.rds"
 input_path_bigelow <- "/home/mgrezlik/EDAB_Dev/beet/bigelowData.rds"
-static_depth <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc"
-static_diagonal <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/diag.csv"
-static_coast_coord <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"
-static_strat_areas <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds"
+input_path_static_depth <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc"
+input_path_static_diagonal <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/diag.csv"
+input_path_static_coast_coord <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"
+input_path_static_strat_areas <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds"
 input_path_menhaden <- "/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds"
 input_path_comdat <- '/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds'
 comland_old_path <- '/home/mgrezlik/EDAB_Dev/beet/comlandr_old.rds'
@@ -150,12 +150,12 @@ source(here::here('data-raw/workflow_comdat.R'))
 # rawData <- SOEworkflows::get_survey_data(channel,outputPathDataSets)
 
 indD <- workflow_species_dist(
-  inputPathSurvey = inputPathSurvey,
+  input_path_survey = input_path_survey,
   input_path_species = input_path_species,
-  static_depth = static_depth,
-  static_diagonal = static_diagonal,
-  static_coast_coord = static_coast_coord,
-  static_strat_areas = static_strat_areas,
+  input_path_static_depth = input_path_static_depth,
+  input_path_static_diagonal = input_path_static_diagonal,
+  input_path_static_coast_coord = input_path_static_coast_coord,
+  input_path_static_strat_areas = input_path_static_strat_areas,
   outputPath = outputPathDataSets
 )
 

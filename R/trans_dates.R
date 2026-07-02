@@ -3,12 +3,12 @@
 #' This uses a static input file from Kevin Friedland
 #' It is formatted exactly like the ecodata data object
 #'
-#' @param inputPath Character string. Full path to the input data file
+#' @param input_path_sst Character string. Full path to the input data file
 #'
 #' @examples
 #' \dontrun{
 #' # create the ecodata::trans_dates indicator for 2025
-#' create_trans_dates(inputPath = "path/to/inputData.csv")
+#' create_trans_dates(input_path_sst = "path/to/inputData.csv")
 #'
 #' }
 #'
@@ -17,8 +17,8 @@
 #'
 #' @export
 
-create_trans_dates <- function(inputPath) {
-  daily_sst_full <- read.csv(inputPath)
+create_trans_dates <- function(input_path_sst) {
+  daily_sst_full <- read.csv(input_path_sst)
 
   #trim
   #keep only EPUs of interest = MAB, GOM, GBK
