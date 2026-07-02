@@ -7,7 +7,10 @@ output_path_indicators <- '~/EDAB_Dev/grezlik'
 
 source(here::here("data-raw/workflow_stock_status.R"))
 
-workflow_stock_status(output_path_indicators = output_path_indicators, inputPath = inputPath)
+workflow_stock_status(
+  output_path_indicators = output_path_indicators,
+  inputPath = inputPath
+)
 
 # unlink(here::here("data-raw/temp"),
 #        recursive = TRUE)
