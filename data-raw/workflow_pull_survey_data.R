@@ -42,8 +42,14 @@ workflow_pull_survey_data <- function(channel, output_path_indicators = NULL) {
         survey_data$survey1,
         paste0(output_path_indicators, "/surveyNoLengthsData.rds")
       )
-      saveRDS(survey_data$condition, paste0(output_path_indicators, "/conditionData.rds"))
-      saveRDS(survey_data$bio, paste0(output_path_indicators, "/surveyBiologicalData.rds"))
+      saveRDS(
+        survey_data$condition,
+        paste0(output_path_indicators, "/conditionData.rds")
+      )
+      saveRDS(
+        survey_data$bio,
+        paste0(output_path_indicators, "/surveyBiologicalData.rds")
+      )
       saveRDS(
         survey_data$bio_epu,
         paste0(output_path_indicators, "/surveyBiologicalByEPUData.rds")
