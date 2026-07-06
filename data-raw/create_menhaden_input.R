@@ -202,7 +202,7 @@ MEbait20202024 <- data.frame(
   ) #2024 prelim
 )
 
-MEbait20202024$MEtons = MEbait20202024$lbs * lbstotons
+MEbait20202024$MEtons <- MEbait20202024$lbs * lbstotons
 
 #MEtot <- data.frame(year = year,
 #                    MEtons = tons)
