@@ -178,7 +178,7 @@ datME <- rows[c(2:76)]
 year <- c()
 tons <- c()
 for (i in 1:length(datME)) {
-  row = unlist(strsplit(datME[i], " \\s+ "))
+  row <- unlist(strsplit(datME[i], " \\s+ "))
   if (!is.na(row[3])) {
     year <- c(year, as.numeric((gsub("\\*", "", row[1]))))
     tons <- c(tons, as.numeric((gsub(",", "", row[3]))))
