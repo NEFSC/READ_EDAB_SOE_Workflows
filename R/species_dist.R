@@ -76,7 +76,7 @@ create_species_dist <- function(
 
   # set numsps -----------------------------
 
-  numsps = nrow(species)
+  numsps <- nrow(species)
 
   # select the 48 best model distribution species --------------------
 
@@ -235,14 +235,14 @@ create_species_dist <- function(
   # plot(survdat$LON[survdat_spring$YEAR==1974],survdat$LAT[survdat_spring$YEAR==1974])
 
   # number of records to evaluate -----------------------------------
-  numrecs = nrow(survdat_spring)
+  numrecs <- nrow(survdat_spring)
 
   # distance to coast using geosphere -----------------------------------
 
   ####  Geosphere package to calc distance to coastline from pts (lon,lat), returns meters
-  dd = array(data = NA, dim = nrow(survdat_spring))
-  pts = data.frame(survdat_spring$LON, survdat_spring$LAT)
-  line_nescoast2 = t(rbind(nescoast2$LON, nescoast2$LAT))
+  dd <- array(data = NA, dim = nrow(survdat_spring))
+  pts <- data.frame(survdat_spring$LON, survdat_spring$LAT)
+  line_nescoast2 <- t(rbind(nescoast2$LON, nescoast2$LAT))
 
   dd <- as.data.frame(geosphere::dist2Line(pts[,], line_nescoast2))
   survdat_spring$GDTOC <- dd$distance / 1000 # convert meters to KM
@@ -250,27 +250,27 @@ create_species_dist <- function(
   # diag distance using geosphere -------------------------------------------
 
   # Find distance to diagonal line (diag), use coordinates of nearest point to find distance to NC outerbanks (min(diag))
-  dd2 = array(data = NA, dim = nrow(survdat_spring))
-  dd2 = as.data.frame(geosphere::dist2Line(
+  dd2 <- array(data = NA, dim = nrow(survdat_spring))
+  dd2 <- as.data.frame(geosphere::dist2Line(
     pts[,],
     diag,
     distfun = geosphere::distHaversine
   ))
   #Distance of closest point to data along diag line to NC coast
-  p1 = diag[1, ] #start of line
-  p3 = diag[150, ] #end of line
-  p2 = data.frame(dd2[, 2], dd2[, 3])
-  distNC = geosphere::distCosine(p1, p2, r = 6378137) / 1000 # convert to KM (Great circle distance)
-  survdat_spring$GASDIST = distNC
+  p1 <- diag[1, ] #start of line
+  p3 <- diag[150, ] #end of line
+  p2 <- data.frame(dd2[, 2], dd2[, 3])
+  distNC <- geosphere::distCosine(p1, p2, r = 6378137) / 1000 # convert to KM (Great circle distance)
+  survdat_spring$GASDIST <- distNC
 
   # fill in missing depths -------------------------------------------
 
   # find cases with missing depth data
-  missingdepth = which(is.na(survdat_spring$DEPTH))
+  missingdepth <- which(is.na(survdat_spring$DEPTH))
 
   # fill only those records in misdepth with depth from grid
   for (k in missingdepth) {
-    survdat_spring$DEPTH[k] = raster::extract(
+    survdat_spring$DEPTH[k] <- raster::extract(
       gdepth,
       cbind(survdat_spring$LON[k], survdat_spring$LAT[k])
     ) *

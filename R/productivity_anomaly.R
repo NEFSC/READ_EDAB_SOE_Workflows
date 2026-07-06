@@ -270,7 +270,7 @@ create_productivity_anomaly <- function(
 
   # setting length cutoff for species without length_at_age1
   # value taken from 2-load.R from trawlr repo
-  len_cutoff = 0.2
+  len_cutoff <- 0.2
 
   dat_spec_rec_epu <- survdat1 |>
     dplyr::left_join(dat_tows_epu, by = c("CRUISE6", "YEAR", "SEASON")) |>
