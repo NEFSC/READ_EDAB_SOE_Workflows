@@ -153,7 +153,7 @@ MAbait <- data.frame(
   ) #2024
 )
 
-MAbait$MAtons = MAbait$lbs * lbstotons
+MAbait$MAtons <- MAbait$lbs * lbstotons
 
 
 # ME source: New for 2024: https://www.maine.gov/dmr/sites/maine.gov.dmr/files/inline-files/menhaden.table__0.pdf
