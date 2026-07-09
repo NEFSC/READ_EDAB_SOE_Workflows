@@ -32,31 +32,31 @@ workflow_pull_survey_data <- function(channel, output_path_indicators = NULL) {
 
       saveRDS(
         survey_data$al.data,
-        paste0(output_path_indicators, "/albatrossData.rds")
+        paste0(output_path_indicators, "/albatross_data.rds")
       )
       saveRDS(
         survey_data$big.data,
-        paste0(output_path_indicators, "/bigelowData.rds")
+        paste0(output_path_indicators, "/bigelow_data.rds")
       )
       saveRDS(
         survey_data$survey1,
-        paste0(output_path_indicators, "/surveyNoLengthsData.rds")
+        paste0(output_path_indicators, "/survey_no_lengths_data.rds")
       )
       saveRDS(
         survey_data$condition,
-        paste0(output_path_indicators, "/conditionData.rds")
+        paste0(output_path_indicators, "/condition_data.rds")
       )
       saveRDS(
         survey_data$bio,
-        paste0(output_path_indicators, "/surveyBiologicalData.rds")
+        paste0(output_path_indicators, "/survey_biological_data.rds")
       )
       saveRDS(
         survey_data$bio_epu,
-        paste0(output_path_indicators, "/surveyBiologicalByEPUData.rds")
+        paste0(output_path_indicators, "/survey_biological_by_epu_data.rds")
       )
       saveRDS(
         survey_data$mass_inshore,
-        paste0(output_path_indicators, "/massInshoreData.rds")
+        paste0(output_path_indicators, "/mass_inshore_data.rds")
       )
       return(survey_data)
     },
