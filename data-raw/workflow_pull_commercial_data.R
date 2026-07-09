@@ -32,11 +32,11 @@ workflow_pull_commercial_data <- function(
       # Save these to a specific location
       saveRDS(
         commercial_data$comdat,
-        paste0(output_path_indicators, "/commercial_comdatData.rds")
+        paste0(output_path_indicators, "/commercial_comdat_data.rds")
       )
       saveRDS(
         commercial_data$bennet,
-        paste0(output_path_indicators, "/commercial_bennetData.rds")
+        paste0(output_path_indicators, "/commercial_bennet_data.rds")
       )
 
       return(commercial_data)
