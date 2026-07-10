@@ -4,22 +4,28 @@
 #'  * paths will need to be changed
 #'  * VPN connection
 #'  * a connection to the file server required
+#'  If running in your Rstudio container:
+#'  * change `rootPath` and `outputPath`
 
-pullRawData <- FALSE
+pullRawData <- TRUE
 rootPath <- "~/EDAB_Datasets/Workflows/"
-# suite of paths to input and output files
-output_path_indicators <- "~/EDAB_Indicators/"
-#output_path_indicators <- "~/EDAB_Dev/beet/"
-output_path_datasets <- rootPath
-input_path_survey <- paste0(rootPath, "surveyNoLengthsData.rds")
-input_path_mass_survey <- paste0(rootPath, "massInshoreData.rds")
+output_path_indicators <- "~/EDAB_Dev/beet/" 
+#rootPath <- "~/EDAB_Datasets/Workflows/"
+#output_path_indicators <- "~/EDAB_Indicators/"
+#output_path_datasets <- rootPath
+output_path_datasets <- "~/EDAB_Dev/beet/" 
+input_path_survey <- paste0(output_path_datasets, "survey_no_lengths_data.rds")
+input_path_mass_survey <- paste0(output_path_datasets, "mass_inshore_data.rds")
+input_path_albatross <- paste0(output_path_datasets, "albatross_data.rds")
+input_path_bigelow <- paste0(output_path_datasets, "bigelow_data.rds")
+input_path_rec <- paste0(output_path_datasets, "hms_mrip_2025-10-03.rds")
+input_path_condition <- paste0(output_path_datasets, "condition_data.rds")
+input_path_bennet <- paste0(output_path_datasets, "commercial_bennet_data.rds")
+input_path_comdat <- paste0(output_path_datasets, "commercial_comdat_data.rds")
+input_survey_bio_epu <- paste0(output_path_datasets, "survey_biological_by_epu_data.rds")
+input_survey_bio <- paste0(output_path_datasets, "survey_biological_data.rds")
+
 input_path_species <- paste0(rootPath, "SOE_species_list_24.rds")
-input_path_albatross <- paste0(rootPath, "albatrossData.rds")
-input_path_bigelow <- paste0(rootPath, "bigelowData.rds")
-input_path_rec <- paste0(rootPath, "hms_mrip_2025-10-03.rds")
-input_path_condition <- paste0(rootPath, "conditionData.rds")
-input_path_bennet <- paste0(rootPath, "commercial_bennetData.rds")
-input_path_comdat <- paste0(rootPath, "commercial_comdatData.rds")
 input_path_menhaden <- paste0(rootPath, "menhadenEOF.rds")
 input_path_static_depth <- paste0(rootPath, "nes_bath_data.nc")
 input_path_static_diagonal <- paste0(rootPath, "diag.csv")
@@ -45,8 +51,7 @@ input_path_mab_bot <- paste0(
   rootPath,
   "daily_bottomT_MAB_1959_2024_detrended.csv"
 )
-input_survey_bio_epu <- paste0(rootPath, "surveyBiologicalByEPUData.rds")
-input_survey_bio <- paste0(rootPath, "surveyBiologicalData.rds")
+
 input_static_lw_table <- paste0(rootPath, "df_lw.rda")
 input_path_species <- paste0(rootPath, "SOE_species_list_24.rds")
 input_static_length_convert <- paste0(rootPath, "df_lconv.rda")
@@ -136,7 +141,7 @@ indicator_exp_n <- workflow_exp_n(
 # calculate rec_hms index
 message("Running rec_hms ...")
 indicator_rec_hms <- workflow_rec_hms(
-  input_path_rec = input_path_rec,
+  input_path_rec,
   input_path_rec_key,
   output_path_indicators
 )
