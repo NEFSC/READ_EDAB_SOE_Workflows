@@ -9,7 +9,7 @@
 
 pullRawData <- TRUE
 rootPath <- "~/EDAB_Datasets/Workflows/"
-output_path_indicators <- "~/EDAB_Dev/beet/" 
+output_path_indicators <- "~/EDAB_Dev/beet/"
 #rootPath <- "~/EDAB_Datasets/Workflows/"
 #output_path_indicators <- "~/EDAB_Indicators/"
 #output_path_datasets <- rootPath
