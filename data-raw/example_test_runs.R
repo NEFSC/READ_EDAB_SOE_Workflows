@@ -13,7 +13,7 @@ output_path_indicators <- "~/EDAB_Dev/beet/"
 #rootPath <- "~/EDAB_Datasets/Workflows/"
 #output_path_indicators <- "~/EDAB_Indicators/"
 #output_path_datasets <- rootPath
-output_path_datasets <- "~/EDAB_Dev/beet/" 
+output_path_datasets <- "~/EDAB_Dev/beet/"
 input_path_survey <- paste0(output_path_datasets, "survey_no_lengths_data.rds")
 input_path_mass_survey <- paste0(output_path_datasets, "mass_inshore_data.rds")
 input_path_albatross <- paste0(output_path_datasets, "albatross_data.rds")
