@@ -4,7 +4,7 @@
 #' Creates rec_hms data set (recreational Highly Migratory Species) for automated workflow.
 #' It is formatted exactly like the ecodata data object
 #'
-#' @param inputPath Character string. Full path to the data from the 'pull_rec_hms' csv file in EDAB_Dev.
+#' @param input_path_rec Character string. Full path to the data from the 'pull_rec_hms' csv file in EDAB_Dev.
 #' @param input_path_rec_key Character string. Full path to the hms_key file in EDAB_Resources ("EDAB_Resources/workflow_resources/soe_workflows/hms_key.csv").
 #' @param output_path_indicators Character string. Path to folder where data pull should be saved
 #'
@@ -27,7 +27,7 @@
 #'
 
 workflow_rec_hms <- function(
-  inputPath,
+  input_path_rec,
   input_path_rec_key,
   output_path_indicators
 ) {
@@ -40,7 +40,7 @@ workflow_rec_hms <- function(
       if (
         !all(
           !is.null(output_path_indicators),
-          file.exists(inputPath),
+          file.exists(input_path_rec),
           file.exists(input_path_rec_key)
         )
       ) {
@@ -49,7 +49,7 @@ workflow_rec_hms <- function(
 
       # calculate indicator
       indicatorData <- SOEworkflows::create_rec_hms(
-        inputPath = inputPath,
+        input_path_rec = input_path_rec,
         input_path_rec_key = input_path_rec_key
       )
       # write data to file
