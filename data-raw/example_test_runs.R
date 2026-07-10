@@ -1,19 +1,26 @@
 #' Wrapper to Run ALL workflows
+#' 
+#' #############################################################
+#' MAKE A COPY OF THIS FOR TESTING BUT DO NOT COMMIT YOUR COPY
+#' #############################################################
 #'
 #' If running locally:
 #'  * paths will need to be changed
 #'  * VPN connection
 #'  * a connection to the file server required
 #'  If running in your Rstudio container:
-#'  * change `rootPath` and `outputPath`
+#'  * change  `output_path_datasets` - location of survey, commercial, rec, data puls
+#'  * change  `output_path_indicators` - location where indicator should be saved
 
-pullRawData <- TRUE
-rootPath <- "~/EDAB_Datasets/Workflows/"
+# Change this to where you want indicators to be saved
 output_path_indicators <- "~/EDAB_Dev/beet/"
-#rootPath <- "~/EDAB_Datasets/Workflows/"
-#output_path_indicators <- "~/EDAB_Indicators/"
-#output_path_datasets <- rootPath
+# change this to where data pulls are
 output_path_datasets <- "~/EDAB_Dev/beet/"
+
+# This is currently where all data dependencies are that are not direct data pulls
+rootPath <- "~/EDAB_Datasets/Workflows/"
+
+# Data from direct pulls
 input_path_survey <- paste0(output_path_datasets, "survey_no_lengths_data.rds")
 input_path_mass_survey <- paste0(output_path_datasets, "mass_inshore_data.rds")
 input_path_albatross <- paste0(output_path_datasets, "albatross_data.rds")
@@ -28,6 +35,7 @@ input_survey_bio_epu <- paste0(
 )
 input_survey_bio <- paste0(output_path_datasets, "survey_biological_data.rds")
 
+# Dependency data
 input_path_species <- paste0(rootPath, "SOE_species_list_24.rds")
 input_path_menhaden <- paste0(rootPath, "menhadenEOF.rds")
 input_path_static_depth <- paste0(rootPath, "nes_bath_data.nc")
@@ -59,6 +67,7 @@ input_static_lw_table <- paste0(rootPath, "df_lw.rda")
 input_path_species <- paste0(rootPath, "SOE_species_list_24.rds")
 input_static_length_convert <- paste0(rootPath, "df_lconv.rda")
 
+pullRawData <- TRUE
 # source workflow functions from data-raw since they are not accessible from the package installation
 source(here::here("data-raw/workflow_pull_survey_data.R"))
 source(here::here("data-raw/workflow_pull_commercial_data.R"))
