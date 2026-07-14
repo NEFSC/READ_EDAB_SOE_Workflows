@@ -22,8 +22,8 @@ This calculates the expected number of species per tow in the NEFSC Bottom Trawl
 \examples{
 \dontrun{
 # create the ecodata::exp_n indicator
-create_exp_n(inputPathAlbatros = "path/to/albatross.rds",
-                         input_path_bigelow = "path/to/bigelow.rds")
+create_exp_n(input_path_albatros = "path/to/albatross.rds",
+             input_path_bigelow = "path/to/bigelow.rds")
 
 }
 

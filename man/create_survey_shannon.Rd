@@ -23,7 +23,7 @@ Then takes the mean of the shannon indices for each year
 \examples{
 \dontrun{
 # create the ecodata::survey_shannon indicator
-create_aggregate_biomass(inputPathAlbatros = "path/to/albatross.rds",
+create_aggregate_biomass(input_path_albatros = "path/to/albatross.rds",
                          input_path_bigelow = "path/to/bigelow.rds")
 
 }
