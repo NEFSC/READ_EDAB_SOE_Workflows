@@ -11,7 +11,7 @@
 #' \dontrun{
 #' # create the ecodata::exp_n indicator
 #' workflow_exp_n(input_path_bigelow = "path/to/Bigelow/data.rds",
-#'                       inputPathAlbatros = "path/to/Albatross/data.rds",
+#'                       input_path_albatros = "path/to/Albatross/data.rds",
 #'                       output_path_indicators = "path/to/output/folder")
 #'
 #' }

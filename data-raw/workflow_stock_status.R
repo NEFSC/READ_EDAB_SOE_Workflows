@@ -9,7 +9,7 @@
 #' @example
 #' \dontrun{
 #' # create the ecodata::stock_status indicator
-#' workflow_stock_status(inputPath = "path/to/decoder.csv",
+#' workflow_stock_status(input_path_decoder = "path/to/decoder.csv",
 #'                       output_path_indicators = "path/to/output/folder")
 #'
 #' }
@@ -27,7 +27,7 @@ workflow_stock_status <- function(
   input_path_decoder,
   output_path_indicators = NULL
 ) {
-  # Add check to skip inputPath workflow if data not present
+  # Add check to skip input_path_decoder workflow if data not present
   tryCatch(
     {
       if (

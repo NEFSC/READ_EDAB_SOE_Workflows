@@ -43,7 +43,7 @@ input_path_static_diagonal <- paste0(rootPath, "diag.csv")
 input_path_static_coast_coord <- paste0(rootPath, "nes_coast_2.csv")
 input_path_static_strat_areas <- paste0(rootPath, "stratareas.rds")
 input_path_decoder <- paste0(rootPath, "decoder.csv")
-inputPathSST <- paste0(rootPath, "TS_SHP_adv_rep_MAB_GOM_GBK_NES_SCSPoly.csv")
+input_path_sst <- paste0(rootPath, "TS_SHP_adv_rep_MAB_GOM_GBK_NES_SCSPoly.csv")
 input_path_rec_key <- paste0(rootPath, "hms_key.csv")
 input_path_lw_coeffs <- paste0(rootPath, "LWparams.csv")
 input_path_conditionSpecies <- paste0(rootPath, "species.codes.csv")
@@ -196,7 +196,7 @@ indicator_survey_shannon <- workflow_survey_shannon(
 # calculate the trans_dates index
 message("Running trans_dates ...")
 indicator_trans_dates <- workflow_trans_dates(
-  input_path_sst = inputPathSST,
+  input_path_sst = input_path_sst,
   output_path_indicators
 )
 

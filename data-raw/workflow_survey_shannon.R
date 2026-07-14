@@ -11,7 +11,7 @@
 #' \dontrun{
 #' # create the ecodata::survey_shannon indicator
 #' workflow_survey_shannon(input_path_bigelow = "path/to/Bigelow/data.rds",
-#'                       inputPathAlbatros = "path/to/Albatross/data.rds",
+#'                       input_path_albatross = "path/to/Albatross/data.rds",
 #'                       output_path_indicators = "path/to/output/folder")
 #'
 #' }

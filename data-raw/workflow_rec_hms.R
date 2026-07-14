@@ -11,7 +11,7 @@
 #' @example
 #' \dontrun{
 #' # create the ecodata::rec_hms indicator
-#' workflow_rec_hms(inputPath = "path/to/hms_mrip_2025-08-26.csv",
+#' workflow_rec_hms(input_path_rec = "path/to/hms_mrip_2025-08-26.csv",
 #'  input_path_rec_key = "path/to/hms_key.rda",
 #'  output_path_indicators = "path/to/output/folder")
 #'
@@ -21,7 +21,7 @@
 #'
 #' @section Dependencies:
 #'
-#' This assumes that the rec_hms has been pulled and resides in the path 'inputPath'
+#' This assumes that the rec_hms has been pulled and resides in the path 'input_path_rec'
 #'
 #' @export
 #'
@@ -31,8 +31,8 @@ workflow_rec_hms <- function(
   input_path_rec_key,
   output_path_indicators
 ) {
-  # Assumes that rec HMS data has been pulled and is located in inputPath
-  #pull_rec_hms(channel,outputDir = outPutDir)
+  # Assumes that rec HMS data has been pulled and is located in input_path_rec
+  #get_recreational_data(output_path_indicators = output_path_indicators)
 
   # Add check to skip running workflow if data not present
   tryCatch(

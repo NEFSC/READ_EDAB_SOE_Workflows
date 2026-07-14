@@ -39,16 +39,16 @@ create_heatwave <- function(
 ) {
   # create surface temperature portion of heatwave
   surface <- create_heatwave_surface(
-    inputPathGB = input_path_gb_surf,
-    inputPathGOM = input_path_gom_surf,
-    inputPathMAB = input_path_mab_surf
+    input_path_gb_surf = input_path_gb_surf,
+    input_path_gom_surf = input_path_gom_surf,
+    input_path_mab_surf = input_path_mab_surf
   )
 
   # create bottom temperature portion of heatwave
   bottom <- create_heatwave_bottom(
-    inputPathGB = input_path_gb_bot,
-    inputPathGOM = input_path_gom_bot,
-    inputPathMAB = input_path_mab_bot
+    input_path_gb_bot = input_path_gb_bot,
+    input_path_gom_bot = input_path_gom_bot,
+    input_path_mab_bot = input_path_mab_bot
   )
 
   heatwave <- rbind(surface, bottom)
@@ -79,16 +79,16 @@ create_heatwave <- function(
 #' This uses a static input file from Kim Hyde
 #' It is formatted exactly like the ecodata data object
 #'
-#' @param inputPathGB Character string. Full path to the GB GLORYS input file from Kim Hyde
-#' @param inputPathGOM Character string. Full path to the GOM GLORYS input file from Kim Hyde
-#' @param inputPathMAB Character string. Full path to the MAB GLORYS input file from Kim Hyde
+#' @param input_path_gb_surf Character string. Full path to the GB GLORYS input file from Kim Hyde
+#' @param input_path_gom_surf Character string. Full path to the GOM GLORYS input file from Kim Hyde
+#' @param input_path_mab_surf Character string. Full path to the MAB GLORYS input file from Kim Hyde
 #'
 #' @examples
 #' \dontrun{
 #' # create the surface temperature portion of the ecodata::heatwave indicator for 2025
-#' create_heatwave_surface(inputPathGB = "path/to/input/GBdata.csv",
-#'                         inputPathGOM = "path/to/input/GOMdata.csv",
-#'                         inputPathMAB = "path/to/input/MABdata.csv")
+#' create_heatwave_surface(input_path_gb_surf = "path/to/input/GBdata.csv",
+#'                         input_path_gom_surf = "path/to/input/GOMdata.csv",
+#'                         input_path_mab_surf = "path/to/input/MABdata.csv")
 #'
 #' }
 #'
@@ -98,11 +98,15 @@ create_heatwave <- function(
 #' @importFrom dplyr `%>%`
 #' @noRd
 
-create_heatwave_surface <- function(inputPathGB, inputPathGOM, inputPathMAB) {
+create_heatwave_surface <- function(
+  input_path_gb_surf,
+  input_path_gom_surf,
+  input_path_mab_surf
+) {
   ## Define inputs
-  heatwave_gbd <- inputPathGB
-  heatwave_gomd <- inputPathGOM
-  heatwave_mabd <- inputPathMAB
+  heatwave_gbd <- input_path_gb_surf
+  heatwave_gomd <- input_path_gom_surf
+  heatwave_mabd <- input_path_mab_surf
 
   # SURFACE DETRENDED
   # Process input files
@@ -260,16 +264,16 @@ create_heatwave_surface <- function(inputPathGB, inputPathGOM, inputPathMAB) {
 #' This uses a static input file from Joe Caracappa
 #' It is formatted exactly like the ecodata data object
 #'
-#' @param inputPathGB Character string. Full path to the GB GLORYS input file from Joe Caracappa
-#' @param inputPathGOM Character string. Full path to the GOM GLORYS input file from Joe Caracappa
-#' @param inputPathMAB Character string. Full path to the MAB GLORYS input file from Joe Caracappa
+#' @param input_path_gb_bot Character string. Full path to the GB GLORYS input file from Joe Caracappa
+#' @param input_path_gom_bot Character string. Full path to the GOM GLORYS input file from Joe Caracappa
+#' @param input_path_mab_bot Character string. Full path to the MAB GLORYS input file from Joe Caracappa
 #'
 #' @examples
 #' \dontrun{
 #' # create the bottom temperature portion of the ecodata::heatwave indicator for 2025
-#' create_heatwave_bottom(inputPathGB = "path/to/input/GBdata.csv",
-#'                        inputPathGOM = "path/to/input/GOMdata.csv",
-#'                        inputPathMAB = "path/to/input/MABdata.csv")
+#' create_heatwave_bottom(input_path_gb_bot = "path/to/input/GBdata.csv",
+#'                        input_path_gom_bot = "path/to/input/GOMdata.csv",
+#'                        input_path_mab_bot = "path/to/input/MABdata.csv")
 #'
 #' }
 #'
@@ -280,11 +284,15 @@ create_heatwave_surface <- function(inputPathGB, inputPathGOM, inputPathMAB) {
 #'
 #' @noRd
 
-create_heatwave_bottom <- function(inputPathGB, inputPathGOM, inputPathMAB) {
+create_heatwave_bottom <- function(
+  input_path_gb_bot,
+  input_path_gom_bot,
+  input_path_mab_bot
+) {
   ## Define inputs
-  bheatwave_gbd <- inputPathGB
-  bheatwave_gomd <- inputPathGOM
-  bheatwave_mabd <- inputPathMAB
+  bheatwave_gbd <- input_path_gb_bot
+  bheatwave_gomd <- input_path_gom_bot
+  bheatwave_mabd <- input_path_mab_bot
 
   # BOTTOM DETRENDED
   # Process input files

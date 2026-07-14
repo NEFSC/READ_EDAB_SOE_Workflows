@@ -136,9 +136,9 @@ The rds file name is hardcoded as `productivity_anomaly.rds` to match the `ecoda
 
 ### species_condition
 ```
-workflow_condition(inputPath, input_path_lw_coeffs, input_path_species, output_path_indicators)
+workflow_condition(input_path_condition, input_path_lw_coeffs, input_path_species, output_path_indicators)
 ```
-* `inputPath` is the path to the static data set `EDAB_Dev/beet/condition_data.rds`
+* `input_path_condition` is the path to the static data set `EDAB_Dev/beet/condition_data.rds`
 * `input_path_species` is the path to static data set `EDAB_Resources/workflow_resources/soe_workflows/species.codes.csv`
 * `input_path_lw_coeffs` is the path to the static data set `EDAB_Resources/workflow_resources/soe_workflows/LWparams.csv`
 * `output_path_indicators` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
