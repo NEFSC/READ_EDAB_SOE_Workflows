@@ -250,4 +250,3 @@ indicator_productivity_anomaly <- workflow_productivity_anomaly(
   output_path_indicators = output_path_indicators
 )
 indicator_productivity_anomaly
-
