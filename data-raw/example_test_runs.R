@@ -110,11 +110,13 @@ if (pullRawData) {
 }
 # calculate the aggregate biomass index
 message("Running aggregate_biomass ...")
-indicator_aggegegate_biomass <- workflow_aggregate_biomass(
+indicator_aggregate_biomass <- workflow_aggregate_biomass(
   input_path_survey,
   input_path_species,
   output_path_indicators
 )
+indicator_aggregate_biomass
+
 # calculate the bennet index
 message("Running bennet ...")
 indicator_bennet <- workflow_bennet(
@@ -122,6 +124,7 @@ indicator_bennet <- workflow_bennet(
   input_path_species,
   output_path_indicators
 )
+indicator_bennet
 
 # calculate the comdat index
 message("Running comdat ...")
@@ -131,6 +134,7 @@ indicator_comdat <- workflow_comdat(
   input_path_menhaden = input_path_menhaden,
   output_path_indicators = output_path_indicators
 )
+indicator_comdat
 
 
 # calculate condition index
@@ -141,6 +145,7 @@ indicator_condition <- workflow_condition(
   input_path_species = input_path_conditionSpecies,
   output_path_indicators
 )
+indicator_condition
 
 # calculate the exp_n index
 message("Running exp_n ...")
@@ -149,6 +154,7 @@ indicator_exp_n <- workflow_exp_n(
   input_path_albatross,
   output_path_indicators
 )
+indicator_exp_n
 
 # calculate rec_hms index
 message("Running rec_hms ...")
@@ -157,6 +163,7 @@ indicator_rec_hms <- workflow_rec_hms(
   input_path_rec_key,
   output_path_indicators
 )
+indicator_rec_hms
 
 # calculate the mass_inshore_survey index
 message("Running mass_inshore_survey ...")
@@ -177,6 +184,8 @@ indicator_species_dist <- workflow_species_dist(
   input_path_static_strat_areas,
   output_path_indicators
 )
+indicator_species_dist
+
 
 # calculate the stock_status index
 message("Running stock_status ...")
@@ -184,6 +193,7 @@ indicator_stock_status <- workflow_stock_status(
   input_path_decoder = input_path_decoder,
   output_path_indicators
 )
+indicator_stock_status
 
 # calculate the survey_shannon index
 message("Running survey_shannon ...")
@@ -192,6 +202,7 @@ indicator_survey_shannon <- workflow_survey_shannon(
   input_path_bigelow = input_path_bigelow,
   input_path_albatross = input_path_albatross
 )
+indicator_survey_shannon
 
 # calculate the trans_dates index
 message("Running trans_dates ...")
@@ -199,6 +210,7 @@ indicator_trans_dates <- workflow_trans_dates(
   input_path_sst = input_path_sst,
   output_path_indicators
 )
+indicator_trans_dates
 
 # calculate the heatwave index
 message("Running heatwave ...")
@@ -211,6 +223,7 @@ indicator_heatwave <- workflow_heatwave(
   input_path_mab_surf = input_path_mab_surf,
   output_path_indicators
 )
+indicator_heatwave
 
 
 # calculate the heatwave_year index
@@ -224,6 +237,7 @@ indicator_heatwave_year <- workflow_heatwave_year(
   input_path_mab_surf = input_path_mab_surf,
   output_path_indicators
 )
+indicator_heatwave_year
 
 # calculate the productivity_anomaly index
 message("Running productivity_anomaly . .")
@@ -235,3 +249,5 @@ indicator_productivity_anomaly <- workflow_productivity_anomaly(
   input_static_length_convert = input_static_length_convert,
   output_path_indicators = output_path_indicators
 )
+indicator_productivity_anomaly
+
