@@ -18,7 +18,7 @@ output_path_indicators <- "~/EDAB_Dev/beet/"
 output_path_datasets <- "~/EDAB_Dev/beet/"
 
 # This is currently where all data dependencies are that are not direct data pulls
-rootPath <- "~/EDAB_Datasets/Workflows/"
+root_path <- "~/EDAB_Datasets/Workflows/"
 
 # Data from direct pulls
 input_path_survey <- paste0(output_path_datasets, "survey_no_lengths_data.rds")
@@ -36,38 +36,41 @@ input_survey_bio_epu <- paste0(
 input_survey_bio <- paste0(output_path_datasets, "survey_biological_data.rds")
 
 # Dependency data
-input_path_species <- paste0(rootPath, "SOE_species_list_24.rds")
-input_path_menhaden <- paste0(rootPath, "menhadenEOF.rds")
-input_path_static_depth <- paste0(rootPath, "nes_bath_data.nc")
-input_path_static_diagonal <- paste0(rootPath, "diag.csv")
-input_path_static_coast_coord <- paste0(rootPath, "nes_coast_2.csv")
-input_path_static_strat_areas <- paste0(rootPath, "stratareas.rds")
-input_path_decoder <- paste0(rootPath, "decoder.csv")
-input_path_sst <- paste0(rootPath, "TS_SHP_adv_rep_MAB_GOM_GBK_NES_SCSPoly.csv")
-input_path_rec_key <- paste0(rootPath, "hms_key.csv")
-input_path_lw_coeffs <- paste0(rootPath, "LWparams.csv")
-input_path_conditionSpecies <- paste0(rootPath, "species.codes.csv")
-input_path_gb_surf <- paste0(rootPath, "GB_SST_1982_to_2024_detrended.csv")
+input_path_species <- paste0(root_path, "SOE_species_list_24.rds")
+input_path_menhaden <- paste0(root_path, "menhadenEOF.rds")
+input_path_static_depth <- paste0(root_path, "nes_bath_data.nc")
+input_path_static_diagonal <- paste0(root_path, "diag.csv")
+input_path_static_coast_coord <- paste0(root_path, "nes_coast_2.csv")
+input_path_static_strat_areas <- paste0(root_path, "stratareas.rds")
+input_path_decoder <- paste0(root_path, "decoder.csv")
+input_path_sst <- paste0(
+  root_path,
+  "TS_SHP_adv_rep_MAB_GOM_GBK_NES_SCSPoly.csv"
+)
+input_path_rec_key <- paste0(root_path, "hms_key.csv")
+input_path_lw_coeffs <- paste0(root_path, "LWparams.csv")
+input_path_condition_species <- paste0(root_path, "species.codes.csv")
+input_path_gb_surf <- paste0(root_path, "GB_SST_1982_to_2024_detrended.csv")
 input_path_gb_bot <- paste0(
-  rootPath,
+  root_path,
   "daily_bottomT_GB_1959_2024_detrended.csv"
 )
-input_path_gom_surf <- paste0(rootPath, "GOM_SST_1982_to_2024_detrended.csv")
+input_path_gom_surf <- paste0(root_path, "GOM_SST_1982_to_2024_detrended.csv")
 input_path_gom_bot <- paste0(
-  rootPath,
+  root_path,
   "daily_bottomT_GOM_1959_2024_detrended.csv"
 )
-input_path_mab_surf <- paste0(rootPath, "MAB_SST_1982_to_2024_detrended.csv")
+input_path_mab_surf <- paste0(root_path, "MAB_SST_1982_to_2024_detrended.csv")
 input_path_mab_bot <- paste0(
-  rootPath,
+  root_path,
   "daily_bottomT_MAB_1959_2024_detrended.csv"
 )
 
-input_static_lw_table <- paste0(rootPath, "df_lw.rda")
-input_path_species <- paste0(rootPath, "SOE_species_list_24.rds")
-input_static_length_convert <- paste0(rootPath, "df_lconv.rda")
+input_static_lw_table <- paste0(root_path, "df_lw.rda")
+input_path_species <- paste0(root_path, "SOE_species_list_24.rds")
+input_static_length_convert <- paste0(root_path, "df_lconv.rda")
 
-pullRawData <- TRUE
+pull_raw_data <- TRUE
 # source workflow functions from data-raw since they are not accessible from the package installation
 source(here::here("data-raw/workflow_pull_survey_data.R"))
 source(here::here("data-raw/workflow_pull_commercial_data.R"))
@@ -88,7 +91,7 @@ source(here::here("data-raw/workflow_heatwave.R"))
 source(here::here("data-raw/workflow_heatwave_year.R"))
 source(here::here("data-raw/workflow_productivity_anomaly.R"))
 
-if (pullRawData) {
+if (pull_raw_data) {
   ## Connects to the data base.
   # you'll need to add the server and your user id
   # This is only needed to pull the data
@@ -111,18 +114,18 @@ if (pullRawData) {
 # calculate the aggregate biomass index
 message("Running aggregate_biomass ...")
 indicator_aggregate_biomass <- workflow_aggregate_biomass(
-  input_path_survey,
-  input_path_species,
-  output_path_indicators
+  input_path_survey = input_path_survey,
+  input_path_species = input_path_species,
+  output_path_indicators = output_path_indicators
 )
 indicator_aggregate_biomass
 
 # calculate the bennet index
 message("Running bennet ...")
 indicator_bennet <- workflow_bennet(
-  input_path_bennet,
-  input_path_species,
-  output_path_indicators
+  input_path_bennet = input_path_bennet,
+  input_path_species = input_path_species,
+  output_path_indicators = output_path_indicators
 )
 indicator_bennet
 
@@ -141,27 +144,27 @@ indicator_comdat
 message("Running condition ...")
 indicator_condition <- workflow_condition(
   input_path_condition = input_path_condition,
-  input_path_lw_coeffs,
-  input_path_species = input_path_conditionSpecies,
-  output_path_indicators
+  input_path_lw_coeffs = input_path_lw_coeffs,
+  input_path_species = input_path_condition_species,
+  output_path_indicators = output_path_indicators
 )
 indicator_condition
 
 # calculate the exp_n index
 message("Running exp_n ...")
 indicator_exp_n <- workflow_exp_n(
-  input_path_bigelow,
-  input_path_albatross,
-  output_path_indicators
+  input_path_bigelow = input_path_bigelow,
+  input_path_albatross = input_path_albatross,
+  output_path_indicators = output_path_indicators
 )
 indicator_exp_n
 
 # calculate rec_hms index
 message("Running rec_hms ...")
 indicator_rec_hms <- workflow_rec_hms(
-  input_path_rec,
-  input_path_rec_key,
-  output_path_indicators
+  input_path_rec = input_path_rec,
+  input_path_rec_key = input_path_rec_key,
+  output_path_indicators = output_path_indicators
 )
 indicator_rec_hms
 
@@ -176,13 +179,13 @@ indicator_mass_inshore_survey <- workflow_mass_inshore_survey(
 # calculate the species_dist index
 message("Running species_dist ...")
 indicator_species_dist <- workflow_species_dist(
-  input_path_survey,
-  input_path_species,
-  input_path_static_depth,
-  input_path_static_diagonal,
-  input_path_static_coast_coord,
-  input_path_static_strat_areas,
-  output_path_indicators
+  input_path_survey = input_path_survey,
+  input_path_species = input_path_species,
+  input_path_static_depth = input_path_static_depth,
+  input_path_static_diagonal = input_path_static_diagonal,
+  input_path_static_coast_coord = input_path_static_coast_coord,
+  input_path_static_strat_areas = input_path_static_strat_areas,
+  output_path_indicators = output_path_indicators
 )
 indicator_species_dist
 
@@ -191,16 +194,16 @@ indicator_species_dist
 message("Running stock_status ...")
 indicator_stock_status <- workflow_stock_status(
   input_path_decoder = input_path_decoder,
-  output_path_indicators
+  output_path_indicators = output_path_indicators
 )
 indicator_stock_status
 
 # calculate the survey_shannon index
 message("Running survey_shannon ...")
 indicator_survey_shannon <- workflow_survey_shannon(
-  output_path_indicators = output_path_indicators,
   input_path_bigelow = input_path_bigelow,
-  input_path_albatross = input_path_albatross
+  input_path_albatross = input_path_albatross,
+  output_path_indicators = output_path_indicators
 )
 indicator_survey_shannon
 
@@ -208,7 +211,7 @@ indicator_survey_shannon
 message("Running trans_dates ...")
 indicator_trans_dates <- workflow_trans_dates(
   input_path_sst = input_path_sst,
-  output_path_indicators
+  output_path_indicators = output_path_indicators
 )
 indicator_trans_dates
 
@@ -221,7 +224,7 @@ indicator_heatwave <- workflow_heatwave(
   input_path_gb_surf = input_path_gb_surf,
   input_path_gom_surf = input_path_gom_surf,
   input_path_mab_surf = input_path_mab_surf,
-  output_path_indicators
+  output_path_indicators = output_path_indicators
 )
 indicator_heatwave
 
@@ -235,7 +238,7 @@ indicator_heatwave_year <- workflow_heatwave_year(
   input_path_gb_surf = input_path_gb_surf,
   input_path_gom_surf = input_path_gom_surf,
   input_path_mab_surf = input_path_mab_surf,
-  output_path_indicators
+  output_path_indicators = output_path_indicators
 )
 indicator_heatwave_year
 
