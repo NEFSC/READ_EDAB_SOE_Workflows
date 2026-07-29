@@ -4,21 +4,14 @@
 \alias{create_comdat}
 \title{Create data for ecodata::comdat}
 \usage{
-create_comdat(
-  comdat_path,
-  input_path_species,
-  menhaden_path,
-  outputPathDataSets
-)
+create_comdat(input_path_comdat, input_path_species, input_path_menhaden)
 }
 \arguments{
-\item{comdat_path}{Character string. Path to commercial_comdat.rds}
+\item{input_path_comdat}{Character string. Path to commercial_comdat.rds}
 
 \item{input_path_species}{Character string. Path to the 'SOE_species_list_24.RData' file.}
 
-\item{menhaden_path}{Character string. Path to the menhaden data output by data-raw/create_menhaden_input.R}
-
-\item{outputPathDataSets}{Character string. Path to folder where data pull should be saved}
+\item{input_path_menhaden}{Character string. Path to the menhaden data output by data-raw/create_menhaden_input.R}
 }
 \value{
 list

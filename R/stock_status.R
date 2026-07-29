@@ -2,20 +2,19 @@
 #'
 #' This function creates a stock status data frame that is formatted for inclusion in the `ecodata` R package.
 #'
-#' @param data the stock status data frame, typically from `stocksmart::stockAssessmentSummary`
-#' @param decode a data frame that matches the stock names with a code abbreviation to use in plotting, typically read from a CSV file. If set to `FALSE`, the function will return a data frame in a less processed form, like Sarah used to provide in the `assess.csv` file.
+#' @param input_path_decoder a data frame that matches the stock names with a code abbreviation to use in plotting, typically read from a CSV file. If set to `FALSE`, the function will return a data frame in a less processed form, like Sarah used to provide in the `assess.csv` file.
 #' @return a tibble
 #'
 #' @importFrom rlang .data
 #' @export
 
-create_stock_status <- function(data, decode) {
+create_stock_status <- function(input_path_decoder) {
   # reload stocksmart to be sure we are using the latest data
-  pak::pak("NOAA-EDAB/stocksmart")
-
+  pak::pak("NOAA-EDAB/stocksmart", upgrade = FALSE, ask = FALSE)
   # call in data
   data <- stocksmart::stockAssessmentSummary
 
+  decode <- utils::read.csv(input_path_decoder)
   # this will wrangle stocksmart data only (not PDB data)
   if ("Jurisdiction" %in% names(data)) {
     data <- data |>

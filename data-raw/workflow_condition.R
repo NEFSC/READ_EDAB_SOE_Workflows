@@ -4,18 +4,18 @@
 #' Creates condition data set for automated workflow.
 #' It is formatted exactly like the ecodata data object
 #'
-#' @param inputPath Character string. Full path to the condition data pull rds file.
-#' @param inputPathLW Character string. Full path to the LWparams rda file in 'EDAB_Resources/workflow_resources/soe_workflows'.
-#' @param inputPathSpecies Character string. Full path to the species.codes rda file in 'EDAB_Resources/workflow_resources/soe_workflows'.
-#' @param outputPath Character string. Path to folder where data pull should be saved.
+#' @param input_path_condition Character string. Full path to the condition data pull rds file.
+#' @param input_path_lw_coeffs Character string. Full path to the LWparams rda file in 'EDAB_Resources/workflow_resources/soe_workflows'.
+#' @param input_path_species Character string. Full path to the species.codes rda file in 'EDAB_Resources/workflow_resources/soe_workflows'.
+#' @param output_path_indicators Character string. Path to folder where data pull should be saved.
 #'
 #' @example
 #' \dontrun{
 #' # create the ecodata::condition indicator
-#' workflow_condition(inputPath = "path/to/conditionData.rds",
-#'  inputPathLW = "path/to/hms_key.rda,
-#'  inputPathSpecies = "path/to/species.codes.rda",
-#'  outputPath = "path/to/output/folder")
+#' workflow_condition(input_path_condition = "path/to/conditionData.rds",
+#'  input_path_lw_coeffs = "path/to/hms_key.rda,
+#'  input_path_species = "path/to/species.codes.rda",
+#'  output_path_indicators = "path/to/output/folder")
 #'
 #' }
 #'
@@ -25,35 +25,35 @@
 #'
 
 workflow_condition <- function(
-  inputPath,
-  inputPathLW,
-  inputPathSpecies,
-  outputPath = NULL
+  input_path_condition,
+  input_path_lw_coeffs,
+  input_path_species,
+  output_path_indicators = NULL
 ) {
   # Assumes that survey data has been pulled
-  #get_survey_data(channel,outputPath = outputPath)
+  #get_survey_data(channel,output_path_indicators = output_path_indicators)
 
   # Add check to skip running workflow if data not present
   tryCatch(
     {
       if (
         !all(
-          !is.null(outputPath),
-          file.exists(inputPath),
-          file.exists(inputPathLW),
-          file.exists(inputPathSpecies)
+          !is.null(output_path_indicators),
+          file.exists(input_path_condition),
+          file.exists(input_path_lw_coeffs),
+          file.exists(input_path_species)
         )
       ) {
         stop("Incorrect file path or file missing")
       }
       # calculate indicator
       indicatorData <- SOEworkflows::create_condition(
-        inputPath = inputPath,
-        inputPathLW = inputPathLW,
-        inputPathSpecies = inputPathSpecies
+        input_path_condition = input_path_condition,
+        input_path_lw_coeffs = input_path_lw_coeffs,
+        input_path_species = input_path_species
       )
       # write data to file
-      saveRDS(indicatorData, paste0(outputPath, "/condition.rds"))
+      saveRDS(indicatorData, paste0(output_path_indicators, "/condition.rds"))
       return(indicatorData)
     },
     error = function(e) {

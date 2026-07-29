@@ -2,22 +2,22 @@
 #'
 #' Data include time series of depth, distance from shelf and distance along shelf.
 #'
-#' @param inputPathSurvey Character string. Full path to the survdat data pull rds file
-#' @param inputPathSpecies Character string. Full path to the species list data pull rds file
-#' @param static_depth Character string. Path to file with depth data for NE shelf
-#' @param static_diagonal Character string. Path to file with along shelf diagonal data
-#' @param static_coast_coord Character string. Path to file with lat lon coordinates defining the coastline
-#' @param static_strat_areas Character string. Path to file defining NEFSC trawl survey strata
+#' @param input_path_survey Character string. Full path to the survdat data pull rds file
+#' @param input_path_species Character string. Full path to the species list data pull rds file
+#' @param input_path_static_depth Character string. Path to file with depth data for NE shelf
+#' @param input_path_static_diagonal Character string. Path to file with along shelf diagonal data
+#' @param input_path_static_coast_coord Character string. Path to file with lat lon coordinates defining the coastline
+#' @param input_path_static_strat_areas Character string. Path to file defining NEFSC trawl survey strata
 #'
 #' @examples
 #' \dontrun{
 #' # create the ecodata::species_dist indicator
-#' create_species_dist(inputPathSurvey = here::here("surveyNoLengths.rds"),
-#'  inputPathSpecies = "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds",
-#'  static_depth =  "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc",
-#'  static_diagonal = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/diag.csv",
-#'  static_coast_coord = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv",
-#'  static_strat_areas = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds")
+#' create_species_dist(input_path_survey = here::here("surveyNoLengths.rds"),
+#'  input_path_species = "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds",
+#'  input_path_static_depth =  "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc",
+#'  input_path_static_diagonal = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/diag.csv",
+#'  input_path_static_coast_coord = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv",
+#'  input_path_static_strat_areas = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds")
 #'
 #' }
 #'
@@ -27,23 +27,23 @@
 #' @export
 
 create_species_dist <- function(
-  inputPathSurvey,
-  inputPathSpecies,
-  static_depth,
-  static_diagonal,
-  static_coast_coord,
-  static_strat_areas
+  input_path_survey,
+  input_path_species,
+  input_path_static_depth,
+  input_path_static_diagonal,
+  input_path_static_coast_coord,
+  input_path_static_strat_areas
 ) {
   end.year <- format(Sys.Date(), "%Y")
 
   # Check if the input files exist ---------------------------
   required_files <- list(
-    survey = inputPathSurvey,
-    species = inputPathSpecies,
-    depth = static_depth,
-    diagonal = static_diagonal,
-    coast_coord = static_coast_coord,
-    strat_areas = static_strat_areas
+    survey = input_path_survey,
+    species = input_path_species,
+    depth = input_path_static_depth,
+    diagonal = input_path_static_diagonal,
+    coast_coord = input_path_static_coast_coord,
+    strat_areas = input_path_static_strat_areas
   )
 
   missing_files <- names(required_files)[!file.exists(unlist(required_files))]
@@ -56,7 +56,7 @@ create_species_dist <- function(
 
   # read survey data -------------------------------------------
   # and check to make sure data is in the right format
-  survey <- readRDS((inputPathSurvey))
+  survey <- readRDS((input_path_survey))
   if (!is.data.frame(survey$survdat)) {
     stop("Input data is not a data frame")
   }
@@ -66,7 +66,7 @@ create_species_dist <- function(
     data.table::as.data.table()
 
   # read species list -------------
-  species <- readRDS(inputPathSpecies) |>
+  species <- readRDS(input_path_species) |>
     dplyr::as_tibble() |>
     data.table::as.data.table()
 
@@ -76,7 +76,7 @@ create_species_dist <- function(
 
   # set numsps -----------------------------
 
-  numsps = nrow(species)
+  numsps <- nrow(species)
 
   # select the 48 best model distribution species --------------------
 
@@ -132,20 +132,20 @@ create_species_dist <- function(
   )
 
   # raster depth grid ------------------------------------------------
-  gdepth <- raster::raster(static_depth, band = 1)
+  gdepth <- raster::raster(input_path_static_depth, band = 1)
 
   # read coordinates for along shelf diagonal -----------------
-  diag <- read.csv(static_diagonal)
+  diag <- read.csv(input_path_static_diagonal)
 
   # read coordinate for coast --------------------
-  nescoast2 <- read.csv(static_coast_coord)
+  nescoast2 <- read.csv(input_path_static_coast_coord)
 
   # constants ------------------------------------------------------------
-  radt = pi / 180
+  radt <- pi / 180
   R <- 6371 # Earth mean radius [km]
 
   # load stratareas ---------------------------------------------------
-  stratareas <- readRDS(static_strat_areas)
+  stratareas <- readRDS(input_path_static_strat_areas)
 
   # tidy data ---------------------------------------------------
   # trim the data, filter for chosen season
@@ -235,14 +235,14 @@ create_species_dist <- function(
   # plot(survdat$LON[survdat_spring$YEAR==1974],survdat$LAT[survdat_spring$YEAR==1974])
 
   # number of records to evaluate -----------------------------------
-  numrecs = nrow(survdat_spring)
+  numrecs <- nrow(survdat_spring)
 
   # distance to coast using geosphere -----------------------------------
 
   ####  Geosphere package to calc distance to coastline from pts (lon,lat), returns meters
-  dd = array(data = NA, dim = nrow(survdat_spring))
-  pts = data.frame(survdat_spring$LON, survdat_spring$LAT)
-  line_nescoast2 = t(rbind(nescoast2$LON, nescoast2$LAT))
+  dd <- array(data = NA, dim = nrow(survdat_spring))
+  pts <- data.frame(survdat_spring$LON, survdat_spring$LAT)
+  line_nescoast2 <- t(rbind(nescoast2$LON, nescoast2$LAT))
 
   dd <- as.data.frame(geosphere::dist2Line(pts[,], line_nescoast2))
   survdat_spring$GDTOC <- dd$distance / 1000 # convert meters to KM
@@ -250,27 +250,27 @@ create_species_dist <- function(
   # diag distance using geosphere -------------------------------------------
 
   # Find distance to diagonal line (diag), use coordinates of nearest point to find distance to NC outerbanks (min(diag))
-  dd2 = array(data = NA, dim = nrow(survdat_spring))
-  dd2 = as.data.frame(geosphere::dist2Line(
+  dd2 <- array(data = NA, dim = nrow(survdat_spring))
+  dd2 <- as.data.frame(geosphere::dist2Line(
     pts[,],
     diag,
     distfun = geosphere::distHaversine
   ))
   #Distance of closest point to data along diag line to NC coast
-  p1 = diag[1, ] #start of line
-  p3 = diag[150, ] #end of line
-  p2 = data.frame(dd2[, 2], dd2[, 3])
-  distNC = geosphere::distCosine(p1, p2, r = 6378137) / 1000 # convert to KM (Great circle distance)
-  survdat_spring$GASDIST = distNC
+  p1 <- diag[1, ] #start of line
+  p3 <- diag[150, ] #end of line
+  p2 <- data.frame(dd2[, 2], dd2[, 3])
+  distNC <- geosphere::distCosine(p1, p2, r = 6378137) / 1000 # convert to KM (Great circle distance)
+  survdat_spring$GASDIST <- distNC
 
   # fill in missing depths -------------------------------------------
 
   # find cases with missing depth data
-  missingdepth = which(is.na(survdat_spring$DEPTH))
+  missingdepth <- which(is.na(survdat_spring$DEPTH))
 
   # fill only those records in misdepth with depth from grid
   for (k in missingdepth) {
-    survdat_spring$DEPTH[k] = raster::extract(
+    survdat_spring$DEPTH[k] <- raster::extract(
       gdepth,
       cbind(survdat_spring$LON[k], survdat_spring$LAT[k])
     ) *

@@ -1,8 +1,8 @@
 #' Creates aggregate_biomass indicator for SOE
 #'
-#' @param inputPathSurvey Character string. Full path to the survdat data pull rds file
-#' @param inputPathSpecies Character string. Full path to the species list data pull rds file
-#' @param outputPath Character string. Path to folder where data pull should be saved
+#' @param input_path_survey Character string. Full path to the survdat data pull rds file
+#' @param input_path_species Character string. Full path to the species list data pull rds file
+#' @param output_path_indicators Character string. Path to folder where data pull should be saved
 #'
 #' @return List
 #'
@@ -12,34 +12,34 @@
 #'
 #' @section Dependencies:
 #'
-#' This assumes that the survey data has been pulled and resides in the path `inputPathSurvey` and that
-#' the species data resides in `inputPathSpecies`
+#' This assumes that the survey data has been pulled and resides in the path `input_path_survey` and that
+#' the species data resides in `input_path_species`
 #'
 #' @examples
 #' \dontrun{
-#'   outputPath <- here::here()
-#'   inputPathSurvey <- here::here("surveyNoLengths.rds")
-#'   inputPathSpecies <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds"
-#'   workflow_aggregate_biomass(outputPath,inputPathSurvey,inputPathSpecies)
+#'   output_path_indicators <- here::here()
+#'   input_path_survey <- here::here("surveyNoLengths.rds")
+#'   input_path_species <- "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds"
+#'   workflow_aggregate_biomass(output_path_indicators,input_path_survey,input_path_species)
 #' }
 #'
 
 workflow_aggregate_biomass <- function(
-  outputPath,
-  inputPathSurvey,
-  inputPathSpecies
+  input_path_survey,
+  input_path_species,
+  output_path_indicators
 ) {
-  # Assumes that survey data has been pulled and is located in inputPathSurvey
-  #get_survey_data(channel,outputPath = outputPath)
+  # Assumes that survey data has been pulled and is located in input_path_survey
+  #get_survey_data(channel,output_path_indicators = output_path_indicators)
 
   # Add check to skip running workflow if data not present or error in creating indicator
   tryCatch(
     {
       if (
         !all(
-          !is.null(outputPath),
-          file.exists(inputPathSurvey),
-          file.exists(inputPathSpecies)
+          !is.null(output_path_indicators),
+          file.exists(input_path_survey),
+          file.exists(input_path_species)
         )
       ) {
         stop("Incorrect file path or file missing")
@@ -47,18 +47,18 @@ workflow_aggregate_biomass <- function(
 
       # calculate indicator
       indicatorData <- SOEworkflows::create_aggregate_biomass(
-        inputPathSurvey = inputPathSurvey,
-        inputPathSpecies = inputPathSpecies
+        input_path_survey = input_path_survey,
+        input_path_species = input_path_species
       )
 
       # Write data to file
       saveRDS(
         indicatorData$aggregate_biomass,
-        paste0(outputPath, "/aggregate_biomass.rds")
+        paste0(output_path_indicators, "/aggregate_biomass.rds")
       )
       saveRDS(
         indicatorData$aggregate_biomass_species,
-        paste0(outputPath, "/aggregate_biomass_species.rds")
+        paste0(output_path_indicators, "/aggregate_biomass_species.rds")
       )
       return(indicatorData)
     },
