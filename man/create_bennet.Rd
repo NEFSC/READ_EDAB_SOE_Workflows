@@ -4,12 +4,12 @@
 \alias{create_bennet}
 \title{create the bennet indicator}
 \usage{
-create_bennet(inputPathBennet, inputPathSpecies)
+create_bennet(input_path_bennet, input_path_species)
 }
 \arguments{
-\item{inputPathBennet}{Character string. Full path to the comland data pull rds file}
+\item{input_path_bennet}{Character string. Full path to the comland data pull rds file}
 
-\item{inputPathSpecies}{Character string. Full path to the species list data pull rds file}
+\item{input_path_species}{Character string. Full path to the species list data pull rds file}
 }
 \value{
 ecodata::bennet data frame
