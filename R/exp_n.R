@@ -113,8 +113,8 @@ create_exp_n <- function(input_path_albatross, input_path_bigelow) {
     dsn = system.file("extdata", "EPU.shp", package = "survdat"),
     quiet = T
   )
-  ESn.al.sta <- survdat:::post_strat(al.station, EPU, "EPU")
-  ESn.big.sta <- survdat:::post_strat(big.station, EPU, "EPU")
+  ESn.al.sta <- survdat::post_strat(al.station, EPU, "EPU")
+  ESn.big.sta <- survdat::post_strat(big.station, EPU, "EPU")
 
   #calculate the mean ESn
   data.table::setkey(ESn.al.sta, YEAR, SEASON, EPU)
