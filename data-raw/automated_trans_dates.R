@@ -1,8 +1,8 @@
 #Command Line Local
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i89-format-exp_n/data-raw/automated_trans_dates.R "//nefscdata/EDAB_Dev/atyrell" "//nefscdata/EDAB_Dev/atyrell"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i93-format-oisst-automation/data-raw/automated_trans_dates.R "//nefscdata/EDAB_Dev/atyrell" "//nefscdata/EDAB_Dev/atyrell"
 
 # Command Line Cloud
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i89-format-exp_n/data-raw/automated_trans_dates.R "~/EDAB_Dev/atyrell" "~/EDAB_Dev/atyrell"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i93-format-oisst-automation/data-raw/automated_trans_dates.R "~/EDAB_Dev/atyrell" "~/EDAB_Dev/atyrell"
 
 #Gets arguments from command line
 args = commandArgs(trailingOnly = TRUE)
@@ -12,9 +12,11 @@ if (length(args) > 0) {
   output_folder = args[2]
   print('Using command line arguments')
 } else {
+  # file path to use in local R
   input_folder = '//nefscdata/EDAB_Dev/atyrell'
   output_folder = '//nefscdata/EDAB_Dev/atyrell'
 
+  # file path to use from container
   input_folder = '~/EDAB_Dev/atyrell'
   output_folder = '~/EDAB_Dev/atyrell'
 
