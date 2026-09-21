@@ -28,7 +28,7 @@ workflow_pull_recreational_data <- function(output_path_indicators = NULL) {
         rec_hms_data,
         paste0(output_path_indicators, "/hms_mrip_", Sys.Date(), ".rds")
       )
-      return(rc_hms_data)
+      return(rec_hms_data)
     },
     error = function(e) {
       message("An error occurred: ", conditionMessage(e))

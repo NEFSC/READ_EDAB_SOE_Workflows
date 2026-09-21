@@ -117,7 +117,7 @@ create_survey_shannon <- function(input_path_albatross, input_path_bigelow) {
     dsn = system.file("extdata", "EPU.shp", package = "survdat"),
     quiet = T
   )
-  stations.epu <- survdat:::post_strat(stations, EPU, "EPU")
+  stations.epu <- survdat::post_strat(stations, EPU, "EPU")
 
   #Calculate mean shannon index
   shannon.mean <- stations.epu[, mean(Shannon), by = c('YEAR', 'SEASON', 'EPU')]
