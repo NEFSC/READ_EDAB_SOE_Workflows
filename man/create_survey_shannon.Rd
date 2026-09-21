@@ -4,12 +4,12 @@
 \alias{create_survey_shannon}
 \title{Calculates survey_shannon diversity index for automated workflow}
 \usage{
-create_survey_shannon(inputPathAlbatross, inputPathBigelow)
+create_survey_shannon(input_path_albatross, input_path_bigelow)
 }
 \arguments{
-\item{inputPathAlbatross}{Character string. Full path to the Albatross data pull rds file}
+\item{input_path_albatross}{Character string. Full path to the Albatross data pull rds file}
 
-\item{inputPathBigelow}{Character string. Full path to the Bigelow data pull rds file}
+\item{input_path_bigelow}{Character string. Full path to the Bigelow data pull rds file}
 }
 \value{
 ecodata::survey_shannon data frame
@@ -23,8 +23,8 @@ Then takes the mean of the shannon indices for each year
 \examples{
 \dontrun{
 # create the ecodata::survey_shannon indicator
-create_aggregate_biomass(inputPathAlbatros = "path/to/albatross.rds",
-                         inputPathBigelow = "path/to/bigelow.rds")
+create_aggregate_biomass(input_path_albatros = "path/to/albatross.rds",
+                         input_path_bigelow = "path/to/bigelow.rds")
 
 }
 

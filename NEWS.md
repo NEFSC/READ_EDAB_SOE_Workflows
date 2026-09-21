@@ -1,3 +1,9 @@
+# SOEworkflows 1.0.0
+
+* All function arguments changed to snake_case from camelCase
+* All output files are snake_case
+* Function argument order aligned across functions
+
 # SOEworkflows 0.2.0
 
 ### Minor changes

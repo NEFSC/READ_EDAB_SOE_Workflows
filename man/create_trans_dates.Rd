@@ -4,10 +4,10 @@
 \alias{create_trans_dates}
 \title{Calculates trans_dates data set for automated workflow}
 \usage{
-create_trans_dates(inputPath)
+create_trans_dates(input_path_sst)
 }
 \arguments{
-\item{inputPath}{Character string. Full path to the input data file}
+\item{input_path_sst}{Character string. Full path to the input data file}
 }
 \value{
 ecodata::trans_dates data frame
@@ -19,7 +19,7 @@ It is formatted exactly like the ecodata data object
 \examples{
 \dontrun{
 # create the ecodata::trans_dates indicator for 2025
-create_trans_dates(inputPath = "path/to/inputData.csv")
+create_trans_dates(input_path_sst = "path/to/inputData.csv")
 
 }
 

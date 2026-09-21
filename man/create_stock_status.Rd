@@ -4,12 +4,10 @@
 \alias{create_stock_status}
 \title{Creates the stock status data frame for the SOE}
 \usage{
-create_stock_status(data, decode)
+create_stock_status(input_path_decoder)
 }
 \arguments{
-\item{data}{the stock status data frame, typically from \code{stocksmart::stockAssessmentSummary}}
-
-\item{decode}{a data frame that matches the stock names with a code abbreviation to use in plotting, typically read from a CSV file. If set to \code{FALSE}, the function will return a data frame in a less processed form, like Sarah used to provide in the \code{assess.csv} file.}
+\item{input_path_decoder}{a data frame that matches the stock names with a code abbreviation to use in plotting, typically read from a CSV file. If set to \code{FALSE}, the function will return a data frame in a less processed form, like Sarah used to provide in the \code{assess.csv} file.}
 }
 \value{
 a tibble

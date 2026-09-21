@@ -5,26 +5,26 @@
 \title{Species distribution on the NES.}
 \usage{
 create_species_dist(
-  inputPathSurvey,
-  inputPathSpecies,
-  static_depth,
-  static_diagonal,
-  static_coast_coord,
-  static_strat_areas
+  input_path_survey,
+  input_path_species,
+  input_path_static_depth,
+  input_path_static_diagonal,
+  input_path_static_coast_coord,
+  input_path_static_strat_areas
 )
 }
 \arguments{
-\item{inputPathSurvey}{Character string. Full path to the survdat data pull rds file}
+\item{input_path_survey}{Character string. Full path to the survdat data pull rds file}
 
-\item{inputPathSpecies}{Character string. Full path to the species list data pull rds file}
+\item{input_path_species}{Character string. Full path to the species list data pull rds file}
 
-\item{static_depth}{Character string. Path to file with depth data for NE shelf}
+\item{input_path_static_depth}{Character string. Path to file with depth data for NE shelf}
 
-\item{static_diagonal}{Character string. Path to file with along shelf diagonal data}
+\item{input_path_static_diagonal}{Character string. Path to file with along shelf diagonal data}
 
-\item{static_coast_coord}{Character string. Path to file with lat lon coordinates defining the coastline}
+\item{input_path_static_coast_coord}{Character string. Path to file with lat lon coordinates defining the coastline}
 
-\item{static_strat_areas}{Character string. Path to file defining NEFSC trawl survey strata}
+\item{input_path_static_strat_areas}{Character string. Path to file defining NEFSC trawl survey strata}
 }
 \value{
 ecodata::species_dist data frame
@@ -35,12 +35,12 @@ Data include time series of depth, distance from shelf and distance along shelf.
 \examples{
 \dontrun{
 # create the ecodata::species_dist indicator
-create_species_dist(inputPathSurvey = here::here("surveyNoLengths.rds"),
- inputPathSpecies = "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds",
- static_depth =  "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc",
- static_diagonal = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/diag.csv",
- static_coast_coord = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv",
- static_strat_areas = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds")
+create_species_dist(input_path_survey = here::here("surveyNoLengths.rds"),
+ input_path_species = "/home/<user>/EDAB_Datasets/SOE_species_list_24.rds",
+ input_path_static_depth =  "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc",
+ input_path_static_diagonal = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/diag.csv",
+ input_path_static_coast_coord = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv",
+ input_path_static_strat_areas = "/home/<user>/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds")
 
 }
 

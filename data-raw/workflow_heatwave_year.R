@@ -10,24 +10,24 @@
 #' new OISST input when available.
 #' It is formatted exactly like the ecodata data object
 #'
-#' @param inputPathGBBot Character string. Full path to the GB GLORYS input file from Joe Caracappa
-#' @param inputPathGOMBot Character string. Full path to the GOM GLORYS input file from Joe Caracappa
-#' @param inputPathMABBot Character string. Full path to the MAB GLORYS input file from Joe Caracappa
-#' @param inputPathGBSurf Character string. Full path to the GB OISST input file from Kim Hyde
-#' @param inputPathGOMSurf Character string. Full path to the GOM OISST input file from Kim Hyde
-#' @param inputPathMABSurf Character string. Full path to the MAB OISST input file from Kim Hyde
-#' @param outputPath Character string. Path to folder where data pull should be saved
+#' @param input_path_gb_bot Character string. Full path to the GB GLORYS input file from Joe Caracappa
+#' @param input_path_gom_bot Character string. Full path to the GOM GLORYS input file from Joe Caracappa
+#' @param input_path_mab_bot Character string. Full path to the MAB GLORYS input file from Joe Caracappa
+#' @param input_path_gb_surf Character string. Full path to the GB OISST input file from Kim Hyde
+#' @param input_path_gom_surf Character string. Full path to the GOM OISST input file from Kim Hyde
+#' @param input_path_mab_surf Character string. Full path to the MAB OISST input file from Kim Hyde
+#' @param output_path_indicators Character string. Path to folder where data pull should be saved
 #'
 #' @example
 #' \dontrun{
 #' # create the ecodata::heatwave dataset
-#' workflow_heatwave_year(inputPathGBBot = "path/to/input/GBdata.csv",
-#'                          inputPathGOMBot = "path/to/input/GOMdata.csv",
-#'                          inputPathMABBot = "path/to/input/MABdata.csv",
-#'                          inputPathGBSurf = "path/to/input/GBdata.csv",
-#'                          inputPathGOMSurf = "path/to/input/GOMdata.csv",
-#'                          inputPathMABSurf = "path/to/input/MABdata.csv",
-#'                          outputPath = "path/to/output/folder")
+#' workflow_heatwave_year(input_path_gb_bot = "path/to/input/GBdata.csv",
+#'                          input_path_gom_bot = "path/to/input/GOMdata.csv",
+#'                          input_path_mab_bot = "path/to/input/MABdata.csv",
+#'                          input_path_gb_surf = "path/to/input/GBdata.csv",
+#'                          input_path_gom_surf = "path/to/input/GOMdata.csv",
+#'                          input_path_mab_surf = "path/to/input/MABdata.csv",
+#'                          output_path_indicators = "path/to/output/folder")
 #'
 #' }
 #'
@@ -41,13 +41,13 @@
 #' @export
 
 workflow_heatwave_year <- function(
-  inputPathGBBot,
-  inputPathGOMBot,
-  inputPathMABBot,
-  inputPathGBSurf,
-  inputPathGOMSurf,
-  inputPathMABSurf,
-  outputPath = NULL
+  input_path_gb_bot,
+  input_path_gom_bot,
+  input_path_mab_bot,
+  input_path_gb_surf,
+  input_path_gom_surf,
+  input_path_mab_surf,
+  output_path_indicators = NULL
 ) {
   # Assumes that input data has been provided
 
@@ -56,13 +56,13 @@ workflow_heatwave_year <- function(
     {
       if (
         !all(
-          !is.null(outputPath),
-          file.exists(inputPathGBSurf),
-          file.exists(inputPathGOMSurf),
-          file.exists(inputPathMABSurf),
-          file.exists(inputPathGBBot),
-          file.exists(inputPathGOMBot),
-          file.exists(inputPathMABBot)
+          !is.null(output_path_indicators),
+          file.exists(input_path_gb_surf),
+          file.exists(input_path_gom_surf),
+          file.exists(input_path_mab_surf),
+          file.exists(input_path_gb_bot),
+          file.exists(input_path_gom_bot),
+          file.exists(input_path_mab_bot)
         )
       ) {
         stop("Incorrect file path or file missing")
@@ -70,15 +70,18 @@ workflow_heatwave_year <- function(
 
       # calculate indicator
       indicatorData <- SOEworkflows::create_heatwave_year(
-        inputPathGBBot = inputPathGBBot,
-        inputPathGOMBot = inputPathGOMBot,
-        inputPathMABBot = inputPathMABBot,
-        inputPathGBSurf = inputPathGBSurf,
-        inputPathGOMSurf = inputPathGOMSurf,
-        inputPathMABSurf = inputPathMABSurf
+        input_path_gb_bot = input_path_gb_bot,
+        input_path_gom_bot = input_path_gom_bot,
+        input_path_mab_bot = input_path_mab_bot,
+        input_path_gb_surf = input_path_gb_surf,
+        input_path_gom_surf = input_path_gom_surf,
+        input_path_mab_surf = input_path_mab_surf
       )
       # write data to file
-      saveRDS(indicatorData, paste0(outputPath, "/heatwave_year.rds"))
+      saveRDS(
+        indicatorData,
+        paste0(output_path_indicators, "/heatwave_year.rds")
+      )
       return(indicatorData)
     },
     error = function(e) {

@@ -8,7 +8,7 @@
 #' @param input_survey_bio Character string. Full path to the survey data with bio rds file
 #' @param input_survey_bio_epu File path to survey data with bio data and epu (.rds format)
 #' @param input_static_lw_table File path to length weight table from Miller 2013 (.rda format)
-#' @param inputPathSpecies File path to species lookup table (.rds format)
+#' @param input_path_species File path to species lookup table (.rds format)
 #' @param input_static_length_convert File path to length conversion table (.rda format)
 #' @param species2include Character vector of species to include (default: commonly surveyed species)
 #'
@@ -21,7 +21,7 @@
 #'   input_survey_bio_epu = "survey_bio_epu.rds",
 #'   input_static_lw_table = "lw_table.rda",
 #'   input_static_length_convert = "df_lconv.rda",
-#'   inputPathSpecies = "species_lookup.rds"
+#'   input_path_species = "species_lookup.rds"
 #' )
 #' }
 #'
@@ -31,7 +31,7 @@ create_productivity_anomaly <- function(
   input_survey_bio,
   input_survey_bio_epu,
   input_static_lw_table,
-  inputPathSpecies,
+  input_path_species,
   input_static_length_convert,
   species2include = c(
     "SPINY DOGFISH",
@@ -79,7 +79,7 @@ create_productivity_anomaly <- function(
 
   # species lookup
   message("Filtering for focal species")
-  species2out <- readRDS(inputPathSpecies) |>
+  species2out <- readRDS(input_path_species) |>
     dplyr::select(COMNAME, SCINAME) |>
     dplyr::mutate(
       SCINAME = trimws(as.character(SCINAME)),
@@ -148,7 +148,7 @@ create_productivity_anomaly <- function(
     # not recorded.
     dplyr::mutate(SEX = ifelse(is.na(SEX), 0, SEX))
 
-  species <- readRDS(inputPathSpecies) |>
+  species <- readRDS(input_path_species) |>
     dplyr::filter(!is.na(SVSPP)) |>
     dplyr::mutate(COMNAME = as.factor(COMNAME))
 
@@ -270,7 +270,7 @@ create_productivity_anomaly <- function(
 
   # setting length cutoff for species without length_at_age1
   # value taken from 2-load.R from trawlr repo
-  len_cutoff = 0.2
+  len_cutoff <- 0.2
 
   dat_spec_rec_epu <- survdat1 |>
     dplyr::left_join(dat_tows_epu, by = c("CRUISE6", "YEAR", "SEASON")) |>

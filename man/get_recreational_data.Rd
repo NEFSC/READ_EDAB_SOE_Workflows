@@ -4,10 +4,10 @@
 \alias{get_recreational_data}
 \title{Pulls recreational HMS data from MRIP}
 \usage{
-get_recreational_data(outputPath)
+get_recreational_data(output_path_indicators)
 }
 \arguments{
-\item{outputPath}{Character string. Full path the directory in which to store files.}
+\item{output_path_indicators}{Character string. Full path the directory in which to store files.}
 }
 \value{
 new.hms, a data frame with landings data from MRIP
@@ -19,7 +19,7 @@ The function then combines all individual output files and saves as 'hms_mrip_' 
 }
 \examples{
 \dontrun{
-get_recreational_data(outputPath = "path/to/output/directory/hms_mrip_date.csv")
+get_recreational_data(output_path_indicators = "path/to/output/directory/hms_mrip_date.csv")
 
 }
 

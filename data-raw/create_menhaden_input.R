@@ -153,7 +153,7 @@ MAbait <- data.frame(
   ) #2024
 )
 
-MAbait$MAtons = MAbait$lbs * lbstotons
+MAbait$MAtons <- MAbait$lbs * lbstotons
 
 
 # ME source: New for 2024: https://www.maine.gov/dmr/sites/maine.gov.dmr/files/inline-files/menhaden.table__0.pdf
@@ -178,7 +178,7 @@ datME <- rows[c(2:76)]
 year <- c()
 tons <- c()
 for (i in 1:length(datME)) {
-  row = unlist(strsplit(datME[i], " \\s+ "))
+  row <- unlist(strsplit(datME[i], " \\s+ "))
   if (!is.na(row[3])) {
     year <- c(year, as.numeric((gsub("\\*", "", row[1]))))
     tons <- c(tons, as.numeric((gsub(",", "", row[3]))))
@@ -202,7 +202,7 @@ MEbait20202024 <- data.frame(
   ) #2024 prelim
 )
 
-MEbait20202024$MEtons = MEbait20202024$lbs * lbstotons
+MEbait20202024$MEtons <- MEbait20202024$lbs * lbstotons
 
 #MEtot <- data.frame(year = year,
 #                    MEtons = tons)

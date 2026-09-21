@@ -11,14 +11,14 @@ user <- mgrezlik
 ## set paths for data inputs generated in workflow ------------
 input_survey_bio_epu <- "~/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds"
 input_survey_bio <- "~/EDAB_Datasets/Workflows/surveyBiologicalData.rds"
-inputPathSpecies <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
-outputPath <- "/home/mgrezlik/EDAB_Dev/grezlik"
+input_path_species <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
+output_path_indicators <- "/home/mgrezlik/EDAB_Dev/grezlik"
 
 
 ## run workflow ------------------
 test_productivity_anomaly <- workflow_productivity_anomaly(
   input_survey_bio_epu = input_survey_bio_epu,
-  inputPathSpecies = inputPathSpecies
+  input_path_species = input_path_species
 )
 
 
@@ -102,25 +102,25 @@ tibble(
 
 
 # file paths used in all indicators I have worked on ---------------
-outputPathDataSets <- "/home/mgrezlik/EDAB_Dev/grezlik"
-outputPath <- "/home/mgrezlik/EDAB_Dev/grezlik"
+output_path_datasets <- "/home/mgrezlik/EDAB_Dev/grezlik"
+output_path_indicators <- "/home/mgrezlik/EDAB_Dev/grezlik"
 input_path_commercial_comdat <- "/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds"
-inputPathSurvey <- "/home/mgrezlik/EDAB_Datasets/Workflows/surveyNoLengthsData.rds"
-inputPathSpecies <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
+input_path_survey <- "/home/mgrezlik/EDAB_Datasets/Workflows/surveyNoLengthsData.rds"
+input_path_species <- "/home/mgrezlik/EDAB_Datasets/Workflows/SOE_species_list_24.rds"
 # ditching camel case moving forward
 input_path_species <- "/home/mgrezlik/EDAB_Datasets/SOE_species_list_24.rds"
-inputPathAlbatross <- "/home/mgrezlik/EDAB_Dev/beet/albatrossData.rds"
-inputPathBigelow <- "/home/mgrezlik/EDAB_Dev/beet/bigelowData.rds"
-static_depth <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc"
-static_diagonal <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/diag.csv"
-static_coast_coord <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"
-static_strat_areas <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds"
-menhaden_path <- "/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds"
-comdat_path <- '/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds'
+input_path_albatross <- "/home/mgrezlik/EDAB_Dev/beet/albatrossData.rds"
+input_path_bigelow <- "/home/mgrezlik/EDAB_Dev/beet/bigelowData.rds"
+input_path_static_depth <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc"
+input_path_static_diagonal <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/diag.csv"
+input_path_static_coast_coord <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"
+input_path_static_strat_areas <- "/home/mgrezlik/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds"
+input_path_menhaden <- "/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds"
+input_path_comdat <- '/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds'
 comland_old_path <- '/home/mgrezlik/EDAB_Dev/beet/comlandr_old.rds'
 old_menh_path24 <- '/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF2024.rds'
 old_menh_path <- '/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds'
-old_comdat_path <- '/home/mgrezlik/EDAB_Dev/grezlik/Commercial_data_pull_25.RData'
+old_input_path_comdat <- '/home/mgrezlik/EDAB_Dev/grezlik/Commercial_data_pull_25.RData'
 input_survey_bio_epu <- "~/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds"
 input_survey_bio <- 'home/mgrezlik/EDAB_Datasets/Workflows/surveyBiologicalByEPUData.rds'
 prod_anom_sarah <- "~/EDAB_Dev/grezlik/AssessFishProdAnomaly - Sarah Gaichas - NOAA Federal.rds"
@@ -147,16 +147,16 @@ source(here::here('data-raw/workflow_comdat.R'))
 
 # channel <- dbutils::connect_to_database("NEFSC_USERS","mgrezlik")
 
-# rawData <- SOEworkflows::get_survey_data(channel,outputPathDataSets)
+# rawData <- SOEworkflows::get_survey_data(channel,output_path_datasets)
 
 indD <- workflow_species_dist(
-  inputPathSurvey = inputPathSurvey,
-  inputPathSpecies = inputPathSpecies,
-  static_depth = static_depth,
-  static_diagonal = static_diagonal,
-  static_coast_coord = static_coast_coord,
-  static_strat_areas = static_strat_areas,
-  outputPath = outputPathDataSets
+  input_path_survey = input_path_survey,
+  input_path_species = input_path_species,
+  input_path_static_depth = input_path_static_depth,
+  input_path_static_diagonal = input_path_static_diagonal,
+  input_path_static_coast_coord = input_path_static_coast_coord,
+  input_path_static_strat_areas = input_path_static_strat_areas,
+  output_path_indicators = output_path_datasets
 )
 
 
@@ -183,21 +183,21 @@ indD <- workflow_species_dist(
 
 # calculate the comdat index ----------------
 indicator_comdat <- workflow_comdat(
-  comdat_path = comdat_path,
+  input_path_comdat = input_path_comdat,
   input_path_species = input_path_species,
-  menhaden_path = menhaden_path,
-  outputPathDataSets = outputPathDataSets
+  input_path_menhaden = input_path_menhaden,
+  output_path_datasets = output_path_datasets
 )
 
 
 # # testing comdat ---------------------
 #
 # commercial_summary <- create_comdat(
-#   comdat_path <- '/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds',
+#   input_path_comdat <- '/home/mgrezlik/EDAB_Dev/beet/commercial_comdat.rds',
 #   report_year = 2025,
 #   end_year = 2024,
 #   input_path_species <- "/home/mgrezlik/EDAB_Datasets/SOE_species_list_24.rds",
-#   menhaden_path <- "/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds"
+#   input_path_menhaden <- "/home/mgrezlik/EDAB_Dev/grezlik/menhadenEOF.rds"
 # )
 #
 # comdat <- get_comdat(
@@ -206,9 +206,9 @@ indicator_comdat <- workflow_comdat(
 # )
 #
 ## comparing my comdat outputs to old comdat ---------------
-# max_comdat_path <-  '/home/mgrezlik/EDAB_Dev/grezlik/comdat.rds'
+# max_input_path_comdat <-  '/home/mgrezlik/EDAB_Dev/grezlik/comdat.rds'
 #
-# comdat_max <- readRDS(max_comdat_path) |>
+# comdat_max <- readRDS(max_input_path_comdat) |>
 #                 dplyr::mutate(source = 'max')
 comdat_max <- indicator_comdat |>
   dplyr::mutate(source = 'max')
@@ -253,9 +253,9 @@ vars_in_both <- intersect(unique_vars_ecodata, unique_vars_max)
 # Print the result
 print(vars_only_in_max)
 
-# saveRDS(unique_vars_max, file = file.path(outputPath, "unique_vars_max.rds"))
-# saveRDS(unique_vars_ecodata, file = file.path(outputPath, "unique_vars_ecodata.rds"))
-# saveRDS(vars_only_in_max, file = file.path(outputPath, "vars_only_in_max.rds"))
+# saveRDS(unique_vars_max, file = file.path(output_path_indicators, "unique_vars_max.rds"))
+# saveRDS(unique_vars_ecodata, file = file.path(output_path_indicators, "unique_vars_ecodata.rds"))
+# saveRDS(vars_only_in_max, file = file.path(output_path_indicators, "vars_only_in_max.rds"))
 
 #
 # comparison plots using ecodata::plot_comdat() as a template ---------------

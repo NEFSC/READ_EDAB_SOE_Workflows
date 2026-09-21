@@ -4,12 +4,12 @@
 \alias{create_aggregate_biomass}
 \title{Calculates aggregate_biomass data set for automated workflow}
 \usage{
-create_aggregate_biomass(inputPathSurvey, inputPathSpecies)
+create_aggregate_biomass(input_path_survey, input_path_species)
 }
 \arguments{
-\item{inputPathSurvey}{Character string. Full path to the survdat data pull rds file}
+\item{input_path_survey}{Character string. Full path to the survdat data pull rds file}
 
-\item{inputPathSpecies}{Character string. Full path to the species list data pull rds file}
+\item{input_path_species}{Character string. Full path to the species list data pull rds file}
 }
 \value{
 list
@@ -23,8 +23,8 @@ and shelfwide indicators. It is formatted exactly like the ecodata data object
 \examples{
 \dontrun{
 # create the ecodata::aggregate_biomass indicator
-create_aggregate_biomass(inputPathSurvey = "path/to/survdatData.rds",
-                         inputPathSpecies = "path/to/species.rds")
+create_aggregate_biomass(input_path_survey = "path/to/survdatData.rds",
+                         input_path_species = "path/to/species.rds")
 
 }
 

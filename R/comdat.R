@@ -3,10 +3,9 @@
 #' Processes and combines commercial landings and Menhaden data to produce a
 #' summary of landings and revenue metrics for the State of the Ecosystem report.
 #'
-#' @param comdat_path Character string. Path to commercial_comdat.rds
+#' @param input_path_comdat Character string. Path to commercial_comdat.rds
 #' @param input_path_species Character string. Path to the 'SOE_species_list_24.RData' file.
-#' @param menhaden_path Character string. Path to the menhaden data output by data-raw/create_menhaden_input.R
-#' @param outputPathDataSets Character string. Path to folder where data pull should be saved
+#' @param input_path_menhaden Character string. Path to the menhaden data output by data-raw/create_menhaden_input.R
 #'
 #' @return list
 #' \item{comdat}{`ecodata::comdat` data frame}
@@ -23,16 +22,15 @@
 #'
 
 create_comdat <- function(
-  comdat_path,
+  input_path_comdat,
   input_path_species,
-  menhaden_path,
-  outputPathDataSets
+  input_path_menhaden
 ) {
   # Check if the input files exist ---------------------------
   if (
-    !(file.exists(comdat_path) &&
+    !(file.exists(input_path_comdat) &&
       file.exists(input_path_species) &&
-      file.exists(menhaden_path))
+      file.exists(input_path_menhaden))
   ) {
     stop(
       "One or more of the input files are not present in the location specified"
@@ -40,13 +38,13 @@ create_comdat <- function(
   }
 
   # 2. Load and Process All Data Sources ----
-  comland_list <- readRDS(comdat_path)
+  comland_list <- readRDS(input_path_comdat)
   # Remove menhaden(221) and esastern oyster(789)
   comland_raw <- comland_list$comland |>
     tibble::as_tibble() |>
     dplyr::filter(NESPP3 != 221, NESPP3 != 789)
 
-  menhaden_data <- readRDS(here::here(menhaden_path)) |>
+  menhaden_data <- readRDS(here::here(input_path_menhaden)) |>
     tibble::as_tibble() |>
     tidyr::pivot_longer(
       cols = c(MABcatch, GOMcatch),

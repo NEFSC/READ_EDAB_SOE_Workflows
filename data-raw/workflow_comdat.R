@@ -2,10 +2,10 @@
 #'
 #' This uses the commercial data pull from the comlandr package.
 #'
-#' @param comdat_path Character string. Full path to the commercial data rds file for comdat indicator
+#' @param input_path_comdat Character string. Full path to the commercial data rds file for comdat indicator
 #' @param input_path_species Character string. Full path to the species list data pull rds file
-#' @param outputPath Character string. Path to folder where data pull should be saved
-#' @param menhaden_path Character string. Full path to the menhaden data .rds file
+#' @param output_path_indicators Character string. Path to folder where data pull should be saved
+#' @param input_path_menhaden Character string. Full path to the menhaden data .rds file
 #'
 #' @return list
 #' \item{comdat}{`ecodata::comdat` data frame}
@@ -14,25 +14,25 @@
 #' @example
 #' \dontrun{
 #' workflow_comdat(
-#'    comdat_path = "path/to/commerical_comdat.rds",
+#'    input_path_comdat = "path/to/commerical_comdat.rds",
 #'    input_path_species = "path/to/species/data/.rds",
-#'    menhaden_path = "path/to/menhaden/data/.rds",
-#'    outputPath = "path/to/output/folder"
+#'    input_path_menhaden = "path/to/menhaden/data/.rds",
+#'    output_path_indicators = "path/to/output/folder"
 #'    )
 #' }
 #'
 #' @section Dependencies:
 #'
-#' This assumes that the commercial data has been pulled and resides in the path `comdat_path`
-#' and that create_menhaden_input.R has been run and outputs saved to `menhaden_path`
+#' This assumes that the commercial data has been pulled and resides in the path `input_path_comdat`
+#' and that create_menhaden_input.R has been run and outputs saved to `input_path_menhaden`
 #'
 #' @export
 
 workflow_comdat <- function(
-  comdat_path,
+  input_path_comdat,
   input_path_species,
-  menhaden_path,
-  outputPath
+  input_path_menhaden,
+  output_path_indicators
 ) {
   # Add check to skip running workflow if data not present
 
@@ -40,10 +40,10 @@ workflow_comdat <- function(
     {
       if (
         !all(
-          !is.null(outputPath),
-          file.exists(comdat_path),
+          !is.null(output_path_indicators),
+          file.exists(input_path_comdat),
           file.exists(input_path_species),
-          file.exists(menhaden_path)
+          file.exists(input_path_menhaden)
         )
       ) {
         stop("Incorrect file path or file missing")
@@ -51,16 +51,18 @@ workflow_comdat <- function(
 
       # calculate indicator
       indicatorData <- SOEworkflows::create_comdat(
-        comdat_path = comdat_path,
+        input_path_comdat = input_path_comdat,
         input_path_species = input_path_species,
-        menhaden_path = menhaden_path,
-        outputPathDataSets = outputPath
+        input_path_menhaden = input_path_menhaden
       )
 
-      saveRDS(indicatorData$comdat, paste0(outputPath, "/comdat.rds"))
+      saveRDS(
+        indicatorData$comdat,
+        paste0(output_path_indicators, "/comdat.rds")
+      )
       saveRDS(
         indicatorData$comdat_species,
-        paste0(outputPath, "/comdat_species.rds")
+        paste0(output_path_indicators, "/comdat_species.rds")
       )
       return(indicatorData)
     },

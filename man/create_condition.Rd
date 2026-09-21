@@ -4,14 +4,18 @@
 \alias{create_condition}
 \title{Create species condition indicator}
 \usage{
-create_condition(inputPath, inputPathLW, inputPathSpecies)
+create_condition(
+  input_path_condition,
+  input_path_lw_coeffs,
+  input_path_species
+)
 }
 \arguments{
-\item{inputPath}{Character string. Full path to the condition data pull rds file.}
+\item{input_path_condition}{Character string. Full path to the condition data pull rds file.}
 
-\item{inputPathLW}{Character string. Full path to the LWparams csv file in 'EDAB_Resources/workflow_resources/soe_workflows'.}
+\item{input_path_lw_coeffs}{Character string. Full path to the LWparams csv file in 'EDAB_Resources/workflow_resources/soe_workflows'.}
 
-\item{inputPathSpecies}{Character string. Full path to the species.codes csv file in 'EDAB_Resources/workflow_resources/soe_workflows'.}
+\item{input_path_species}{Character string. Full path to the species.codes csv file in 'EDAB_Resources/workflow_resources/soe_workflows'.}
 }
 \value{
 condition, ecodata::condition data frame
@@ -24,8 +28,8 @@ Methods derived from Laurel Smith (https://github.com/Laurels1/Condition/blob/ma
 \dontrun{
 #create the ecodata::condition indicator
 create_condition(
- inputPathLW = "path/to/LWparams.csv",
- inputPathSpecies = "path/to/species.codes.csv")
+ input_path_lw_coeffs = "path/to/LWparams.csv",
+ input_path_species = "path/to/species.codes.csv")
 
 }
 
