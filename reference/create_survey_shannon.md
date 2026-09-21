@@ -8,16 +8,16 @@ of the shannon indices for each year
 ## Usage
 
 ``` r
-create_survey_shannon(inputPathAlbatross, inputPathBigelow)
+create_survey_shannon(input_path_albatross, input_path_bigelow)
 ```
 
 ## Arguments
 
-- inputPathAlbatross:
+- input_path_albatross:
 
   Character string. Full path to the Albatross data pull rds file
 
-- inputPathBigelow:
+- input_path_bigelow:
 
   Character string. Full path to the Bigelow data pull rds file
 
@@ -30,8 +30,8 @@ ecodata::survey_shannon data frame
 ``` r
 if (FALSE) { # \dontrun{
 # create the ecodata::survey_shannon indicator
-create_aggregate_biomass(inputPathAlbatros = "path/to/albatross.rds",
-                         inputPathBigelow = "path/to/bigelow.rds")
+create_aggregate_biomass(input_path_albatros = "path/to/albatross.rds",
+                         input_path_bigelow = "path/to/bigelow.rds")
 
 } # }
 

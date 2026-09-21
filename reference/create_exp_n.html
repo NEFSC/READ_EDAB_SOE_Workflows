@@ -11,7 +11,7 @@ This calculates the expected number of species per tow in the NEFSC Bottom Trawl
 
     <a class="navbar-brand me-2" href="../index.html">SOEworkflows</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@ This calculates the expected number of species per tow in the NEFSC Bottom Trawl
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Calculates expected number of species for automated workflow</h1>
-      <small class="dont-index">Source: <a href="https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/v0.2.0/R/exp_n.R" class="external-link"><code>R/exp_n.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/main/R/exp_n.R" class="external-link"><code>R/exp_n.R</code></a></small>
       <div class="d-none name"><code>create_exp_n.Rd</code></div>
     </div>
 
@@ -46,18 +46,18 @@ This calculates the expected number of species per tow in the NEFSC Bottom Trawl
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_exp_n</span><span class="op">(</span><span class="va">inputPathAlbatross</span>, <span class="va">inputPathBigelow</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_exp_n</span><span class="op">(</span><span class="va">input_path_albatross</span>, <span class="va">input_path_bigelow</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-inputpathalbatross">inputPathAlbatross<a class="anchor" aria-label="anchor" href="#arg-inputpathalbatross"></a></dt>
+<dl><dt id="arg-input-path-albatross">input_path_albatross<a class="anchor" aria-label="anchor" href="#arg-input-path-albatross"></a></dt>
 <dd><p>Character string. Full path to the Albatross data pull rds file</p></dd>
 
 
-<dt id="arg-inputpathbigelow">inputPathBigelow<a class="anchor" aria-label="anchor" href="#arg-inputpathbigelow"></a></dt>
+<dt id="arg-input-path-bigelow">input_path_bigelow<a class="anchor" aria-label="anchor" href="#arg-input-path-bigelow"></a></dt>
 <dd><p>Character string. Full path to the Bigelow data pull rds file</p></dd>
 
 </dl></div>
@@ -70,8 +70,8 @@ This calculates the expected number of species per tow in the NEFSC Bottom Trawl
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># create the ecodata::exp_n indicator</span></span></span>
-<span class="r-in"><span><span class="fu">create_exp_n</span><span class="op">(</span>inputPathAlbatros <span class="op">=</span> <span class="st">"path/to/albatross.rds"</span>,</span></span>
-<span class="r-in"><span>                         inputPathBigelow <span class="op">=</span> <span class="st">"path/to/bigelow.rds"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">create_exp_n</span><span class="op">(</span>input_path_albatros <span class="op">=</span> <span class="st">"path/to/albatross.rds"</span>,</span></span>
+<span class="r-in"><span>             input_path_bigelow <span class="op">=</span> <span class="st">"path/to/bigelow.rds"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
@@ -86,7 +86,7 @@ This calculates the expected number of species per tow in the NEFSC Bottom Trawl
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

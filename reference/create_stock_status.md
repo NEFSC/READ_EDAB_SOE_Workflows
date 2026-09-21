@@ -6,17 +6,12 @@ inclusion in the `ecodata` R package.
 ## Usage
 
 ``` r
-create_stock_status(data, decode)
+create_stock_status(input_path_decoder)
 ```
 
 ## Arguments
 
-- data:
-
-  the stock status data frame, typically from
-  [`stocksmart::stockAssessmentSummary`](https://noaa-edab.github.io/stocksmart/reference/stockAssessmentSummary.html)
-
-- decode:
+- input_path_decoder:
 
   a data frame that matches the stock names with a code abbreviation to
   use in plotting, typically read from a CSV file. If set to `FALSE`,

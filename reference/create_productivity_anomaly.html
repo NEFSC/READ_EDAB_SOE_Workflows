@@ -11,7 +11,7 @@ for State of the Ecosystem (SOE) reporting."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">SOEworkflows</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@ for State of the Ecosystem (SOE) reporting."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Calculate Productivity Anomalies from Survey Data</h1>
-      <small class="dont-index">Source: <a href="https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/v0.2.0/R/productivity_anomaly.R" class="external-link"><code>R/productivity_anomaly.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/main/R/productivity_anomaly.R" class="external-link"><code>R/productivity_anomaly.R</code></a></small>
       <div class="d-none name"><code>create_productivity_anomaly.Rd</code></div>
     </div>
 
@@ -50,7 +50,7 @@ for State of the Ecosystem (SOE) reporting.</p>
 <span>  <span class="va">input_survey_bio</span>,</span>
 <span>  <span class="va">input_survey_bio_epu</span>,</span>
 <span>  <span class="va">input_static_lw_table</span>,</span>
-<span>  <span class="va">inputPathSpecies</span>,</span>
+<span>  <span class="va">input_path_species</span>,</span>
 <span>  <span class="va">input_static_length_convert</span>,</span>
 <span>  species2include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SPINY DOGFISH"</span>, <span class="st">"BARNDOOR SKATE"</span>, <span class="st">"WINTER SKATE"</span>,</span>
 <span>    <span class="st">"CLEARNOSE SKATE"</span>, <span class="st">"ROSETTE SKATE"</span>, <span class="st">"LITTLE SKATE"</span>, <span class="st">"SMOOTH SKATE"</span>, <span class="st">"THORNY SKATE"</span>,</span>
@@ -80,7 +80,7 @@ for State of the Ecosystem (SOE) reporting.</p>
 <dd><p>File path to length weight table from Miller 2013 (.rda format)</p></dd>
 
 
-<dt id="arg-inputpathspecies">inputPathSpecies<a class="anchor" aria-label="anchor" href="#arg-inputpathspecies"></a></dt>
+<dt id="arg-input-path-species">input_path_species<a class="anchor" aria-label="anchor" href="#arg-input-path-species"></a></dt>
 <dd><p>File path to species lookup table (.rds format)</p></dd>
 
 
@@ -105,7 +105,7 @@ for State of the Ecosystem (SOE) reporting.</p>
 <span class="r-in"><span>  input_survey_bio_epu <span class="op">=</span> <span class="st">"survey_bio_epu.rds"</span>,</span></span>
 <span class="r-in"><span>  input_static_lw_table <span class="op">=</span> <span class="st">"lw_table.rda"</span>,</span></span>
 <span class="r-in"><span>  input_static_length_convert <span class="op">=</span> <span class="st">"df_lconv.rda"</span>,</span></span>
-<span class="r-in"><span>  inputPathSpecies <span class="op">=</span> <span class="st">"species_lookup.rds"</span></span></span>
+<span class="r-in"><span>  input_path_species <span class="op">=</span> <span class="st">"species_lookup.rds"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
@@ -120,7 +120,7 @@ for State of the Ecosystem (SOE) reporting.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

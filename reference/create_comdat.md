@@ -7,17 +7,12 @@ report.
 ## Usage
 
 ``` r
-create_comdat(
-  comdat_path,
-  input_path_species,
-  menhaden_path,
-  outputPathDataSets
-)
+create_comdat(input_path_comdat, input_path_species, input_path_menhaden)
 ```
 
 ## Arguments
 
-- comdat_path:
+- input_path_comdat:
 
   Character string. Path to commercial_comdat.rds
 
@@ -25,14 +20,10 @@ create_comdat(
 
   Character string. Path to the 'SOE_species_list_24.RData' file.
 
-- menhaden_path:
+- input_path_menhaden:
 
   Character string. Path to the menhaden data output by
   data-raw/create_menhaden_input.R
-
-- outputPathDataSets:
-
-  Character string. Path to folder where data pull should be saved
 
 ## Value
 

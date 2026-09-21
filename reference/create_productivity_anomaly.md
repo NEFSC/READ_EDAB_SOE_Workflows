@@ -11,7 +11,7 @@ create_productivity_anomaly(
   input_survey_bio,
   input_survey_bio_epu,
   input_static_lw_table,
-  inputPathSpecies,
+  input_path_species,
   input_static_length_convert,
   species2include = c("SPINY DOGFISH", "BARNDOOR SKATE", "WINTER SKATE",
     "CLEARNOSE SKATE", "ROSETTE SKATE", "LITTLE SKATE", "SMOOTH SKATE", "THORNY SKATE",
@@ -39,7 +39,7 @@ create_productivity_anomaly(
 
   File path to length weight table from Miller 2013 (.rda format)
 
-- inputPathSpecies:
+- input_path_species:
 
   File path to species lookup table (.rds format)
 
@@ -65,7 +65,7 @@ create_productivity_anomaly(
   input_survey_bio_epu = "survey_bio_epu.rds",
   input_static_lw_table = "lw_table.rda",
   input_static_length_convert = "df_lconv.rda",
-  inputPathSpecies = "species_lookup.rds"
+  input_path_species = "species_lookup.rds"
 )
 } # }
 ```

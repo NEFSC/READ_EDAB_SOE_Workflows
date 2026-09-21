@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">SOEworkflows</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Species distribution on the NES.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/v0.2.0/R/species_dist.R" class="external-link"><code>R/species_dist.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/main/R/species_dist.R" class="external-link"><code>R/species_dist.R</code></a></small>
       <div class="d-none name"><code>create_species_dist.Rd</code></div>
     </div>
 
@@ -41,12 +41,12 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_species_dist</span><span class="op">(</span></span>
-<span>  <span class="va">inputPathSurvey</span>,</span>
-<span>  <span class="va">inputPathSpecies</span>,</span>
-<span>  <span class="va">static_depth</span>,</span>
-<span>  <span class="va">static_diagonal</span>,</span>
-<span>  <span class="va">static_coast_coord</span>,</span>
-<span>  <span class="va">static_strat_areas</span></span>
+<span>  <span class="va">input_path_survey</span>,</span>
+<span>  <span class="va">input_path_species</span>,</span>
+<span>  <span class="va">input_path_static_depth</span>,</span>
+<span>  <span class="va">input_path_static_diagonal</span>,</span>
+<span>  <span class="va">input_path_static_coast_coord</span>,</span>
+<span>  <span class="va">input_path_static_strat_areas</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -54,27 +54,27 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-inputpathsurvey">inputPathSurvey<a class="anchor" aria-label="anchor" href="#arg-inputpathsurvey"></a></dt>
+<dl><dt id="arg-input-path-survey">input_path_survey<a class="anchor" aria-label="anchor" href="#arg-input-path-survey"></a></dt>
 <dd><p>Character string. Full path to the survdat data pull rds file</p></dd>
 
 
-<dt id="arg-inputpathspecies">inputPathSpecies<a class="anchor" aria-label="anchor" href="#arg-inputpathspecies"></a></dt>
+<dt id="arg-input-path-species">input_path_species<a class="anchor" aria-label="anchor" href="#arg-input-path-species"></a></dt>
 <dd><p>Character string. Full path to the species list data pull rds file</p></dd>
 
 
-<dt id="arg-static-depth">static_depth<a class="anchor" aria-label="anchor" href="#arg-static-depth"></a></dt>
+<dt id="arg-input-path-static-depth">input_path_static_depth<a class="anchor" aria-label="anchor" href="#arg-input-path-static-depth"></a></dt>
 <dd><p>Character string. Path to file with depth data for NE shelf</p></dd>
 
 
-<dt id="arg-static-diagonal">static_diagonal<a class="anchor" aria-label="anchor" href="#arg-static-diagonal"></a></dt>
+<dt id="arg-input-path-static-diagonal">input_path_static_diagonal<a class="anchor" aria-label="anchor" href="#arg-input-path-static-diagonal"></a></dt>
 <dd><p>Character string. Path to file with along shelf diagonal data</p></dd>
 
 
-<dt id="arg-static-coast-coord">static_coast_coord<a class="anchor" aria-label="anchor" href="#arg-static-coast-coord"></a></dt>
+<dt id="arg-input-path-static-coast-coord">input_path_static_coast_coord<a class="anchor" aria-label="anchor" href="#arg-input-path-static-coast-coord"></a></dt>
 <dd><p>Character string. Path to file with lat lon coordinates defining the coastline</p></dd>
 
 
-<dt id="arg-static-strat-areas">static_strat_areas<a class="anchor" aria-label="anchor" href="#arg-static-strat-areas"></a></dt>
+<dt id="arg-input-path-static-strat-areas">input_path_static_strat_areas<a class="anchor" aria-label="anchor" href="#arg-input-path-static-strat-areas"></a></dt>
 <dd><p>Character string. Path to file defining NEFSC trawl survey strata</p></dd>
 
 </dl></div>
@@ -87,12 +87,12 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># create the ecodata::species_dist indicator</span></span></span>
-<span class="r-in"><span><span class="fu">create_species_dist</span><span class="op">(</span>inputPathSurvey <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"surveyNoLengths.rds"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span> inputPathSpecies <span class="op">=</span> <span class="st">"/home/&lt;user&gt;/EDAB_Datasets/SOE_species_list_24.rds"</span>,</span></span>
-<span class="r-in"><span> static_depth <span class="op">=</span>  <span class="st">"/home/&lt;user&gt;/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc"</span>,</span></span>
-<span class="r-in"><span> static_diagonal <span class="op">=</span> <span class="st">"/home/&lt;user&gt;/EDAB_Resources/workflow_resources/soe_workflows/diag.csv"</span>,</span></span>
-<span class="r-in"><span> static_coast_coord <span class="op">=</span> <span class="st">"/home/&lt;user&gt;/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"</span>,</span></span>
-<span class="r-in"><span> static_strat_areas <span class="op">=</span> <span class="st">"/home/&lt;user&gt;/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">create_species_dist</span><span class="op">(</span>input_path_survey <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"surveyNoLengths.rds"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span> input_path_species <span class="op">=</span> <span class="st">"/home/&lt;user&gt;/EDAB_Datasets/SOE_species_list_24.rds"</span>,</span></span>
+<span class="r-in"><span> input_path_static_depth <span class="op">=</span>  <span class="st">"/home/&lt;user&gt;/EDAB_Resources/workflow_resources/soe_workflows/nes_bath_data.nc"</span>,</span></span>
+<span class="r-in"><span> input_path_static_diagonal <span class="op">=</span> <span class="st">"/home/&lt;user&gt;/EDAB_Resources/workflow_resources/soe_workflows/diag.csv"</span>,</span></span>
+<span class="r-in"><span> input_path_static_coast_coord <span class="op">=</span> <span class="st">"/home/&lt;user&gt;/EDAB_Resources/workflow_resources/soe_workflows/nes_coast_2.csv"</span>,</span></span>
+<span class="r-in"><span> input_path_static_strat_areas <span class="op">=</span> <span class="st">"/home/&lt;user&gt;/EDAB_Resources/workflow_resources/soe_workflows/stratareas.rds"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
@@ -108,7 +108,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

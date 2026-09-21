@@ -9,12 +9,12 @@ in the output directory.
 ## Usage
 
 ``` r
-get_recreational_data(outputPath)
+get_recreational_data(output_path_indicators)
 ```
 
 ## Arguments
 
-- outputPath:
+- output_path_indicators:
 
   Character string. Full path the directory in which to store files.
 
@@ -26,7 +26,7 @@ new.hms, a data frame with landings data from MRIP
 
 ``` r
 if (FALSE) { # \dontrun{
-get_recreational_data(outputPath = "path/to/output/directory/hms_mrip_date.csv")
+get_recreational_data(output_path_indicators = "path/to/output/directory/hms_mrip_date.csv")
 
 } # }
 ```

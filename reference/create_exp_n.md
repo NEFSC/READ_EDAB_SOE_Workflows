@@ -7,16 +7,16 @@ of species per tow in the NEFSC Bottom Trawl Survey for Fall and Spring
 ## Usage
 
 ``` r
-create_exp_n(inputPathAlbatross, inputPathBigelow)
+create_exp_n(input_path_albatross, input_path_bigelow)
 ```
 
 ## Arguments
 
-- inputPathAlbatross:
+- input_path_albatross:
 
   Character string. Full path to the Albatross data pull rds file
 
-- inputPathBigelow:
+- input_path_bigelow:
 
   Character string. Full path to the Bigelow data pull rds file
 
@@ -29,8 +29,8 @@ ESn.epu, ecodata::exp_n data frame
 ``` r
 if (FALSE) { # \dontrun{
 # create the ecodata::exp_n indicator
-create_exp_n(inputPathAlbatros = "path/to/albatross.rds",
-                         inputPathBigelow = "path/to/bigelow.rds")
+create_exp_n(input_path_albatros = "path/to/albatross.rds",
+             input_path_bigelow = "path/to/bigelow.rds")
 
 } # }
 ```

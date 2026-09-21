@@ -9,7 +9,7 @@ summary of landings and revenue metrics for the State of the Ecosystem report.">
 
     <a class="navbar-brand me-2" href="../index.html">SOEworkflows</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ summary of landings and revenue metrics for the State of the Ecosystem report.">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Create data for ecodata::comdat</h1>
-      <small class="dont-index">Source: <a href="https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/v0.2.0/R/comdat.R" class="external-link"><code>R/comdat.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/main/R/comdat.R" class="external-link"><code>R/comdat.R</code></a></small>
       <div class="d-none name"><code>create_comdat.Rd</code></div>
     </div>
 
@@ -43,19 +43,14 @@ summary of landings and revenue metrics for the State of the Ecosystem report.</
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_comdat</span><span class="op">(</span></span>
-<span>  <span class="va">comdat_path</span>,</span>
-<span>  <span class="va">input_path_species</span>,</span>
-<span>  <span class="va">menhaden_path</span>,</span>
-<span>  <span class="va">outputPathDataSets</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_comdat</span><span class="op">(</span><span class="va">input_path_comdat</span>, <span class="va">input_path_species</span>, <span class="va">input_path_menhaden</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-comdat-path">comdat_path<a class="anchor" aria-label="anchor" href="#arg-comdat-path"></a></dt>
+<dl><dt id="arg-input-path-comdat">input_path_comdat<a class="anchor" aria-label="anchor" href="#arg-input-path-comdat"></a></dt>
 <dd><p>Character string. Path to commercial_comdat.rds</p></dd>
 
 
@@ -63,12 +58,8 @@ summary of landings and revenue metrics for the State of the Ecosystem report.</
 <dd><p>Character string. Path to the 'SOE_species_list_24.RData' file.</p></dd>
 
 
-<dt id="arg-menhaden-path">menhaden_path<a class="anchor" aria-label="anchor" href="#arg-menhaden-path"></a></dt>
+<dt id="arg-input-path-menhaden">input_path_menhaden<a class="anchor" aria-label="anchor" href="#arg-input-path-menhaden"></a></dt>
 <dd><p>Character string. Path to the menhaden data output by data-raw/create_menhaden_input.R</p></dd>
-
-
-<dt id="arg-outputpathdatasets">outputPathDataSets<a class="anchor" aria-label="anchor" href="#arg-outputpathdatasets"></a></dt>
-<dd><p>Character string. Path to folder where data pull should be saved</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -91,7 +82,7 @@ summary of landings and revenue metrics for the State of the Ecosystem report.</
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>
