@@ -37,7 +37,7 @@ input_survey_bio <- paste0(output_path_datasets, "survey_biological_data.rds")
 
 # Dependency data
 input_path_species <- paste0(root_path, "SOE_species_list_24.rds")
-input_path_species2 <- paste0(root_path, "SOE_species_list_old.rds")
+input_path_species_list <- paste0(root_path, "SOE_species_list_old.rds")
 input_path_functional_group <- paste0(root_path, "functional_groups_list.csv")
 input_path_menhaden <- paste0(root_path, "menhadenEOF.rds")
 input_path_static_depth <- paste0(root_path, "nes_bath_data.nc")
