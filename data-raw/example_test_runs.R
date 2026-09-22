@@ -260,7 +260,7 @@ indicator_productivity_anomaly
 
 message("Running species_groupings ...")
 species_groupings <- workflow_species_groupings(
-  input_path_species_list = input_path_species2,
+  input_path_species_list = input_path_species_list,
   input_path_functional_group = input_path_functional_group,
   output_path_indicators = output_path_indicators
 )
