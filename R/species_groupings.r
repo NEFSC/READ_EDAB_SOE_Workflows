@@ -10,8 +10,8 @@
 #' @examples
 #' \dontrun{
 #' # create the ecodata::species_groupings table
-#' create_species_groupings(input_path_soe_species_list = "path/to/SOE_species_list_old.rds",
-#'                          input_path_species = "path/to/functional_groups_list.csv")
+#' create_species_groupings(input_path_species_list = "path/to/SOE_species_list_old.rds",
+#'                          input_path_functional_group = "path/to/functional_groups_list.csv")
 #'
 #' }
 #'
