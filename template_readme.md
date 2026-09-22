@@ -281,13 +281,13 @@ The rds file name is hardcoded as `rec_hms.rds` to match the `ecodata` package d
 *Note: the following function resides in the folder `data-raw` and is NOT part of the package*
 
 ```
-workflow_workflow_species_groupings <- function(
+workflow_species_groupings <- function(
   input_path_species_list,
   input_path_functional_group,
   output_path_indicators
 ```
 
 * `input_path_species_list` is the path to the static base data object defining species properties (`SOE_species_list_old.rds`)
-* `input_path_rec_key` is the path to the static data set defining the species survey code (SVSPP) and corresponding functional group (`functional_groups_list.csv`)
+* `input_path_functional_group` is the path to the static data set defining the species survey code (SVSPP) and corresponding functional group (`functional_groups_list.csv`)
 * `output_path_indicators` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `species_groupings.rds` to match the `ecodata` package dataset
