@@ -9,7 +9,7 @@
 #' @examples
 #' \dontrun{
 #'   input_path_species_list <- "path/to/SOE_species_list_old.rds"
-#'   input_path_functional_group <- "path/to/functional_group_list.rds"
+#'   input_path_functional_group <- "path/to/functional_groups_list.rds"
 #'   output_path_indicators = "path/to/output/folder"
 #'   workflow_species_groupings(input_path_species_list, input_path_functional_group, output_path_indicators)
 #' }
