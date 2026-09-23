@@ -207,7 +207,7 @@ create_species_groupings <- function(
   )
 
   speciesgroupingsFMP <- updategroupings |>
-    dplyr::left_join(FMPs)
+    dplyr::left_join(FMPs, by = "SVSPP")
 
   speciesgroupingsFMP <- speciesgroupingsFMP |>
     dplyr::mutate(
