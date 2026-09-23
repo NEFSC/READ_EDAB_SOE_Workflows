@@ -219,9 +219,6 @@ create_species_groupings <- function(
   # Format data.table for ecodata integration
   # Convert data.table to tibble
   species <- tibble::as_tibble(species)
-  # Convert numeric columns to integer
-  species$SVSPP <- as.integer(species$SVSPP)
-  species$NESPP3 <- as.integer(species$NESPP3)
 
   return(species)
 }
