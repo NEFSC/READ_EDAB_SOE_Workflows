@@ -1,6 +1,6 @@
 ---
 title: "Menhaden data comparison"
-format: html
+format: pdf
 editor: source
 ---
 
