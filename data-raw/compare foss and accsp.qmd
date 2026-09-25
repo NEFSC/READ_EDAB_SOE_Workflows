@@ -1,0 +1,177 @@
+---
+title: "Menhaden data comparison"
+format: html
+editor: source
+---
+
+## Data
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+foss <- read.csv(here::here("data-raw\\FOSS_landings_VA.csv"),
+                 skip = 1)|>
+  janitor::clean_names() |>
+  dplyr::mutate(
+    metric_tons = stringr::str_remove(metric_tons, ",") |>
+      as.numeric(),
+    dollars = stringr::str_remove_all(dollars, ",") |>
+      as.numeric()
+  )
+
+foss_region <- read.csv(here::here("data-raw\\FOSS_landings_region_through_2024.csv"),
+                 skip = 1)|>
+  janitor::clean_names() |>
+  dplyr::mutate(
+    metric_tons = stringr::str_remove(metric_tons, ",") |>
+      as.numeric(),
+    dollars = stringr::str_remove_all(dollars, ",") |>
+      as.numeric()
+  )
+
+foss_nc <- read.csv(here::here("data-raw\\FOSS_landings_NC_through_2024.csv"),
+                 skip = 1)|>
+  janitor::clean_names() |>
+  dplyr::mutate(
+    metric_tons = stringr::str_remove(metric_tons, ",") |>
+      as.numeric(),
+    dollars = stringr::str_remove_all(dollars, ",") |>
+      as.numeric()
+  )
+
+accsp <- read.csv(here::here("data-raw\\accsp_menhaden.csv"))|>
+  janitor::clean_names() |>
+  dplyr::mutate(
+    metric_tons = pounds/2204.62
+  )
+```
+
+## Virginia only landings
+
+Comparing VA landings in FOSS vs ACCSP
+
+```{r}
+va <- dplyr::full_join(
+  foss |>
+  dplyr::select(year, metric_tons, dollars) |>
+    dplyr::mutate(source = "foss"),
+  accsp |>
+    dplyr::filter(state == "VIRGINIA") |>
+    dplyr::select(year, metric_tons, dollars) |>
+    dplyr::mutate(source = "accsp"))
+
+va |>
+  ggplot2::ggplot(ggplot2::aes(x = year,
+                              y = metric_tons,
+                              color = source,
+                              shape = source)) +
+  ggplot2::geom_line() +
+  ggplot2::geom_point() +
+  ggplot2::theme_bw()
+
+va |>
+  ggplot2::ggplot(ggplot2::aes(x = year,
+                              y = dollars,
+                              color = source,
+                              shape = source)) +
+  ggplot2::geom_line() +
+  ggplot2::geom_point() +
+  ggplot2::theme_bw()
+```
+
+Looks like the two data sources are nearly identical with a few differences:
+
+1. FOSS goes through 2024, while ACCSP goes through 2025, but 2025 data seems incomplete
+1. ACCSP has slightly higher landings and revenye in the past ~15 years
+1. ACCSP is missing a few years of landings and revenue, but FOSS has those years
+1. 2001 has a large difference in revenue in FOSS vs ACCSP, could be due to data being assigned to the wrong year?
+1. These data need to be compared to data from the VA DMR to verify that they are complete. 
+
+## Regional landings
+
+Combining all states ME-NC
+
+```{r}
+
+regional <- dplyr::full_join(
+  dplyr::full_join(
+    foss_region |>
+  dplyr::select(year, metric_tons, dollars),
+  foss_nc|>
+  dplyr::select(year, metric_tons, dollars)) |>
+    dplyr::mutate(source = "foss"),
+  accsp |>
+    dplyr::select(year, metric_tons, dollars) |>
+    dplyr::mutate(source = "accsp")) |>
+  dplyr::group_by(year, source) |>
+  dplyr::summarise(metric_tons = sum(metric_tons, na.rm = TRUE),
+                   dollars = sum(dollars, na.rm = TRUE))
+
+regional |>
+  ggplot2::ggplot(ggplot2::aes(x = year,
+                              y = metric_tons,
+                              color = source,
+                              shape = source)) +
+  ggplot2::geom_line() +
+  ggplot2::geom_point() +
+  ggplot2::theme_bw()
+
+regional |>
+  ggplot2::ggplot(ggplot2::aes(x = year,
+                              y = dollars,
+                              color = source,
+                              shape = source)) +
+  ggplot2::geom_line() +
+  ggplot2::geom_point() +
+  ggplot2::theme_bw()
+```
+
+Again, the two data sources are nearly identical with a few differences:
+
+1. A few differing data points in the 1970s-90s
+1. Low years in ACCSP due to the years missing VA data
+1. ACCSP is slightly higher in recent years, probably due to the differences in the VA landings
+1. 2025 ACCSP data remains incomplete
+
+### Compare regional and VA
+
+```{r}
+regional |>
+  dplyr::mutate(region = "all") |>
+  dplyr::full_join(
+    va |>
+      dplyr::mutate(region = "VA")
+  ) |>
+  ggplot2::ggplot(ggplot2::aes(x = year,
+                              y = metric_tons,
+                              color = interaction(source, region),
+                              shape = source
+                              )) +
+  ggplot2::geom_line() +
+  ggplot2::geom_point() +
+  ggplot2::theme_bw()
+
+regional |>
+  dplyr::mutate(region = "all") |>
+  dplyr::full_join(
+    va |>
+      dplyr::mutate(region = "VA")
+  ) |>
+  ggplot2::ggplot(ggplot2::aes(x = year,
+                              y = dollars,
+                              color = interaction(source, region),
+                              shape = source
+                              )) +
+  ggplot2::geom_line() +
+  ggplot2::geom_point() +
+  ggplot2::theme_bw()
+```
+
+## Conclusions
+
+1. This data was assembled by querying both "Atlantic menhaden" and "Menhadens" on FOSS and ACCSP. This is consistent with how the Fisheries Economics of the US report analyzes and reports on the data. 
+1. Which data source is more accurate? FOSS uses ACCSP data, but ACCSP data can be updated retrospectively and perhaps these updates are not routinely integrated into FOSS. However, missing years in ACCSP are present in FOSS. I suggest that we use FOSS through 2000 and ACCSP data for data since 2000. 
+1. 2025 is missing in FOSS and suspected incomplete in ACCSP. ACCSP is showing <75% of "Atlantic menhaden" displayed at the coast level (bait fishery) and >95% "Menhadens" displayed at the coast level (reduction fishery). However, numbers in both categories are about 50% lower than previous years. Therefore this data will require an additional request to ACCSP and/or the state of VA. VA numbers for "Menhadens" are marked at 100% displayed, but are about 5% of previous years' catch. 
+1. It is still worthwhile to acquire all VA MDR menhaden records for comparison and data validation.
