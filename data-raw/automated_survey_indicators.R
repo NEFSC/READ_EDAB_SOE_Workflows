@@ -28,17 +28,20 @@ if (length(args) > 0) {
   input_folder = args[1]
   output_folder = args[2]
   supplemental_folder = args[3]
+  supplemental_folder2 = args[4]
   print('Using command line arguments')
 } else {
   # file path to use in local R
   input_folder = '//nefscdata/EDAB_Datasets/Workflows/Survey_Data'
   output_folder = '//nefscdata/EDAB_Indicators/SOE_ecodata'
   supplemental_folder = '//nefscdata/EDAB_Resources/static_workflow_inputs'
+  supplemental_folder2 = '//nefscdata/EDAB_Resources/workflow_resources/soe_workflows'
 
   # file path to use from container
   input_folder = '~/EDAB_Datasets/Workflows/Survey_Data'
   output_folder = '~/EDAB_Indicators/SOE_ecodata'
   supplemental_folder = '~/EDAB_Resources/static_workflow_inputs'
+  supplemental_folder2 = '~/EDAB_Resources/workflow_resources/soe_workflows'
 
   message('Using default arguments')
 }
@@ -46,6 +49,7 @@ if (length(args) > 0) {
 message(paste0('input_folder: ', input_folder))
 message(paste0('output_folder: ', output_folder))
 message(paste0('supplemental_folder: ', supplemental_folder))
+message(paste0('supplemental_folder2: ', supplemental_folder2))
 
 check.dir = function(file) {
   if (!dir.exists(dirname(file))) {
@@ -122,43 +126,6 @@ message("Done: Aggregate biomass")
 # Command Line Cloud
 #Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata" "~/EDAB_Resources/workflow_resources/soe_workflows"
 
-#Gets arguments from command line
-args = commandArgs(trailingOnly = TRUE)
-if (length(args) > 0) {
-  print(args)
-  input_folder = args[1]
-  output_folder = args[2]
-  supplemental_folder = args[3]
-  print('Using command line arguments')
-} else {
-  # file path to use in local R
-  input_folder = '//nefscdata/EDAB_Datasets/Workflows/Survey_Data'
-  output_folder = '//nefscdata/EDAB_Indicators/SOE_ecodata'
-  supplemental_folder = '//nefscdata/EDAB_Resources/workflow_resources/soe_workflows'
-
-  # file path to use from container
-  input_folder = '~/EDAB_Datasets/Workflows/Survey_Data'
-  output_folder = '~/EDAB_Indicators/SOE_ecodata'
-  supplemental_folder = '~/EDAB_Resources/workflow_resources/soe_workflows'
-
-  message('Using default arguments')
-}
-
-message(paste0('input_folder: ', input_folder))
-message(paste0('output_folder: ', output_folder))
-message(paste0('supplemental_folder: ', supplemental_folder))
-
-check.dir = function(file) {
-  if (!dir.exists(dirname(file))) {
-    dir.create(dirname(file), recursive = T)
-  }
-}
-
-check.dir(output_folder)
-if (!dir.exists(input_folder)) {
-  stop(paste0('Input directory does not exist: ', input_folder))
-}
-
 ## (1) find survey data input file (condition_data.rds)
 message("Looking for condition_data...")
 input_file <- list.files(
@@ -175,10 +142,9 @@ if (length(input_file) == 0) {
 }
 
 ## (2) find supplemental data files (LWparams.rda, species.codes.rda)
-###### CHECK THIS FOR MULTIPLE SUPPLEMENTAL FILES IN THE FOLDER
 message("Looking for LWparams...")
 supplemental_file_lw <- list.files(
-  supplemental_folder,
+  supplemental_folder2,
   pattern = "^LWparams\\.rda$",
   full.names = TRUE
 )
@@ -186,13 +152,13 @@ supplemental_file_lw <- list.files(
 if (length(supplemental_file_lw) == 0) {
   stop(paste0(
     "LWparams not found in supplemental folder: ",
-    supplemental_folder
+    supplemental_folder2
   ))
 }
 
 message("Looking for species.codes...")
 supplemental_file_species <- list.files(
-  supplemental_folder,
+  supplemental_folder2,
   pattern = "^species.codes\\.rda$",
   full.names = TRUE
 )
@@ -200,7 +166,7 @@ supplemental_file_species <- list.files(
 if (length(supplemental_file_species) == 0) {
   stop(paste0(
     "Species.codes not found in supplemental folder: ",
-    supplemental_folder
+    supplemental_folder2
   ))
 }
 
@@ -231,39 +197,6 @@ message("Done: Species condition")
 
 # Command Line Cloud
 #Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata"
-
-#Gets arguments from command line
-args = commandArgs(trailingOnly = TRUE)
-if (length(args) > 0) {
-  print(args)
-  input_folder = args[1]
-  output_folder = args[2]
-  print('Using command line arguments')
-} else {
-  # file path to use in local R
-  input_folder = '//nefscdata/EDAB_Datasets/Workflows/Survey_Data'
-  output_folder = '//nefscdata/EDAB_Indicators/SOE_ecodata'
-
-  # file path to use from container
-  input_folder = '~/EDAB_Datasets/Workflows/Survey_Data'
-  output_folder = '~/EDAB_Indicators/SOE_ecodata'
-
-  message('Using default arguments')
-}
-
-message(paste0('input_folder: ', input_folder))
-message(paste0('output_folder: ', output_folder))
-
-check.dir = function(file) {
-  if (!dir.exists(dirname(file))) {
-    dir.create(dirname(file), recursive = T)
-  }
-}
-
-check.dir(output_folder)
-if (!dir.exists(input_folder)) {
-  stop(paste0('Input directory does not exist: ', input_folder))
-}
 
 ## (1) find survey data input file (albatross_data.rds)
 message("Looking for albatross_data...")
@@ -321,43 +254,6 @@ message("Done: Exp n")
 
 # Command Line Cloud
 #Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata" "~/EDAB_Resources/static_workflow_inputs"
-
-#Gets arguments from command line
-args = commandArgs(trailingOnly = TRUE)
-if (length(args) > 0) {
-  print(args)
-  input_folder = args[1]
-  output_folder = args[2]
-  supplemental_folder = args[3]
-  print('Using command line arguments')
-} else {
-  # file path to use in local R
-  input_folder = '//nefscdata/EDAB_Datasets/Workflows/Survey_Data'
-  output_folder = '//nefscdata/EDAB_Indicators/SOE_ecodata'
-  supplemental_folder = '//nefscdata/EDAB_Resources/static_workflow_inputs'
-
-  # file path to use from container
-  input_folder = '~/EDAB_Datasets/Workflows/Survey_Data'
-  output_folder = '~/EDAB_Indicators/SOE_ecodata'
-  supplemental_folder = '~/EDAB_Resources/static_workflow_inputs'
-
-  message('Using default arguments')
-}
-
-message(paste0('input_folder: ', input_folder))
-message(paste0('output_folder: ', output_folder))
-message(paste0('supplemental_folder: ', supplemental_folder))
-
-check.dir = function(file) {
-  if (!dir.exists(dirname(file))) {
-    dir.create(dirname(file), recursive = T)
-  }
-}
-
-check.dir(output_folder)
-if (!dir.exists(input_folder)) {
-  stop(paste0('Input directory does not exist: ', input_folder))
-}
 
 ## (1) find survey data input file (mass_inshore_data.rds)
 message("Looking for mass inshore data...")
@@ -417,43 +313,6 @@ message("Done: Mass inshore survey")
 
 # Command Line Cloud
 #Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata" "~/EDAB_Resources/static_workflow_inputs"
-
-#Gets arguments from command line
-args = commandArgs(trailingOnly = TRUE)
-if (length(args) > 0) {
-  print(args)
-  input_folder = args[1]
-  output_folder = args[2]
-  supplemental_folder = args[3]
-  print('Using command line arguments')
-} else {
-  # file path to use in local R
-  input_folder = '//nefscdata/EDAB_Datasets/Workflows/Survey_Data'
-  output_folder = '//nefscdata/EDAB_Indicators/SOE_ecodata'
-  supplemental_folder = '//nefscdata/EDAB_Resources/static_workflow_inputs'
-
-  # file path to use from container
-  input_folder = '~/EDAB_Datasets/Workflows/Survey_Data'
-  output_folder = '~/EDAB_Indicators/SOE_ecodata'
-  supplemental_folder = '~/EDAB_Resources/static_workflow_inputs'
-
-  message('Using default arguments')
-}
-
-message(paste0('input_folder: ', input_folder))
-message(paste0('output_folder: ', output_folder))
-message(paste0('supplemental_folder: ', supplemental_folder))
-
-check.dir = function(file) {
-  if (!dir.exists(dirname(file))) {
-    dir.create(dirname(file), recursive = T)
-  }
-}
-
-check.dir(output_folder)
-if (!dir.exists(input_folder)) {
-  stop(paste0('Input directory does not exist: ', input_folder))
-}
 
 ## (1) find survey bio input file (survey_biological_data.rds)
 message("Looking for survey bio data...")
@@ -561,43 +420,6 @@ message("Done: Productivity anomaly")
 
 # Command Line Cloud
 #Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata" "~/EDAB_Resources/static_workflow_inputs"
-
-#Gets arguments from command line
-args = commandArgs(trailingOnly = TRUE)
-if (length(args) > 0) {
-  print(args)
-  input_folder = args[1]
-  output_folder = args[2]
-  supplemental_folder = args[3]
-  print('Using command line arguments')
-} else {
-  # file path to use in local R
-  input_folder = '//nefscdata/EDAB_Datasets/Workflows/Survey_Data'
-  output_folder = '//nefscdata/EDAB_Indicators/SOE_ecodata'
-  supplemental_folder = '//nefscdata/EDAB_Resources/static_workflow_inputs'
-
-  # file path to use from container
-  input_folder = '~/EDAB_Datasets/Workflows/Survey_Data'
-  output_folder = '~/EDAB_Indicators/SOE_ecodata'
-  supplemental_folder = '~/EDAB_Resources/static_workflow_inputs'
-
-  message('Using default arguments')
-}
-
-message(paste0('input_folder: ', input_folder))
-message(paste0('output_folder: ', output_folder))
-message(paste0('supplemental_folder: ', supplemental_folder))
-
-check.dir = function(file) {
-  if (!dir.exists(dirname(file))) {
-    dir.create(dirname(file), recursive = T)
-  }
-}
-
-check.dir(output_folder)
-if (!dir.exists(input_folder)) {
-  stop(paste0('Input directory does not exist: ', input_folder))
-}
 
 ## (1) find survey no lengths input file (survey_no_lengths_data.rds)
 message("Looking for survey bio data...")
@@ -721,39 +543,6 @@ message("Done: Species dist")
 
 # Command Line Cloud
 #Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata"
-
-#Gets arguments from command line
-args = commandArgs(trailingOnly = TRUE)
-if (length(args) > 0) {
-  print(args)
-  input_folder = args[1]
-  output_folder = args[2]
-  print('Using command line arguments')
-} else {
-  # file path to use in local R
-  input_folder = '//nefscdata/EDAB_Datasets/Workflows/Survey_Data'
-  output_folder = '//nefscdata/EDAB_Indicators/SOE_ecodata'
-
-  # file path to use from container
-  input_folder = '~/EDAB_Datasets/Workflows/Survey_Data'
-  output_folder = '~/EDAB_Indicators/SOE_ecodata'
-
-  message('Using default arguments')
-}
-
-message(paste0('input_folder: ', input_folder))
-message(paste0('output_folder: ', output_folder))
-
-check.dir = function(file) {
-  if (!dir.exists(dirname(file))) {
-    dir.create(dirname(file), recursive = T)
-  }
-}
-
-check.dir(output_folder)
-if (!dir.exists(input_folder)) {
-  stop(paste0('Input directory does not exist: ', input_folder))
-}
 
 ## (1) find survey data input file (albatross_data.rds)
 message("Looking for albatross_data...")
