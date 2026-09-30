@@ -1,6 +1,6 @@
 Package: SOEworkflows
 Title: Generates Indicators for the State of the Ecosystem report
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: 
     c(person(given = "Joseph", family = "Caracappa", email = "joseph.caracappa@noaa.gov", role = c("aut", "cre")),
     person(given = "Andy", family = "Beet", email = "andrew.beet@noaa.gov", role = c("aut"), comment = c(ORCID = "0000-0001-8270-7090")),
@@ -49,9 +49,8 @@ Remotes:
   NOAA-EDAB/comlandr,
   NEesp2=NEFSC/READ-EDAB-NEesp2,
   NEFSCspatial=NEFSC/NEFSC-Spatial
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0
 Suggests: 
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-RoxygenNote: 7.3.3
