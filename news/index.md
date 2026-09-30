@@ -1,5 +1,9 @@
 # Changelog
 
+## SOEworkflows 1.1.0
+
+- Added `species_groupings` workflow
+
 ## SOEworkflows 1.0.0
 
 - All function arguments changed to snake_case from camelCase

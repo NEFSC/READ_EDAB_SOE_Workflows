@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">SOEworkflows</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Indicator Dependencies</h1>
-      <small class="dont-index">Source: <a href="https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/v1.0.0/template_readme.md" class="external-link"><code>template_readme.md</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/main/template_readme.md" class="external-link"><code>template_readme.md</code></a></small>
     </div>
 
 <div id="indicator-dependencies" class="section level1">
@@ -287,6 +287,20 @@
 </li>
 <li>
 <code>output_path_indicators</code> is the path to folder where indicator data should be saved, <code>EDAB_Indicators</code>. The rds file name is hardcoded as <code>rec_hms.rds</code> to match the <code>ecodata</code> package dataset</li>
+</ul></div>
+<div class="section level3">
+<h3 id="species_groupings">species_groupings<a class="anchor" aria-label="anchor" href="#species_groupings"></a></h3>
+<p><em>Note: the following function resides in the folder <code>data-raw</code> and is NOT part of the package</em></p>
+<pre><code>workflow_species_groupings &lt;- function(
+  input_path_species_list,
+  input_path_functional_group,
+  output_path_indicators</code></pre>
+<ul><li>
+<code>input_path_species_list</code> is the path to the static base data object defining species properties (<code>SOE_species_list_old.rds</code>)</li>
+<li>
+<code>input_path_functional_group</code> is the path to the static data set defining the species survey code (SVSPP) and corresponding functional group (<code>functional_groups_list.csv</code>)</li>
+<li>
+<code>output_path_indicators</code> is the path to folder where indicator data should be saved, <code>EDAB_Indicators</code>. The rds file name is hardcoded as <code>species_groupings.rds</code> to match the <code>ecodata</code> package dataset</li>
 </ul></div>
 </div>
 </div>

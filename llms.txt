@@ -87,6 +87,8 @@ Indicators that use oceanographic or environmental data
 
 ## Supporting data
 
+- [`create_species_groupings()`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/create_species_groupings.md)
+  : Calculates species_groupings data set for automated workflow
 - [`epu_strata`](https://nefsc.github.io/READ_EDAB_SOE_Workflows/reference/epu_strata.md)
   : Bottom Trawl Survey Strata and associated EPUs
 
