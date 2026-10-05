@@ -1,13 +1,118 @@
 ### Pull_survey_data
 
-# input = channel <- dbutils::connect_to_database("server","user")
 # outputs = //nefscdata/EDAB_Datasets/Workflows/Survey_Data/survey_no_lengths_data.rds, albatross_data.rds, bigelow_data.rds, condition_data.rds, survey_biological_data.rds, survey_biological_by_epu_data.rds, mass_inshore_data.rds
-### How to format the channel input as a folder?
-#Command Line Local
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "input path" "//nefscdata/EDAB_Datasets/Workflows/Survey_Data"
 
-# Command Line Cloud
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "input path" "~/EDAB_Datasets/Workflows/Survey_Data"
+library(DBI)
+library(ROracle)
+library(here)
+library(SOEworkflows)
+
+message(paste0("[", Sys.time(), "] Starting automated survey data pull..."))
+
+# Define output directory (default to data-raw if not specified via ENV)
+output_path <- Sys.getenv("SOE_OUTPUT_PATH", unset = here::here("data-raw"))
+
+if (!dir.exists(output_path)) {
+  dir.create(output_path, recursive = TRUE)
+}
+
+tryCatch(
+  {
+    # Fetch secrets from environment variables
+    db_server <- Sys.getenv("DB_SERVER")
+    db_user <- Sys.getenv("DB_USER")
+    db_pass <- Sys.getenv("DB_PASS")
+
+    # Guard clause: Fail fast if required credentials are not populated
+    if (nchar(db_server) == 0 || nchar(db_user) == 0 || nchar(db_pass) == 0) {
+      stop(
+        "Missing required database credentials! Ensure DB_SERVER, DB_USER, and DB_PASS environment variables are set."
+      )
+    }
+
+    message(paste0(
+      "Connecting non-interactively to database: ",
+      db_server,
+      " as user: ",
+      db_user
+    ))
+
+    # Connect directly via ROracle driver without interactive getPass popup
+    driver <- ROracle::Oracle()
+    channel <- ROracle::dbConnect(
+      driver,
+      dbname = db_server,
+      username = db_user,
+      password = db_pass
+    )
+
+    # Ensure database connection is closed on script exit
+    on.exit(
+      if (exists("channel") && isS4(channel)) DBI::dbDisconnect(channel),
+      add = TRUE
+    )
+
+    message("Successfully connected to database.")
+
+    # Pull survey data using existing package function
+    message("Fetching survey data via SOEworkflows...")
+    survey_data <- SOEworkflows::get_survey_data(channel)
+
+    # Define output file paths
+    albatross_file <- file.path(output_path, "albatross_data.rds")
+    bigelow_file <- file.path(output_path, "bigelow_data.rds")
+    survey_no_lengths_file <- file.path(
+      output_path,
+      "survey_no_lengths_data.rds"
+    )
+    condition_file <- file.path(output_path, "condition_data.rds")
+    survey_biological_file <- file.path(
+      output_path,
+      "survey_biological_data.rds"
+    )
+    survey_biological_by_epu_file <- file.path(
+      output_path,
+      "survey_biological_by_epu_data.rds"
+    )
+    mass_inshore_file <- file.path(output_path, "mass_inshore_data.rds")
+
+    # Save output RDS files
+    saveRDS(survey_data$al.data, albatross_file)
+    message(paste0("Saved: ", albatross_file))
+
+    saveRDS(survey_data$big.data, bigelow_file)
+    message(paste0("Saved: ", bigelow_file))
+
+    saveRDS(survey_data$survey1, survey_no_lengths_file)
+    message(paste0("Saved: ", survey_no_lengths_file))
+
+    saveRDS(survey_data$condition, condition_file)
+    message(paste0("Saved: ", condition_file))
+
+    saveRDS(survey_data$bio, survey_biological_file)
+    message(paste0("Saved: ", survey_biological_file))
+
+    saveRDS(survey_data$bio_epu, survey_biological_by_epu_file)
+    message(paste0("Saved: ", survey_biological_by_epu_file))
+
+    saveRDS(survey_data$mass_inshore, mass_inshore_file)
+    message(paste0("Saved: ", mass_inshore_file))
+
+    message(paste0(
+      "[",
+      Sys.time(),
+      "] Survey data pull completed successfully."
+    ))
+  },
+  error = function(e) {
+    message(
+      paste0("[", Sys.time(), "] ERROR in workflow_pull_survey_data: "),
+      conditionMessage(e)
+    )
+    # Exit with code 1 so GitHub Actions / runner flags job failure
+    quit(status = 1, save = "no")
+  }
+)
 
 ############################################
 ### Aggregate biomass
