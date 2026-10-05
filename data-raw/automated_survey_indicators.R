@@ -2,6 +2,12 @@
 
 # outputs = //nefscdata/EDAB_Datasets/Workflows/Survey_Data/survey_no_lengths_data.rds, albatross_data.rds, bigelow_data.rds, condition_data.rds, survey_biological_data.rds, survey_biological_by_epu_data.rds, mass_inshore_data.rds
 
+#Command Line Local
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data"
+
+# Command Line Cloud
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data"
+
 library(DBI)
 library(ROracle)
 library(here)
