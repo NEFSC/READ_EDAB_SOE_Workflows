@@ -17,20 +17,24 @@ export(create_trans_dates)
 export(get_commercial_data)
 export(get_recreational_data)
 export(get_survey_data)
-importFrom(data.table,`:=`)
-importFrom(data.table,as.data.table)
-importFrom(dplyr,`%>%`)
-importFrom(dplyr,bind_rows)
-importFrom(dplyr,case_when)
-importFrom(dplyr,distinct)
-importFrom(dplyr,filter)
-importFrom(dplyr,group_by)
-importFrom(dplyr,left_join)
-importFrom(dplyr,mutate)
-importFrom(dplyr,rename)
-importFrom(dplyr,select)
-importFrom(dplyr,summarise)
-importFrom(dplyr,tribble)
+importFrom(data.table,
+  `:=`,
+  as.data.table
+)
+importFrom(dplyr,
+  `%>%`,
+  bind_rows,
+  case_when,
+  distinct,
+  filter,
+  group_by,
+  left_join,
+  mutate,
+  rename,
+  select,
+  summarise,
+  tribble
+)
 importFrom(here,here)
 importFrom(magrittr,"%>%")
 importFrom(rlang,.data)
