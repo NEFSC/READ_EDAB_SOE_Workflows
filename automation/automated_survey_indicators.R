@@ -3,10 +3,10 @@
 # outputs = //nefscdata/EDAB_Datasets/Workflows/Survey_Data/survey_no_lengths_data.rds, albatross_data.rds, bigelow_data.rds, condition_data.rds, survey_biological_data.rds, survey_biological_by_epu_data.rds, mass_inshore_data.rds
 
 #Command Line Local
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/automation/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data"
 
 # Command Line Cloud
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/automation/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data"
 
 library(DBI)
 library(ROracle)
@@ -127,10 +127,10 @@ tryCatch(
 # supplemental input = SOE_species_list_24.rds
 
 #Command Line Local
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data" "//nefscdata/EDAB_Indicators/SOE_ecodata" "//nefscdata/EDAB_Resources/static_workflow_inputs"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/automation/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data" "//nefscdata/EDAB_Indicators/SOE_ecodata" "//nefscdata/EDAB_Resources/static_workflow_inputs"
 
 # Command Line Cloud
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata" "~/EDAB_Resources/static_workflow_inputs"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/automation/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata" "~/EDAB_Resources/static_workflow_inputs"
 
 #Gets arguments from command line
 args = commandArgs(trailingOnly = TRUE)
@@ -232,10 +232,10 @@ message("Done: Aggregate biomass")
 # supplemental input = species.codes.rda, LWparams.rda
 
 #Command Line Local
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data" "//nefscdata/EDAB_Indicators/SOE_ecodata" "//nefscdata/EDAB_Resources/workflow_resources/soe_workflows"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/automation/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data" "//nefscdata/EDAB_Indicators/SOE_ecodata" "//nefscdata/EDAB_Resources/workflow_resources/soe_workflows"
 
 # Command Line Cloud
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata" "~/EDAB_Resources/workflow_resources/soe_workflows"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/automation/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata" "~/EDAB_Resources/workflow_resources/soe_workflows"
 
 ## (1) find survey data input file (condition_data.rds)
 message("Looking for condition_data...")
@@ -304,10 +304,10 @@ message("Done: Species condition")
 # outputs = exp_n.rds
 
 #Command Line Local
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data" "//nefscdata/EDAB_Indicators/SOE_ecodata"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/automation/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data" "//nefscdata/EDAB_Indicators/SOE_ecodata"
 
 # Command Line Cloud
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/automation/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata"
 
 ## (1) find survey data input file (albatross_data.rds)
 message("Looking for albatross_data...")
@@ -361,10 +361,10 @@ message("Done: Exp n")
 # supplemental = SOE_species_list_24.rds
 
 #Command Line Local
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data" "//nefscdata/EDAB_Indicators/SOE_ecodata" "//nefscdata/EDAB_Resources/static_workflow_inputs"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/automation/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data" "//nefscdata/EDAB_Indicators/SOE_ecodata" "//nefscdata/EDAB_Resources/static_workflow_inputs"
 
 # Command Line Cloud
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata" "~/EDAB_Resources/static_workflow_inputs"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/automation/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata" "~/EDAB_Resources/static_workflow_inputs"
 
 ## (1) find survey data input file (mass_inshore_data.rds)
 message("Looking for mass inshore data...")
@@ -420,10 +420,10 @@ message("Done: Mass inshore survey")
 # supplemental = (EDAB_Resources/static_workflow_inputs/) df_lconv.rda, df_lw.rda, SOE_species_list_24.rds
 
 #Command Line Local
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data" "//nefscdata/EDAB_Indicators/SOE_ecodata" "//nefscdata/EDAB_Resources/static_workflow_inputs"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/automation/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data" "//nefscdata/EDAB_Indicators/SOE_ecodata" "//nefscdata/EDAB_Resources/static_workflow_inputs"
 
 # Command Line Cloud
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata" "~/EDAB_Resources/static_workflow_inputs"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/automation/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata" "~/EDAB_Resources/static_workflow_inputs"
 
 ## (1) find survey bio input file (survey_biological_data.rds)
 message("Looking for survey bio data...")
@@ -527,10 +527,10 @@ message("Done: Productivity anomaly")
 # supplemental = (EDAB/Resources/static_workflow_inputs) SOE_species_list_24.rds, nes_bath_data.nc, diag.csv, nes_coast_2.csv, stratareas.rds
 
 #Command Line Local
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data" "//nefscdata/EDAB_Indicators/SOE_ecodata" "//nefscdata/EDAB_Resources/static_workflow_inputs"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/automation/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data" "//nefscdata/EDAB_Indicators/SOE_ecodata" "//nefscdata/EDAB_Resources/static_workflow_inputs"
 
 # Command Line Cloud
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata" "~/EDAB_Resources/static_workflow_inputs"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/automation/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata" "~/EDAB_Resources/static_workflow_inputs"
 
 ## (1) find survey no lengths input file (survey_no_lengths_data.rds)
 message("Looking for survey bio data...")
@@ -650,10 +650,10 @@ message("Done: Species dist")
 # outputs = survey_shannon.rds
 
 #Command Line Local
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data" "//nefscdata/EDAB_Indicators/SOE_ecodata"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/automation/automated_survey_indicators.R "//nefscdata/EDAB_Datasets/Workflows/Survey_Data" "//nefscdata/EDAB_Indicators/SOE_ecodata"
 
 # Command Line Cloud
-#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/data-raw/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata"
+#Rscript https://github.com/NEFSC/READ_EDAB_SOE_Workflows/blob/feature/i94-format-survey-automation/automation/automated_survey_indicators.R "~/EDAB_Datasets/Workflows/Survey_Data" "~/EDAB_Indicators/SOE_ecodata"
 
 ## (1) find survey data input file (albatross_data.rds)
 message("Looking for albatross_data...")
