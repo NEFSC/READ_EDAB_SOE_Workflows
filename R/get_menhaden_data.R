@@ -24,6 +24,9 @@
 #' @param api Logical. If `TRUE`, attempts to query online APIs for FOSS and ACCSP data.
 #'   *Note:* API integration is currently unimplemented; setting `TRUE` triggers a warning
 #'   and automatically falls back to local CSV files. Defaults to `FALSE`.
+#' @param foss_region_path Character string. Full path to the FOSS regional landings CSV file. Use: `here::here("data-raw\\FOSS_landings.csv")`
+#' @param foss_nc_path Character string. Full path to the FOSS NC landings CSV file. Use: `here::here("data-raw\\FOSS_landings_NC.csv")`
+#' @param accsp_path Character string. Full path to the ACCSP landings CSV file. Use: `here::here("data-raw\\accsp_menhaden_SOE2027.csv")`
 #'
 #' @return A `tibble` (or `data.frame`) with the following columns:
 #' \describe{
@@ -51,10 +54,15 @@
 #'   head(menhaden_df)
 #' }
 
-get_menhaden_data <- function(api = FALSE) {
+get_menhaden_data <- function(
+  api = FALSE,
+  foss_region_path = NULL,
+  foss_nc_path = NULL,
+  accsp_path = NULL
+) {
   if (api == TRUE) {
     message(
-      "You set api = TRUE but the API methods don't exist yet. USing local files instead."
+      "You set api = TRUE but the API methods don't exist yet. Use local files instead."
     )
     api <- FALSE
   }
@@ -78,7 +86,8 @@ get_menhaden_data <- function(api = FALSE) {
     # Species = Menhaden, Atlantic & Menhadens **
     # Report format = Totals by year/region
     foss_region <- read.csv(
-      here::here("data-raw\\FOSS_landings.csv"),
+      foss_region_path,
+
       skip = 1
     ) |>
       janitor::clean_names() |>
@@ -98,7 +107,7 @@ get_menhaden_data <- function(api = FALSE) {
     # Species = Menhaden, Atlantic & Menhadens **
     # Report format = Totals by year
     foss_nc <- read.csv(
-      here::here("data-raw\\FOSS_landings_NC.csv"),
+      foss_nc_path,
       skip = 1
     ) |>
       janitor::clean_names() |>
@@ -122,7 +131,7 @@ get_menhaden_data <- function(api = FALSE) {
     # States = ME, NH, MA, RI, CT, NY, NJ, DE, MD, VA, NC
     # Species = Menhaden, Atlantic (161732) & Menhadens (161731)
 
-    accsp <- read.csv(here::here("data-raw\\accsp_menhaden_SOE2027.csv")) |>
+    accsp <- read.csv(accsp_path) |>
       janitor::clean_names() |>
       dplyr::mutate(
         metric_tons = pounds / 2204.62
