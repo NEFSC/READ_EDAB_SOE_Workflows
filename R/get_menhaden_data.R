@@ -1,15 +1,55 @@
-# Metadata ----
-
-### Project name: Menhaden data update
-### Code purpose: Update menhaden data as a precursor to comdat workflow
-
-### Author: AST
-### Date started: 2026-10-08
-
-### Code reviewer:
-### Date reviewed:
-
-# Analysis ----
+#' Extract and Process Menhaden Landings Data
+#'
+#' @description
+#' `get_menhaden_data()` loads, cleans, and aggregates Atlantic menhaden commercial
+#' landings data from NOAA FOSS and ACCSP local raw data files to prepare a standardized
+#' dataset for the `comdat` workflow. It has a placeholder for eventual API integration.
+#'
+#' @details
+#' The function processes commercial landings data split temporally across two primary sources:
+#' \itemize{
+#'   \item **NOAA FOSS Data ($\le 2015$):** Extracted from `FOSS_landings.csv` (Middle Atlantic &
+#'         New England) and `FOSS_landings_NC.csv` (North Carolina).
+#'   \item **ACCSP Data ($> 2015$):** Extracted from `accsp_menhaden_SOE2027.csv` (Maine through North Carolina).
+#' }
+#'
+#' Landings are mapped to Ecological Production Units (EPUs):
+#' \itemize{
+#'   \item `"GOM"` (Gulf of Maine): "New England" (FOSS) or "North Atlantic" (ACCSP)
+#'   \item `"MAB"` (Mid-Atlantic Bight): All other subregions/states (including North Carolina)
+#' }
+#'
+#' ACCSP weights are converted from pounds to metric tons using $1 \text{ metric ton} = 2204.62 \text{ lbs}$.
+#'
+#' @param api Logical. If `TRUE`, attempts to query online APIs for FOSS and ACCSP data.
+#'   *Note:* API integration is currently unimplemented; setting `TRUE` triggers a warning
+#'   and automatically falls back to local CSV files. Defaults to `FALSE`.
+#'
+#' @return A `tibble` (or `data.frame`) with the following columns:
+#' \describe{
+#'   \item{`year`}{Numeric year of reporting.}
+#'   \item{`EPU`}{Ecological Production Unit (`"GOM"` or `"MAB"`).}
+#'   \item{`metric_tons`}{Total commercial landings in metric tons.}
+#'   \item{`dollars`}{Total commercial landed value in USD.}
+#'   \item{`species`}{Species grouping identifier (`"Menhadens"`).}
+#' }
+#'
+#' @note
+#' **Required File Structure:**
+#' This function expects the following files relative to the project root (`here::here()`):
+#' \itemize{
+#'   \item `data-raw/FOSS_landings.csv`
+#'   \item `data-raw/FOSS_landings_NC.csv`
+#'   \item `data-raw/accsp_menhaden_SOE2027.csv`
+#' }
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#'   menhaden_df <- get_menhaden_data()
+#'   head(menhaden_df)
+#' }
 
 get_menhaden_data <- function(api = FALSE) {
   if (api == TRUE) {
@@ -36,7 +76,7 @@ get_menhaden_data <- function(api = FALSE) {
     # Region type = "NMFS Regions"
     # State Landed = Middle Atlantic, New England
     # Species = Menhaden, Atlantic & Menhadens **
-    # Report format = Totals by year
+    # Report format = Totals by year/region
     foss_region <- read.csv(
       here::here("data-raw\\FOSS_landings.csv"),
       skip = 1
@@ -90,25 +130,36 @@ get_menhaden_data <- function(api = FALSE) {
       dplyr::filter(year > 2015)
   }
 
-  output <- foss_region |>
+  foss_region_cleaned <- foss_region |>
+    dplyr::mutate(
+      EPU = dplyr::case_when(region_name == "New England" ~ "GOM", TRUE ~ "MAB")
+    ) |>
+    dplyr::select(year, metric_tons, dollars, EPU)
+
+  foss_nc_cleaned <- foss_nc |>
     dplyr::select(year, metric_tons, dollars) |>
-    dplyr::bind_rows(
-      foss_nc |>
-        dplyr::select(year, metric_tons, dollars)
+    dplyr::mutate(EPU = "MAB")
+
+  accsp_cleaned <- accsp |>
+    dplyr::mutate(
+      EPU = dplyr::case_when(
+        subregion == "North Atlantic" ~ "GOM",
+        TRUE ~ "MAB"
+      )
     ) |>
-    dplyr::mutate(source = "foss") |>
-    dplyr::bind_rows(
-      accsp |>
-        dplyr::select(year, metric_tons, dollars) |>
-        dplyr::mutate(source = "accsp")
-    ) |>
-    dplyr::group_by(year, source) |>
+    dplyr::select(year, metric_tons, dollars, EPU)
+
+  output <- dplyr::bind_rows(
+    foss_region_cleaned,
+    foss_nc_cleaned,
+    accsp_cleaned
+  ) |>
+    dplyr::group_by(year, EPU) |>
     dplyr::summarise(
       metric_tons = sum(metric_tons, na.rm = TRUE),
       dollars = sum(dollars, na.rm = TRUE)
     ) |>
     dplyr::ungroup() |>
-    dplyr::select(-source) |>
     dplyr::mutate(species = "Menhadens")
 
   return(output)
