@@ -74,7 +74,23 @@ bio_species <- bio_regional |>
   ) |>
   dplyr::ungroup()
 
-# add guild column
+#Add guild column from ecodata::species_groupings
+species_groupings <- ecodata::species_groupings |>
+  dplyr::mutate(
+    COMNAME = stringr::str_to_sentence(COMNAME),
+    COMNAME = dplyr::case_when(
+      COMNAME %in% c("Crab, red deepsea", "Crab,red deepsea") ~
+        "Red deepsea crab",
+      COMNAME == "Longfin squid" ~ "Longfin inshore squid",
+      TRUE ~ COMNAME
+    )
+  ) |>
+  dplyr::rename(species = COMNAME) |>
+  dplyr::select(species, SOE.24) |>
+  dplyr::distinct()
+
+bio_species_guild <- bio_species |>
+  dplyr::left_join(species_groupings, by = "species")
 
 ####### F/FMSY ##########
 
@@ -122,7 +138,9 @@ mort_species <- mort_regional |>
   ) |>
   dplyr::ungroup()
 
-# add guild column
+#Add guild column from ecodata::species_groupings
+mort_species_guild <- mort_species |>
+  dplyr::left_join(species_groupings, by = "species")
 
 #######################################################
 # LINE PLOTS
