@@ -3,7 +3,7 @@
 # Headless Script: Pull Commercial Data, then build comdat and bennet
 #
 # Usage (run from the repo root so the project .Renviron is read):
-#   Rscript data-raw/workflow_pull_commercial_data.R Input_Folder Output_Folder Supplement_Folder
+#   Rscript data-raw/automation/workflow_pull_commercial_data.R Input_Folder Output_Folder Supplement_Folder
 #
 #   Input_Folder      : where the raw commercial pull is saved (e.g. EDAB_Datasets)
 #   Output_Folder     : where indicators are saved (e.g. EDAB_Indicators)
