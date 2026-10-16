@@ -1,50 +1,48 @@
-## create time series of msys
+## create time series of msys ----
+
+### first pull msys
 msys <- stocksmart::stock_assessment_summary |>
   dplyr::filter(science_center == "NEFSC") |>
   dplyr::select(
     stock_name,
-    jurisdiction,
-    itis,
-    scientific_name,
     common_name,
     stock_area,
+    jurisdiction,
     assessment_year,
     review_result,
     fmsy,
     f_unit,
     bmsy,
-    b_unit,
-    msy,
-    msy_unit
-  )
+    b_unit
+  ) |>
+  # remove rejected assessments
+  dplyr::filter(review_result == "Full acceptance") |>
+  dplyr::select(-review_result)
 
+### pad out to full time series
 filled_msys <- msys |>
   dplyr::mutate(year = assessment_year) |>
   # Group by stock-level metadata to keep them associated with the stock
   dplyr::group_by(
     stock_name,
-    jurisdiction,
-    itis,
-    scientific_name,
     common_name,
-    stock_area
+    stock_area,
+    jurisdiction,
   ) |>
   # Generate a continuous sequence of years for each stock up to end_year
   tidyr::complete(year = min(year):2025) |>
   # Forward-fill assessment metrics within each group
   tidyr::fill(
-    review_result,
     fmsy,
     f_unit,
     bmsy,
     b_unit,
-    msy,
-    msy_unit,
     assessment_year,
     .direction = "down"
   ) |>
   dplyr::ungroup()
 
+## get actual f and b data ----
 ## actual f and b data from the most recent assessment
 actual_fb <- stocksmart::stock_assessment_data |>
   dplyr::filter(
@@ -62,15 +60,16 @@ actual_fb <- stocksmart::stock_assessment_data |>
   dplyr::group_by(stock_name) |>
   dplyr::mutate(last_assessment = max(assessment_year)) |>
   dplyr::ungroup() |>
-  dplyr::filter(assessment_year == last_assessment)
+  dplyr::filter(assessment_year == last_assessment) |>
+  dplyr::select(-c(assessment_year, last_assessment))
 
-## join
+## join actual f and b data with filled msys data ----
 joined_dat <- dplyr::left_join(
   actual_fb,
   filled_msys,
   by = c("stock_name", "year")
 ) |>
-  dplyr::filter(year > 2000) |>
+  dplyr::filter(!is.na(common_name)) |>
   dplyr::mutate(
     b_bmsy = dplyr::case_when(
       metric == "Abundance" ~ value / bmsy,
@@ -80,9 +79,18 @@ joined_dat <- dplyr::left_join(
       metric == "Fmort" ~ value / fmsy,
       TRUE ~ NA_real_
     )
-  )
+  ) |>
+  dplyr::select(-stock_name)
 
-## plots
+## create f_fmsy and b_bmsy datasets ----
+f_fmsys <- joined_dat |>
+  dplyr::filter(!is.na(f_fmsy)) |>
+  dplyr::select(-c(bmsy, b_unit, b_bmsy))
+b_bmsys <- joined_dat |>
+  dplyr::filter(!is.na(b_bmsy)) |>
+  dplyr::select(-c(fmsy, f_unit, f_fmsy))
+
+## plots ----
 joined_dat |>
   tidyr::drop_na(f_fmsy, fmsy) |>
   dplyr::mutate(
@@ -113,7 +121,7 @@ joined_dat |>
 
 joined_dat |>
   tidyr::drop_na(b_bmsy, bmsy) |>
-  dplyr::filter(b_bmsy > 3000) |>
+  dplyr::filter(b_bmsy > 5 & b_bmsy < 30) |>
   dplyr::filter(
     !(stringr::str_detect(description, "Biomass") &
       stringr::str_detect(b_unit, "tow"))
