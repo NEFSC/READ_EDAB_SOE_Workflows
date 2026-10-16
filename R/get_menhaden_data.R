@@ -24,9 +24,9 @@
 #' @param api Logical. If `TRUE`, attempts to query online APIs for FOSS and ACCSP data.
 #'   *Note:* API integration is currently unimplemented; setting `TRUE` triggers a warning
 #'   and automatically falls back to local CSV files. Defaults to `FALSE`.
-#' @param foss_region_path Character string. Full path to the FOSS regional landings CSV file. Use: `here::here("data-raw\\FOSS_landings.csv")`
-#' @param foss_nc_path Character string. Full path to the FOSS NC landings CSV file. Use: `here::here("data-raw\\FOSS_landings_NC.csv")`
-#' @param accsp_path Character string. Full path to the ACCSP landings CSV file. Use: `here::here("data-raw\\accsp_menhaden_SOE2027.csv")`
+#' @param input_path_foss Character string. Full path to the FOSS regional landings CSV file.
+#' @param input_path_foss_nc Character string. Full path to the FOSS NC landings CSV file.
+#' @param input_path_accsp Character string. Full path to the ACCSP landings CSV file.
 #'
 #' @return A `tibble` (or `data.frame`) with the following columns:
 #' \describe{
@@ -56,9 +56,9 @@
 
 get_menhaden_data <- function(
   api = FALSE,
-  foss_region_path = NULL,
-  foss_nc_path = NULL,
-  accsp_path = NULL
+  input_path_foss = NULL,
+  input_path_foss_nc = NULL,
+  input_path_accsp = NULL
 ) {
   if (api == TRUE) {
     message(
@@ -86,7 +86,7 @@ get_menhaden_data <- function(
     # Species = Menhaden, Atlantic & Menhadens **
     # Report format = Totals by year/region
     foss_region <- read.csv(
-      foss_region_path,
+      input_path_foss,
 
       skip = 1
     ) |>
@@ -107,7 +107,7 @@ get_menhaden_data <- function(
     # Species = Menhaden, Atlantic & Menhadens **
     # Report format = Totals by year
     foss_nc <- read.csv(
-      foss_nc_path,
+      input_path_foss_nc,
       skip = 1
     ) |>
       janitor::clean_names() |>
@@ -131,7 +131,7 @@ get_menhaden_data <- function(
     # States = ME, NH, MA, RI, CT, NY, NJ, DE, MD, VA, NC
     # Species = Menhaden, Atlantic (161732) & Menhadens (161731)
 
-    accsp <- read.csv(accsp_path) |>
+    accsp <- read.csv(input_path_accsp) |>
       janitor::clean_names() |>
       dplyr::mutate(
         metric_tons = pounds / 2204.62
