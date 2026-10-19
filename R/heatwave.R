@@ -14,7 +14,8 @@
 #' \dontrun{
 #'# create the ecodata::heatwave indicator
 #' create_heatwave(input_path_bot = "path/to/input/GLORYS_daily_bt_data.csv",
-#'                 input_path_surf = "path/to/input/OISST_daily_data.csv"
+#'                 input_path_surf = "path/to/input/OISST_daily_data.csv",
+#'                 detrend = T
 #'                )
 #'
 #' }
@@ -177,7 +178,7 @@ create_heatwave_surface <- function(
     dplyr::mutate(
       Units = "N days",
       Time = as.numeric(Time),
-      Var = paste0(Var, "-SurfaceDetrended")
+      Var = paste0(Var, ifelse(detrend, "-SurfaceDetrended", "-SurfaceTrend"))
     )
 
   # Create SOE data object
@@ -185,7 +186,7 @@ create_heatwave_surface <- function(
     dplyr::mutate(
       Units = "degrees C",
       Time = as.numeric(Time),
-      Var = paste0(Var, "-SurfaceDetrended")
+      Var = paste0(Var, ifelse(detrend, "-SurfaceDetrended", "-SurfaceTrend"))
     ) |>
     rbind(duration) |>
     dplyr::select(Time, Var, Value, EPU, Units)
@@ -311,7 +312,7 @@ create_heatwave_bottom <- function(input_path_bot, detrend = F) {
     dplyr::mutate(
       Units = "N days",
       Time = as.numeric(Time),
-      Var = paste0(Var, "-BottomDetrended")
+      Var = paste0(Var, ifelse(detrend, "-BottomDetrended", "-BottomTrend"))
     )
 
   # Create SOE data object
@@ -319,7 +320,7 @@ create_heatwave_bottom <- function(input_path_bot, detrend = F) {
     dplyr::mutate(
       Units = "degrees C",
       Time = as.numeric(Time),
-      Var = paste0(Var, "-BottomDetrended")
+      Var = paste0(Var, ifelse(detrend, "-BottomDetrended", "-BottomTrend"))
     ) |>
     rbind(duration) |>
     dplyr::select(Time, Var, Value, EPU, Units)

@@ -46,7 +46,8 @@ workflow_heatwave <- function(
       if (
         !all(
           !is.null(output_path_indicators),
-          file.exists(input_path_surf)
+          file.exists(input_path_surf),
+          file.exists(input_path_bot)
         )
       ) {
         stop("Incorrect file path or file missing")
@@ -54,7 +55,7 @@ workflow_heatwave <- function(
 
       # calculate indicator
       indicatorData <- SOEworkflows::create_heatwave(
-        input_path_bot = input_path_bot,
+        input_path_bot = NA, #input_path_bot,
         input_path_surf = input_path_surf,
         detrend = detrend
       )

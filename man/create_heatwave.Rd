@@ -24,7 +24,8 @@ into a single indicator
 \dontrun{
 # create the ecodata::heatwave indicator
 create_heatwave(input_path_bot = "path/to/input/GLORYS_daily_bt_data.csv",
-                input_path_surf = "path/to/input/OISST_daily_data.csv"
+                input_path_surf = "path/to/input/OISST_daily_data.csv",
+                detrend = T
                )
 
 }
