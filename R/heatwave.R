@@ -110,7 +110,9 @@ create_heatwave_surface <- function(
         temp.detrend = residuals(lm(temp ~ t, na.action = na.exclude)) +
           mean(temp, na.rm = T)
       ) |>
-      dplyr::ungroup()
+      dplyr::ungroup() |>
+      dplyr::select(-temp) |>
+      dplyr::rename(temp = 'temp.detrend')
   }
 
   # Define Climatology, detect events
@@ -119,10 +121,10 @@ create_heatwave_surface <- function(
   epu.hw <- lapply(epu.names, function(x) {
     dat <- data |>
       dplyr::filter(EPU == x)
-    end.date <- as.character(max(dat$t))
-    start.date <- max(c(as.Date('1982-01-01'), min(dat$t)))
+    end.date <- '2024-12-31' #as.character(max(dat$t))
+    start.date <- '1982-01-01' #max(c(as.Date('1982-01-01'), min(dat$t)))
     ts <- heatwaveR::ts2clm(dat, climatologyPeriod = c(start.date, end.date))
-    mhw <- heatwaveR::detect_event(ts, minDuration = 30)
+    mhw <- heatwaveR::detect_event(ts)
     hw <- mhw$event |>
       dplyr::select(
         event_no,
@@ -243,7 +245,9 @@ create_heatwave_bottom <- function(input_path_bot, detrend = F) {
         temp.detrend = residuals(lm(temp ~ t, na.action = na.exclude)) +
           mean(temp, na.rm = T)
       ) |>
-      dplyr::ungroup()
+      dplyr::ungroup() |>
+      dplyr::select(-temp) |>
+      dplyr::rename(temp = 'temp.detrend')
   }
 
   # ggplot(data, aes(x = t, y = temp,color = EPU ))+geom_line()
@@ -254,8 +258,9 @@ create_heatwave_bottom <- function(input_path_bot, detrend = F) {
   epu.hw <- lapply(epu.names, function(x) {
     dat <- data |>
       dplyr::filter(EPU == x)
-    end.date <- as.character(max(dat$t))
-    ts <- heatwaveR::ts2clm(dat, climatologyPeriod = c("1982-01-01", end.date))
+    end.date <- '2024-12-31' #as.character(max(dat$t))
+    start.date <- '1982-01-01' #max(c(as.Date('1982-01-01'), min(dat$t)))
+    ts <- heatwaveR::ts2clm(dat, climatologyPeriod = c(start.date, end.date))
     mhw <- heatwaveR::detect_event(ts, minDuration = 30)
     hw <- mhw$event |>
       dplyr::select(
