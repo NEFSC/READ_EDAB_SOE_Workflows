@@ -40,9 +40,9 @@ dataset for the \code{comdat} workflow. It has a placeholder for eventual API in
 \details{
 The function processes commercial landings data split temporally across two primary sources:
 \itemize{
-\item \strong{NOAA FOSS Data ($\le 2015$):} Extracted from \code{FOSS_landings.csv} (Middle Atlantic &
-New England) and \code{FOSS_landings_NC.csv} (North Carolina).
-\item \strong{ACCSP Data ($> 2015$):} Extracted from \code{accsp_menhaden_SOE2027.csv} (Maine through North Carolina).
+\item \strong{NOAA FOSS Data (through 2015):} Extracted from regional data (Middle Atlantic &
+New England) and North Carolina data.
+\item \strong{ACCSP Data (2016 and on):} Extracted from state-level data (Maine through North Carolina).
 }
 
 Landings are mapped to Ecological Production Units (EPUs):
@@ -51,16 +51,7 @@ Landings are mapped to Ecological Production Units (EPUs):
 \item \code{"MAB"} (Mid-Atlantic Bight): All other subregions/states (including North Carolina)
 }
 
-ACCSP weights are converted from pounds to metric tons using $1 \text{ metric ton} = 2204.62 \text{ lbs}$.
-}
-\note{
-\strong{Required File Structure:}
-This function expects the following files relative to the project root (\code{here::here()}):
-\itemize{
-\item \code{data-raw/FOSS_landings.csv}
-\item \code{data-raw/FOSS_landings_NC.csv}
-\item \code{data-raw/accsp_menhaden_SOE2027.csv}
-}
+ACCSP weights are converted from pounds to metric tons using 1 metric ton = 2204.62 lbs.
 }
 \examples{
 \dontrun{

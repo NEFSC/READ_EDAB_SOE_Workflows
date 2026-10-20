@@ -8,9 +8,9 @@
 #' @details
 #' The function processes commercial landings data split temporally across two primary sources:
 #' \itemize{
-#'   \item **NOAA FOSS Data ($\le 2015$):** Extracted from `FOSS_landings.csv` (Middle Atlantic &
-#'         New England) and `FOSS_landings_NC.csv` (North Carolina).
-#'   \item **ACCSP Data ($> 2015$):** Extracted from `accsp_menhaden_SOE2027.csv` (Maine through North Carolina).
+#'   \item **NOAA FOSS Data (through 2015):** Extracted from regional data (Middle Atlantic &
+#'         New England) and North Carolina data.
+#'   \item **ACCSP Data (2016 and on):** Extracted from state-level data (Maine through North Carolina).
 #' }
 #'
 #' Landings are mapped to Ecological Production Units (EPUs):
@@ -19,7 +19,7 @@
 #'   \item `"MAB"` (Mid-Atlantic Bight): All other subregions/states (including North Carolina)
 #' }
 #'
-#' ACCSP weights are converted from pounds to metric tons using $1 \text{ metric ton} = 2204.62 \text{ lbs}$.
+#' ACCSP weights are converted from pounds to metric tons using 1 metric ton = 2204.62 lbs.
 #'
 #' @param api Logical. If `TRUE`, attempts to query online APIs for FOSS and ACCSP data.
 #'   *Note:* API integration is currently unimplemented; setting `TRUE` triggers a warning
@@ -35,15 +35,6 @@
 #'   \item{`metric_tons`}{Total commercial landings in metric tons.}
 #'   \item{`dollars`}{Total commercial landed value in USD.}
 #'   \item{`species`}{Species grouping identifier (`"Menhadens"`).}
-#' }
-#'
-#' @note
-#' **Required File Structure:**
-#' This function expects the following files relative to the project root (`here::here()`):
-#' \itemize{
-#'   \item `data-raw/FOSS_landings.csv`
-#'   \item `data-raw/FOSS_landings_NC.csv`
-#'   \item `data-raw/accsp_menhaden_SOE2027.csv`
 #' }
 #'
 #' @export
