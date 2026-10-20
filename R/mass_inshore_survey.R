@@ -88,7 +88,7 @@ create_mass_inshore_survey <- function(
   prepData[, S.Area := NULL]
 
   #Calculate stratified mean
-  stratmeanData <- survdat:::strat_mean(
+  stratmeanData <- survdat::strat_mean(
     prepData,
     groupDescription = 'SOE.24', ##### see how other scripts in workflow example handle terminal year hardcoding
     mergesexFlag = T,

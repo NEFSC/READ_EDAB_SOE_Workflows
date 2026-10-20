@@ -40,5 +40,6 @@ reference:
 - title: "Supporting data"
   desc: ""
 - contents:
+  - create_species_groupings
   - epu_strata
 

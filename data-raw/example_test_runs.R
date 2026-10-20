@@ -37,6 +37,8 @@ input_survey_bio <- paste0(output_path_datasets, "survey_biological_data.rds")
 
 # Dependency data
 input_path_species <- paste0(root_path, "SOE_species_list_24.rds")
+input_path_species_list <- paste0(root_path, "SOE_species_list_old.rds")
+input_path_functional_group <- paste0(root_path, "functional_groups_list.csv")
 input_path_menhaden <- paste0(root_path, "menhadenEOF.rds")
 input_path_static_depth <- paste0(root_path, "nes_bath_data.nc")
 input_path_static_diagonal <- paste0(root_path, "diag.csv")
@@ -90,6 +92,7 @@ source(here::here("data-raw/workflow_trans_dates.R"))
 source(here::here("data-raw/workflow_heatwave.R"))
 source(here::here("data-raw/workflow_heatwave_year.R"))
 source(here::here("data-raw/workflow_productivity_anomaly.R"))
+source(here::here("data-raw/workflow_species_groupings.R"))
 
 if (pull_raw_data) {
   ## Connects to the data base.
@@ -253,3 +256,11 @@ indicator_productivity_anomaly <- workflow_productivity_anomaly(
   output_path_indicators = output_path_indicators
 )
 indicator_productivity_anomaly
+
+
+message("Running species_groupings ...")
+species_groupings <- workflow_species_groupings(
+  input_path_species_list = input_path_species_list,
+  input_path_functional_group = input_path_functional_group,
+  output_path_indicators = output_path_indicators
+)
