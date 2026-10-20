@@ -17,7 +17,12 @@ msys <- stocksmart::stock_assessment_summary |>
   ) |>
   # remove rejected assessments
   dplyr::filter(review_result == "Full acceptance") |>
-  dplyr::select(-review_result)
+  dplyr::select(-review_result) |>
+  # make NA's real values to propagate in gap filling
+  dplyr::mutate(
+    fmsy = ifelse(is.na(fmsy), "NA", fmsy),
+    bmsy = ifelse(is.na(bmsy), "NA", bmsy)
+  )
 
 ### pad out to full time series
 filled_msys <- msys |>
@@ -72,11 +77,11 @@ joined_dat <- dplyr::left_join(
   dplyr::filter(!is.na(common_name)) |>
   dplyr::mutate(
     b_bmsy = dplyr::case_when(
-      metric == "Abundance" ~ value / bmsy,
+      metric == "Abundance" & bmsy != "NA" ~ value / as.numeric(bmsy),
       TRUE ~ NA_real_
     ),
     f_fmsy = dplyr::case_when(
-      metric == "Fmort" ~ value / fmsy,
+      metric == "Fmort" & fmsy != "NA" ~ value / as.numeric(fmsy),
       TRUE ~ NA_real_
     )
   ) |>
