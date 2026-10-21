@@ -92,6 +92,7 @@ species_groupings <- ecodata::species_groupings |>
 bio_species_guild <- bio_species |>
   dplyr::left_join(species_groupings, by = "species")
 
+
 ####### F/FMSY ##########
 
 mort_regional <- all_mort |>

@@ -95,6 +95,58 @@ b_bmsys <- joined_dat |>
   dplyr::filter(!is.na(b_bmsy)) |>
   dplyr::select(-c(fmsy, f_unit, f_fmsy))
 
+## convert b_bmsy units ----
+b_bmsy_converted <- b_bmsys |>
+  dplyr::mutate(
+    bmsy = as.numeric(bmsy),
+    needs_conversion = b_unit %in%
+      c(
+        "Thousand Metric Tons",
+        "thousand mt (female biomass only)",
+        "mt (meat weight only)",
+        "mt SSB"
+      ),
+    b_msy_corrected = dplyr::if_else(needs_conversion, bmsy * 1000, bmsy),
+    b_unit_corrected = dplyr::if_else(needs_conversion, "Metric Tons", b_unit)
+  ) |>
+  dplyr::select(-needs_conversion)
+
+## drop years where there is a mismatch in bmsy units (few years as kg/tow, or million pups for spiny dogfish) ----
+# List of species with bmsy values in kg/tow that need to be dropped
+target_species <- c(
+  "Haddock",
+  "Pollock",
+  "Scup",
+  "Sea scallop",
+  "Spiny dogfish"
+)
+target_units <- c("kg/tow", "kg / Tow", "Million Pups")
+
+b_bmsy_dropyears <- b_bmsy_converted |>
+  dplyr::mutate(
+    b_msy_corrected = dplyr::if_else(
+      common_name %in% target_species & b_unit %in% target_units,
+      NA_real_, # Set to NA if condition is met
+      b_msy_corrected # Keep original value otherwise
+    )
+  )
+
+## recalculate b/b_msy with converted bmsy ----
+b_bmsy_final <- b_bmsy_dropyears |>
+  dplyr::mutate(
+    b_bmsy_corrected = dplyr::case_when(
+      metric == "Abundance" & !is.na(b_msy_corrected) ~ value / b_msy_corrected,
+      TRUE ~ NA_real_
+    )
+  ) |>
+  dplyr::rename(b_over_bmsy = b_bmsy_corrected, species = common_name) |>
+  dplyr::select(-c(bmsy, b_unit, b_bmsy))
+
+write.csv(b_bmsy_final, "data-raw/b_bmsy_final.csv", row.names = FALSE)
+
+## join with bio_species_guild dataset ----
+
+##############################################################
 ## plots ----
 joined_dat |>
   tidyr::drop_na(f_fmsy, fmsy) |>
