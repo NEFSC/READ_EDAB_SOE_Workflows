@@ -142,9 +142,6 @@ b_bmsy_final <- b_bmsy_dropyears |>
   dplyr::rename(b_over_bmsy = b_bmsy_corrected, species = common_name) |>
   dplyr::select(-c(bmsy, b_unit, b_bmsy))
 
-write.csv(b_bmsy_final, "data-raw/b_bmsy_final.csv", row.names = FALSE)
-
-## join with bio_species_guild dataset ----
 
 ##############################################################
 ## plots ----
