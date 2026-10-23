@@ -55,7 +55,7 @@ workflow_heatwave <- function(
 
       # calculate indicator
       indicatorData <- SOEworkflows::create_heatwave(
-        input_path_bot = NA, #input_path_bot,
+        input_path_bot = input_path_bot,
         input_path_surf = input_path_surf,
         detrend = detrend
       )
