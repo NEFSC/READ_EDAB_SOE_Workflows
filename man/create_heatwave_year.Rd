@@ -4,27 +4,14 @@
 \alias{create_heatwave_year}
 \title{Calculates the heatwave_year indicator}
 \usage{
-create_heatwave_year(
-  input_path_gb_bot,
-  input_path_gom_bot,
-  input_path_mab_bot,
-  input_path_gb_surf,
-  input_path_gom_surf,
-  input_path_mab_surf
-)
+create_heatwave_year(input_path_bot = NA, input_path_surf = NA, detrend = F)
 }
 \arguments{
-\item{input_path_gb_bot}{Character string. Full path to the GB GLORYS input file from Joe Caracappa}
+\item{input_path_bot}{Character string. Full path to GLORYS Daily Bottom Temperature input file (from GLORYS automation)}
 
-\item{input_path_gom_bot}{Character string. Full path to the GOM GLORYS input file from Joe Caracappa}
+\item{input_path_surf}{Character string. Full path to OISST Daily Bottom Temperature input file (from OISS automation)}
 
-\item{input_path_mab_bot}{Character string. Full path to the MAB GLORYS input file from Joe Caracappa}
-
-\item{input_path_gb_surf}{Character string. Full path to the GB OISST input file from Kim Hyde}
-
-\item{input_path_gom_surf}{Character string. Full path to the GOM OISST input file from Kim Hyde}
-
-\item{input_path_mab_surf}{Character string. Full path to the MAB OISST input file from Kim Hyde}
+\item{detrend}{logical. If TRUE does a linear detrending of the data}
 }
 \value{
 ecodata::heatwave data frame
@@ -36,12 +23,10 @@ into a single indicator
 \examples{
 \dontrun{
 # create the ecodata::heatwave_year indicator
-create_heatwave_year(input_path_gb_bot = "path/to/input/GBdata.csv",
-                        input_path_gom_bot = "path/to/input/GOMdata.csv",
-                        input_path_mab_bot = "path/to/input/MABdata.csv",
-                        input_path_gb_surf = "path/to/input/GBdata.csv",
-                        input_path_gom_surf = "path/to/input/GOMdata.csv",
-                        input_path_mab_surf = "path/to/input/MABdata.csv")
+create_heatwave_year(input_path_bot = "path/to/input/GLORYS_daily_bt_data.csv",
+                input_path_surf = "path/to/input/OISST_daily_data.csv",
+                detrend = T
+               )
 
 }
 

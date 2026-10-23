@@ -4,51 +4,41 @@
 #' into a single indicator
 #'
 #'
-#' @param input_path_gb_bot Character string. Full path to the GB GLORYS input file from Joe Caracappa
-#' @param input_path_gom_bot Character string. Full path to the GOM GLORYS input file from Joe Caracappa
-#' @param input_path_mab_bot Character string. Full path to the MAB GLORYS input file from Joe Caracappa
-#' @param input_path_gb_surf Character string. Full path to the GB OISST input file from Kim Hyde
-#' @param input_path_gom_surf Character string. Full path to the GOM OISST input file from Kim Hyde
-#' @param input_path_mab_surf Character string. Full path to the MAB OISST input file from Kim Hyde
+#' @param input_path_bot Character string. Full path to GLORYS Daily Bottom Temperature input file (from GLORYS automation)
+#' @param input_path_surf Character string. Full path to OISST Daily Bottom Temperature input file (from OISS automation)
+#' @param detrend logical. If TRUE does a linear detrending of the data
 #'
 #' @return ecodata::heatwave data frame
 #'
 #' @examples
 #' \dontrun{
 #' # create the ecodata::heatwave_year indicator
-#' create_heatwave_year(input_path_gb_bot = "path/to/input/GBdata.csv",
-#'                         input_path_gom_bot = "path/to/input/GOMdata.csv",
-#'                         input_path_mab_bot = "path/to/input/MABdata.csv",
-#'                         input_path_gb_surf = "path/to/input/GBdata.csv",
-#'                         input_path_gom_surf = "path/to/input/GOMdata.csv",
-#'                         input_path_mab_surf = "path/to/input/MABdata.csv")
+#' create_heatwave_year(input_path_bot = "path/to/input/GLORYS_daily_bt_data.csv",
+#'                 input_path_surf = "path/to/input/OISST_daily_data.csv",
+#'                 detrend = T
+#'                )
 #'
 #' }
 #'
-#' @importFrom dplyr `%>%`
+#' @importFrom dplyr `|>`
 #'
 #' @export
 
 create_heatwave_year <- function(
-  input_path_gb_bot,
-  input_path_gom_bot,
-  input_path_mab_bot,
-  input_path_gb_surf,
-  input_path_gom_surf,
-  input_path_mab_surf
+  input_path_bot = NA,
+  input_path_surf = NA,
+  detrend = F
 ) {
   # create surface temperature portion of heatwave_year
   surface <- create_heatwave_year_surface(
-    input_path_gb_surf = input_path_gb_surf,
-    input_path_gom_surf = input_path_gom_surf,
-    input_path_mab_surf = input_path_mab_surf
+    input_path_surf = input_path_surf,
+    detrend = detrend
   )
 
   # create bottom temperature portion of heatwave_year
   bottom <- create_heatwave_year_bottom(
-    input_path_gb_bot = input_path_gb_bot,
-    input_path_gom_bot = input_path_gom_bot,
-    input_path_mab_bot = input_path_mab_bot
+    input_path_bot = input_path_bot,
+    detrend = detend
   )
 
   # combine into one data frame
@@ -62,106 +52,71 @@ create_heatwave_year <- function(
 #' This uses a static input file from Kim Hyde
 #' It is formatted exactly like the ecodata data object
 #'
-#' @param input_path_gb_surf Character string. Full path to the GB GLORYS input file from Kim Hyde
-#' @param input_path_gom_surf Character string. Full path to the GOM GLORYS input file from Kim Hyde
-#' @param input_path_mab_surf Character string. Full path to the MAB GLORYS input file from Kim Hyde
+#' @param input_path_surf Character string. Full path to OISST Daily Bottom Temperature input file (from OISS automation)
+#' @param detrend logical. If TRUE does a linear detrending of the data
 #'
 #' @examples
 #' \dontrun{
 #' # create the surface temperature portion of the ecodata::heatwave indicator for 2025
-#' create_heatwave_surface(input_path_gb_surf = "path/to/input/GBdata.csv",
-#'                         input_path_gom_surf = "path/to/input/GOMdata.csv",
-#'                         input_path_mab_surf = "path/to/input/MABdata.csv")
+#' create_heatwave_surface(input_path_surf = "path/to/input/sst_data.csv",
+#'                         detrend = T)
+
 #'
 #' }
 #'
 #'
 #' @return surface temperature portion of ecodata::heatwave data frame
 #'
-#' @importFrom dplyr `%>%`
 #'
 #' @noRd
 
 create_heatwave_year_surface <- function(
-  input_path_gb_surf,
-  input_path_gom_surf,
-  input_path_mab_surf
+  input_path_surf
 ) {
-  ## Surface Detrended
-  heatwave_gbd <- input_path_gb_surf
-  heatwave_gomd <- input_path_gom_surf
-  heatwave_mabd <- input_path_mab_surf
-
-  # SURFACE DETRENDED
-  gom <- read.csv(file.path(heatwave_gomd), header = FALSE) %>%
-    janitor::row_to_names(1) %>%
-    dplyr::select(t, detrended) %>%
-    dplyr::rename(temp = detrended) %>%
-    dplyr::filter(!temp == "temp") %>%
+  data <- read.csv(file.path(input_path_surf)) |>
+    dplyr::rename(t = date, temp = sst.mean) |>
     dplyr::mutate(
       temp = as.numeric(temp),
-      t = as.Date(t, format = "%m/%d/%Y")
-    ) %>%
+      t = as.Date(t, format = '%Y-%m-%d')
+    ) |>
+    dplyr::select(t, EPU, temp) |>
     tidyr::drop_na()
 
-  gb <- read.csv(file.path(heatwave_gbd), header = FALSE) %>%
-    janitor::row_to_names(1) %>%
-    dplyr::select(t, detrended) %>%
-    dplyr::rename(temp = detrended) %>%
-    dplyr::filter(!temp == "temp") %>%
-    dplyr::mutate(
-      temp = as.numeric(temp),
-      t = as.Date(t, format = "%m/%d/%Y")
-    ) %>%
-    tidyr::drop_na()
+  if (detrend) {
+    data <- data |>
+      dplyr::group_by(EPU) |>
+      dplyr::mutate(
+        temp.detrend = residuals(lm(temp ~ t, na.action = na.exclude)) +
+          mean(temp, na.rm = T)
+      ) |>
+      dplyr::ungroup() |>
+      dplyr::select(-temp) |>
+      dplyr::rename(temp = 'temp.detrend')
+  }
 
-  mab <- read.csv(file.path(heatwave_mabd), header = FALSE) %>%
-    janitor::row_to_names(1) %>%
-    dplyr::select(t, detrended) %>%
-    dplyr::rename(temp = detrended) %>%
-    dplyr::filter(!temp == "temp") %>%
-    dplyr::mutate(
-      temp = as.numeric(temp),
-      t = as.Date(t, format = "%m/%d/%Y")
-    ) %>%
-    tidyr::drop_na()
-
-  #GB
-  ts <- heatwaveR::ts2clm(gb, climatologyPeriod = c("1982-01-01", "2024-12-31"))
-  gb.mhw <- heatwaveR::detect_event(ts)
-
-  #GOM
-  ts <- heatwaveR::ts2clm(
-    gom,
-    climatologyPeriod = c("1982-01-01", "2024-12-31")
-  )
-  gom.mhw <- heatwaveR::detect_event(ts)
-
-  #MAB
-  ts <- heatwaveR::ts2clm(
-    mab,
-    climatologyPeriod = c("1982-01-01", "2024-12-31")
-  )
-  mab.mhw <- heatwaveR::detect_event(ts)
+  #heatwave events
+  epu.names <- c('GB', 'GOM', 'MAB')
+  epu.hw <- lapply(epu.names, function(x) {
+    dat <- data |>
+      dplyr::filter(EPU == x)
+    end.date <- '2024-12-31'
+    start.date <- '1982-01-01'
+    ts <- heatwaveR::ts2clm(dat, climatologyPeriod = c(start.date, end.date))
+    mhw <- heatwaveR::detect_event(ts)
+    return(mhw)
+  })
 
   ### Take just clim
-  #GB
-  mhw <- gb.mhw$clim %>%
-    dplyr::mutate(EPU = c("GB"), Year = format(gb.mhw$clim$t, "%Y")) #extract year from date column; create year and epu columns
-  mhw.gb.year <- dplyr::filter(mhw, mhw$Year == max(mhw$Year)) #subset most recent year
 
-  #GOM
-  mhw <- gom.mhw$clim %>%
-    dplyr::mutate(EPU = c("GOM"), Year = format(gom.mhw$clim$t, "%Y")) #extract year from date column; create year and epu columns
-  mhw.gom.year <- dplyr::filter(mhw, mhw$Year == max(mhw$Year)) #subset most recent year
+  mhw <- lapply(epu.hw, function(x) {
+    dat <- x$clim |>
+      dplyr::mutate(Year = format(t, "%Y")) |>
+      dplyr::filter(Year == max(Year))
+    return(dat)
+  })
 
-  #MAB
-  mhw <- mab.mhw$clim %>%
-    dplyr::mutate(EPU = c("MAB"), Year = format(mab.mhw$clim$t, "%Y")) #extract year from date column; create year and epu columns
-  mhw.mab.year <- dplyr::filter(mhw, mhw$Year == max(mhw$Year)) #subset most recent year
-
-  heatwave_year_surface <- rbind(mhw.gb.year, mhw.gom.year, mhw.mab.year) %>%
-    dplyr::mutate(Var = "SurfaceDetrended") |>
+  heatwave_year_surface <- dplyr::bind_rows(mhw) |>
+    dplyr::mutate(Var = ifelse(detrend, "SurfaceDetrended", 'SurfaceTrend')) |>
     dplyr::as_tibble()
 
   return(heatwave_year_surface)
@@ -173,16 +128,14 @@ create_heatwave_year_surface <- function(
 #' This uses a static input file from Joe Caracappa
 #' It is formatted exactly like the ecodata data object
 #'
-#' @param input_path_gb_bot Character string. Full path to the GB GLORYS input file from Joe Caracappa
-#' @param input_path_gom_bot Character string. Full path to the GOM GLORYS input file from Joe Caracappa
-#' @param input_path_mab_bot Character string. Full path to the MAB GLORYS input file from Joe Caracappa
+#' @param input_path_bot Character string. Full path to GLORYS Daily Bottom Temperature input file (from GLORYS automation)
+#' @param detrend logical. If TRUE does a linear detrending of the data
 #'
 #' @examples
 #' \dontrun{
 #' # create the bottom temperature portion of the ecodata::heatwave_year indicator for 2025
-#' create_heatwave_year_bottom(input_path_gb_bot = "path/to/input/GBdata.csv",
-#'                        input_path_gom_bot = "path/to/input/GOMdata.csv",
-#'                        input_path_mab_bot = "path/to/input/MABdata.csv")
+#' create_heatwave_year_bottom(input_path_bot = "path/to/input/bottom_temp_data.csv",
+#'                        detrend = T)
 #'
 #' }
 #'
@@ -190,90 +143,59 @@ create_heatwave_year_surface <- function(
 #' @return bottom temperature portion of ecodata::heatwave_year data frame
 #'
 #'
-#' @importFrom dplyr `%>%`
+#' @importFrom dplyr `|>`
 #'
 #' @noRd
 
 create_heatwave_year_bottom <- function(
-  input_path_gb_bot,
-  input_path_gom_bot,
-  input_path_mab_bot
+  input_path_bot,
+  detrend = F
 ) {
-  ## Define inputs
-  bheatwave_gbd <- input_path_gb_bot
-  bheatwave_gomd <- input_path_gom_bot
-  bheatwave_mabd <- input_path_mab_bot
-
   #Bottom heatwave detrended
-  gom <- read.csv(file.path(bheatwave_gomd), header = FALSE) %>%
-    janitor::row_to_names(1) %>%
-    dplyr::select(date, Detrended) %>%
-    dplyr::rename(t = date, temp = Detrended) %>%
-    dplyr::filter(!temp == "temp") %>%
+  data <- read.csv(file.path(input_path_bot), header = T) |>
+    dplyr::rename(t = date, temp = sst.mean) |>
     dplyr::mutate(
       temp = as.numeric(temp),
-      t = as.Date(t, format = "%m/%d/%Y")
-    ) %>%
+      t = as.Date(t, format = '%Y-%m-%d')
+    ) |>
+    dplyr::select(t, EPU, temp) |>
     tidyr::drop_na()
 
-  gb <- read.csv(file.path(bheatwave_gbd), header = FALSE) %>%
-    janitor::row_to_names(1) %>%
-    dplyr::select(date, Detrended) %>%
-    dplyr::rename(t = date, temp = Detrended) %>%
-    dplyr::filter(!temp == "temp") %>%
-    dplyr::mutate(
-      temp = as.numeric(temp),
-      t = as.Date(t, format = "%m/%d/%Y")
-    ) %>%
-    tidyr::drop_na()
+  if (detrend) {
+    data <- data |>
+      dplyr::group_by(EPU) |>
+      dplyr::mutate(
+        temp.detrend = residuals(lm(temp ~ t, na.action = na.exclude)) +
+          mean(temp, na.rm = T)
+      ) |>
+      dplyr::ungroup() |>
+      dplyr::select(-temp) |>
+      dplyr::rename(temp = 'temp.detrend')
+  }
 
-  mab <- read.csv(file.path(bheatwave_mabd), header = FALSE) %>%
-    janitor::row_to_names(1) %>%
-    dplyr::select(date, Detrended) %>%
-    dplyr::rename(t = date, temp = Detrended) %>%
-    dplyr::filter(!temp == "temp") %>%
-    dplyr::mutate(
-      temp = as.numeric(temp),
-      t = as.Date(t, format = "%m/%d/%Y")
-    ) %>%
-    tidyr::drop_na()
-
-  #GB
-  ts <- heatwaveR::ts2clm(gb, climatologyPeriod = c("1982-01-01", "2024-11-26"))
-  gb.mhw <- heatwaveR::detect_event(ts, minDuration = 30)
-
-  #GOM
-  ts <- heatwaveR::ts2clm(
-    gom,
-    climatologyPeriod = c("1982-01-01", "2024-11-26")
-  )
-  gom.mhw <- heatwaveR::detect_event(ts, minDuration = 30)
-
-  #MAB
-  ts <- heatwaveR::ts2clm(
-    mab,
-    climatologyPeriod = c("1982-01-01", "2024-11-26")
-  )
-  mab.mhw <- heatwaveR::detect_event(ts, minDuration = 30)
+  #heatwave events
+  epu.names <- c('GB', 'GOM', 'MAB')
+  epu.hw <- lapply(epu.names, function(x) {
+    dat <- data |>
+      dplyr::filter(EPU == x)
+    end.date <- '2024-12-31'
+    start.date <- '1982-01-01'
+    ts <- heatwaveR::ts2clm(dat, climatologyPeriod = c(start.date, end.date))
+    mhw <- heatwaveR::detect_event(ts, minDuration = 30)
+    return(mhw)
+  })
 
   ### Take just clim
-  #GB
-  mhw <- gb.mhw$clim %>%
-    dplyr::mutate(EPU = c("GB"), Year = format(gb.mhw$clim$t, "%Y")) #extract year from date column; create year and epu columns
-  mhw.gb.year <- dplyr::filter(mhw, mhw$Year == max(mhw$Year)) #subset most recent year
 
-  #GOM
-  mhw <- gom.mhw$clim %>%
-    dplyr::mutate(EPU = c("GOM"), Year = format(gom.mhw$clim$t, "%Y")) #extract year from date column; create year and epu columns
-  mhw.gom.year <- dplyr::filter(mhw, mhw$Year == max(mhw$Year)) #subset most recent year
+  mhw <- lapply(epu.hw, function(x) {
+    dat <- x$clim |>
+      dplyr::mutate(Year = format(t, "%Y")) |>
+      dplyr::filter(Year == max(Year))
+    return(dat)
+  })
 
-  #MAB
-  mhw <- mab.mhw$clim %>%
-    dplyr::mutate(EPU = c("MAB"), Year = format(mab.mhw$clim$t, "%Y")) #extract year from date column; create year and epu columns
-  mhw.mab.year <- dplyr::filter(mhw, mhw$Year == max(mhw$Year)) #subset most recent year
-
-  heatwave_year_bottom <- rbind(mhw.gb.year, mhw.gom.year, mhw.mab.year) %>%
-    dplyr::mutate(Var = "BottomDetrended") |>
+  heatwave_year_bottom <- dplyr::bind_rows(mhw) |>
+    dplyr::mutate(Var = ifelse(detrend, "BottomDetrended", 'BottomTrend')) |>
     dplyr::as_tibble()
 
   return(heatwave_year_bottom)
