@@ -27,6 +27,81 @@ for (istock in 1:nrow(northeast_stocks)) {
   all_mort <- rbind(all_mort, fmort)
 }
 
+# add regional management column
+bio_regional <- all_bio |>
+  dplyr::mutate(
+    region = dplyr::case_when(
+      stringr::str_detect(
+        stock,
+        "Atlantic surfclam|Ocean quahog|Summer flounder|Scup|Black sea bass|Atlantic mackerel|Butterfish|Bluefish|tilefish|Tilefish|squid"
+      ) ~
+        "MAFMC",
+      stringr::str_detect(
+        stock,
+        "Atlantic cod|Haddock|Yellowtail flounder|Ocean pout|Windowpane|Pollock|American plaice|Witch flounder|Winter flounder|Atlantic wolffish|White hake|Acadian redfish|Atlantic halibut|Red deepsea crab|Sea scallop|Atlantic herring|Silver hake|Red hake|Offshore hake|Atlantic salmon|skate"
+      ) ~
+        "NEFMC",
+      stringr::str_detect(stock, "Spiny dogfish|Goosefish") ~ "NEFMC/MAFMC",
+      TRUE ~ "Other" # Default fallback
+    )
+  )
+
+# species, stock, and last assessment year columns
+bio_species <- bio_regional |>
+  tidyr::separate_wider_delim(
+    cols = stock,
+    delim = " - ",
+    names = c("species", "stock")
+  ) |> # split stock into species and stock columns
+  dplyr::filter(species != "Atlantic menhaden") |> #remove menhaden
+  dplyr::group_by(species) |>
+  dplyr::mutate(
+    stock = dplyr::case_when(
+      dplyr::n_distinct(stock) == 1 ~ "UNIT",
+      TRUE ~ stock
+    )
+  ) |>
+  dplyr::ungroup() |>
+  dplyr::group_by(species) |> # add column for last assessment year = YES or NO
+  dplyr::mutate(
+    last_assessment = dplyr::if_else(
+      assessment_year == max(assessment_year, na.rm = TRUE),
+      "YES",
+      "NO"
+    )
+  ) |>
+  dplyr::ungroup()
+
+#Add guild column from ecodata::species_groupings
+species_groupings <- ecodata::species_groupings |>
+  dplyr::mutate(
+    COMNAME = stringr::str_to_sentence(COMNAME),
+    COMNAME = dplyr::case_when(
+      COMNAME %in% c("Crab, red deepsea", "Crab,red deepsea") ~
+        "Red deepsea crab",
+      COMNAME == "Longfin squid" ~ "Longfin inshore squid",
+      TRUE ~ COMNAME
+    )
+  ) |>
+  dplyr::rename(species = COMNAME) |>
+  dplyr::select(species, SOE.24) |>
+  dplyr::distinct()
+
+bio_species_guild <- bio_species |>
+  dplyr::left_join(species_groupings, by = "species")
+
+#Add year column and fill in missing assessment years
+bio_expanded <- bio_species_guild |>
+  dplyr::group_by(species) |>
+  dplyr::mutate(year = assessment_year) |>
+  tidyr::complete(year = 2002:2025) |>
+  dplyr::mutate(
+    assessment_year = zoo::na.locf(assessment_year, na.rm = FALSE)
+  ) |>
+  dplyr::arrange(species, year) |>
+  dplyr::ungroup()
+
+##############################################
 ## create time series of msys ----
 
 ### first pull msys
@@ -124,82 +199,6 @@ b_bmsys <- joined_dat |>
   dplyr::filter(!is.na(b_bmsy)) |>
   dplyr::select(-c(fmsy, f_unit, f_fmsy))
 
-######### B/BMSY ##########
-
-# add regional management column
-bio_regional <- all_bio |>
-  dplyr::mutate(
-    region = dplyr::case_when(
-      stringr::str_detect(
-        stock,
-        "Atlantic surfclam|Ocean quahog|Summer flounder|Scup|Black sea bass|Atlantic mackerel|Butterfish|Bluefish|tilefish|Tilefish|squid"
-      ) ~
-        "MAFMC",
-      stringr::str_detect(
-        stock,
-        "Atlantic cod|Haddock|Yellowtail flounder|Ocean pout|Windowpane|Pollock|American plaice|Witch flounder|Winter flounder|Atlantic wolffish|White hake|Acadian redfish|Atlantic halibut|Red deepsea crab|Sea scallop|Atlantic herring|Silver hake|Red hake|Offshore hake|Atlantic salmon|skate"
-      ) ~
-        "NEFMC",
-      stringr::str_detect(stock, "Spiny dogfish|Goosefish") ~ "NEFMC/MAFMC",
-      TRUE ~ "Other" # Default fallback
-    )
-  )
-
-# species, stock, and last assessment year columns
-bio_species <- bio_regional |>
-  tidyr::separate_wider_delim(
-    cols = stock,
-    delim = " - ",
-    names = c("species", "stock")
-  ) |> # split stock into species and stock columns
-  dplyr::filter(species != "Atlantic menhaden") |> #remove menhaden
-  dplyr::group_by(species) |>
-  dplyr::mutate(
-    stock = dplyr::case_when(
-      dplyr::n_distinct(stock) == 1 ~ "UNIT",
-      TRUE ~ stock
-    )
-  ) |>
-  dplyr::ungroup() |>
-  dplyr::group_by(species) |> # add column for last assessment year = YES or NO
-  dplyr::mutate(
-    last_assessment = dplyr::if_else(
-      assessment_year == max(assessment_year, na.rm = TRUE),
-      "YES",
-      "NO"
-    )
-  ) |>
-  dplyr::ungroup()
-
-#Add guild column from ecodata::species_groupings
-species_groupings <- ecodata::species_groupings |>
-  dplyr::mutate(
-    COMNAME = stringr::str_to_sentence(COMNAME),
-    COMNAME = dplyr::case_when(
-      COMNAME %in% c("Crab, red deepsea", "Crab,red deepsea") ~
-        "Red deepsea crab",
-      COMNAME == "Longfin squid" ~ "Longfin inshore squid",
-      TRUE ~ COMNAME
-    )
-  ) |>
-  dplyr::rename(species = COMNAME) |>
-  dplyr::select(species, SOE.24) |>
-  dplyr::distinct()
-
-bio_species_guild <- bio_species |>
-  dplyr::left_join(species_groupings, by = "species")
-
-#Add year column and fill in missing assessment years
-bio_expanded <- bio_species_guild |>
-  dplyr::group_by(species) |>
-  dplyr::mutate(year = assessment_year) |>
-  tidyr::complete(year = 2002:2025) |>
-  dplyr::mutate(
-    assessment_year = zoo::na.locf(assessment_year, na.rm = FALSE)
-  ) |>
-  dplyr::arrange(species, year) |>
-  dplyr::ungroup()
-
 ## convert b_bmsy units ----
 b_bmsy_converted <- b_bmsys |>
   dplyr::mutate(
@@ -247,6 +246,7 @@ b_bmsy_final <- b_bmsy_dropyears |>
   dplyr::rename(b_over_bmsy = b_bmsy_corrected, species = common_name) |>
   dplyr::select(-c(bmsy, b_unit, b_bmsy))
 
+######## B/Bmsy ########
 #Join to all years b_over_bmsy data
 bio_all <- bio_expanded |>
   dplyr::left_join(
