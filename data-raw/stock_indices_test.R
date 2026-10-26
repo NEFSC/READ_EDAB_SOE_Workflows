@@ -1,106 +1,5 @@
 ### Data pulls
 
-# pull all northeast stock
-northeast_stocks <- stocksmart::stock_assessment_summary |>
-  dplyr::filter(grepl("Northeast", regional_ecosystem)) |>
-  dplyr::distinct(stock_name, stock_id, itis, jurisdiction, science_center)
-
-
-all_bio <- NULL
-all_mort <- NULL
-# loop over all stocks ato pull timeseries of b/bmsy and f/fmsy
-for (istock in 1:nrow(northeast_stocks)) {
-  species_stock <- northeast_stocks[istock, ]
-  bio <- stocksmart::get_reference_points(
-    stock = species_stock$stock_id,
-    ref_point = "b_over_bmsy"
-  ) |>
-    dplyr::mutate(stock = species_stock$stock_name)
-  fmort <- stocksmart::get_reference_points(
-    stock = species_stock$stock_id,
-    ref_point = "f_over_fmsy"
-  ) |>
-    dplyr::mutate(stock = species_stock$stock_name)
-
-  # store all data in tidy format
-  all_bio <- rbind(all_bio, bio)
-  all_mort <- rbind(all_mort, fmort)
-}
-
-# add regional management column
-bio_regional <- all_bio |>
-  dplyr::mutate(
-    region = dplyr::case_when(
-      stringr::str_detect(
-        stock,
-        "Atlantic surfclam|Ocean quahog|Summer flounder|Scup|Black sea bass|Atlantic mackerel|Butterfish|Bluefish|tilefish|Tilefish|squid"
-      ) ~
-        "MAFMC",
-      stringr::str_detect(
-        stock,
-        "Atlantic cod|Haddock|Yellowtail flounder|Ocean pout|Windowpane|Pollock|American plaice|Witch flounder|Winter flounder|Atlantic wolffish|White hake|Acadian redfish|Atlantic halibut|Red deepsea crab|Sea scallop|Atlantic herring|Silver hake|Red hake|Offshore hake|Atlantic salmon|skate"
-      ) ~
-        "NEFMC",
-      stringr::str_detect(stock, "Spiny dogfish|Goosefish") ~ "NEFMC/MAFMC",
-      TRUE ~ "Other" # Default fallback
-    )
-  )
-
-# species, stock, and last assessment year columns
-bio_species <- bio_regional |>
-  tidyr::separate_wider_delim(
-    cols = stock,
-    delim = " - ",
-    names = c("species", "stock")
-  ) |> # split stock into species and stock columns
-  dplyr::filter(species != "Atlantic menhaden") |> #remove menhaden
-  dplyr::group_by(species) |>
-  dplyr::mutate(
-    stock = dplyr::case_when(
-      dplyr::n_distinct(stock) == 1 ~ "UNIT",
-      TRUE ~ stock
-    )
-  ) |>
-  dplyr::ungroup() |>
-  dplyr::group_by(species) |> # add column for last assessment year = YES or NO
-  dplyr::mutate(
-    last_assessment = dplyr::if_else(
-      assessment_year == max(assessment_year, na.rm = TRUE),
-      "YES",
-      "NO"
-    )
-  ) |>
-  dplyr::ungroup()
-
-#Add guild column from ecodata::species_groupings
-species_groupings <- ecodata::species_groupings |>
-  dplyr::mutate(
-    COMNAME = stringr::str_to_sentence(COMNAME),
-    COMNAME = dplyr::case_when(
-      COMNAME %in% c("Crab, red deepsea", "Crab,red deepsea") ~
-        "Red deepsea crab",
-      COMNAME == "Longfin squid" ~ "Longfin inshore squid",
-      TRUE ~ COMNAME
-    )
-  ) |>
-  dplyr::rename(species = COMNAME) |>
-  dplyr::select(species, SOE.24) |>
-  dplyr::distinct()
-
-bio_species_guild <- bio_species |>
-  dplyr::left_join(species_groupings, by = "species")
-
-#Add year column and fill in missing assessment years
-bio_expanded <- bio_species_guild |>
-  dplyr::group_by(species) |>
-  dplyr::mutate(year = assessment_year) |>
-  tidyr::complete(year = 2002:2025) |>
-  dplyr::mutate(
-    assessment_year = zoo::na.locf(assessment_year, na.rm = FALSE)
-  ) |>
-  dplyr::arrange(species, year) |>
-  dplyr::ungroup()
-
 ##############################################
 ## create time series of msys ----
 
@@ -199,6 +98,9 @@ b_bmsys <- joined_dat |>
   dplyr::filter(!is.na(b_bmsy)) |>
   dplyr::select(-c(fmsy, f_unit, f_fmsy))
 
+
+######### B/Bmsy #############
+
 ## convert b_bmsy units ----
 b_bmsy_converted <- b_bmsys |>
   dplyr::mutate(
@@ -246,55 +148,43 @@ b_bmsy_final <- b_bmsy_dropyears |>
   dplyr::rename(b_over_bmsy = b_bmsy_corrected, species = common_name) |>
   dplyr::select(-c(bmsy, b_unit, b_bmsy))
 
-######## B/Bmsy ########
-#Join to all years b_over_bmsy data
-bio_all <- bio_expanded |>
-  dplyr::left_join(
-    b_bmsy_final |>
-      dplyr::select(species, year, b_over_bmsy_fill = b_over_bmsy),
-    by = c("species", "year")
+## add last assessment year column ----
+bio_assessment <- b_bmsy_final |>
+  dplyr::group_by(species) |> # last assessment year = YES or NO
+  dplyr::mutate(
+    last_assessment = dplyr::if_else(
+      assessment_year == max(assessment_year, na.rm = TRUE),
+      "YES",
+      "NO"
+    )
   ) |>
-  dplyr::mutate(b_over_bmsy = dplyr::coalesce(b_over_bmsy, b_over_bmsy_fill)) |>
-  dplyr::select(-b_over_bmsy_fill)
+  dplyr::ungroup()
 
-write.csv(bio_all, "data-raw/b_bmsy_all_years.csv", row.names = FALSE)
+## Add guild column from ecodata::species_groupings ----
+species_groupings <- ecodata::species_groupings |>
+  dplyr::mutate(
+    COMNAME = stringr::str_to_sentence(COMNAME),
+    COMNAME = dplyr::case_when(
+      COMNAME %in% c("Crab, red deepsea", "Crab,red deepsea") ~
+        "Red deepsea crab",
+      COMNAME == "Longfin squid" ~ "Longfin inshore squid",
+      TRUE ~ COMNAME
+    )
+  ) |>
+  dplyr::rename(species = COMNAME) |>
+  dplyr::select(species, SOE.24) |>
+  dplyr::distinct()
+
+bio_species_guild <- bio_assessment |>
+  dplyr::left_join(species_groupings, by = "species") |>
+  dplyr::rename(guild = SOE.24)
+
 
 ####### F/FMSY ##########
 
-mort_regional <- all_mort |>
-  dplyr::mutate(
-    region = dplyr::case_when(
-      stringr::str_detect(
-        stock,
-        "Atlantic surfclam|Ocean quahog|Summer flounder|Scup|Black sea bass|Atlantic mackerel|Butterfish|Bluefish|tilefish|Tilefish|squid"
-      ) ~
-        "MAFMC",
-      stringr::str_detect(
-        stock,
-        "Atlantic cod|Haddock|Yellowtail flounder|Ocean pout|Windowpane|Pollock|American plaice|Witch flounder|Winter flounder|Atlantic wolffish|White hake|Acadian redfish|Atlantic halibut|Red deepsea crab|Sea scallop|Atlantic herring|Silver hake|Red hake|Offshore hake|Atlantic salmon|skate"
-      ) ~
-        "NEFMC",
-      stringr::str_detect(stock, "Spiny dogfish|Goosefish") ~ "NEFMC/MAFMC",
-      TRUE ~ "Other" # Default fallback
-    )
-  )
-
-# species, stock, and last assessment year columns
-mort_species <- mort_regional |>
-  tidyr::separate_wider_delim(
-    cols = stock,
-    delim = " - ",
-    names = c("species", "stock")
-  ) |> # split stock into species and stock columns
-  dplyr::filter(species != "Atlantic menhaden") |> #remove menhaden
-  dplyr::group_by(species) |>
-  dplyr::mutate(
-    stock = dplyr::case_when(
-      dplyr::n_distinct(stock) == 1 ~ "UNIT",
-      TRUE ~ stock
-    )
-  ) |>
-  dplyr::ungroup() |>
+## add last assessment year column ----
+mort_assessment <- f_fmsys |>
+  dplyr::rename(species = common_name) |>
   dplyr::group_by(species) |> # add column for last assessment year = YES or NO
   dplyr::mutate(
     last_assessment = dplyr::if_else(
@@ -306,22 +196,23 @@ mort_species <- mort_regional |>
   dplyr::ungroup()
 
 #Add guild column from ecodata::species_groupings
-mort_species_guild <- mort_species |>
-  dplyr::left_join(species_groupings, by = "species")
+mort_species_guild <- mort_assessment |>
+  dplyr::left_join(species_groupings, by = "species") |>
+  dplyr::rename(guild = SOE.24, f_over_fmsy = f_fmsy)
 
 #######################################################
 # LINE PLOTS
 
 ######### F/Fmsy ##########
 
-# Filter out missing values
-mort_clean <- mort_regional |>
-  dplyr::filter(!is.na(f_over_fmsy))
+# # Filter out missing values
+# mort_clean <- mort_regional |>
+#   dplyr::filter(!is.na(f_over_fmsy))
 
 # Plot
 ggplot2::ggplot(
-  mort_clean,
-  ggplot2::aes(x = assessment_year, y = f_over_fmsy)
+  mort_species_guild,
+  ggplot2::aes(x = year, y = f_over_fmsy)
 ) +
   ggplot2::geom_hline(
     yintercept = 1,
@@ -332,7 +223,7 @@ ggplot2::ggplot(
   ggplot2::geom_point(color = "black", size = 2) +
   ggplot2::stat_summary(fun = mean, geom = "line", color = "red", size = 1) +
   ggplot2::stat_summary(fun = mean, geom = "point", color = "red", size = 2.5) +
-  ggplot2::facet_wrap(~region, ncol = 1, scales = "free_y") +
+  ggplot2::facet_wrap(~jurisdiction, ncol = 1, scales = "free_y") +
   ggplot2::labs(
     title = "F/Fmsy for Managed Species",
     x = NULL,
@@ -358,11 +249,11 @@ ggplot2::ggplot(
 ######## B/Bmsy #########
 
 # Filter out missing values
-bio_clean <- bio_regional |>
-  dplyr::filter(!is.na(b_over_bmsy))
+# bio_clean <- bio_regional |>
+#   dplyr::filter(!is.na(b_over_bmsy))
 
 # Plot
-ggplot2::ggplot(bio_clean, ggplot2::aes(x = assessment_year, y = b_over_bmsy)) +
+ggplot2::ggplot(bio_species_guild, ggplot2::aes(x = year, y = b_over_bmsy)) +
   ggplot2::geom_hline(
     yintercept = 1,
     linetype = "dashed",
@@ -372,7 +263,7 @@ ggplot2::ggplot(bio_clean, ggplot2::aes(x = assessment_year, y = b_over_bmsy)) +
   ggplot2::geom_point(color = "black", size = 2) +
   ggplot2::stat_summary(fun = mean, geom = "line", color = "red", size = 1) +
   ggplot2::stat_summary(fun = mean, geom = "point", color = "red", size = 2.5) +
-  ggplot2::facet_wrap(~region, ncol = 1, scales = "free_y") +
+  ggplot2::facet_wrap(~jurisdiction, ncol = 1, scales = "free_y") +
   ggplot2::labs(
     title = "B/Bmsy for Managed Species",
     x = NULL,
