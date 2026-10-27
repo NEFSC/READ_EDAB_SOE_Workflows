@@ -87,7 +87,7 @@ long_msys <- filled_msys |>
   )
 
 joined_dat <- actual_fb |>
-  dplyr::mutate("timeseries_unit" = "description") |>
+  dplyr::rename("timeseries_unit" = "description") |>
   dplyr::left_join(long_msys) |>
   # na's added because time series extends back before msys
   dplyr::filter(!is.na(common_name))
