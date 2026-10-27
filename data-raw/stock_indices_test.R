@@ -71,6 +71,30 @@ actual_fb <- stocksmart::stock_assessment_data |>
   dplyr::filter(assessment_year == last_assessment) |>
   dplyr::select(-c(assessment_year, last_assessment))
 
+## create joined dataset in long format ----
+
+## data is too unstandardized to convert in code
+## outputting a spreadsheet for manual conversions...
+long_msys <- filled_msys |>
+  dplyr::select(-fmsy, -f_unit) |>
+  dplyr::mutate(metric = "Abundance") |>
+  dplyr::rename(msy_value = bmsy, msy_unit = b_unit) |>
+  dplyr::bind_rows(
+    filled_msys |>
+      dplyr::select(-bmsy, -b_unit) |>
+      dplyr::mutate(metric = "Fmort") |>
+      dplyr::rename(msy_value = fmsy, msy_unit = f_unit)
+  )
+
+joined_dat <- actual_fb |>
+  dplyr::mutate("timeseries_unit" = "description") |>
+  dplyr::left_join(long_msys) |>
+  # na's added because time series extends back before msys
+  dplyr::filter(!is.na(common_name))
+write.csv(joined_dat, here::here("data-raw/msy_manual_data.csv"))
+
+## code below this can be revisited after manually converting values
+
 ## join actual f and b data with filled msys data ----
 joined_dat <- dplyr::left_join(
   actual_fb,
