@@ -41,8 +41,7 @@
 #'   ) +
 #'   ggplot2::theme(legend.position = "bottom")
 #' }
-
-create_fuel_prices <- function(end_year = 2026, fred_key = NA) {
+create_fuel_prices <- function(end_year = 2026, fred_key = NULL) {
   
   ## FRED key (Consider moving this to your .Renviron file for security)
   if (!is.null(fred_key)) {
@@ -52,24 +51,25 @@ create_fuel_prices <- function(end_year = 2026, fred_key = NA) {
   if (!fredr::fredr_has_key()) {
     stop("No FRED API key found. Please provide `fred_key` or set it in your .Renviron.")
   }
-
+  
   ## parameters
   start_year <- 1970
   current_year <- lubridate::year(Sys.Date())
   
   # Adjust end year if the current year is not yet complete
   if (current_year == end_year) {
-    message(sprintf("%s is not yet complete. Deflating to %s instead.", end_year, end_year - 1))
+    message(sprintf("Note: %s is not yet complete. Deflating to %s instead.", end_year, end_year - 1))
     deflate_year <- end_year - 1
   } else {
     deflate_year <- end_year
   }
-
+  
   # Set the absolute end date for API queries
   end_date <- as.Date(paste0(end_year, "-12-31"))
   start_date <- as.Date(paste0(start_year, "-01-01"))
   
   # 1. CPI Deflator (Monthly - All Urban Consumers)
+  message("Fetching CPI Deflator data (CPIAUCSL)...")
   cpi_deflator <- fredr::fredr(
     series_id = "CPIAUCSL",
     observation_start = start_date,
@@ -89,6 +89,7 @@ create_fuel_prices <- function(end_year = 2026, fred_key = NA) {
     mean(na.rm = TRUE)
   
   # 2. Pull Legacy Diesel (1970 to May 2006)
+  message("Fetching Legacy No. 2 Diesel prices (MHOILNYH)...")
   legacy_diesel <- fredr::fredr(
     series_id = "MHOILNYH",
     observation_start = start_date,
@@ -98,6 +99,7 @@ create_fuel_prices <- function(end_year = 2026, fred_key = NA) {
     dplyr::mutate(Series = "Legacy No. 2 Diesel")
   
   # 3. Pull Modern ULSD (June 2006 to Present)
+  message("Fetching Ultra-Low Sulfur Diesel prices (MDFUELNYH)...")
   modern_diesel <- fredr::fredr(
     series_id = "MDFUELNYH",
     observation_start = as.Date("2006-06-01"),
@@ -107,6 +109,7 @@ create_fuel_prices <- function(end_year = 2026, fred_key = NA) {
     dplyr::mutate(Series = "Ultra-Low Sulfur Diesel")
   
   # Combine both fuel series into one continuous dataset
+  message(sprintf("Combining series and deflating to %s constant dollars...", deflate_year))
   fuel_raw <- dplyr::bind_rows(legacy_diesel, modern_diesel) |>
     dplyr::filter(!is.na(.data$value)) |>
     dplyr::transmute(
@@ -121,21 +124,22 @@ create_fuel_prices <- function(end_year = 2026, fred_key = NA) {
   fuel_final <- fuel_raw |>
     dplyr::left_join(cpi_deflator, by = c("YEAR", "MONTH")) |>
     # If fuel data updates faster than CPI, carry the most recent CPI value forward
-    tidyr::fill(CPI, .direction = "down") |>
+    tidyr::fill(.data$CPI, .direction = "down") |>
     dplyr::mutate(
-      DATA_VALUE = (nominal_price / CPI) * base_index_val,
+      DATA_VALUE = (.data$nominal_price / .data$CPI) * base_index_val,
       INDICATOR_NAME = paste0("AVG_MONTHLY_DIESEL_PRICE_", deflate_year, "_dols")
     ) |>
     dplyr::select(
-      YEAR,
-      MONTH,
-      date,
-      Series,
-      nominal_price,
-      DATA_VALUE,
-      INDICATOR_NAME
+      "YEAR",
+      "MONTH",
+      "date",
+      "Series",
+      "nominal_price",
+      "DATA_VALUE",
+      "INDICATOR_NAME"
     )
   
-  return(fuel_final)
+  message("Done.")
   
+  return(fuel_final)
 }
