@@ -1,5 +1,111 @@
 ## create time series of msys ----
 
+### easy time series -- most recent interpreation of msys time series ----
+
+fb_timeseries <- stocksmart::stock_assessment_data |>
+  dplyr::filter(
+    jurisdiction %in% c("NEFMC", "MAFMC", "NEFMC / MAFMC"),
+    metric %in% c("Fmort", "Abundance")
+  ) |>
+  dplyr::select(
+    stock_name,
+    year,
+    assessment_id,
+    value,
+    metric,
+    description,
+    assessment_year
+  ) |>
+  dplyr::group_by(stock_name) |>
+  dplyr::mutate(last_assessment = max(assessment_year)) |>
+  dplyr::ungroup() |>
+  dplyr::filter(assessment_year == last_assessment) |>
+  dplyr::select(-c(assessment_year, last_assessment))
+
+msys <- stocksmart::stock_assessment_summary |>
+  dplyr::filter(science_center == "NEFSC") |>
+  dplyr::select(
+    stock_name,
+    common_name,
+    stock_area,
+    jurisdiction,
+    assessment_year,
+    assessment_id,
+    review_result,
+    fmsy,
+    f_unit,
+    bmsy,
+    b_unit
+  ) |>
+  # remove rejected assessments
+  dplyr::filter(review_result == "Full acceptance") |>
+  dplyr::select(-review_result)
+
+bmsys <- msys |>
+  dplyr::filter(!is.na(bmsy)) |>
+  dplyr::select(-fmsy, -f_unit) |>
+  dplyr::mutate(metric = "Abundance") |>
+  dplyr::rename(msy = bmsy, unit = b_unit)
+
+fmsys <- msys |>
+  dplyr::filter(!is.na(fmsy)) |>
+  dplyr::select(-bmsy, -b_unit) |>
+  dplyr::mutate(metric = "Fmort") |>
+  dplyr::rename(msy = fmsy, unit = f_unit)
+
+joined_dat <- fb_timeseries |>
+  dplyr::left_join(
+    dplyr::bind_rows(bmsys, fmsys)
+  ) |>
+  dplyr::select(-assessment_id, -stock_name)
+
+output <- joined_dat |>
+  dplyr::mutate(over_msy = value / msy) |>
+  dplyr::select(
+    common_name,
+    stock_area,
+    jurisdiction,
+    metric,
+    year,
+    over_msy
+  ) |>
+  dplyr::mutate(
+    metric = dplyr::case_when(
+      metric == "Fmort" ~ "f_fmsy",
+      metric == "Abundance" ~ "b_bmsy"
+    )
+  ) |>
+  dplyr::rename(value = over_msy)
+
+output |>
+  dplyr::filter(!is.na(value)) |>
+  dplyr::group_by(year) |>
+  dplyr::mutate(n_stocks = dplyr::n()) |>
+  ggplot2::ggplot(ggplot2::aes(x = year, y = log10(value), color = n_stocks)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_hline(yintercept = 0) +
+  ggplot2::facet_wrap(~metric, ncol = 1, scales = "free") +
+  viridis::scale_color_viridis() +
+  ggplot2::xlim(c(1970, NA)) +
+  ggplot2::theme_bw()
+
+output |>
+  dplyr::filter(!is.na(value)) |>
+  dplyr::mutate(over1 = ifelse(value > 1, 1, 0)) |>
+  dplyr::group_by(year, metric) |>
+  dplyr::summarise(number_over_1 = sum(over1), n_stocks = dplyr::n()) |>
+  dplyr::mutate(percent_over_1 = number_over_1 / n_stocks) |>
+  ggplot2::ggplot(ggplot2::aes(x = year, y = percent_over_1, color = metric)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+  # ggplot2::facet_wrap(~metric, ncol = 1, scales = "free") +
+  viridis::scale_color_viridis(discrete = TRUE) +
+  ggplot2::xlim(c(1970, NA)) +
+  ggplot2::theme_bw()
+
+
+### hard time series -- stitch together to understand near-real-time perception ----
+
 ### first pull msys
 msys <- stocksmart::stock_assessment_summary |>
   dplyr::filter(science_center == "NEFSC") |>
