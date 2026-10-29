@@ -124,7 +124,7 @@ create_fuel_prices <- function(end_year = 2026, fred_key = NULL) {
   fuel_final <- fuel_raw |>
     dplyr::left_join(cpi_deflator, by = c("YEAR", "MONTH")) |>
     # If fuel data updates faster than CPI, carry the most recent CPI value forward
-    tidyr::fill(.data$CPI, .direction = "down") |>
+    tidyr::fill("CPI", .direction = "down") |>
     dplyr::mutate(
       DATA_VALUE = (.data$nominal_price / .data$CPI) * base_index_val,
       INDICATOR_NAME = paste0("AVG_MONTHLY_DIESEL_PRICE_", deflate_year, "_dols")
@@ -143,3 +143,4 @@ create_fuel_prices <- function(end_year = 2026, fred_key = NULL) {
   
   return(fuel_final)
 }
+
