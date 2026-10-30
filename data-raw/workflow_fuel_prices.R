@@ -2,26 +2,18 @@
 #'
 #' It is formatted exactly like the ecodata data object
 #'
-#' @param end_year Integer. The final year of data to include. Defaults to 2026.
-#' @param fred_key Character. A valid FRED API key. Defaults to `NULL`.
-#' @param output_path_indicators Character string. Path to folder where data pull should be saved
+#' @param output_path_indicators Character string. Path to folder where data pull should be saved.
 #'
 #' @examples
 #' \dontrun{
 #' # create the ecodata::fuel_prices indicator
 #' workflow_fuel_prices(output_path_indicators = "path/to/output/folder")
-#'
 #' }
-#'
 #'
 #' @return A tibble of the `ecodata::fuel_prices` data frame (returned invisibly).
 #'
-#'
 #' @export
-
-workflow_fuel_prices <- function(end_year = 2026,
-                                 fred_key = NULL,
-                                 output_path_indicators = NULL) {
+workflow_fuel_prices <- function(output_path_indicators = NULL) {
   tryCatch(
     {
       # 1. Validate output directory
@@ -31,10 +23,10 @@ workflow_fuel_prices <- function(end_year = 2026,
       
       # 2. Calculate indicator
       message("Starting fuel prices workflow...")
-      indicatorData <- SOEworkflows::create_fuel_prices(
-        end_year = end_year,
-        fred_key = fred_key
-      )
+      
+      # We call this without arguments to comply with the SOP rule. 
+      # Defaults to current year via Sys.Date() and fred_key pulling from .Renviron
+      indicatorData <- SOEworkflows::create_fuel_prices()
       
       # 3. Write data to file
       out_file <- file.path(output_path_indicators, "fuel_prices.rds")

@@ -41,7 +41,7 @@
 #'   ) +
 #'   ggplot2::theme(legend.position = "bottom")
 #' }
-create_fuel_prices <- function(end_year = 2026, fred_key = NULL) {
+create_fuel_prices <- function(end_year = lubridate::year(Sys.Date()), fred_key = NULL) {
   
   ## FRED key (Consider moving this to your .Renviron file for security)
   if (!is.null(fred_key)) {
