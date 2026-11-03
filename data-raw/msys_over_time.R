@@ -14,8 +14,10 @@ fb_timeseries <- stocksmart::stock_assessment_data |>
     value,
     metric,
     description,
+    units,
     assessment_year
   ) |>
+  dplyr::rename(timeseries_units = units) |>
   dplyr::group_by(stock_name) |>
   dplyr::mutate(last_assessment = max(assessment_year)) |>
   dplyr::ungroup() |>
@@ -57,7 +59,16 @@ joined_dat <- fb_timeseries |>
   dplyr::left_join(
     dplyr::bind_rows(bmsys, fmsys)
   ) |>
-  dplyr::select(-assessment_id, -stock_name)
+  dplyr::select(-assessment_id, -stock_name) |>
+  # na's have no msy value
+  tidyr::drop_na(common_name)
+
+## TODO: some units don't match
+## quahog, surfclam
+conversion_table <- joined_dat |>
+  dplyr::select(-year, -value) |>
+  dplyr::distinct()
+write.csv(conversion_table, here::here("data-raw/msy_conversions_present.csv"))
 
 output <- joined_dat |>
   dplyr::mutate(over_msy = value / msy) |>
@@ -77,6 +88,21 @@ output <- joined_dat |>
   ) |>
   dplyr::rename(value = over_msy)
 
+stock_status_timeseries <- output |>
+  dplyr::mutate(
+    Var.Group = "present_perception",
+    Var.Stock = paste(common_name, stock_area)
+  ) |>
+  dplyr::rename(
+    Var = metric,
+    Time = year,
+    Value = value,
+    Jurisdiction = jurisdiction
+  ) |>
+  dplyr::select(Time, Var.Group, Var.Stock, Jurisdiction, Var, Value)
+
+#### test plot ----
+
 output |>
   dplyr::filter(!is.na(value)) |>
   dplyr::group_by(year) |>
@@ -94,8 +120,12 @@ output |>
   dplyr::mutate(over1 = ifelse(value > 1, 1, 0)) |>
   dplyr::group_by(year, metric) |>
   dplyr::summarise(number_over_1 = sum(over1), n_stocks = dplyr::n()) |>
-  dplyr::mutate(percent_over_1 = number_over_1 / n_stocks) |>
-  ggplot2::ggplot(ggplot2::aes(x = year, y = percent_over_1, color = metric)) +
+  dplyr::mutate(proportion_over_1 = number_over_1 / n_stocks) |>
+  ggplot2::ggplot(ggplot2::aes(
+    x = year,
+    y = proportion_over_1,
+    color = metric
+  )) +
   ggplot2::geom_point() +
   ggplot2::geom_line() +
   # ggplot2::facet_wrap(~metric, ncol = 1, scales = "free") +
@@ -106,7 +136,25 @@ output |>
 
 ### hard time series -- stitch together to understand near-real-time perception ----
 
-### first pull msys
+#### all of the time series data ----
+fb_timeseries_all <- stocksmart::stock_assessment_data |>
+  dplyr::filter(
+    jurisdiction %in% c("NEFMC", "MAFMC", "NEFMC / MAFMC"),
+    metric %in% c("Fmort", "Abundance")
+  ) |>
+  dplyr::select(
+    stock_name,
+    year,
+    assessment_id,
+    value,
+    metric,
+    description,
+    units,
+    assessment_year
+  ) |>
+  dplyr::rename(timeseries_units = units)
+
+####  pull msys ----
 msys <- stocksmart::stock_assessment_summary |>
   dplyr::filter(science_center == "NEFSC") |>
   dplyr::select(
@@ -115,6 +163,8 @@ msys <- stocksmart::stock_assessment_summary |>
     stock_area,
     jurisdiction,
     assessment_year,
+    assessment_id,
+    last_data_year,
     review_result,
     fmsy,
     f_unit,
@@ -141,151 +191,318 @@ filled_msys <- msys |>
     jurisdiction,
   ) |>
   # Generate a continuous sequence of years for each stock up to end_year
-  tidyr::complete(year = min(year):2025) |>
-  # Forward-fill assessment metrics within each group
+  tidyr::complete(year = min(fb_timeseries_all$year):2025) |>
+  # backward-fill assessment metrics within each group
   tidyr::fill(
     fmsy,
     f_unit,
     bmsy,
     b_unit,
     assessment_year,
-    .direction = "down"
+    assessment_id,
+    last_data_year,
+    .direction = "up"
   ) |>
-  dplyr::ungroup()
+  # dplyr::ungroup() |>
+  # when assessment metrics should be filled based on last_data_year, not the assessment_year
+  dplyr::mutate(
+    assessment_year = dplyr::case_when(
+      last_data_year < year ~ NA,
+      TRUE ~ assessment_year
+    ),
+    assessment_id = dplyr::case_when(
+      last_data_year < year ~ NA,
+      TRUE ~ assessment_id
+    ),
+    fmsy = dplyr::case_when(last_data_year < year ~ NA, TRUE ~ fmsy),
+    f_unit = dplyr::case_when(
+      last_data_year < year ~ NA,
+      TRUE ~ f_unit
+    ),
+    bmsy = dplyr::case_when(last_data_year < year ~ NA, TRUE ~ bmsy),
+    b_unit = dplyr::case_when(
+      last_data_year < year ~ NA,
+      TRUE ~ b_unit
+    )
+  ) |>
+  # back fill from the next assessment
+  tidyr::fill(
+    fmsy,
+    f_unit,
+    bmsy,
+    b_unit,
+    assessment_year,
+    assessment_id,
+    .direction = "up"
+  ) |>
+  dplyr::ungroup() |>
+  dplyr::select(-last_data_year)
 
-## get actual f and b data ----
-## actual f and b data from the most recent assessment
-actual_fb <- stocksmart::stock_assessment_data |>
-  dplyr::filter(
-    stock_name %in% filled_msys$stock_name,
-    metric %in% c("Fmort", "Abundance")
+#### join data ----
+
+bmsys <- filled_msys |>
+  dplyr::filter(!is.na(bmsy)) |>
+  dplyr::select(-fmsy, -f_unit) |>
+  dplyr::mutate(metric = "Abundance") |>
+  dplyr::rename(msy = bmsy, unit = b_unit)
+
+fmsys <- filled_msys |>
+  dplyr::filter(!is.na(fmsy)) |>
+  dplyr::select(-bmsy, -b_unit) |>
+  dplyr::mutate(metric = "Fmort") |>
+  dplyr::rename(msy = fmsy, unit = f_unit)
+
+new_msys <- dplyr::bind_rows(bmsys, fmsys)
+
+# join into msys because those have the right assessment ID for each year
+
+joined_dat <- new_msys |>
+  dplyr::left_join(
+    fb_timeseries_all
+  ) |>
+  dplyr::select(-stock_name) |>
+  # na's have no msy value
+  tidyr::drop_na(value)
+
+## TODO: some units don't match
+## quahog, surfclam
+conversion_table2 <- joined_dat |>
+  dplyr::select(-year, -value) |>
+  dplyr::distinct()
+write.csv(
+  conversion_table2,
+  here::here("data-raw/msy_conversions_historic.csv")
+)
+
+output <- joined_dat |>
+  dplyr::filter(!is.na(value)) |>
+  dplyr::mutate(over_msy = ifelse(msy == "NA", NA, value / as.numeric(msy))) |>
+  ## fix just spiny dogfish -- thousand MT vs MT units
+  dplyr::mutate(
+    over_msy = ifelse(
+      common_name == "Spiny dogfish" & assessment_year == 2018,
+      over_msy / 1000,
+      over_msy
+    )
   ) |>
   dplyr::select(
-    stock_name,
-    year,
-    value,
+    common_name,
+    stock_area,
+    jurisdiction,
     metric,
-    description,
-    assessment_year
+    year,
+    over_msy
   ) |>
-  dplyr::group_by(stock_name) |>
-  dplyr::mutate(last_assessment = max(assessment_year)) |>
-  dplyr::ungroup() |>
-  dplyr::filter(assessment_year == last_assessment) |>
-  dplyr::select(-c(assessment_year, last_assessment))
-
-## join actual f and b data with filled msys data ----
-joined_dat <- dplyr::left_join(
-  actual_fb,
-  filled_msys,
-  by = c("stock_name", "year")
-) |>
-  dplyr::filter(!is.na(common_name)) |>
   dplyr::mutate(
-    b_bmsy = dplyr::case_when(
-      metric == "Abundance" & bmsy != "NA" ~ value / as.numeric(bmsy),
-      TRUE ~ NA_real_
-    ),
-    f_fmsy = dplyr::case_when(
-      metric == "Fmort" & fmsy != "NA" ~ value / as.numeric(fmsy),
-      TRUE ~ NA_real_
+    metric = dplyr::case_when(
+      metric == "Fmort" ~ "f_fmsy",
+      metric == "Abundance" ~ "b_bmsy"
     )
   ) |>
-  dplyr::select(-stock_name)
+  dplyr::rename(value = over_msy)
 
-## create f_fmsy and b_bmsy datasets ----
-f_fmsys <- joined_dat |>
-  dplyr::filter(!is.na(f_fmsy)) |>
-  dplyr::select(-c(bmsy, b_unit, b_bmsy))
-b_bmsys <- joined_dat |>
-  dplyr::filter(!is.na(b_bmsy)) |>
-  dplyr::select(-c(fmsy, f_unit, f_fmsy))
-
-## convert b_bmsy units ----
-b_bmsy_converted <- b_bmsys |>
-  dplyr::mutate(
-    bmsy = as.numeric(bmsy),
-    needs_conversion = b_unit %in%
-      c(
-        "Thousand Metric Tons",
-        "thousand mt (female biomass only)",
-        "mt (meat weight only)",
-        "mt SSB"
-      ),
-    b_msy_corrected = dplyr::if_else(needs_conversion, bmsy * 1000, bmsy),
-    b_unit_corrected = dplyr::if_else(needs_conversion, "Metric Tons", b_unit)
-  ) |>
-  dplyr::select(-needs_conversion)
-
-## drop years where there is a mismatch in bmsy units (few years as kg/tow, or million pups for spiny dogfish) ----
-# List of species with bmsy values in kg/tow that need to be dropped
-target_species <- c(
-  "Haddock",
-  "Pollock",
-  "Scup",
-  "Sea scallop",
-  "Spiny dogfish"
-)
-target_units <- c("kg/tow", "kg / Tow", "Million Pups")
-
-b_bmsy_dropyears <- b_bmsy_converted |>
-  dplyr::mutate(
-    b_msy_corrected = dplyr::if_else(
-      common_name %in% target_species & b_unit %in% target_units,
-      NA_real_, # Set to NA if condition is met
-      b_msy_corrected # Keep original value otherwise
-    )
+stock_status_timeseries <- stock_status_timeseries |>
+  dplyr::bind_rows(
+    output |>
+      dplyr::mutate(
+        Var.Group = "historic_perception",
+        Var.Stock = paste(common_name, stock_area)
+      ) |>
+      dplyr::rename(
+        Var = metric,
+        Time = year,
+        Value = value,
+        Jurisdiction = jurisdiction
+      ) |>
+      dplyr::select(Time, Var.Group, Var.Stock, Jurisdiction, Var, Value)
   )
 
-## recalculate b/b_msy with converted bmsy ----
-b_bmsy_final <- b_bmsy_dropyears |>
-  dplyr::mutate(
-    b_bmsy_corrected = dplyr::case_when(
-      metric == "Abundance" & !is.na(b_msy_corrected) ~ value / b_msy_corrected,
-      TRUE ~ NA_real_
-    )
-  ) |>
-  dplyr::rename(b_over_bmsy = b_bmsy_corrected, species = common_name) |>
-  dplyr::select(-c(bmsy, b_unit, b_bmsy))
+#### test plot ----
 
+output |>
+  dplyr::filter(!is.na(value)) |>
+  dplyr::group_by(year) |>
+  dplyr::mutate(n_stocks = dplyr::n()) |>
+  ggplot2::ggplot(ggplot2::aes(x = year, y = log10(value), color = n_stocks)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_hline(yintercept = 0) +
+  ggplot2::facet_wrap(~metric, ncol = 1, scales = "free") +
+  viridis::scale_color_viridis() +
+  ggplot2::xlim(c(1970, NA)) +
+  ggplot2::theme_bw() +
+  ggplot2::ggtitle("near-real-time perception")
 
-##############################################################
-## plots ----
-joined_dat |>
-  tidyr::drop_na(f_fmsy, fmsy) |>
-  dplyr::mutate(
-    f_fmsy = dplyr::case_when(
-      (description == "Catch * 100 / Total Stock Biomass" &
-        f_unit == "Catch / Survey-Estimated Biomass") ~
-        f_fmsy / 100,
-      TRUE ~ f_fmsy
-    )
-  ) |>
-  ggplot2::ggplot(ggplot2::aes(x = year, y = f_fmsy, color = stock_name)) +
+output |>
+  dplyr::filter(!is.na(value)) |>
+  dplyr::mutate(over1 = ifelse(value > 1, 1, 0)) |>
+  dplyr::group_by(year, metric) |>
+  dplyr::summarise(number_over_1 = sum(over1), n_stocks = dplyr::n()) |>
+  dplyr::mutate(proportion_over_1 = number_over_1 / n_stocks) |>
+  ggplot2::ggplot(ggplot2::aes(
+    x = year,
+    y = proportion_over_1,
+    color = metric
+  )) +
   ggplot2::geom_point() +
   ggplot2::geom_line() +
+  # ggplot2::facet_wrap(~metric, ncol = 1, scales = "free") +
+  viridis::scale_color_viridis(discrete = TRUE) +
+  ggplot2::xlim(c(1970, NA)) +
   ggplot2::theme_bw()
 
-joined_dat |>
-  tidyr::drop_na(b_bmsy, bmsy) |>
-  dplyr::filter(
-    !(stringr::str_detect(description, "Biomass") &
-      stringr::str_detect(b_unit, "tow")),
-    b_bmsy < 100
-  ) |>
-  ggplot2::ggplot(ggplot2::aes(x = year, y = b_bmsy, color = stock_name)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_line() +
-  ggplot2::theme_bw()
+## plotting functions ----
 
+plot_stock_status_timeseries <- function(
+  data,
+  varName = c("b_present", "b_historic", "f_present", "f_historic"),
+  plottype = c("log", "raw", "percent"),
+  region = c("MidAtlantic", "NewEngland")
+) {
+  ### set variables
+  filter_vars <- dplyr::case_when(
+    varName == "b_present" ~ c("b_bmsy", "present_perception"),
+    varName == "b_historic" ~ c("b_bmsy", "historic_perception"),
+    varName == "f_present" ~ c("f_fmsy", "present_perception"),
+    varName == "f_historic" ~ c("f_fmsy", "historic_perception")
+  )
+  juris <- dplyr::case_when(
+    region == "MidAtlantic" ~ "MAFMC",
+    region == "NewEngland" ~ "NEFMC"
+  )
+  title_region <- ifelse(
+    region == "MidAtlantic",
+    "Mid-Atlantic",
+    "New England"
+  )
 
-joined_dat |>
-  tidyr::drop_na(b_bmsy, bmsy) |>
-  dplyr::filter(b_bmsy > 5 & b_bmsy < 30) |>
-  dplyr::filter(
-    !(stringr::str_detect(description, "Biomass") &
-      stringr::str_detect(b_unit, "tow"))
-  ) |>
-  # dplyr::select(description, b_unit) |>
-  # dplyr::distinct()
-  View()
+  ### wrangle data
+  plt_dat <- data |>
+    dplyr::filter(
+      Var == filter_vars[1],
+      Var.Group == filter_vars[2],
+      stringr::str_detect(Jurisdiction, juris)
+    )
+
+  if (plottype == "log") {
+    plt_dat <- plt_dat |>
+      dplyr::mutate(Value = log10(Value))
+  }
+
+  ### plot based on plottype
+  if (plottype == "log" | plottype == "raw") {
+    msy <- paste0(
+      ifelse(filter_vars[1] == "b_bmsy", "B/BMSY", "F/FMSY"),
+      paste0(" (", plottype, " scale)")
+    )
+    title <- paste(
+      title_region,
+      unique(plt_dat$Var.Group) |>
+        stringr::str_replace_all("_", " ") |>
+        stringr::str_to_lower(),
+      "of",
+      msy
+    )
+
+    plt <- plt_dat |>
+      dplyr::filter(!is.na(Value)) |>
+      dplyr::group_by(Time) |>
+      dplyr::mutate(n_stocks = dplyr::n()) |>
+      ggplot2::ggplot(ggplot2::aes(
+        x = Time,
+        y = Value,
+        color = n_stocks
+      )) +
+      ggplot2::geom_point() +
+      ggplot2::geom_hline(yintercept = 0) +
+      viridis::scale_color_viridis() +
+      ggplot2::xlim(c(1970, NA)) +
+      ggplot2::ggtitle(title) +
+      ggplot2::ylab(msy) +
+      ggplot2::guides(
+        color = ggplot2::guide_colorbar(title = "Number\nof stocks")
+      ) +
+      ecodata::theme_facet()
+  }
+
+  if (plottype == "percent") {
+    msy <- ifelse(filter_vars[1] == "b_bmsy", "B/BMSY", "F/FMSY")
+
+    title <- paste(
+      title_region,
+      unique(plt_dat$Var.Group) |>
+        stringr::str_replace_all("_", " ") |>
+        stringr::str_to_lower(),
+      "of stocks meeting",
+      msy,
+      "targets"
+    )
+
+    plt_dat <- plt_dat |>
+      dplyr::filter(!is.na(Value)) |>
+      dplyr::mutate(
+        over1 = ifelse(Value > 1, 1, 0),
+        over0.5 = ifelse(Value > 0.5, 1, 0)
+      ) |>
+      dplyr::group_by(Time, Var) |>
+      dplyr::summarise(
+        number_over_1 = sum(over1),
+        number_over_0.5 = sum(over0.5),
+        n_stocks = dplyr::n()
+      ) |>
+      dplyr::mutate(
+        proportion_over_1 = number_over_1 / n_stocks,
+        proportion_over_0.5 = number_over_0.5 / n_stocks
+      )
+
+    if (plt_dat$Var[1] == "b_bmsy") {
+      plt <- plt_dat |>
+        tidyr::pivot_longer(
+          cols = c("proportion_over_1", "proportion_over_0.5")
+        ) |>
+        ggplot2::ggplot(ggplot2::aes(
+          x = Time,
+          y = value,
+          color = name |>
+            stringr::str_replace_all("_", " ") |>
+            stringr::str_to_sentence()
+        )) +
+        ggplot2::guides(
+          color = ggplot2::guide_legend(title = ggplot2::element_blank())
+        )
+    } else {
+      plt <- plt_dat |>
+        ggplot2::ggplot(ggplot2::aes(
+          x = Time,
+          y = 1 - proportion_over_1,
+          color = Var
+        )) +
+        ggplot2::theme(legend.position = "none")
+    }
+
+    plt <- plt +
+      ggplot2::geom_point() +
+      ggplot2::geom_line() +
+      viridis::scale_color_viridis(discrete = TRUE) +
+      ggplot2::xlim(c(1970, NA)) +
+      ggplot2::ylim(c(0, 1)) +
+      ggplot2::ylab("Proportion") +
+      ggplot2::ggtitle(title) +
+      ecodata::theme_facet()
+  }
+
+  return(plt)
+}
+
+plot_stock_status_timeseries(
+  data = stock_status_timeseries,
+  region = "MidAtlantic",
+  varName = "b_present",
+  plottype = "log"
+)
+
+plot_stock_status_timeseries(
+  data = stock_status_timeseries,
+  region = "MidAtlantic",
+  varName = "b_present",
+  plottype = "percent"
+)
