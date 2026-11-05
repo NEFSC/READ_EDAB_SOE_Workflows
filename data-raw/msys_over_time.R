@@ -1,6 +1,6 @@
 ## create time series of msys ----
 
-### easy time series -- most recent interpreation of msys time series ----
+### easy time series -- most recent interpretation of msys time series ----
 
 fb_timeseries <- stocksmart::stock_assessment_data |>
   dplyr::filter(
@@ -65,12 +65,21 @@ joined_dat <- fb_timeseries |>
 
 ## TODO: some units don't match
 ## quahog, surfclam
-conversion_table <- joined_dat |>
-  dplyr::select(-year, -value) |>
-  dplyr::distinct()
-write.csv(conversion_table, here::here("data-raw/msy_conversions_present.csv"))
+# conversion_table <- joined_dat |>
+#   dplyr::select(-year, -value) |>
+#   dplyr::distinct()
+# write.csv(conversion_table, here::here("data-raw/msy_conversions_present.csv"))
+
+units_check <- read.csv(here::here(
+  "data-raw/msy_conversions_present_reviewed.csv"
+)) |>
+  dplyr::select(common_name, stock_area, metric, units_match)
 
 output <- joined_dat |>
+  # filter out stocks where units don't match
+  dplyr::left_join(units_check) |>
+  dplyr::filter(units_match == TRUE) |>
+  # calculate msy
   dplyr::mutate(over_msy = value / msy) |>
   dplyr::select(
     common_name,
@@ -266,25 +275,46 @@ joined_dat <- new_msys |>
 
 ## TODO: some units don't match
 ## quahog, surfclam
-conversion_table2 <- joined_dat |>
-  dplyr::select(-year, -value) |>
-  dplyr::distinct()
-write.csv(
-  conversion_table2,
-  here::here("data-raw/msy_conversions_historic.csv")
-)
+# conversion_table2 <- joined_dat |>
+#   dplyr::select(-year, -value) |>
+#   dplyr::distinct()
+# write.csv(
+#   conversion_table2,
+#   here::here("data-raw/msy_conversions_historic.csv")
+# )
+
+units_check <- read.csv(here::here(
+  "data-raw/msy_conversions_historic_reviewed.csv"
+))
 
 output <- joined_dat |>
-  dplyr::filter(!is.na(value)) |>
-  dplyr::mutate(over_msy = ifelse(msy == "NA", NA, value / as.numeric(msy))) |>
-  ## fix just spiny dogfish -- thousand MT vs MT units
+  dplyr::filter(!is.na(value), msy != "NA") |>
+  ## adjust units if in thousands
   dplyr::mutate(
-    over_msy = ifelse(
-      common_name == "Spiny dogfish" & assessment_year == 2018,
-      over_msy / 1000,
-      over_msy
+    msy = dplyr::case_when(
+      stringr::str_detect(unit, "housand") ~ (as.numeric(msy) * 1000),
+      TRUE ~ as.numeric(msy)
+    ),
+    value = dplyr::case_when(
+      stringr::str_detect(timeseries_units, "housand") ~ value * 1000,
+      TRUE ~ value
     )
   ) |>
+  # filter out stocks where units don't match
+  dplyr::left_join(
+    units_check |> dplyr::select(assessment_id, metric, units_match)
+  ) |>
+  dplyr::filter(units_match == TRUE) |>
+  # calculate ratios
+  dplyr::mutate(over_msy = value / as.numeric(msy)) |>
+  ## fix just spiny dogfish -- thousand MT vs MT units
+  # dplyr::mutate(
+  #   over_msy = ifelse(
+  #     common_name == "Spiny dogfish" & assessment_year == 2018,
+  #     over_msy / 1000,
+  #     over_msy
+  #   )
+  # ) |>
   dplyr::select(
     common_name,
     stock_area,
@@ -493,16 +523,82 @@ plot_stock_status_timeseries <- function(
   return(plt)
 }
 
-plot_stock_status_timeseries(
-  data = stock_status_timeseries,
-  region = "MidAtlantic",
-  varName = "b_present",
-  plottype = "log"
+## Mid
+
+params <- expand.grid(
+  region = c("MidAtlantic", "NewEngland"),
+  varName = c("b_present", "b_historic", "f_present", "f_historic"),
+  plottype = c("log", "percent")
 )
 
-plot_stock_status_timeseries(
-  data = stock_status_timeseries,
-  region = "MidAtlantic",
-  varName = "b_present",
-  plottype = "percent"
+plts_out <- list()
+purrr::pwalk(
+  .l = params,
+  .f = function(region, varName, plottype) {
+    plt <- plot_stock_status_timeseries(
+      data = stock_status_timeseries,
+      region = region,
+      varName = varName,
+      plottype = plottype
+    )
+    plts_out <<- append(plts_out, list(plt))
+  }
 )
+
+ggpubr::ggarrange(plotlist = plts_out, ncol = 4, nrow = 4)
+#
+# plot_stock_status_timeseries(
+#   data = stock_status_timeseries,
+#   region = "MidAtlantic",
+#   varName = "b_present",
+#   plottype = "log"
+# )
+#
+# plot_stock_status_timeseries(
+#   data = stock_status_timeseries,
+#   region = "MidAtlantic",
+#   varName = "b_historic",
+#   plottype = "log"
+# )
+#
+# plot_stock_status_timeseries(
+#   data = stock_status_timeseries,
+#   region = "MidAtlantic",
+#   varName = "b_present",
+#   plottype = "percent"
+# )
+#
+# plot_stock_status_timeseries(
+#   data = stock_status_timeseries,
+#   region = "MidAtlantic",
+#   varName = "b_historic",
+#   plottype = "percent"
+# )
+#
+# plot_stock_status_timeseries(
+#   data = stock_status_timeseries,
+#   region = "MidAtlantic",
+#   varName = "f_present",
+#   plottype = "log"
+# )
+#
+# plot_stock_status_timeseries(
+#   data = stock_status_timeseries,
+#   region = "MidAtlantic",
+#   varName = "f_historic",
+#   plottype = "log"
+# )
+#
+# plot_stock_status_timeseries(
+#   data = stock_status_timeseries,
+#   region = "MidAtlantic",
+#   varName = "f_present",
+#   plottype = "percent"
+# )
+#
+# plot_stock_status_timeseries(
+#   data = stock_status_timeseries,
+#   region = "MidAtlantic",
+#   varName = "f_historic",
+#   plottype = "percent"
+# )
