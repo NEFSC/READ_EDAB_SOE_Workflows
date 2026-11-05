@@ -20,10 +20,10 @@
 
 create_stock_status_timeseries <- function(
   input_path_present_key = here::here(
-    "data-raw/msy_conversions_present_reviewed.csv"
+    "\\\\nefscdata\\EDAB_Resources\\static_workflow_inputs\\msy_conversions_present_reviewed.csv"
   ),
   input_path_historic_key = here::here(
-    "data-raw/msy_conversions_historic_reviewed.csv"
+    "\\\\nefscdata\\EDAB_Resources\\static_workflow_inputs\\msy_conversions_historic_reviewed.csv"
   )
 ) {
   ## read in keys
@@ -192,7 +192,9 @@ create_stock_status_timeseries <- function(
       jurisdiction,
     ) |>
     # Generate a continuous sequence of years for each stock up to end_year
-    tidyr::complete(year = min(fb_timeseries_all$year):2025) |>
+    tidyr::complete(
+      year = min(fb_timeseries_all$year):max(fb_timeseries_all$year)
+    ) |>
     # backward-fill assessment metrics within each group
     tidyr::fill(
       fmsy,
@@ -286,9 +288,19 @@ create_stock_status_timeseries <- function(
     ) |>
     # filter out stocks where units don't match
     dplyr::left_join(
-      units_check_historic |> dplyr::select(assessment_id, metric, units_match)
+      units_check_historic |>
+        dplyr::select(
+          assessment_id,
+          metric,
+          units_match,
+          # if there's a conversion factor, it was fixed with the thousand mt conversion
+          conversion_factor
+        )
     ) |>
-    dplyr::filter(units_match == TRUE) |>
+    dplyr::filter(
+      units_match == TRUE |
+        !is.na(conversion_factor)
+    ) |>
     # calculate ratios
     dplyr::mutate(over_msy = value / as.numeric(msy)) |>
     dplyr::select(

@@ -526,17 +526,18 @@ plot_stock_status_timeseries <- function(
 ## Mid
 
 params <- expand.grid(
-  region = c("MidAtlantic", "NewEngland"),
+  plottype = c("log", "percent"),
   varName = c("b_present", "b_historic", "f_present", "f_historic"),
-  plottype = c("log", "percent")
+  region = c("MidAtlantic", "NewEngland")
 )
 
+dat <- create_stock_status_timeseries()
 plts_out <- list()
 purrr::pwalk(
   .l = params,
   .f = function(region, varName, plottype) {
     plt <- plot_stock_status_timeseries(
-      data = stock_status_timeseries,
+      data = dat,
       region = region,
       varName = varName,
       plottype = plottype
