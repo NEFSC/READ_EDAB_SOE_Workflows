@@ -71,11 +71,15 @@ if (length(args) >= 3) {
 }
 
 if (any(c(input_folder, output_folder, supplemental_folder) == "")) {
-  fail("Input, output, or supplement folder not set (arguments or SOE_*_PATH env vars).")
+  fail(
+    "Input, output, or supplement folder not set (arguments or SOE_*_PATH env vars)."
+  )
 }
 
 menhaden_file <- Sys.getenv("SOE_MENHADEN_FILE")
-if (menhaden_file == "") fail("SOE_MENHADEN_FILE not set (path to menhaden.rds).")
+if (menhaden_file == "") {
+  fail("SOE_MENHADEN_FILE not set (path to menhaden.rds).")
+}
 
 log_msg("input_folder: ", input_folder)
 log_msg("output_folder: ", output_folder)
@@ -92,16 +96,31 @@ if (!dir.exists(supplemental_folder)) {
 run_date <- format(Sys.Date(), "%Y-%m-%d")
 
 # check an indicator has the standard ecodata structure
-check_indicator <- function(df, name, required = c("Time", "Var", "Value", "EPU", "Units")) {
-  if (!is.data.frame(df) || nrow(df) == 0) stop(name, " is empty or not a data frame")
+check_indicator <- function(
+  df,
+  name,
+  required = c("Time", "Var", "Value", "EPU", "Units")
+) {
+  if (!is.data.frame(df) || nrow(df) == 0) {
+    stop(name, " is empty or not a data frame")
+  }
   missing_cols <- setdiff(required, names(df))
   if (length(missing_cols) > 0) {
     stop(name, " is missing columns: ", paste(missing_cols, collapse = ", "))
   }
-  if (all(is.na(df$Value))) stop(name, " has no non-missing values")
+  if (all(is.na(df$Value))) {
+    stop(name, " has no non-missing values")
+  }
   log_msg(
-    name, ": ", nrow(df), " rows, ", length(unique(df$Var)), " variables, years ",
-    min(df$Time, na.rm = TRUE), "-", max(df$Time, na.rm = TRUE)
+    name,
+    ": ",
+    nrow(df),
+    " rows, ",
+    length(unique(df$Var)),
+    " variables, years ",
+    min(df$Time, na.rm = TRUE),
+    "-",
+    max(df$Time, na.rm = TRUE)
   )
   invisible(TRUE)
 }
@@ -110,21 +129,44 @@ check_indicator <- function(df, name, required = c("Time", "Var", "Value", "EPU"
 check_menhaden <- function(mh) {
   req <- c("year", "EPU", "metric_tons", "dollars")
   miss <- setdiff(req, names(mh))
-  if (length(miss) > 0) stop("Menhaden file is missing columns: ", paste(miss, collapse = ", "))
-  if (!is.numeric(mh$year) || !is.numeric(mh$metric_tons) || !is.numeric(mh$dollars)) {
+  if (length(miss) > 0) {
+    stop("Menhaden file is missing columns: ", paste(miss, collapse = ", "))
+  }
+  if (
+    !is.numeric(mh$year) ||
+      !is.numeric(mh$metric_tons) ||
+      !is.numeric(mh$dollars)
+  ) {
     stop("Menhaden 'year', 'metric_tons' and 'dollars' must be numeric")
   }
-  if (any(is.na(mh$dollars))) stop("Menhaden file has missing dollars values")
-  if (any(mh$dollars < 0)) stop("Menhaden file has negative dollars values")
-  if (!all(c("MAB", "GOM") %in% mh$EPU)) stop("Menhaden file must contain EPU values 'MAB' and 'GOM'")
-  extra_epu <- setdiff(unique(mh$EPU), c("MAB", "GOM"))
-  if (length(extra_epu) > 0) stop("Unexpected menhaden EPU values: ", paste(extra_epu, collapse = ", "))
-  if ("species" %in% names(mh) && length(unique(mh$species)) > 1) {
-    stop("Menhaden file contains more than one species: ", paste(unique(mh$species), collapse = ", "))
+  if (any(is.na(mh$dollars))) {
+    stop("Menhaden file has missing dollars values")
   }
-  if (anyDuplicated(mh[, c("year", "EPU")]) > 0) stop("Menhaden file has duplicate year x EPU rows")
-  if (any(is.na(mh$metric_tons))) stop("Menhaden file has missing metric_tons values")
-  if (any(mh$metric_tons < 0)) stop("Menhaden file has negative metric_tons values")
+  if (any(mh$dollars < 0)) {
+    stop("Menhaden file has negative dollars values")
+  }
+  if (!all(c("MAB", "GOM") %in% mh$EPU)) {
+    stop("Menhaden file must contain EPU values 'MAB' and 'GOM'")
+  }
+  extra_epu <- setdiff(unique(mh$EPU), c("MAB", "GOM"))
+  if (length(extra_epu) > 0) {
+    stop("Unexpected menhaden EPU values: ", paste(extra_epu, collapse = ", "))
+  }
+  if ("species" %in% names(mh) && length(unique(mh$species)) > 1) {
+    stop(
+      "Menhaden file contains more than one species: ",
+      paste(unique(mh$species), collapse = ", ")
+    )
+  }
+  if (anyDuplicated(mh[, c("year", "EPU")]) > 0) {
+    stop("Menhaden file has duplicate year x EPU rows")
+  }
+  if (any(is.na(mh$metric_tons))) {
+    stop("Menhaden file has missing metric_tons values")
+  }
+  if (any(mh$metric_tons < 0)) {
+    stop("Menhaden file has negative metric_tons values")
+  }
   invisible(TRUE)
 }
 
@@ -135,7 +177,11 @@ tidy_menhaden <- function(mh, first_year) {
     dplyr::filter(year >= first_year) |>
     dplyr::mutate(year = as.numeric(year), col = paste0(EPU, "catch")) |>
     dplyr::select(year, col, metric_tons) |>
-    tidyr::pivot_wider(names_from = col, values_from = metric_tons, values_fill = 0) |>
+    tidyr::pivot_wider(
+      names_from = col,
+      values_from = metric_tons,
+      values_fill = 0
+    ) |>
     dplyr::mutate(NEUScatch = MABcatch + GOMcatch, units = "metric tons") |>
     dplyr::select(year, NEUScatch, MABcatch, GOMcatch, units) |>
     dplyr::arrange(year) |>
@@ -147,7 +193,9 @@ tidy_menhaden <- function(mh, first_year) {
 # annual GDP deflator from comlandr's FRED data, plus the reference-period value
 get_deflator <- function(ref_year, ref_month) {
   fred_path <- system.file("extdata/fred/fred.rds", package = "comlandr")
-  if (fred_path == "") stop("comlandr deflator data (extdata/fred/fred.rds) not found")
+  if (fred_path == "") {
+    stop("comlandr deflator data (extdata/fred/fred.rds) not found")
+  }
   fred <- readRDS(fred_path) |> dplyr::as_tibble()
   if (!all(c("YEAR", "MONTH", "value") %in% names(fred))) {
     stop("comlandr deflator data missing YEAR/MONTH/value columns")
@@ -155,113 +203,197 @@ get_deflator <- function(ref_year, ref_month) {
   fred <- fred |>
     dplyr::mutate(YEAR = as.numeric(YEAR), MONTH = as.numeric(MONTH)) |>
     dplyr::filter(!is.na(value))
-  base <- fred |> dplyr::filter(YEAR == ref_year, MONTH == ref_month) |> dplyr::pull(value)
+  base <- fred |>
+    dplyr::filter(YEAR == ref_year, MONTH == ref_month) |>
+    dplyr::pull(value)
   if (length(base) != 1) {
-    stop("No deflator value for reference year/month ", ref_year, "/", ref_month)
+    stop(
+      "No deflator value for reference year/month ",
+      ref_year,
+      "/",
+      ref_month
+    )
   }
   annual <- fred |>
     dplyr::group_by(YEAR) |>
-    dplyr::summarise(defl = mean(value), n_quarters = dplyr::n(), .groups = "drop")
+    dplyr::summarise(
+      defl = mean(value),
+      n_quarters = dplyr::n(),
+      .groups = "drop"
+    )
   list(base = base, annual = annual)
 }
 
-add_menhaden_value <- function(comdat_list, mh, species_path, years, ref_year, ref_month) {
+add_menhaden_value <- function(
+  comdat_list,
+  mh,
+  species_path,
+  years,
+  ref_year,
+  ref_month
+) {
   # guild and council for menhaden, looked up the same way create_comdat() does
   sp221 <- readRDS(species_path) |>
     dplyr::as_tibble() |>
     dplyr::distinct(NESPP3, .keep_all = TRUE) |>
     dplyr::mutate(NESPP3 = as.numeric(NESPP3)) |>
     dplyr::filter(NESPP3 == 221)
-  guild <- if (nrow(sp221) == 0 || is.na(sp221$SOE.24[1])) "Other" else sp221$SOE.24[1]
-  fed   <- if (nrow(sp221) == 0 || is.na(sp221$Fed.Managed[1])) "Other" else sp221$Fed.Managed[1]
-  
+  guild <- if (nrow(sp221) == 0 || is.na(sp221$SOE.24[1])) {
+    "Other"
+  } else {
+    sp221$SOE.24[1]
+  }
+  fed <- if (nrow(sp221) == 0 || is.na(sp221$Fed.Managed[1])) {
+    "Other"
+  } else {
+    sp221$Fed.Managed[1]
+  }
+
   # years/EPUs where commercial revenue exists (comland value is 0 before value data begin)
   has_rev <- comdat_list$comdat |>
     dplyr::filter(Var == "Revenue", Value > 0) |>
     dplyr::transmute(Time = as.numeric(Time), EPU)
-  
+
   val <- mh |>
     dplyr::as_tibble() |>
     dplyr::filter(year >= years[1], year <= years[2]) |>
     dplyr::group_by(Time = as.numeric(year), EPU) |>
     dplyr::summarise(add = sum(dollars, na.rm = TRUE), .groups = "drop") |>
     dplyr::semi_join(has_rev, by = c("Time", "EPU"))
-  if (nrow(val) == 0) stop("No years with commercial revenue to add menhaden value to")
-  
+  if (nrow(val) == 0) {
+    stop("No years with commercial revenue to add menhaden value to")
+  }
+
   # convert nominal menhaden dollars to the pull's reference-year dollars
   deflator <- get_deflator(ref_year, ref_month)
   base_defl <- deflator$base
   val <- val |>
     dplyr::left_join(deflator$annual, by = c("Time" = "YEAR"))
   if (any(is.na(val$defl))) {
-    stop("No deflator value for menhaden year(s): ",
-         paste(sort(unique(val$Time[is.na(val$defl)])), collapse = ", "))
+    stop(
+      "No deflator value for menhaden year(s): ",
+      paste(sort(unique(val$Time[is.na(val$defl)])), collapse = ", ")
+    )
   }
   partial <- unique(val$Time[val$n_quarters < 4])
   if (length(partial) > 0) {
-    log_msg("WARNING: deflator for ", paste(partial, collapse = ", "),
-            " uses fewer than 4 quarters")
+    log_msg(
+      "WARNING: deflator for ",
+      paste(partial, collapse = ", "),
+      " uses fewer than 4 quarters"
+    )
   }
   nominal_total <- sum(val$add)
   val <- val |>
     dplyr::mutate(add = round(add * base_defl / defl)) |>
     dplyr::select(Time, EPU, add)
-  log_msg("Menhaden dollars deflated to ", ref_year, "-", sprintf("%02d", ref_month),
-          " dollars: nominal $", format(round(nominal_total), big.mark = ","),
-          " -> $", format(sum(val$add), big.mark = ","))
-  
-  rev_vars <- c("Revenue", paste(guild, "Revenue"), paste(guild, fed, "managed species - Revenue"))
+  log_msg(
+    "Menhaden dollars deflated to ",
+    ref_year,
+    "-",
+    sprintf("%02d", ref_month),
+    " dollars: nominal $",
+    format(round(nominal_total), big.mark = ","),
+    " -> $",
+    format(sum(val$add), big.mark = ",")
+  )
+
+  rev_vars <- c(
+    "Revenue",
+    paste(guild, "Revenue"),
+    paste(guild, fed, "managed species - Revenue")
+  )
   adds <- tidyr::crossing(val, Var = rev_vars) |>
     dplyr::mutate(Units = "US dollars")
-  
+
   cd <- comdat_list$comdat
-  if (is.integer(cd$Time)) adds$Time <- as.integer(adds$Time)
-  
-  n_match <- nrow(dplyr::semi_join(adds, cd, by = c("Time", "Var", "EPU", "Units")))
+  if (is.integer(cd$Time)) {
+    adds$Time <- as.integer(adds$Time)
+  }
+
+  n_match <- nrow(dplyr::semi_join(
+    adds,
+    cd,
+    by = c("Time", "Var", "EPU", "Units")
+  ))
   out <- cd |>
     dplyr::full_join(adds, by = c("Time", "Var", "EPU", "Units")) |>
-    dplyr::mutate(Value = dplyr::coalesce(Value, 0) + dplyr::coalesce(add, 0)) |>
+    dplyr::mutate(
+      Value = dplyr::coalesce(Value, 0) + dplyr::coalesce(add, 0)
+    ) |>
     dplyr::select(Time, Var, Value, EPU, Units) |>
     dplyr::arrange(Var, Time)
   if (anyDuplicated(out[, c("Time", "Var", "EPU", "Units")]) > 0) {
     stop("Adding menhaden value created duplicate comdat rows")
   }
-  
+
   # comdat_species: replace the zero SPPVALUE on menhaden rows
   spc <- comdat_list$comdat_species
   mv <- val |> dplyr::transmute(YEAR = Time, EPU, NESPP3 = 221, mh_value = add)
-  if (is.integer(spc$YEAR)) mv$YEAR <- as.integer(mv$YEAR)
+  if (is.integer(spc$YEAR)) {
+    mv$YEAR <- as.integer(mv$YEAR)
+  }
   spc <- spc |>
     dplyr::left_join(mv, by = c("YEAR", "EPU", "NESPP3")) |>
-    dplyr::mutate(SPPVALUE = dplyr::if_else(is.na(mh_value), SPPVALUE, mh_value)) |>
+    dplyr::mutate(
+      SPPVALUE = dplyr::if_else(is.na(mh_value), SPPVALUE, mh_value)
+    ) |>
     dplyr::select(-mh_value)
-  
-  log_msg("Menhaden value added: $", format(round(sum(val$add)), big.mark = ","),
-          " across ", nrow(val), " year x EPU cells to: ", paste(rev_vars, collapse = "; "),
-          " (", n_match, " of ", nrow(adds), " target rows already existed)")
-  
+
+  log_msg(
+    "Menhaden value added: $",
+    format(round(sum(val$add)), big.mark = ","),
+    " across ",
+    nrow(val),
+    " year x EPU cells to: ",
+    paste(rev_vars, collapse = "; "),
+    " (",
+    n_match,
+    " of ",
+    nrow(adds),
+    " target rows already existed)"
+  )
+
   list(comdat = out, comdat_species = spc)
 }
 
 # ---- (0) input checks: before the long pull ----------------------------------
 input_path_species <- file.path(supplemental_folder, "SOE_species_list_24.rds")
-if (!file.exists(input_path_species)) fail(paste0("Supplemental file missing: ", input_path_species))
-if (!file.exists(menhaden_file)) fail(paste0("Menhaden file missing: ", menhaden_file))
+if (!file.exists(input_path_species)) {
+  fail(paste0("Supplemental file missing: ", input_path_species))
+}
+if (!file.exists(menhaden_file)) {
+  fail(paste0("Menhaden file missing: ", menhaden_file))
+}
 
 menhaden_raw <- tryCatch(
   {
     mh <- readRDS(menhaden_file)
     check_menhaden(mh)
-    log_msg("Menhaden file OK: ", nrow(mh), " rows, years ",
-            min(mh$year), "-", max(mh$year))
+    log_msg(
+      "Menhaden file OK: ",
+      nrow(mh),
+      " rows, years ",
+      min(mh$year),
+      "-",
+      max(mh$year)
+    )
     mh
   },
-  error = function(e) fail(paste0("Menhaden file failed checks: ", conditionMessage(e)))
+  error = function(e) {
+    fail(paste0("Menhaden file failed checks: ", conditionMessage(e)))
+  }
 )
 
 # ---- (1) pull commercial data ------------------------------------------------
-comdat_file <- file.path(input_folder, paste0("commercial_comdat_data_", run_date, ".rds"))
-bennet_file <- file.path(input_folder, paste0("commercial_bennet_data_", run_date, ".rds"))
+comdat_file <- file.path(
+  input_folder,
+  paste0("commercial_comdat_data_", run_date, ".rds")
+)
+bennet_file <- file.path(
+  input_folder,
+  paste0("commercial_bennet_data_", run_date, ".rds")
+)
 
 channel <- NULL
 pull_ok <- tryCatch(
@@ -272,7 +404,7 @@ pull_ok <- tryCatch(
     if (any(c(db_server, db_user, db_pass) == "")) {
       stop("Missing database credentials. Set DB_SERVER, DB_USER, and DB_PASS.")
     }
-    
+
     log_msg("Connecting to database: ", db_server, " as user: ", db_user)
     channel <- ROracle::dbConnect(
       ROracle::Oracle(),
@@ -281,17 +413,19 @@ pull_ok <- tryCatch(
       password = db_pass
     )
     log_msg("Connected. Pulling commercial data...")
-    
+
     commercial_data <- SOEworkflows::get_commercial_data(channel)
-    
+
     # integrity checks on the pull
     for (nm in c("comdat", "bennet")) {
       cl <- commercial_data[[nm]]$comland
-      if (is.null(cl) || nrow(cl) == 0) stop("Pull returned no rows for '", nm, "'")
+      if (is.null(cl) || nrow(cl) == 0) {
+        stop("Pull returned no rows for '", nm, "'")
+      }
     }
     yrs <- range(commercial_data$comdat$comland$YEAR, na.rm = TRUE)
     log_msg("Pull returned comland years ", yrs[1], "-", yrs[2])
-    
+
     saveRDS(commercial_data$comdat, comdat_file)
     log_msg("Saved: ", comdat_file)
     saveRDS(commercial_data$bennet, bennet_file)
@@ -307,11 +441,15 @@ pull_ok <- tryCatch(
   }
 )
 
-if (!pull_ok) fail("Commercial data pull failed; comdat and bennet were not run.")
+if (!pull_ok) {
+  fail("Commercial data pull failed; comdat and bennet were not run.")
+}
 
 # reference year/month for dollar values: same logic as SOEworkflows::get_commercial_data()
 end_year <- as.numeric(format(Sys.Date(), "%Y"))
-if (as.numeric(format(Sys.Date(), "%m")) <= 4) end_year <- end_year - 1
+if (as.numeric(format(Sys.Date(), "%m")) <= 4) {
+  end_year <- end_year - 1
+}
 ref_year <- end_year - 1
 ref_month <- 1
 log_msg("Dollar reference period: ", ref_year, "-", sprintf("%02d", ref_month))
@@ -322,15 +460,25 @@ comdat_ok <- tryCatch(
     # tidy menhaden to the comland years and hand it to create_comdat() as a temp file
     menhaden_wide <- tidy_menhaden(menhaden_raw, first_year = yrs[1])
     if (max(menhaden_wide$year) < yrs[2]) {
-      log_msg("WARNING: menhaden data end in ", max(menhaden_wide$year),
-              " but the commercial pull ends in ", yrs[2],
-              "; comdat will have no menhaden landings after ", max(menhaden_wide$year))
+      log_msg(
+        "WARNING: menhaden data end in ",
+        max(menhaden_wide$year),
+        " but the commercial pull ends in ",
+        yrs[2],
+        "; comdat will have no menhaden landings after ",
+        max(menhaden_wide$year)
+      )
     }
     input_path_menhaden <- tempfile("menhaden_tidy_", fileext = ".rds")
     saveRDS(menhaden_wide, input_path_menhaden)
     on.exit(unlink(input_path_menhaden), add = TRUE)
-    log_msg("Menhaden tidied: years ", min(menhaden_wide$year), "-", max(menhaden_wide$year))
-    
+    log_msg(
+      "Menhaden tidied: years ",
+      min(menhaden_wide$year),
+      "-",
+      max(menhaden_wide$year)
+    )
+
     log_msg("Calculating comdat...")
     comdat <- SOEworkflows::create_comdat(
       input_path_comdat = comdat_file,
@@ -338,14 +486,22 @@ comdat_ok <- tryCatch(
       input_path_menhaden = input_path_menhaden
     )
     unlink(input_path_menhaden)
-    
+
     # add menhaden revenue (create_comdat() sets it to 0)
-    comdat <- add_menhaden_value(comdat, menhaden_raw, input_path_species, years = yrs,
-                                 ref_year = ref_year, ref_month = ref_month)
-    
+    comdat <- add_menhaden_value(
+      comdat,
+      menhaden_raw,
+      input_path_species,
+      years = yrs,
+      ref_year = ref_year,
+      ref_month = ref_month
+    )
+
     check_indicator(comdat$comdat, "comdat")
-    if (NROW(comdat$comdat_species) == 0) stop("comdat_species is empty")
-    
+    if (NROW(comdat$comdat_species) == 0) {
+      stop("comdat_species is empty")
+    }
+
     f1 <- file.path(output_folder, paste0("comdat_", run_date, ".rds"))
     f2 <- file.path(output_folder, paste0("comdat_species_", run_date, ".rds"))
     saveRDS(comdat$comdat, f1)
@@ -369,7 +525,7 @@ bennet_ok <- tryCatch(
       input_path_species = input_path_species
     )
     check_indicator(bennet, "bennet")
-    
+
     f3 <- file.path(output_folder, paste0("bennet_", run_date, ".rds"))
     saveRDS(bennet, f3)
     log_msg("Saved: ", f3)
@@ -382,8 +538,14 @@ bennet_ok <- tryCatch(
 )
 
 # ---- summary -----------------------------------------------------------------
-log_msg("Summary: pull = OK, comdat = ", if (comdat_ok) "OK" else "FAILED",
-        ", bennet = ", if (bennet_ok) "OK" else "FAILED")
+log_msg(
+  "Summary: pull = OK, comdat = ",
+  if (comdat_ok) "OK" else "FAILED",
+  ", bennet = ",
+  if (bennet_ok) "OK" else "FAILED"
+)
 
-if (!(comdat_ok && bennet_ok)) fail("One or more indicators failed.")
+if (!(comdat_ok && bennet_ok)) {
+  fail("One or more indicators failed.")
+}
 log_msg("Done: commercial pull, comdat, bennet")
