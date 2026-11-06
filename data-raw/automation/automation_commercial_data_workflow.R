@@ -24,8 +24,14 @@
 # with guild/council looked up for NESPP3 221 in the species list) and to the menhaden
 # rows of comdat_species. Value is only added in year x EPU cells where the commercial
 # pull has revenue (comland value data begin in 1982), so earlier revenue stays 0
-# rather than becoming menhaden-only. Menhaden dollars are used as provided in the file; they are
-# NOT adjusted to the commercial pull's reference-year dollars.
+# rather than becoming menhaden-only. Menhaden dollars are nominal, so before they are
+# added they are converted to the same reference-year dollars as the commercial pull,
+# using the GDP deflator that comlandr ships (extdata/fred/fred.rds, as in
+# comlandr's adjust_inflation): value * deflator(refYear, refMonth) / deflator(year).
+# Menhaden values are annual, so the deflator for each year is the mean of that year's
+# reported (quarterly) values. refYear/refMonth follow SOEworkflows::get_commercial_data():
+# refYear = end.year - 1, refMonth = 1, where end.year is the current year (previous
+# year when run January-April).
 #
 # Order: (0) input checks -> (1) pull -> (2) comdat, (3) bennet.
 # Steps 2-3 only run if the pull succeeds. Each indicator runs independently;
@@ -138,7 +144,28 @@ tidy_menhaden <- function(mh, first_year) {
 
 # add menhaden dollars to the comdat revenue series and comdat_species menhaden rows
 # (create_comdat() sets menhaden SPPVALUE to 0)
-add_menhaden_value <- function(comdat_list, mh, species_path, years) {
+# annual GDP deflator from comlandr's FRED data, plus the reference-period value
+get_deflator <- function(ref_year, ref_month) {
+  fred_path <- system.file("extdata/fred/fred.rds", package = "comlandr")
+  if (fred_path == "") stop("comlandr deflator data (extdata/fred/fred.rds) not found")
+  fred <- readRDS(fred_path) |> dplyr::as_tibble()
+  if (!all(c("YEAR", "MONTH", "value") %in% names(fred))) {
+    stop("comlandr deflator data missing YEAR/MONTH/value columns")
+  }
+  fred <- fred |>
+    dplyr::mutate(YEAR = as.numeric(YEAR), MONTH = as.numeric(MONTH)) |>
+    dplyr::filter(!is.na(value))
+  base <- fred |> dplyr::filter(YEAR == ref_year, MONTH == ref_month) |> dplyr::pull(value)
+  if (length(base) != 1) {
+    stop("No deflator value for reference year/month ", ref_year, "/", ref_month)
+  }
+  annual <- fred |>
+    dplyr::group_by(YEAR) |>
+    dplyr::summarise(defl = mean(value), n_quarters = dplyr::n(), .groups = "drop")
+  list(base = base, annual = annual)
+}
+
+add_menhaden_value <- function(comdat_list, mh, species_path, years, ref_year, ref_month) {
   # guild and council for menhaden, looked up the same way create_comdat() does
   sp221 <- readRDS(species_path) |>
     dplyr::as_tibble() |>
@@ -160,6 +187,27 @@ add_menhaden_value <- function(comdat_list, mh, species_path, years) {
     dplyr::summarise(add = sum(dollars, na.rm = TRUE), .groups = "drop") |>
     dplyr::semi_join(has_rev, by = c("Time", "EPU"))
   if (nrow(val) == 0) stop("No years with commercial revenue to add menhaden value to")
+  
+  # convert nominal menhaden dollars to the pull's reference-year dollars
+  defl <- get_deflator(ref_year, ref_month)
+  val <- val |>
+    dplyr::left_join(defl$annual, by = c("Time" = "YEAR"))
+  if (any(is.na(val$defl))) {
+    stop("No deflator value for menhaden year(s): ",
+         paste(sort(unique(val$Time[is.na(val$defl)])), collapse = ", "))
+  }
+  partial <- unique(val$Time[val$n_quarters < 4])
+  if (length(partial) > 0) {
+    log_msg("WARNING: deflator for ", paste(partial, collapse = ", "),
+            " uses fewer than 4 quarters")
+  }
+  nominal_total <- sum(val$add)
+  val <- val |>
+    dplyr::mutate(add = round(add * defl$base / defl)) |>
+    dplyr::select(Time, EPU, add)
+  log_msg("Menhaden dollars deflated to ", ref_year, "-", sprintf("%02d", ref_month),
+          " dollars: nominal $", format(round(nominal_total), big.mark = ","),
+          " -> $", format(sum(val$add), big.mark = ","))
   
   rev_vars <- c("Revenue", paste(guild, "Revenue"), paste(guild, fed, "managed species - Revenue"))
   adds <- tidyr::crossing(val, Var = rev_vars) |>
@@ -260,6 +308,13 @@ pull_ok <- tryCatch(
 
 if (!pull_ok) fail("Commercial data pull failed; comdat and bennet were not run.")
 
+# reference year/month for dollar values: same logic as SOEworkflows::get_commercial_data()
+end_year <- as.numeric(format(Sys.Date(), "%Y"))
+if (as.numeric(format(Sys.Date(), "%m")) <= 4) end_year <- end_year - 1
+ref_year <- end_year - 1
+ref_month <- 1
+log_msg("Dollar reference period: ", ref_year, "-", sprintf("%02d", ref_month))
+
 # ---- (2) comdat --------------------------------------------------------------
 comdat_ok <- tryCatch(
   {
@@ -284,7 +339,8 @@ comdat_ok <- tryCatch(
     unlink(input_path_menhaden)
     
     # add menhaden revenue (create_comdat() sets it to 0)
-    comdat <- add_menhaden_value(comdat, menhaden_raw, input_path_species, years = yrs)
+    comdat <- add_menhaden_value(comdat, menhaden_raw, input_path_species, years = yrs,
+                                 ref_year = ref_year, ref_month = ref_month)
     
     check_indicator(comdat$comdat, "comdat")
     if (NROW(comdat$comdat_species) == 0) stop("comdat_species is empty")
