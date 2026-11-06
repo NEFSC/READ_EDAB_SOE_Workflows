@@ -189,9 +189,10 @@ add_menhaden_value <- function(comdat_list, mh, species_path, years, ref_year, r
   if (nrow(val) == 0) stop("No years with commercial revenue to add menhaden value to")
   
   # convert nominal menhaden dollars to the pull's reference-year dollars
-  defl <- get_deflator(ref_year, ref_month)
+  deflator <- get_deflator(ref_year, ref_month)
+  base_defl <- deflator$base
   val <- val |>
-    dplyr::left_join(defl$annual, by = c("Time" = "YEAR"))
+    dplyr::left_join(deflator$annual, by = c("Time" = "YEAR"))
   if (any(is.na(val$defl))) {
     stop("No deflator value for menhaden year(s): ",
          paste(sort(unique(val$Time[is.na(val$defl)])), collapse = ", "))
@@ -203,7 +204,7 @@ add_menhaden_value <- function(comdat_list, mh, species_path, years, ref_year, r
   }
   nominal_total <- sum(val$add)
   val <- val |>
-    dplyr::mutate(add = round(add * defl$base / defl)) |>
+    dplyr::mutate(add = round(add * base_defl / defl)) |>
     dplyr::select(Time, EPU, add)
   log_msg("Menhaden dollars deflated to ", ref_year, "-", sprintf("%02d", ref_month),
           " dollars: nominal $", format(round(nominal_total), big.mark = ","),
