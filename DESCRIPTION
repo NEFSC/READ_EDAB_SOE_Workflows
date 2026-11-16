@@ -49,7 +49,7 @@ Remotes:
   NOAA-EDAB/comlandr,
   NEesp2=NEFSC/READ-EDAB-NEesp2,
   NEFSCspatial=NEFSC/NEFSC-Spatial
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1
 Suggests: 
     knitr,
     rmarkdown
