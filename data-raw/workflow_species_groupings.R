@@ -25,22 +25,40 @@ workflow_species_groupings <- function(
   # Add check to skip running workflow if data not present
   tryCatch(
     {
-      if (
-        !all(
-          !is.null(output_path_indicators),
-          file.exists(input_path_species_list),
-          file.exists(input_path_functional_group)
+      if (type == "SOE2027") {
+        if (
+          !all(
+            !is.null(output_path_indicators),
+            file.exists(input_path_species_list)
+          )
+        ) {
+          stop("Incorrect file path or file missing")
+        }
+
+        indicatorData <- SOEworkflows::create_species_groupings(
+          input_path_species_list = input_path_species_list,
+          type = type
         )
-      ) {
-        stop("Incorrect file path or file missing")
       }
 
-      # calculate indicator
-      indicatorData <- SOEworkflows::create_species_groupings(
-        input_path_species_list = input_path_species_list,
-        input_path_functional_group = input_path_functional_group,
-        type = type
-      )
+      if (type == "SOE2026") {
+        if (
+          !all(
+            !is.null(output_path_indicators),
+            file.exists(input_path_functional_group),
+            file.exists(input_path_species_list)
+          )
+        ) {
+          stop("Incorrect file path or file missing")
+        }
+
+        # calculate indicator
+        indicatorData <- SOEworkflows::create_species_groupings(
+          input_path_species_list = input_path_species_list,
+          input_path_functional_group = input_path_functional_group,
+          type = type
+        )
+      }
 
       # Write data to file
       saveRDS(
