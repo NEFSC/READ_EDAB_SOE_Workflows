@@ -231,6 +231,7 @@ create_heatwave_surface <- function(
 create_heatwave_bottom <- function(input_path_bot, detrend = F) {
   # Read in inputs and format
   data <- read.csv(file.path(input_path_bot)) |>
+    dplyr::filter(source == 'GLORYS') |>
     dplyr::rename(t = date, temp = BottomT.mean) |>
     dplyr::mutate(
       temp = as.numeric(temp),
@@ -260,7 +261,7 @@ create_heatwave_bottom <- function(input_path_bot, detrend = F) {
     dat <- data |>
       dplyr::filter(EPU == x)
     end.date <- '2024-12-31' #as.character(max(dat$t))
-    start.date <- '1982-01-01' #max(c(as.Date('1982-01-01'), min(dat$t)))
+    start.date <- max(c(as.Date('1982-01-01'), min(dat$t)))
     ts <- heatwaveR::ts2clm(dat, climatologyPeriod = c(start.date, end.date))
     mhw <- heatwaveR::detect_event(ts, minDuration = 30)
     hw <- mhw$event |>

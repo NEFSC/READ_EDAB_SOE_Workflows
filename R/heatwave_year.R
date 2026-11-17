@@ -153,6 +153,7 @@ create_heatwave_year_bottom <- function(
 ) {
   #Bottom heatwave detrended
   data <- read.csv(file.path(input_path_bot), header = T) |>
+    dplyr::filter(source == 'GLORYS') |>
     dplyr::rename(t = date, temp = sst.mean) |>
     dplyr::mutate(
       temp = as.numeric(temp),
