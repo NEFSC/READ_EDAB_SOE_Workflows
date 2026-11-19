@@ -194,6 +194,23 @@ workflow_comdat(input_path_comdat, input_path_species, input_path_menhaden, outp
 * `output_path_datasets` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `comdat.rds` to match the `ecodata` package dataset
 
+### Menhaden
+
+To run the "workflow" below, the menhaden input data must be accessible on the network drive or via API.
+
+*Note: the following function resides in the folder `data-raw` and is NOT part of the package*
+
+```
+workflow_menhaden_data(input_path_foss, input_path_foss_nc, input_path_accsp, output_path_indicators, api)
+```
+
+* `input_path_foss` is the path to static data set `EDAB_Resources/static_workflow_inputs/FOSS_landings.csv`.
+* `input_path_foss_nc` is the path to static data set `EDAB_Resources/static_workflow_inputs/FOSS_landings_NC.csv`. 
+* `input_path_accsp` is the path to static data set `EDAB_Resources/static_workflow_inputs/accsp_menhaden_SOE2027.csv`. 
+* `output_path_indicators` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+* `api` is a Boolean. If `TRUE`, attempts to query online APIs instead of using input path data (defaults to `FALSE`).
+The rds file name is hardcoded as `menhaden.rds`
+
 ## `stocksmart` Based Indicators
 
 To run the "workflow" below, it is assumed that the `stocksmart` R package has been updated to include recent assessment data.
