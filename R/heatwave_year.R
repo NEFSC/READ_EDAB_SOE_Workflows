@@ -71,7 +71,8 @@ create_heatwave_year <- function(
 #' @noRd
 
 create_heatwave_year_surface <- function(
-  input_path_surf
+  input_path_surf,
+  detrend = F
 ) {
   data <- read.csv(file.path(input_path_surf)) |>
     dplyr::rename(t = date, temp = sst.mean) |>
