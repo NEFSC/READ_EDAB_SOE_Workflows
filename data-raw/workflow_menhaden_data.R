@@ -56,7 +56,7 @@ workflow_menhaden <- function(
       )
 
       # write data to file
-      saveRDS(indicatorData, paste0(output_path_indicators, "/menhaden.rds"))
+      saveRDS(indicatorData, paste0(output_path_indicators, "/menhaden_data.rds"))
       return(indicatorData)
     },
     error = function(e) {
