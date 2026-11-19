@@ -20,7 +20,6 @@
 #'
 #' }
 #'
-#' @importFrom dplyr `|>`
 #'
 #' @export
 
@@ -144,7 +143,6 @@ create_heatwave_year_surface <- function(
 #' @return bottom temperature portion of ecodata::heatwave_year data frame
 #'
 #'
-#' @importFrom dplyr `|>`
 #'
 #' @noRd
 

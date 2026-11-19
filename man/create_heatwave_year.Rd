@@ -30,4 +30,5 @@ create_heatwave_year(input_path_bot = "path/to/input/GLORYS_daily_bt_data.csv",
 
 }
 
+
 }
