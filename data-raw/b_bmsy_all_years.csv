@@ -1,0 +1,1240 @@
+"species","year","b_over_bmsy","assessment_year","assessment_type","assessment_model","stock","region","last_assessment","SOE.24"
+"Acadian redfish",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Acadian redfish",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Acadian redfish",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Acadian redfish",2005,0.741999983787537,2005,"Full Update","Age-Structured Forward Projection Model","UNIT","NEFMC","NO","Piscivore"
+"Acadian redfish",2006,0.637469378730048,2005,NA,NA,NA,NA,NA,NA
+"Acadian redfish",2007,0.70831010630161,2005,NA,NA,NA,NA,NA,NA
+"Acadian redfish",2008,0.635999977588654,2008,"Benchmark","SCAA","UNIT","NEFMC","NO","Piscivore"
+"Acadian redfish",2009,0.732162361623616,2008,NA,NA,NA,NA,NA,NA
+"Acadian redfish",2010,0.782154981549816,2008,NA,NA,NA,NA,NA,NA
+"Acadian redfish",2011,0.826852398523985,2008,NA,NA,NA,NA,NA,NA
+"Acadian redfish",2012,1.32299995422363,2012,"Full Update","SCAA","UNIT","NEFMC","NO","Piscivore"
+"Acadian redfish",2013,1.01418067226891,2012,NA,NA,NA,NA,NA,NA
+"Acadian redfish",2014,1.03798739495798,2012,NA,NA,NA,NA,NA,NA
+"Acadian redfish",2015,1.17400002479553,2015,"Full Update","ASAP","UNIT","NEFMC","NO","Piscivore"
+"Acadian redfish",2016,0.898780557215629,2015,NA,NA,NA,NA,NA,NA
+"Acadian redfish",2017,1.45200002193451,2017,"Full Update","ASAP","UNIT","NEFMC","NO","Piscivore"
+"Acadian redfish",2018,1.01420631015094,2017,NA,NA,NA,NA,NA,NA
+"Acadian redfish",2019,1.00089545736897,2017,NA,NA,NA,NA,NA,NA
+"Acadian redfish",2020,1.53600001335144,2020,"Operational","ASAP","UNIT","NEFMC","NO","Piscivore"
+"Acadian redfish",2021,1.17660255451527,2020,NA,NA,NA,NA,NA,NA
+"Acadian redfish",2022,1.14374881596921,2020,NA,NA,NA,NA,NA,NA
+"Acadian redfish",2023,1.64300000667572,2023,"Operational","ASAP","UNIT","NEFMC","NO","Piscivore"
+"Acadian redfish",2024,1.17770532003776,2023,NA,NA,NA,NA,NA,NA
+"Acadian redfish",2025,1.43099999427795,2025,"Operational","ASAP","UNIT","NEFMC","YES","Piscivore"
+"American plaice",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"American plaice",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"American plaice",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"American plaice",2005,0.5,2005,"Full Update","VPA","UNIT","NEFMC","NO","Benthivore"
+"American plaice",2006,NA,2005,NA,NA,NA,NA,NA,NA
+"American plaice",2007,NA,2005,NA,NA,NA,NA,NA,NA
+"American plaice",2008,0.505999982357025,2008,"Benchmark","VPA","UNIT","NEFMC","NO","Benthivore"
+"American plaice",2009,1.08705560619872,2008,NA,NA,NA,NA,NA,NA
+"American plaice",2010,1.23313582497721,2008,NA,NA,NA,NA,NA,NA
+"American plaice",2011,1.44038286235187,2008,NA,NA,NA,NA,NA,NA
+"American plaice",2012,0.587000012397766,2012,"Full Update","VPA","UNIT","NEFMC","NO","Benthivore"
+"American plaice",2013,1.41178388955321,2012,NA,NA,NA,NA,NA,NA
+"American plaice",2014,1.78095445157082,2012,NA,NA,NA,NA,NA,NA
+"American plaice",2015,0.839999973773956,2015,"Full Update","VPA","UNIT","NEFMC","NO","Benthivore"
+"American plaice",2016,3.47371633478294,2015,NA,NA,NA,NA,NA,NA
+"American plaice",2017,0.989000022411346,2017,"Full Update","VPA","UNIT","NEFMC","NO","Benthivore"
+"American plaice",2018,3.38761756646671,2017,NA,NA,NA,NA,NA,NA
+"American plaice",2019,1.16100001335144,2019,"Operational","ADAPT","UNIT","NEFMC","NO","Benthivore"
+"American plaice",2020,1.54855162492644,2019,NA,NA,NA,NA,NA,NA
+"American plaice",2021,1.28450925259923,2019,NA,NA,NA,NA,NA,NA
+"American plaice",2022,0.986999988555908,2022,"Operational","WHAM","UNIT","NEFMC","NO","Benthivore"
+"American plaice",2023,1.32528476195475,2022,NA,NA,NA,NA,NA,NA
+"American plaice",2024,1.94799995422363,2024,"Operational","WHAM","UNIT","NEFMC","YES","Benthivore"
+"American plaice",2025,NA,2024,NA,NA,NA,NA,NA,NA
+"Atlantic cod",2002,0.287000000476837,2002,"Full Update","VPA","Gulf of Maine","NEFMC","NO","Piscivore"
+"Atlantic cod",2003,0.149136786188579,2002,NA,NA,NA,NA,NA,NA
+"Atlantic cod",2004,0.125799830979114,2002,NA,NA,NA,NA,NA,NA
+"Atlantic cod",2005,0.104000002145767,2005,"Full Update","VPA","Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2005,0.104000002145767,2005,"Full Update","VPA","Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2005,0.226999998092651,2005,"Full Update","VPA","Gulf of Maine","NEFMC","NO","Piscivore"
+"Atlantic cod",2005,0.226999998092651,2005,"Full Update","VPA","Gulf of Maine","NEFMC","NO","Piscivore"
+"Atlantic cod",2006,0.055852534562212,2005,NA,NA,NA,NA,NA,NA
+"Atlantic cod",2006,0.101738500543281,2005,NA,NA,NA,NA,NA,NA
+"Atlantic cod",2007,0.0532995391705069,2005,NA,NA,NA,NA,NA,NA
+"Atlantic cod",2007,0.130121936496438,2005,NA,NA,NA,NA,NA,NA
+"Atlantic cod",2008,0.119000002741814,2008,"Benchmark","VPA","Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2008,0.119000002741814,2008,"Benchmark","VPA","Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2008,0.582000017166138,2008,"Benchmark","VPA","Gulf of Maine","NEFMC","NO","Piscivore"
+"Atlantic cod",2008,0.582000017166138,2008,"Benchmark","VPA","Gulf of Maine","NEFMC","NO","Piscivore"
+"Atlantic cod",2009,0.0664285135463656,2008,NA,NA,NA,NA,NA,NA
+"Atlantic cod",2009,0.232780524653207,2008,NA,NA,NA,NA,NA,NA
+"Atlantic cod",2010,0.0542935090894357,2008,NA,NA,NA,NA,NA,NA
+"Atlantic cod",2010,0.203749484960857,2008,NA,NA,NA,NA,NA,NA
+"Atlantic cod",2011,0.038890089408714,2008,NA,NA,NA,NA,NA,NA
+"Atlantic cod",2012,0.0799999982118607,2012,"Full Update","VPA","Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2012,0.194000005722046,2012,"Benchmark","ASAP","Gulf of Maine","NEFMC","NO","Piscivore"
+"Atlantic cod",2013,0.0219422628461147,2013,"Full Update","VPA ""M 0.8 model""","Eastern Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2013,0.0710000023245811,2013,"Benchmark","ASAP","Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2013,0.0219422628461147,2013,"Benchmark","ASAP","Gulf of Maine","NEFMC","NO","Piscivore"
+"Atlantic cod",2014,0.0242742648832659,2014,"Full Update","VPA ""M 0.8 model""","Eastern Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2014,0.0242742648832659,2014,"Full Update","ASAP","Gulf of Maine","NEFMC","NO","Piscivore"
+"Atlantic cod",2015,0.0234004342348621,2015,"Full Update","VPA ""M 0.8 model""","Eastern Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2015,0.0234004342348621,2015,"Full Update","ASAP","Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2015,0.0234004342348621,2015,"Full Update","ASAP","Gulf of Maine","NEFMC","NO","Piscivore"
+"Atlantic cod",2016,0.0349478650119281,2016,"Full Update","VPA ""M 0.8 model""","Eastern Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2017,NA,2017,"Full Update","VPA ""M 0.8 model""","Eastern Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2017,NA,2017,"Full Update","Plan B Smooth","Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2017,NA,2017,"Full Update","2 ASAP Models","Gulf of Maine","NEFMC","NO","Piscivore"
+"Atlantic cod",2018,NA,2018,"Full Update","VPA ""M 0.8 model""","Eastern Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2019,NA,2019,"Stock Monitoring Update","Survey Abundance","Eastern Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2019,NA,2019,"Operational","Plan B Smooth","Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2019,NA,2019,"Operational","ASAP","Gulf of Maine","NEFMC","NO","Piscivore"
+"Atlantic cod",2020,NA,2020,"Operational","Index Method","Eastern Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2021,NA,2021,"Operational","PlanBSmooth","Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2021,NA,2021,"Operational","ASAP","Gulf of Maine","NEFMC","NO","Piscivore"
+"Atlantic cod",2022,NA,2022,"Operational","DLMtool","Eastern Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2023,NA,2023,"Operational","DLMtool","Eastern Georges Bank","NEFMC","NO","Piscivore"
+"Atlantic cod",2024,0.122000001370907,2024,"Operational","WHAM","Eastern Gulf of Maine","NEFMC","YES","Piscivore"
+"Atlantic cod",2024,0.321999996900558,2024,"Operational","WHAM","Georges Bank","NEFMC","YES","Piscivore"
+"Atlantic cod",2024,0.0260000005364418,2024,"Operational","WHAM","Southern New England","NEFMC","YES","Piscivore"
+"Atlantic cod",2024,0.028999999165535,2024,"Operational","WHAM","Western Gulf of Maine","NEFMC","YES","Piscivore"
+"Atlantic cod",2025,NA,2024,NA,NA,NA,NA,NA,NA
+"Atlantic halibut",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic halibut",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic halibut",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic halibut",2005,0.0529999993741512,2005,"Full Update","NEFSC Trawl Survey CPUE","UNIT","NEFMC","NO","Piscivore"
+"Atlantic halibut",2006,0.000201666664194178,2005,NA,NA,NA,NA,NA,NA
+"Atlantic halibut",2007,0.000160555552553248,2005,NA,NA,NA,NA,NA,NA
+"Atlantic halibut",2008,0.0270000007003546,2008,"Benchmark","Replacement Yield & NFT YPR","UNIT","NEFMC","NO","Piscivore"
+"Atlantic halibut",2009,1.87755105446796e-05,2008,NA,NA,NA,NA,NA,NA
+"Atlantic halibut",2010,2.50612254045448e-05,2008,NA,NA,NA,NA,NA,NA
+"Atlantic halibut",2011,2.59591827587206e-05,2008,NA,NA,NA,NA,NA,NA
+"Atlantic halibut",2012,0.034000001847744,2012,"Full Update","Replacement Yield & NFT YPR","UNIT","NEFMC","NO","Piscivore"
+"Atlantic halibut",2013,2.50612254045448e-05,2012,NA,NA,NA,NA,NA,NA
+"Atlantic halibut",2014,2.08979601762733e-05,2012,NA,NA,NA,NA,NA,NA
+"Atlantic halibut",2015,2.39999999805373e-05,2015,"Full Update","Replacement Yield & NFT YPR","UNIT","NEFMC","NO","Piscivore"
+"Atlantic halibut",2016,2.07959194572604e-05,2015,NA,NA,NA,NA,NA,NA
+"Atlantic halibut",2017,2.08163261413574e-05,2015,NA,NA,NA,NA,NA,NA
+"Atlantic halibut",2018,NA,2018,"Full Update","First and Second Derivative Model","UNIT","NEFMC","NO","Piscivore"
+"Atlantic halibut",2019,NA,2019,"Operational","FSD","UNIT","NEFMC","NO","Piscivore"
+"Atlantic halibut",2020,NA,2020,"Operational","First and Second Derivative Method","UNIT","NEFMC","NO","Piscivore"
+"Atlantic halibut",2021,NA,2020,NA,NA,NA,NA,NA,NA
+"Atlantic halibut",2022,NA,2022,"Operational","FSD","UNIT","NEFMC","NO","Piscivore"
+"Atlantic halibut",2023,NA,2022,NA,NA,NA,NA,NA,NA
+"Atlantic halibut",2024,NA,2024,"Operational","FSD","UNIT","NEFMC","YES","Piscivore"
+"Atlantic halibut",2025,NA,2024,NA,NA,NA,NA,NA,NA
+"Atlantic herring",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic herring",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic herring",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic herring",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic herring",2006,1.64999997615814,2006,"Benchmark","ASAP","UNIT","NEFMC","NO","Planktivore"
+"Atlantic herring",2007,0.316073131955485,2006,NA,NA,NA,NA,NA,NA
+"Atlantic herring",2008,0.311653418124006,2006,NA,NA,NA,NA,NA,NA
+"Atlantic herring",2009,0.972000002861023,2009,"Full Update","ASAP","UNIT","NEFMC","NO","Planktivore"
+"Atlantic herring",2010,0.178422308380555,2009,NA,NA,NA,NA,NA,NA
+"Atlantic herring",2011,0.27867581270504,2009,NA,NA,NA,NA,NA,NA
+"Atlantic herring",2012,3.29900002479553,2012,"Benchmark","ASAP","UNIT","NEFMC","NO","Planktivore"
+"Atlantic herring",2013,1.23898089171975,2012,NA,NA,NA,NA,NA,NA
+"Atlantic herring",2014,1.83541401273885,2012,NA,NA,NA,NA,NA,NA
+"Atlantic herring",2015,2.00200009346008,2015,"Full Update","ASAP","UNIT","NEFMC","NO","Planktivore"
+"Atlantic herring",2016,0.447701232544312,2015,NA,NA,NA,NA,NA,NA
+"Atlantic herring",2017,0.311738899869836,2015,NA,NA,NA,NA,NA,NA
+"Atlantic herring",2018,0.749000012874603,2018,"Benchmark","ASAP","UNIT","NEFMC","NO","Planktivore"
+"Atlantic herring",2019,0.247751322751323,2018,NA,NA,NA,NA,NA,NA
+"Atlantic herring",2020,0.28999999165535,2020,"Operational","ASAP","UNIT","NEFMC","NO","Planktivore"
+"Atlantic herring",2021,0.179739776951673,2020,NA,NA,NA,NA,NA,NA
+"Atlantic herring",2022,0.209999993443489,2022,"Operational","ASAP","UNIT","NEFMC","NO","Planktivore"
+"Atlantic herring",2023,0.258169582772544,2022,NA,NA,NA,NA,NA,NA
+"Atlantic herring",2024,0.256999999284744,2024,"Operational","ASAP","UNIT","NEFMC","YES","Planktivore"
+"Atlantic herring",2025,NA,2024,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2005,3.5699999332428,2005,"Benchmark","ASAP","UNIT","MAFMC","NO","Planktivore"
+"Atlantic mackerel",2006,NA,2005,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2007,NA,2005,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2008,NA,2005,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2009,NA,2005,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2010,NA,2010,"Full Update","ADAPT VPA","UNIT","MAFMC","NO","Planktivore"
+"Atlantic mackerel",2011,NA,2010,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2012,NA,2010,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2013,NA,2010,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2014,NA,2010,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2015,NA,2010,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2016,NA,2010,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2017,NA,2010,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2018,0.221000000834465,2018,"Benchmark","ASAP","UNIT","MAFMC","NO","Planktivore"
+"Atlantic mackerel",2019,0.121354637520696,2018,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2020,0.0806322183509909,2018,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2021,0.237000003457069,2021,"Operational","ASAP","UNIT","MAFMC","NO","Planktivore"
+"Atlantic mackerel",2022,0.09494174167541,2021,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2023,0.123000003397465,2023,"Operational","ASAP","UNIT","MAFMC","NO","Planktivore"
+"Atlantic mackerel",2024,0.614521079509691,2023,NA,NA,NA,NA,NA,NA
+"Atlantic mackerel",2025,0.560000002384186,2025,"Operational","ASAP","UNIT","MAFMC","YES","Planktivore"
+"Atlantic salmon",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic salmon",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic salmon",2004,NA,2004,NA,"census of total population","UNIT","NEFMC","NO","Other"
+"Atlantic salmon",2005,NA,2004,NA,NA,NA,NA,NA,NA
+"Atlantic salmon",2006,NA,2004,NA,NA,NA,NA,NA,NA
+"Atlantic salmon",2007,NA,2004,NA,NA,NA,NA,NA,NA
+"Atlantic salmon",2008,NA,2004,NA,NA,NA,NA,NA,NA
+"Atlantic salmon",2009,NA,2004,NA,NA,NA,NA,NA,NA
+"Atlantic salmon",2010,0.389999985694885,2010,"Full Update","Index Method","UNIT","NEFMC","NO","Other"
+"Atlantic salmon",2011,0.275000005960464,2011,"Full Update","Index Method","UNIT","NEFMC","NO","Other"
+"Atlantic salmon",2012,0.694999992847443,2012,"Full Update","Index Method","UNIT","NEFMC","NO","Other"
+"Atlantic salmon",2013,0.157000005245209,2013,"Full Update","Index Method","UNIT","NEFMC","NO","Other"
+"Atlantic salmon",2014,0.101000003516674,2014,"Full Update","Index Method","UNIT","NEFMC","NO","Other"
+"Atlantic salmon",2015,0.0750000029802322,2015,"Full Update","Index Method","UNIT","NEFMC","NO","Other"
+"Atlantic salmon",2016,0.146999999880791,2016,"Full Update","Census of total population. Trap counts and regression of redd counts.","UNIT","NEFMC","NO","Other"
+"Atlantic salmon",2017,0.146999999880791,2017,"Full Update","Census of total population. Trap counts and regression of redd counts.","UNIT","NEFMC","NO","Other"
+"Atlantic salmon",2018,0.17399999499321,2018,"Full Update","Returns Index","UNIT","NEFMC","NO","Other"
+"Atlantic salmon",2019,NA,2019,"Operational","Returns Index","UNIT","NEFMC","NO","Other"
+"Atlantic salmon",2020,NA,2020,"Operational","Returns Index","UNIT","NEFMC","NO","Other"
+"Atlantic salmon",2021,NA,2021,"Operational","Index Method","UNIT","NEFMC","NO","Other"
+"Atlantic salmon",2022,NA,2022,"Operational","Index Method","UNIT","NEFMC","NO","Other"
+"Atlantic salmon",2023,NA,2023,"Operational","Index Method","UNIT","NEFMC","NO","Other"
+"Atlantic salmon",2024,NA,2024,"Operational","Index Method","UNIT","NEFMC","YES","Other"
+"Atlantic salmon",2025,NA,2024,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2006,1.29999995231628,2006,"Benchmark","Delay Difference","UNIT","MAFMC","NO","Benthos"
+"Atlantic surfclam",2007,3.00000005298191e-09,2006,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2008,2.86666658189562e-09,2006,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2009,1.61699998378754,2009,"Benchmark","KLAMZ","UNIT","MAFMC","NO","Benthos"
+"Atlantic surfclam",2010,4.5119706218853e-06,2009,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2011,4.41988967839306e-06,2009,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2012,4.38305730099617e-06,2009,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2013,1.0900000333786,2013,"Benchmark","Stock Synthesis","UNIT","MAFMC","NO","Benthos"
+"Atlantic surfclam",2014,2.48971201264809e-06,2013,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2015,2.47942395661593e-06,2013,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2016,2.53999996185303,2016,"Benchmark","Stock synthesis","UNIT","MAFMC","NO","Benthos"
+"Atlantic surfclam",2017,NA,2016,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2018,NA,2016,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2019,NA,2016,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2020,1.19000005722046,2020,"Operational","SS","UNIT","MAFMC","NO","Benthos"
+"Atlantic surfclam",2021,1.91820840176264e-06,2020,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2022,1.87925992945269e-06,2020,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2023,1.85004866227667e-06,2020,NA,NA,NA,NA,NA,NA
+"Atlantic surfclam",2024,0.949999988079071,2024,"Operational","SS","UNIT","MAFMC","YES","Benthos"
+"Atlantic surfclam",2025,NA,2024,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2006,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2007,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2008,NA,NA,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2009,0.321999996900558,2009,"New","SCALE","UNIT","NEFMC","NO","Benthivore"
+"Atlantic wolffish",2010,NA,2009,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2011,NA,2009,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2012,0.287999987602234,2012,"Full Update","SCALE","UNIT","NEFMC","NO","Benthivore"
+"Atlantic wolffish",2013,0.241457858769932,2012,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2014,0.271070615034169,2012,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2015,0.379999995231628,2015,"Full Update","SCALE","UNIT","NEFMC","NO","Benthivore"
+"Atlantic wolffish",2016,0.340950090198437,2015,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2017,0.404000014066696,2017,"Full Update","SCALE","UNIT","NEFMC","NO","Benthivore"
+"Atlantic wolffish",2018,0.395781637717122,2017,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2019,0.409429280397022,2017,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2020,0.437999993562698,2020,"Operational","SCALE","UNIT","NEFMC","NO","Benthivore"
+"Atlantic wolffish",2021,0.447180816591056,2020,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2022,0.456999987363815,2022,"Operational","SCALE","UNIT","NEFMC","YES","Benthivore"
+"Atlantic wolffish",2023,NA,2022,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2024,NA,2022,NA,NA,NA,NA,NA,NA
+"Atlantic wolffish",2025,NA,2022,NA,NA,NA,NA,NA,NA
+"Barndoor skate",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Barndoor skate",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Barndoor skate",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Barndoor skate",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Barndoor skate",2006,0.592999994754791,2006,"Benchmark","index","UNIT","NEFMC","NO","Benthivore"
+"Barndoor skate",2007,NA,2006,NA,NA,NA,NA,NA,NA
+"Barndoor skate",2008,0.629999995231628,2008,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Barndoor skate",2009,0.629999995231628,2009,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Barndoor skate",2010,0.691358025599828,2009,NA,NA,NA,NA,NA,NA
+"Barndoor skate",2011,0.685000002384186,2011,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Barndoor skate",2012,0.688000023365021,2012,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Barndoor skate",2013,0.77700001001358,2013,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Barndoor skate",2014,0.771000027656555,2014,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Barndoor skate",2015,0.898000001907349,2015,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Barndoor skate",2016,1.01300001144409,2016,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Barndoor skate",2017,1.01900005340576,2017,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Barndoor skate",2018,1.01300001144409,2018,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Barndoor skate",2019,1.15299999713898,2019,"Operational","Survey Abundance","UNIT","NEFMC","NO","Benthivore"
+"Barndoor skate",2020,1.28699994087219,2020,"Operational","Index Method","UNIT","NEFMC","NO","Benthivore"
+"Barndoor skate",2021,0.974522242212766,2020,NA,NA,NA,NA,NA,NA
+"Barndoor skate",2022,0.967999994754791,2022,"Operational","Index Method","UNIT","NEFMC","NO","Benthivore"
+"Barndoor skate",2023,1.07000005245209,2023,"Operational","Index Method","UNIT","NEFMC","YES","Benthivore"
+"Barndoor skate",2024,NA,2023,NA,NA,NA,NA,NA,NA
+"Barndoor skate",2025,NA,2023,NA,NA,NA,NA,NA,NA
+"Black sea bass",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Black sea bass",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Black sea bass",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Black sea bass",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Black sea bass",2006,NA,2006,"Benchmark","index","UNIT","MAFMC","NO","Benthivore"
+"Black sea bass",2007,NA,2006,NA,NA,NA,NA,NA,NA
+"Black sea bass",2008,NA,2006,NA,NA,NA,NA,NA,NA
+"Black sea bass",2009,0.916000008583069,2009,"Benchmark","SCALE
+","UNIT","MAFMC","NO","Benthivore"
+"Black sea bass",2009,0.916000008583069,2009,"Benchmark","SCALE
+","UNIT","MAFMC","NO","Benthivore"
+"Black sea bass",2009,1.02799999713898,2009,"Full Update","SCALE","UNIT","MAFMC","NO","Benthivore"
+"Black sea bass",2009,1.02799999713898,2009,"Full Update","SCALE","UNIT","MAFMC","NO","Benthivore"
+"Black sea bass",2010,1.0349999666214,2010,"Full Update","SCALE","UNIT","MAFMC","NO","Benthivore"
+"Black sea bass",2011,1.11099994182587,2011,"Partial Update","SCALE","UNIT","MAFMC","NO","Benthivore"
+"Black sea bass",2012,1.02400004863739,2012,"Full Update","SCALE","UNIT","MAFMC","NO","Benthivore"
+"Black sea bass",2013,1.39025735294118,2012,NA,NA,NA,NA,NA,NA
+"Black sea bass",2014,1.79347426470588,2012,NA,NA,NA,NA,NA,NA
+"Black sea bass",2015,1.59623161764706,2012,NA,NA,NA,NA,NA,NA
+"Black sea bass",2016,1.69981617647059,2012,NA,NA,NA,NA,NA,NA
+"Black sea bass",2017,2.29399991035461,2017,"Benchmark","ASAP","UNIT","MAFMC","NO","Benthivore"
+"Black sea bass",2018,2.14078824868108,2017,NA,NA,NA,NA,NA,NA
+"Black sea bass",2019,2.37100005149841,2019,"Operational","ASAP","UNIT","MAFMC","NO","Benthivore"
+"Black sea bass",2020,1.56812375816066,2019,NA,NA,NA,NA,NA,NA
+"Black sea bass",2021,2.06100010871887,2021,"Operational","ASAP","UNIT","MAFMC","NO","Benthivore"
+"Black sea bass",2022,1.83380652309397,2021,NA,NA,NA,NA,NA,NA
+"Black sea bass",2023,2.00463956789696,2021,NA,NA,NA,NA,NA,NA
+"Black sea bass",2024,2.13946402603698,2024,"Operational","WHAM","UNIT","MAFMC","NO","Benthivore"
+"Black sea bass",2025,2.83999991416931,2025,"Operational","WHAM","UNIT","MAFMC","YES","Benthivore"
+"Bluefish",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Bluefish",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Bluefish",2004,NA,2004,"Benchmark","ASPIC biomass dynamic model","UNIT","MAFMC","NO","Piscivore"
+"Bluefish",2005,0.709999978542328,2005,"Benchmark","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Bluefish",2006,NA,2005,NA,NA,NA,NA,NA,NA
+"Bluefish",2007,0.949999988079071,2007,"Full Update","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Bluefish",2008,1.0460000038147,2008,"Full Update","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Bluefish",2009,1.11300003528595,2009,"Full Update","
+ASAP","UNIT","MAFMC","NO","Piscivore"
+"Bluefish",2010,1.06099998950958,2010,"Full Update","
+ASAP","UNIT","MAFMC","NO","Piscivore"
+"Bluefish",2011,0.953999996185303,2011,"Full Update","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Bluefish",2012,0.903999984264374,2012,"Full Update","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Bluefish",2013,0.856000006198883,2013,"Full Update","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Bluefish",2014,0.841000020503998,2014,"Full Update","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Bluefish",2015,0.853999972343445,2015,"Benchmark","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Bluefish",2016,0.392350729700127,2015,NA,NA,NA,NA,NA,NA
+"Bluefish",2017,0.357064622124863,2015,NA,NA,NA,NA,NA,NA
+"Bluefish",2018,0.300326613579626,2015,NA,NA,NA,NA,NA,NA
+"Bluefish",2019,0.458000004291534,2019,"Operational","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Bluefish",2020,0.208950416924571,2019,NA,NA,NA,NA,NA,NA
+"Bluefish",2021,0.474999994039536,2021,"Operational","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Bluefish",2022,0.254420534479425,2021,NA,NA,NA,NA,NA,NA
+"Bluefish",2023,0.598999977111816,2023,"Operational","WHAM","UNIT","MAFMC","NO","Piscivore"
+"Bluefish",2024,0.874436917770138,2023,NA,NA,NA,NA,NA,NA
+"Bluefish",2025,0.889999985694885,2025,"Operational","WHAM","UNIT","MAFMC","YES","Piscivore"
+"Blueline tilefish",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2006,NA,NA,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2007,NA,NA,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2008,NA,NA,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2009,NA,NA,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2010,NA,NA,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2011,NA,NA,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2012,NA,NA,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2013,NA,NA,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2014,NA,NA,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2015,NA,NA,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2016,NA,NA,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2017,NA,NA,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2018,NA,2018,"Benchmark","Catch Only","UNIT","MAFMC","NO","Other"
+"Blueline tilefish",2019,NA,2018,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2020,NA,2018,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2021,NA,2018,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2022,NA,2018,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2023,NA,2018,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2024,NA,2018,NA,NA,NA,NA,NA,NA
+"Blueline tilefish",2025,NA,2025,"Operational","DLM Toolkit","UNIT","MAFMC","YES","Other"
+"Butterfish",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Butterfish",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Butterfish",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Butterfish",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Butterfish",2006,NA,NA,NA,NA,NA,NA,NA,NA
+"Butterfish",2007,NA,NA,NA,NA,NA,NA,NA,NA
+"Butterfish",2008,NA,NA,NA,NA,NA,NA,NA,NA
+"Butterfish",2009,NA,2009,"Benchmark","KLAMZ","UNIT","MAFMC","NO","Planktivore"
+"Butterfish",2010,NA,2009,NA,NA,NA,NA,NA,NA
+"Butterfish",2011,NA,2009,NA,NA,NA,NA,NA,NA
+"Butterfish",2012,NA,2009,NA,NA,NA,NA,NA,NA
+"Butterfish",2013,NA,2009,NA,NA,NA,NA,NA,NA
+"Butterfish",2014,1.74199998378754,2014,"Benchmark","ASAP","UNIT","MAFMC","NO","Planktivore"
+"Butterfish",2015,1.71976937916521,2014,NA,NA,NA,NA,NA,NA
+"Butterfish",2016,2.11513504033672,2014,NA,NA,NA,NA,NA,NA
+"Butterfish",2017,1.41100001335144,2017,"Full Update","ASAP","UNIT","MAFMC","NO","Planktivore"
+"Butterfish",2018,1.87278586460891,2017,NA,NA,NA,NA,NA,NA
+"Butterfish",2019,1.92660470010523,2017,NA,NA,NA,NA,NA,NA
+"Butterfish",2020,0.690999984741211,2020,"Operational","ASAP","UNIT","MAFMC","NO","Planktivore"
+"Butterfish",2021,1.66848940533151,2020,NA,NA,NA,NA,NA,NA
+"Butterfish",2022,1.76999998092651,2022,"Operational","WHAM","UNIT","MAFMC","NO","Planktivore"
+"Butterfish",2023,2.20772934010692,2022,NA,NA,NA,NA,NA,NA
+"Butterfish",2024,2.21700000762939,2024,"Operational","WHAM","UNIT","MAFMC","YES","Planktivore"
+"Butterfish",2025,NA,2024,NA,NA,NA,NA,NA,NA
+"Clearnose skate",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Clearnose skate",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Clearnose skate",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Clearnose skate",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Clearnose skate",2006,1.125,2006,"Benchmark","index","UNIT","NEFMC","NO","Piscivore"
+"Clearnose skate",2007,NA,2006,NA,NA,NA,NA,NA,NA
+"Clearnose skate",2008,1.35099995136261,2008,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Clearnose skate",2009,1.35099995136261,2009,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Clearnose skate",2010,1.31168833179445,2009,NA,NA,NA,NA,NA,NA
+"Clearnose skate",2011,1.42900002002716,2011,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Clearnose skate",2012,1.45500004291534,2012,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Clearnose skate",2013,1.47000002861023,2013,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Clearnose skate",2014,1.52999997138977,2014,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Clearnose skate",2015,1.16700005531311,2015,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Clearnose skate",2016,1.10000002384186,2016,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Clearnose skate",2017,0.893999993801117,2017,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Clearnose skate",2018,1.06060600039935,2017,NA,NA,NA,NA,NA,NA
+"Clearnose skate",2019,0.924000024795532,2019,"Operational","Index Method","UNIT","NEFMC","NO","Piscivore"
+"Clearnose skate",2020,1.59099996089935,2020,"Operational","Index Method","UNIT","NEFMC","NO","Piscivore"
+"Clearnose skate",2021,1.86363631848133,2020,NA,NA,NA,NA,NA,NA
+"Clearnose skate",2022,1.66700005531311,2022,"Operational","Index Method","UNIT","NEFMC","NO","Piscivore"
+"Clearnose skate",2023,0.801999986171722,2023,"Operational","Index Method","UNIT","NEFMC","YES","Piscivore"
+"Clearnose skate",2024,NA,2023,NA,NA,NA,NA,NA,NA
+"Clearnose skate",2025,NA,2023,NA,NA,NA,NA,NA,NA
+"Goosefish",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Goosefish",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Goosefish",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Goosefish",2005,0.810000002384186,2005,"Benchmark","Survey Abundance Index","Gulf of Maine / Northern Georges Bank","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2005,0.503000020980835,2005,"Benchmark","Survey Abundance Index","Southern Georges Bank / Mid-Atlantic","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2006,0.479999989271164,2006,"Full Update","Survey Abundance Index","Gulf of Maine / Northern Georges Bank","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2006,0.419999986886978,2006,"Full Update","Survey Abundance Index","Southern Georges Bank / Mid-Atlantic","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2007,1.28999996185303,2007,"Benchmark","Statistical Catch at Length (SCALE)","Gulf of Maine / Northern Georges Bank","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2007,1.11000001430511,2007,"Benchmark","SCALE","Southern Georges Bank / Mid-Atlantic","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2008,NA,2007,NA,NA,NA,NA,NA,NA
+"Goosefish",2009,0.351475054229935,2007,NA,NA,NA,NA,NA,NA
+"Goosefish",2009,0.168097959183673,2007,NA,NA,NA,NA,NA,NA
+"Goosefish",2010,1.24800002574921,2010,"Benchmark","SCALE","Gulf of Maine / Northern Georges Bank","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2010,1.24800002574921,2010,"Benchmark","SCALE","Gulf of Maine / Northern Georges Bank","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2010,1.76199996471405,2010,"Benchmark","SCALE","Southern Georges Bank / Mid-Atlantic","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2010,1.76199996471405,2010,"Benchmark","SCALE","Southern Georges Bank / Mid-Atlantic","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2011,0.943434725108634,2010,NA,NA,NA,NA,NA,NA
+"Goosefish",2011,0.347402335884011,2010,NA,NA,NA,NA,NA,NA
+"Goosefish",2012,0.964726997921784,2010,NA,NA,NA,NA,NA,NA
+"Goosefish",2012,0.416378037320446,2010,NA,NA,NA,NA,NA,NA
+"Goosefish",2013,1.31299996376038,2013,"Full Update","SCALE","Gulf of Maine / Northern Georges Bank","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2013,1.31299996376038,2013,"Full Update","SCALE","Gulf of Maine / Northern Georges Bank","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2013,1.54999995231628,2013,"Full Update","SCALE","Southern Georges Bank / Mid-Atlantic","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2013,1.54999995231628,2013,"Full Update","SCALE","Southern Georges Bank / Mid-Atlantic","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2014,1.17474063463125,2013,NA,NA,NA,NA,NA,NA
+"Goosefish",2014,0.284077748475588,2013,NA,NA,NA,NA,NA,NA
+"Goosefish",2015,1.683769588054,2013,NA,NA,NA,NA,NA,NA
+"Goosefish",2015,0.704787419593397,2013,NA,NA,NA,NA,NA,NA
+"Goosefish",2016,NA,2016,"Benchmark","Plan B Smooth","Gulf of Maine / Northern Georges Bank","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2016,NA,2016,"Benchmark","Plan B Smooth","Southern Georges Bank / Mid-Atlantic","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2017,NA,2016,NA,NA,NA,NA,NA,NA
+"Goosefish",2018,NA,2016,NA,NA,NA,NA,NA,NA
+"Goosefish",2019,NA,2019,"Operational","Plan B Smooth","Gulf of Maine / Northern Georges Bank","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2019,NA,2019,"Operational","Plan B Smooth","Southern Georges Bank / Mid-Atlantic","NEFMC/MAFMC","NO","Piscivore"
+"Goosefish",2020,NA,2019,NA,NA,NA,NA,NA,NA
+"Goosefish",2021,NA,2019,NA,NA,NA,NA,NA,NA
+"Goosefish",2022,NA,2022,"Operational","Plan Ismooth","Gulf of Maine / Northern Georges Bank","NEFMC/MAFMC","YES","Piscivore"
+"Goosefish",2022,NA,2022,"Operational","Ismooth","Southern Georges Bank / Mid-Atlantic","NEFMC/MAFMC","YES","Piscivore"
+"Goosefish",2023,NA,2022,NA,NA,NA,NA,NA,NA
+"Goosefish",2024,NA,2022,NA,NA,NA,NA,NA,NA
+"Goosefish",2025,NA,2022,NA,NA,NA,NA,NA,NA
+"Haddock",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Haddock",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Haddock",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Haddock",2005,0.467000007629395,2005,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2005,0.467000007629395,2005,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2005,0.270000010728836,2005,"Full Update","Fall Survey CPUE Index","Gulf of Maine","NEFMC","NO","Benthivore"
+"Haddock",2005,0.270000010728836,2005,"Full Update","Fall Survey CPUE Index","Gulf of Maine","NEFMC","NO","Benthivore"
+"Haddock",2006,0.387079504594487,2005,NA,NA,NA,NA,NA,NA
+"Haddock",2006,NA,2005,NA,NA,NA,NA,NA,NA
+"Haddock",2007,0.398969236915701,2005,NA,NA,NA,NA,NA,NA
+"Haddock",2007,NA,2005,NA,NA,NA,NA,NA,NA
+"Haddock",2008,1.9889999628067,2008,"Benchmark","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2008,1.9889999628067,2008,"Benchmark","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2008,0.991999983787537,2008,"Benchmark","VPA","Gulf of Maine","NEFMC","NO","Benthivore"
+"Haddock",2008,0.991999983787537,2008,"Benchmark","VPA","Gulf of Maine","NEFMC","NO","Benthivore"
+"Haddock",2009,0.575409289180666,2008,NA,NA,NA,NA,NA,NA
+"Haddock",2009,1.19610169491525,2008,NA,NA,NA,NA,NA,NA
+"Haddock",2010,0.543987965230089,2008,NA,NA,NA,NA,NA,NA
+"Haddock",2010,1.3764406779661,2008,NA,NA,NA,NA,NA,NA
+"Haddock",2011,0.298282275780026,2008,NA,NA,NA,NA,NA,NA
+"Haddock",2011,1.25898305084746,2008,NA,NA,NA,NA,NA,NA
+"Haddock",2012,1.33899998664856,2012,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2012,1.33899998664856,2012,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2012,0.584999978542328,2012,"Full Update","VPA","Gulf of Maine","NEFMC","NO","Benthivore"
+"Haddock",2012,0.584999978542328,2012,"Full Update","VPA","Gulf of Maine","NEFMC","NO","Benthivore"
+"Haddock",2013,0.648823058446757,2013,"Full Update","VPA","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2013,3.18617455138662,2013,"Full Update","VPA","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2014,0.76746196957566,2014,"Full Update","VPA","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2014,9.19303797468354,2014,"Full Update","VPA","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2014,1.00999999046326,2014,"Benchmark","ASAP","Gulf of Maine","NEFMC","NO","Benthivore"
+"Haddock",2014,1.00999999046326,2014,"Benchmark","ASAP","Gulf of Maine","NEFMC","NO","Benthivore"
+"Haddock",2015,1.25327793167128,2015,"Full Update","VPA","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2015,14.0997187973178,2015,"Full Update","VPA","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2015,1.38999998569489,2015,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2015,1.38999998569489,2015,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2015,2.23000001907349,2015,"Full Update","ASAP","Gulf of Maine","NEFMC","NO","Benthivore"
+"Haddock",2015,2.23000001907349,2015,"Full Update","ASAP","Gulf of Maine","NEFMC","NO","Benthivore"
+"Haddock",2016,1.28413665743306,2016,"Full Update","VPA","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2016,18.6621241617997,2016,"Full Update","VPA","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2017,1.5895294884577,2017,"Full Update","VPA","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2017,12.933963657852,2017,"Full Update","VPA","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2017,2.78299999237061,2017,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2017,2.78299999237061,2017,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2017,7.06500005722046,2017,"Full Update","ASAP","Gulf of Maine","NEFMC","NO","Benthivore"
+"Haddock",2017,7.06500005722046,2017,"Full Update","ASAP","Gulf of Maine","NEFMC","NO","Benthivore"
+"Haddock",2018,0.935319042871386,2017,NA,NA,NA,NA,NA,NA
+"Haddock",2018,15.8615748264145,2017,NA,NA,NA,NA,NA,NA
+"Haddock",2019,0.561350090697072,2019,"Operational","ADAPT","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2019,10.1353684473915,2019,"Operational","ADAPT","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2019,3.65000009536743,2019,"Operational","ADAPT","Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2019,3.65000009536743,2019,"Operational","ADAPT","Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2019,10.3540000915527,2019,"Operational","ASAP","Gulf of Maine","NEFMC","NO","Benthivore"
+"Haddock",2019,10.3540000915527,2019,"Operational","ASAP","Gulf of Maine","NEFMC","NO","Benthivore"
+"Haddock",2020,0.393193400708301,2020,"Operational","Index Method","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2020,6.41148504941824,2020,"Operational","Index Method","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2021,6.51200008392334,2021,"Operational","Index Method","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2021,6.51200008392334,2021,"Operational","Index Method","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2021,6.51200008392334,2021,"Operational","Index Method","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2022,0.272723503068502,2022,"Operational","WHAM","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2022,4.20806794055202,2022,"Operational","WHAM","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2022,0.658999979496002,2022,"Operational","WHAM","Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2022,0.658999979496002,2022,"Operational","WHAM","Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2022,2.69899988174438,2022,"Operational","ASAP","Gulf of Maine","NEFMC","NO","Benthivore"
+"Haddock",2022,2.69899988174438,2022,"Operational","ASAP","Gulf of Maine","NEFMC","NO","Benthivore"
+"Haddock",2023,0.271438049427766,2023,"Operational","WHAM","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2023,2.91295116772824,2023,"Operational","WHAM","Eastern Georges Bank","NEFMC","NO","Benthivore"
+"Haddock",2024,1.35099995136261,2024,"Operational","WHAM","Georges Bank","NEFMC","YES","Benthivore"
+"Haddock",2024,1.94200003147125,2024,"Operational","WHAM","Gulf of Maine","NEFMC","YES","Benthivore"
+"Haddock",2025,NA,2024,NA,NA,NA,NA,NA,NA
+"Little skate",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Little skate",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Little skate",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Little skate",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Little skate",2006,0.702000021934509,2006,"Benchmark","Index Method","UNIT","NEFMC","NO","Benthivore"
+"Little skate",2007,NA,2006,NA,NA,NA,NA,NA,NA
+"Little skate",2008,0.717000007629395,2008,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Little skate",2009,0.717000007629395,2009,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Little skate",2010,1.1322901565552,2009,NA,NA,NA,NA,NA,NA
+"Little skate",2011,1.11600005626678,2011,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Little skate",2012,1.35800004005432,2012,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Little skate",2013,1.15600001811981,2013,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Little skate",2014,1.13699996471405,2014,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Little skate",2015,1.09800004959106,2015,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Little skate",2016,0.916999995708466,2016,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Little skate",2017,0.89300000667572,2017,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Little skate",2018,0.763000011444092,2018,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Little skate",2019,0.865000009536743,2019,"Operational","Index Method","UNIT","NEFMC","NO","Benthivore"
+"Little skate",2020,0.861788635536308,2019,NA,NA,NA,NA,NA,NA
+"Little skate",2021,0.798373946548494,2019,NA,NA,NA,NA,NA,NA
+"Little skate",2022,0.662000000476837,2022,"Operational","Index Method","UNIT","NEFMC","NO","Benthivore"
+"Little skate",2023,0.579999983310699,2023,"Operational","Index Method","UNIT","NEFMC","YES","Benthivore"
+"Little skate",2024,NA,2023,NA,NA,NA,NA,NA,NA
+"Little skate",2025,NA,2023,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2006,NA,NA,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2007,NA,NA,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2008,NA,NA,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2009,NA,NA,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2010,NA,NA,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2011,1.28400003910065,2011,"Benchmark","Index Method","UNIT","MAFMC","NO","Piscivore"
+"Longfin inshore squid",2012,NA,2011,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2013,NA,2011,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2014,NA,2011,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2015,NA,2011,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2016,NA,2011,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2017,1.7389999628067,2017,"Full Update","Index Method","UNIT","MAFMC","NO","Piscivore"
+"Longfin inshore squid",2018,NA,2017,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2019,1.49390402075227,2017,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2020,1.49399995803833,2020,"Operational","Index Method","UNIT","MAFMC","NO","Piscivore"
+"Longfin inshore squid",2021,NA,2020,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2022,2.87315175097276,2020,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2023,2.87299990653992,2023,"Operational","Index Method","UNIT","MAFMC","YES","Piscivore"
+"Longfin inshore squid",2024,NA,2023,NA,NA,NA,NA,NA,NA
+"Longfin inshore squid",2025,NA,2023,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2005,NA,2005,"Benchmark",NA,"UNIT","MAFMC","NO","Piscivore"
+"Northern shortfin squid",2006,NA,2005,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2007,NA,2005,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2008,NA,2005,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2009,NA,2005,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2010,NA,2005,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2011,NA,2005,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2012,NA,2005,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2013,NA,2005,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2014,NA,2005,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2015,NA,2005,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2016,NA,2005,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2017,NA,2005,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2018,NA,2005,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2019,NA,2005,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2020,NA,2005,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2021,NA,2005,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2022,NA,2022,"Operational","Depletion Model","UNIT","MAFMC","NO","Piscivore"
+"Northern shortfin squid",2023,NA,2022,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2024,NA,2022,NA,NA,NA,NA,NA,NA
+"Northern shortfin squid",2025,NA,2025,"Operational","Depletion Model","UNIT","MAFMC","YES","Piscivore"
+"Ocean pout",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Ocean pout",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Ocean pout",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Ocean pout",2005,0.363000005483627,2005,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Ocean pout",2006,0.104081628681073,2005,NA,NA,NA,NA,NA,NA
+"Ocean pout",2007,0.0969387724070886,2005,NA,NA,NA,NA,NA,NA
+"Ocean pout",2008,0.0970000028610229,2008,"Benchmark","Index Method","UNIT","NEFMC","NO","Benthivore"
+"Ocean pout",2009,0.0987854250670202,2008,NA,NA,NA,NA,NA,NA
+"Ocean pout",2010,0.0921052647454891,2008,NA,NA,NA,NA,NA,NA
+"Ocean pout",2011,0.0718623451739206,2008,NA,NA,NA,NA,NA,NA
+"Ocean pout",2012,0.0829999968409538,2012,"Full Update","Index Method","UNIT","NEFMC","NO","Benthivore"
+"Ocean pout",2013,0.0748987855227993,2012,NA,NA,NA,NA,NA,NA
+"Ocean pout",2014,0.0609311731902461,2012,NA,NA,NA,NA,NA,NA
+"Ocean pout",2015,0.0590000003576279,2015,"Full Update","Index Method","UNIT","NEFMC","NO","Benthivore"
+"Ocean pout",2016,0.0451417008713668,2015,NA,NA,NA,NA,NA,NA
+"Ocean pout",2017,0.0450000017881393,2017,"Full Update","Index Method","UNIT","NEFMC","NO","Benthivore"
+"Ocean pout",2018,0.036842104088338,2017,NA,NA,NA,NA,NA,NA
+"Ocean pout",2019,0.0354251002009569,2017,NA,NA,NA,NA,NA,NA
+"Ocean pout",2020,0.0329999998211861,2020,"Operational","Index Method","UNIT","NEFMC","NO","Benthivore"
+"Ocean pout",2021,0.0532388680967084,2020,NA,NA,NA,NA,NA,NA
+"Ocean pout",2022,0.0529999993741512,2022,"Operational","Index Method","UNIT","NEFMC","YES","Benthivore"
+"Ocean pout",2023,NA,2022,NA,NA,NA,NA,NA,NA
+"Ocean pout",2024,NA,2022,NA,NA,NA,NA,NA,NA
+"Ocean pout",2025,NA,2022,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2006,1.52999997138977,2006,"Benchmark","Delay Difference (KLAMZ)","UNIT","MAFMC","NO","Benthos"
+"Ocean quahog",2007,9.86411695091582e-10,2006,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2008,9.96477110756661e-10,2006,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2009,1.62300002574921,2009,"Benchmark","Delay Difference (KLAMZ)","UNIT","MAFMC","NO","Benthos"
+"Ocean quahog",2010,1.12849160945615e-09,2009,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2011,1.13966478315812e-09,2009,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2012,1.15083795686008e-09,2009,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2013,1.71200001239777,2013,"Full Update","Delay Difference (KLAMZ)","UNIT","MAFMC","NO","Benthos"
+"Ocean quahog",2014,1.20809243593602e-09,2013,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2015,1.2196531185525e-09,2013,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2016,1.22543345986074e-09,2013,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2017,1.63300001621246,2017,"Benchmark","Stock Synthesis","UNIT","MAFMC","NO","Benthos"
+"Ocean quahog",2018,1.06774737364821e-06,2017,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2019,1.0727136355459e-06,2017,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2020,1.08000004291534,2020,"Operational","SS","UNIT","MAFMC","YES","Benthos"
+"Ocean quahog",2021,NA,2020,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2022,NA,2020,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2023,NA,2020,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2024,NA,2020,NA,NA,NA,NA,NA,NA
+"Ocean quahog",2025,NA,2020,NA,NA,NA,NA,NA,NA
+"Offshore hake",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Offshore hake",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Offshore hake",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Offshore hake",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Offshore hake",2006,NA,NA,NA,NA,NA,NA,NA,NA
+"Offshore hake",2007,NA,NA,NA,NA,NA,NA,NA,NA
+"Offshore hake",2008,NA,NA,NA,NA,NA,NA,NA,NA
+"Offshore hake",2009,NA,NA,NA,NA,NA,NA,NA,NA
+"Offshore hake",2010,NA,NA,NA,NA,NA,NA,NA,NA
+"Offshore hake",2011,NA,2011,"Benchmark","AIM and SEINE","UNIT","NEFMC","YES","Piscivore"
+"Offshore hake",2012,NA,2011,NA,NA,NA,NA,NA,NA
+"Offshore hake",2013,NA,2011,NA,NA,NA,NA,NA,NA
+"Offshore hake",2014,NA,2011,NA,NA,NA,NA,NA,NA
+"Offshore hake",2015,NA,2011,NA,NA,NA,NA,NA,NA
+"Offshore hake",2016,NA,2011,NA,NA,NA,NA,NA,NA
+"Offshore hake",2017,NA,2011,NA,NA,NA,NA,NA,NA
+"Offshore hake",2018,NA,2011,NA,NA,NA,NA,NA,NA
+"Offshore hake",2019,NA,2011,NA,NA,NA,NA,NA,NA
+"Offshore hake",2020,NA,2011,NA,NA,NA,NA,NA,NA
+"Offshore hake",2021,NA,2011,NA,NA,NA,NA,NA,NA
+"Offshore hake",2022,NA,2011,NA,NA,NA,NA,NA,NA
+"Offshore hake",2023,NA,2011,NA,NA,NA,NA,NA,NA
+"Offshore hake",2024,NA,2011,NA,NA,NA,NA,NA,NA
+"Offshore hake",2025,NA,2011,NA,NA,NA,NA,NA,NA
+"Pollock",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Pollock",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Pollock",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Pollock",2005,0.662999987602234,2005,"Full Update","Survey Abundance","UNIT","NEFMC","NO","Piscivore"
+"Pollock",2006,NA,2005,NA,NA,NA,NA,NA,NA
+"Pollock",2007,NA,2005,NA,NA,NA,NA,NA,NA
+"Pollock",2008,0.377000004053116,2008,"Benchmark","AIM","UNIT","NEFMC","NO","Piscivore"
+"Pollock",2009,NA,2008,NA,NA,NA,NA,NA,NA
+"Pollock",2010,2.15400004386902,2010,"Benchmark","ASAP","UNIT","NEFMC","NO","Piscivore"
+"Pollock",2011,1.70681318681319,2010,NA,NA,NA,NA,NA,NA
+"Pollock",2012,1.49463736263736,2010,NA,NA,NA,NA,NA,NA
+"Pollock",2013,1.37016483516484,2010,NA,NA,NA,NA,NA,NA
+"Pollock",2014,1.63800001144409,2014,"Full Update","ASAP","UNIT","NEFMC","NO","Piscivore"
+"Pollock",2015,1.47000002861023,2015,"Full Update","ASAP","UNIT","NEFMC","NO","Piscivore"
+"Pollock",2016,1.3172314827134,2015,NA,NA,NA,NA,NA,NA
+"Pollock",2017,1.74300003051758,2017,"Full Update","ASAP","UNIT","NEFMC","NO","Piscivore"
+"Pollock",2018,1.61557198369823,2017,NA,NA,NA,NA,NA,NA
+"Pollock",2019,1.7039999961853,2019,"Operational","ASAP","UNIT","NEFMC","NO","Piscivore"
+"Pollock",2020,1.33546482240711,2019,NA,NA,NA,NA,NA,NA
+"Pollock",2021,1.24855783502756,2019,NA,NA,NA,NA,NA,NA
+"Pollock",2022,1.90600001811981,2022,"Operational","ASAP","UNIT","NEFMC","NO","Piscivore"
+"Pollock",2023,1.95664821447954,2022,NA,NA,NA,NA,NA,NA
+"Pollock",2024,2.13499999046326,2024,"Operational","ASAP","UNIT","NEFMC","YES","Piscivore"
+"Pollock",2025,NA,2024,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2006,NA,2006,"Benchmark","Index Method","UNIT","NEFMC","NO","Benthivore"
+"Red deepsea crab",2007,NA,2006,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2008,NA,2006,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2009,NA,2006,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2010,NA,2006,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2011,NA,2006,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2012,NA,2006,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2013,NA,2006,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2014,NA,2006,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2015,NA,2006,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2016,NA,2006,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2017,NA,2006,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2018,NA,2006,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2019,NA,2006,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2020,NA,2006,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2021,NA,2006,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2022,NA,2006,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2023,NA,2023,"Operational","Index Method","UNIT","NEFMC","YES","Benthivore"
+"Red deepsea crab",2024,NA,2023,NA,NA,NA,NA,NA,NA
+"Red deepsea crab",2025,NA,2023,NA,NA,NA,NA,NA,NA
+"Red hake",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Red hake",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Red hake",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Red hake",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Red hake",2006,NA,NA,NA,NA,NA,NA,NA,NA
+"Red hake",2007,NA,NA,NA,NA,NA,NA,NA,NA
+"Red hake",2008,NA,NA,NA,NA,NA,NA,NA,NA
+"Red hake",2009,NA,NA,NA,NA,NA,NA,NA,NA
+"Red hake",2010,NA,NA,NA,NA,NA,NA,NA,NA
+"Red hake",2011,0.953000009059906,2011,"Benchmark","Index Method","Gulf of Maine / Northern Georges Bank","NEFMC","NO","Piscivore"
+"Red hake",2011,0.930999994277954,2011,"Benchmark","Index Method","Southern Georges Bank / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Red hake",2012,NA,2011,NA,NA,NA,NA,NA,NA
+"Red hake",2013,NA,2011,NA,NA,NA,NA,NA,NA
+"Red hake",2014,0.799000024795532,2014,"Full Update","Index Method","Gulf of Maine / Northern Georges Bank","NEFMC","NO","Piscivore"
+"Red hake",2014,0.799000024795532,2014,"Full Update","Index Method","Gulf of Maine / Northern Georges Bank","NEFMC","NO","Piscivore"
+"Red hake",2014,1.13699996471405,2014,"Full Update","Index Method","Southern Georges Bank / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Red hake",2014,1.13699996471405,2014,"Full Update","Index Method","Southern Georges Bank / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Red hake",2015,1.39800000190735,2015,"Full Update","Index Method","Gulf of Maine / Northern Georges Bank","NEFMC","NO","Piscivore"
+"Red hake",2015,1.39800000190735,2015,"Full Update","Index Method","Gulf of Maine / Northern Georges Bank","NEFMC","NO","Piscivore"
+"Red hake",2015,0.607999980449677,2015,"Full Update","Index Method","Southern Georges Bank / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Red hake",2015,0.607999980449677,2015,"Full Update","Index Method","Southern Georges Bank / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Red hake",2016,82247.2453297178,2015,NA,NA,NA,NA,NA,NA
+"Red hake",2016,33424.5104289432,2015,NA,NA,NA,NA,NA,NA
+"Red hake",2017,2.01999998092651,2017,"Full Update","AIM","Gulf of Maine / Northern Georges Bank","NEFMC","NO","Piscivore"
+"Red hake",2017,2.01999998092651,2017,"Full Update","AIM","Gulf of Maine / Northern Georges Bank","NEFMC","NO","Piscivore"
+"Red hake",2017,0.372999995946884,2017,"Full Update","AIM","Southern Georges Bank / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Red hake",2017,0.372999995946884,2017,"Full Update","AIM","Southern Georges Bank / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Red hake",2018,94148.8203116111,2017,NA,NA,NA,NA,NA,NA
+"Red hake",2018,68282.3542180224,2017,NA,NA,NA,NA,NA,NA
+"Red hake",2019,71038.5837440578,2017,NA,NA,NA,NA,NA,NA
+"Red hake",2019,84132.3545144094,2017,NA,NA,NA,NA,NA,NA
+"Red hake",2020,NA,2020,"Operational","Survey Abundance","Gulf of Maine / Northern Georges Bank","NEFMC","NO","Piscivore"
+"Red hake",2020,NA,2020,"Operational","Survey Abundance","Southern Georges Bank / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Red hake",2021,NA,2020,NA,NA,NA,NA,NA,NA
+"Red hake",2022,NA,2020,NA,NA,NA,NA,NA,NA
+"Red hake",2023,NA,2023,"Operational","Empirical Approach","Gulf of Maine / Northern Georges Bank","NEFMC","YES","Piscivore"
+"Red hake",2023,NA,2023,"Operational","Empirical Approach","Southern Georges Bank / Mid-Atlantic","NEFMC","YES","Piscivore"
+"Red hake",2024,NA,2023,NA,NA,NA,NA,NA,NA
+"Red hake",2025,NA,2023,NA,NA,NA,NA,NA,NA
+"Rosette skate",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Rosette skate",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Rosette skate",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Rosette skate",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Rosette skate",2006,2.5,2006,"Benchmark","index","UNIT","NEFMC","NO","Benthivore"
+"Rosette skate",2007,NA,2006,NA,NA,NA,NA,NA,NA
+"Rosette skate",2008,1.08299994468689,2008,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Rosette skate",2009,1.08299994468689,2009,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Rosette skate",2010,0.812500009701277,2009,NA,NA,NA,NA,NA,NA
+"Rosette skate",2011,0.833000004291534,2011,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Rosette skate",2012,0.875,2012,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Rosette skate",2013,0.688000023365021,2013,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Rosette skate",2014,0.875,2014,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Rosette skate",2015,1,2015,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Rosette skate",2016,1.05999994277954,2016,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Rosette skate",2017,0.978999972343445,2017,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Rosette skate",2018,1.02083329776199,2017,NA,NA,NA,NA,NA,NA
+"Rosette skate",2019,0.978999972343445,2019,"Operational","Index Method","UNIT","NEFMC","NO","Benthivore"
+"Rosette skate",2020,1.04200005531311,2020,"Operational","Index Method","UNIT","NEFMC","NO","Benthivore"
+"Rosette skate",2021,1.10416664403035,2020,NA,NA,NA,NA,NA,NA
+"Rosette skate",2022,1.20799994468689,2022,"Operational","Index Method","UNIT","NEFMC","NO","Benthivore"
+"Rosette skate",2023,1.07500004768372,2023,"Operational","Index Method","UNIT","NEFMC","YES","Benthivore"
+"Rosette skate",2024,NA,2023,NA,NA,NA,NA,NA,NA
+"Rosette skate",2025,NA,2023,NA,NA,NA,NA,NA,NA
+"Scup",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Scup",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Scup",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Scup",2005,0.25,2005,"Full Update","Index","UNIT","MAFMC","NO","Benthivore"
+"Scup",2006,NA,2005,NA,NA,NA,NA,NA,NA
+"Scup",2007,NA,2005,NA,NA,NA,NA,NA,NA
+"Scup",2008,NA,2005,NA,NA,NA,NA,NA,NA
+"Scup",2009,2.04099988937378,2009,"Full Update","ASAP/SCAA","UNIT","MAFMC","NO","Benthivore"
+"Scup",2009,2.04099988937378,2009,"Full Update","ASAP/SCAA","UNIT","MAFMC","NO","Benthivore"
+"Scup",2009,1.29700005054474,2009,"Benchmark","ASAP","UNIT","MAFMC","NO","Benthivore"
+"Scup",2009,1.29700005054474,2009,"Benchmark","ASAP","UNIT","MAFMC","NO","Benthivore"
+"Scup",2010,1.67900002002716,2010,"Partial Update","ASAP","UNIT","MAFMC","NO","Benthivore"
+"Scup",2011,2.0239999294281,2011,"Full Update","ASAP","UNIT","MAFMC","NO","Benthivore"
+"Scup",2012,2.06900000572205,2012,"Full Update","ASAP","UNIT","MAFMC","NO","Benthivore"
+"Scup",2013,2.54367476424319,2012,NA,NA,NA,NA,NA,NA
+"Scup",2014,2.52640041719178,2012,NA,NA,NA,NA,NA,NA
+"Scup",2015,2.09500002861023,2015,"Benchmark","ASAP","UNIT","MAFMC","NO","Benthivore"
+"Scup",2016,2.79764495658748,2015,NA,NA,NA,NA,NA,NA
+"Scup",2017,2.06100010871887,2017,"Full Update","ASAP","UNIT","MAFMC","NO","Benthivore"
+"Scup",2018,3.2049666674303,2017,NA,NA,NA,NA,NA,NA
+"Scup",2019,1.98399996757507,2019,"Operational","ASAP","UNIT","MAFMC","NO","Benthivore"
+"Scup",2020,2.80397787704744,2019,NA,NA,NA,NA,NA,NA
+"Scup",2021,1.96000003814697,2021,"Operational","ASAP","UNIT","MAFMC","NO","Benthivore"
+"Scup",2022,2.29729279374354,2021,NA,NA,NA,NA,NA,NA
+"Scup",2023,2.0239999294281,2023,"Operational","ASAP","UNIT","MAFMC","NO","Benthivore"
+"Scup",2024,2.99788785260774,2023,NA,NA,NA,NA,NA,NA
+"Scup",2025,3.23399996757507,2025,"Operational","ASAP","UNIT","MAFMC","YES","Benthivore"
+"Sea scallop",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Sea scallop",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Sea scallop",2004,1.35199999809265,2004,"Full Update","Survey index (B), Length-Based YPR (BRPs), and Rescaled Catch-Biomass (F)","UNIT","NEFMC","NO","Benthos"
+"Sea scallop",2005,NA,2004,NA,NA,NA,NA,NA,NA
+"Sea scallop",2006,NA,2004,NA,NA,NA,NA,NA,NA
+"Sea scallop",2007,1.52999997138977,2007,"Benchmark","Size Structured Forward Projecting (CASA)","UNIT","NEFMC","NO","Benthos"
+"Sea scallop",2008,0.00116321362799263,2007,NA,NA,NA,NA,NA,NA
+"Sea scallop",2009,0.00122456721915285,2007,NA,NA,NA,NA,NA,NA
+"Sea scallop",2010,1.0349999666214,2010,"Benchmark","CASA","UNIT","NEFMC","NO","Benthos"
+"Sea scallop",2011,0.000977679924695672,2010,NA,NA,NA,NA,NA,NA
+"Sea scallop",2012,0.000903133425868313,2010,NA,NA,NA,NA,NA,NA
+"Sea scallop",2013,0.000865784393497025,2010,NA,NA,NA,NA,NA,NA
+"Sea scallop",2014,1.37399995326996,2014,"Benchmark","CASA","UNIT","NEFMC","NO","Benthos"
+"Sea scallop",2015,2.03900003433228,2015,"Partial Update","CASA","UNIT","NEFMC","NO","Benthos"
+"Sea scallop",2016,0.00195769071310116,2015,NA,NA,NA,NA,NA,NA
+"Sea scallop",2017,0.00200498548922056,2015,NA,NA,NA,NA,NA,NA
+"Sea scallop",2018,2.71799993515015,2018,"Benchmark","CASA","UNIT","NEFMC","NO","Benthos"
+"Sea scallop",2019,0.00125955329462343,2018,NA,NA,NA,NA,NA,NA
+"Sea scallop",2020,1.43299996852875,2020,"Operational","CASA","UNIT","NEFMC","YES","Benthos"
+"Sea scallop",2021,NA,2020,NA,NA,NA,NA,NA,NA
+"Sea scallop",2022,NA,2020,NA,NA,NA,NA,NA,NA
+"Sea scallop",2023,NA,2020,NA,NA,NA,NA,NA,NA
+"Sea scallop",2024,NA,2020,NA,NA,NA,NA,NA,NA
+"Sea scallop",2025,NA,2020,NA,NA,NA,NA,NA,NA
+"Silver hake",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Silver hake",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Silver hake",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Silver hake",2005,1.01400005817413,2005,"Benchmark","Index","Gulf of Maine / Northern Georges Bank","NEFMC","NO","Piscivore"
+"Silver hake",2005,0.769999980926514,2005,"Benchmark","Index","Southern Georges Bank / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Silver hake",2006,NA,2005,NA,NA,NA,NA,NA,NA
+"Silver hake",2007,NA,2005,NA,NA,NA,NA,NA,NA
+"Silver hake",2008,NA,2005,NA,NA,NA,NA,NA,NA
+"Silver hake",2009,NA,2005,NA,NA,NA,NA,NA,NA
+"Silver hake",2010,NA,2005,NA,NA,NA,NA,NA,NA
+"Silver hake",2011,0.966000020503998,2011,"Benchmark","Index Method","Gulf of Maine / Northern Georges Bank","NEFMC","NO","Piscivore"
+"Silver hake",2011,0.672999978065491,2011,"Benchmark","Index Method","Southern Georges Bank / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Silver hake",2012,2.13423821633274,2011,NA,NA,NA,NA,NA,NA
+"Silver hake",2012,1.2595506399061,2011,NA,NA,NA,NA,NA,NA
+"Silver hake",2013,2.29110095296947,2011,NA,NA,NA,NA,NA,NA
+"Silver hake",2013,1.00224722908717,2011,NA,NA,NA,NA,NA,NA
+"Silver hake",2014,2.44899988174438,2014,"Full Update","Index Method","Gulf of Maine / Northern Georges Bank","NEFMC","NO","Piscivore"
+"Silver hake",2014,2.44899988174438,2014,"Full Update","Index Method","Gulf of Maine / Northern Georges Bank","NEFMC","NO","Piscivore"
+"Silver hake",2014,1.02999997138977,2014,"Full Update","Survey Abundance","Southern Georges Bank / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Silver hake",2014,1.02999997138977,2014,"Full Update","Survey Abundance","Southern Georges Bank / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Silver hake",2015,2.67289714072994,2014,NA,NA,NA,NA,NA,NA
+"Silver hake",2015,0.663030301629129,2014,NA,NA,NA,NA,NA,NA
+"Silver hake",2016,2.91433004082974,2014,NA,NA,NA,NA,NA,NA
+"Silver hake",2016,0.659393984756962,2014,NA,NA,NA,NA,NA,NA
+"Silver hake",2017,3.1029999256134,2017,"Full Update","Index Method","Gulf of Maine / Northern Georges Bank","NEFMC","NO","Piscivore"
+"Silver hake",2017,3.1029999256134,2017,"Full Update","Index Method","Gulf of Maine / Northern Georges Bank","NEFMC","NO","Piscivore"
+"Silver hake",2017,0.635999977588654,2017,"Full Update","Survey Abundance","Southern Georges Bank / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Silver hake",2017,0.635999977588654,2017,"Full Update","Survey Abundance","Southern Georges Bank / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Silver hake",2018,2.532710285927,2017,NA,NA,NA,NA,NA,NA
+"Silver hake",2018,0.887878820937748,2017,NA,NA,NA,NA,NA,NA
+"Silver hake",2019,2.16666661715087,2017,NA,NA,NA,NA,NA,NA
+"Silver hake",2019,1.13515154715959,2017,NA,NA,NA,NA,NA,NA
+"Silver hake",2020,2.2409999370575,2020,"Operational","Index Method","Gulf of Maine / Northern Georges Bank","NEFMC","NO","Piscivore"
+"Silver hake",2020,2.2409999370575,2020,"Operational","Index Method","Gulf of Maine / Northern Georges Bank","NEFMC","NO","Piscivore"
+"Silver hake",2020,1.30400002002716,2020,"Operational","Index Method","Southern Georges Bank / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Silver hake",2020,1.30400002002716,2020,"Operational","Index Method","Southern Georges Bank / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Silver hake",2021,2.31619933159612,2020,NA,NA,NA,NA,NA,NA
+"Silver hake",2021,1,2020,NA,NA,NA,NA,NA,NA
+"Silver hake",2022,4.46105904194651,2020,NA,NA,NA,NA,NA,NA
+"Silver hake",2022,0.627878805043175,2020,NA,NA,NA,NA,NA,NA
+"Silver hake",2023,4.46099996566772,2023,"Operational","Empirical Approach","Gulf of Maine / Northern Georges Bank","NEFMC","YES","Piscivore"
+"Silver hake",2023,0.628000020980835,2023,"Operational","Empirical Approach","Southern Georges Bank / Mid-Atlantic","NEFMC","YES","Piscivore"
+"Silver hake",2024,NA,2023,NA,NA,NA,NA,NA,NA
+"Silver hake",2025,NA,2023,NA,NA,NA,NA,NA,NA
+"Smooth skate",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Smooth skate",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Smooth skate",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Smooth skate",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Smooth skate",2006,0.563000023365021,2006,"Benchmark","index","UNIT","NEFMC","NO","Benthivore"
+"Smooth skate",2007,NA,2006,NA,NA,NA,NA,NA,NA
+"Smooth skate",2008,0.448000013828278,2008,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Smooth skate",2009,0.448000013828278,2009,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Smooth skate",2010,0.551724141474711,2009,NA,NA,NA,NA,NA,NA
+"Smooth skate",2011,0.555000007152557,2011,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Smooth skate",2012,0.851999998092651,2012,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Smooth skate",2013,0.851999998092651,2013,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Smooth skate",2014,0.814999997615814,2014,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Smooth skate",2015,0.703999996185303,2015,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Smooth skate",2016,0.777999997138977,2016,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Smooth skate",2017,0.925999999046326,2017,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Smooth skate",2018,1.05599999427795,2018,"Full Update","Index","UNIT","NEFMC","NO","Benthivore"
+"Smooth skate",2019,1,2019,"Operational","Survey Abundance","UNIT","NEFMC","NO","Benthivore"
+"Smooth skate",2020,1,2020,"Operational","Index Method","UNIT","NEFMC","NO","Benthivore"
+"Smooth skate",2021,0.703703666910715,2020,NA,NA,NA,NA,NA,NA
+"Smooth skate",2022,0.74099999666214,2022,"Operational","Index Method","UNIT","NEFMC","NO","Benthivore"
+"Smooth skate",2023,0.695999979972839,2023,"Operational","Index Method","UNIT","NEFMC","YES","Benthivore"
+"Smooth skate",2024,NA,2023,NA,NA,NA,NA,NA,NA
+"Smooth skate",2025,NA,2023,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2006,NA,2006,"Benchmark","Length based survey, swept area","UNIT","NEFMC/MAFMC","NO","Piscivore"
+"Spiny dogfish",2007,NA,2006,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2008,NA,2006,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2009,NA,2006,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2010,1.02499997615814,2010,"Full Update","SCAL","UNIT","NEFMC/MAFMC","NO","Piscivore"
+"Spiny dogfish",2011,1.06400001049042,2011,"Full Update","SCAL","UNIT","NEFMC/MAFMC","NO","Piscivore"
+"Spiny dogfish",2012,0.00217844407613882,2011,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2013,1.35399997234344,2013,"Full Update","SCAL","UNIT","NEFMC/MAFMC","NO","Piscivore"
+"Spiny dogfish",2014,0.00177853942414349,2013,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2015,0.873000025749207,2015,"Full Update","SCAL","UNIT","NEFMC/MAFMC","NO","Piscivore"
+"Spiny dogfish",2016,0.00146589824720004,2015,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2017,0.00133468940600369,2015,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2018,0.670000016689301,2018,"Full Update","SCAL","UNIT","NEFMC/MAFMC","NO","Piscivore"
+"Spiny dogfish",2019,0.00121531702695959,2018,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2020,0.00118581287054407,2018,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2021,0.00117137478046932,2018,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2022,0.00119774010920618,2018,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2023,1.01499998569489,2023,"Operational","SS","UNIT","NEFMC/MAFMC","YES","Piscivore"
+"Spiny dogfish",2024,NA,2023,NA,NA,NA,NA,NA,NA
+"Spiny dogfish",2025,NA,2023,NA,NA,NA,NA,NA,NA
+"Summer flounder",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Summer flounder",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Summer flounder",2004,0.63400000333786,2004,"Benchmark","ADAPT VPA","UNIT","MAFMC","NO","Piscivore"
+"Summer flounder",2005,0.592999994754791,2005,"Full Update","VPA","UNIT","MAFMC","NO","Piscivore"
+"Summer flounder",2006,0.519999980926514,2006,"Full Update","VPA","UNIT","MAFMC","NO","Piscivore"
+"Summer flounder",2007,0.469999998807907,2007,"Full Update","VPA","UNIT","MAFMC","NO","Piscivore"
+"Summer flounder",2008,0.722000002861023,2008,"Benchmark","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Summer flounder",2009,0.765999972820282,2009,"Full Update","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Summer flounder",2010,0.889999985694885,2010,"Full Update","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Summer flounder",2011,1.00300002098083,2011,"Full Update","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Summer flounder",2012,0.949000000953674,2012,"Full Update","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Summer flounder",2013,0.820999979972839,2013,"Benchmark","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Summer flounder",2014,0.770811295957945,2013,NA,NA,NA,NA,NA,NA
+"Summer flounder",2015,0.646000027656555,2015,"Full Update","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Summer flounder",2016,0.580999970436096,2016,"Full Update","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Summer flounder",2017,0.59430393948136,2016,NA,NA,NA,NA,NA,NA
+"Summer flounder",2018,0.607141712344136,2016,NA,NA,NA,NA,NA,NA
+"Summer flounder",2019,0.778999984264374,2019,"Research & Operational","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Summer flounder",2020,0.753722073514232,2019,NA,NA,NA,NA,NA,NA
+"Summer flounder",2021,0.857999980449677,2021,"Operational","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Summer flounder",2022,0.691290725682308,2021,NA,NA,NA,NA,NA,NA
+"Summer flounder",2023,0.827000021934509,2023,"Operational","ASAP","UNIT","MAFMC","NO","Piscivore"
+"Summer flounder",2024,0.817497629184238,2023,NA,NA,NA,NA,NA,NA
+"Summer flounder",2025,0.833999991416931,2025,"Operational","ASAP","UNIT","MAFMC","YES","Piscivore"
+"Thorny skate",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Thorny skate",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Thorny skate",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Thorny skate",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Thorny skate",2006,0.127000004053116,2006,"Benchmark","index","UNIT","NEFMC","NO","Piscivore"
+"Thorny skate",2007,NA,2006,NA,NA,NA,NA,NA,NA
+"Thorny skate",2008,0.101999998092651,2008,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Thorny skate",2009,0.101999998092651,2009,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Thorny skate",2010,0.058252427500496,2009,NA,NA,NA,NA,NA,NA
+"Thorny skate",2011,0.0590000003576279,2011,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Thorny skate",2012,0.0579999983310699,2012,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Thorny skate",2013,0.0439999997615814,2013,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Thorny skate",2014,0.028999999165535,2014,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Thorny skate",2015,0.0309999994933605,2015,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Thorny skate",2016,0.0410000011324883,2016,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Thorny skate",2017,0.0439999997615814,2017,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Thorny skate",2018,0.0419999994337559,2018,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Thorny skate",2019,0.0390000008046627,2019,"Operational","Index Method","UNIT","NEFMC","NO","Piscivore"
+"Thorny skate",2020,0.0439999997615814,2020,"Operational","Index Method","UNIT","NEFMC","NO","Piscivore"
+"Thorny skate",2021,0.0314769955519061,2020,NA,NA,NA,NA,NA,NA
+"Thorny skate",2022,0.0270000007003546,2022,"Operational","Index Method","UNIT","NEFMC","NO","Piscivore"
+"Thorny skate",2023,0.0350000001490116,2023,"Operational","Index Method","UNIT","NEFMC","YES","Piscivore"
+"Thorny skate",2024,NA,2023,NA,NA,NA,NA,NA,NA
+"Thorny skate",2025,NA,2023,NA,NA,NA,NA,NA,NA
+"Tilefish",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Tilefish",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Tilefish",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Tilefish",2005,0.720000028610229,2005,"Benchmark","ASPIC","UNIT","MAFMC","NO","Benthivore"
+"Tilefish",2006,NA,2005,NA,NA,NA,NA,NA,NA
+"Tilefish",2007,NA,2005,NA,NA,NA,NA,NA,NA
+"Tilefish",2008,NA,2005,NA,NA,NA,NA,NA,NA
+"Tilefish",2009,1.04499995708466,2009,"Benchmark","ASPIC Model","UNIT","MAFMC","NO","Benthivore"
+"Tilefish",2010,NA,2009,NA,NA,NA,NA,NA,NA
+"Tilefish",2011,NA,2009,NA,NA,NA,NA,NA,NA
+"Tilefish",2012,NA,2009,NA,NA,NA,NA,NA,NA
+"Tilefish",2013,NA,2009,NA,NA,NA,NA,NA,NA
+"Tilefish",2014,1.01499998569489,2014,"Benchmark","ASAP","UNIT","MAFMC","NO","Benthivore"
+"Tilefish",2015,NA,2014,NA,NA,NA,NA,NA,NA
+"Tilefish",2016,NA,2014,NA,NA,NA,NA,NA,NA
+"Tilefish",2017,0.89300000667572,2017,"Full Update","ASAP","UNIT","MAFMC","NO","Benthivore"
+"Tilefish",2018,NA,2017,NA,NA,NA,NA,NA,NA
+"Tilefish",2019,NA,2017,NA,NA,NA,NA,NA,NA
+"Tilefish",2020,NA,2017,NA,NA,NA,NA,NA,NA
+"Tilefish",2021,0.961000025272369,2021,"Operational","ASAP","UNIT","MAFMC","NO","Benthivore"
+"Tilefish",2022,NA,2021,NA,NA,NA,NA,NA,NA
+"Tilefish",2023,NA,2021,NA,NA,NA,NA,NA,NA
+"Tilefish",2024,0.582000017166138,2024,"Operational","WHAM","UNIT","MAFMC","YES","Benthivore"
+"Tilefish",2025,NA,2024,NA,NA,NA,NA,NA,NA
+"White hake",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"White hake",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"White hake",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"White hake",2005,0.389999985694885,2005,"Full Update","Average Survey Biomass Index","UNIT","NEFMC","NO","Piscivore"
+"White hake",2006,NA,2005,NA,NA,NA,NA,NA,NA
+"White hake",2007,NA,2005,NA,NA,NA,NA,NA,NA
+"White hake",2008,0.351999998092651,2008,"Benchmark","ASPM","UNIT","NEFMC","NO","Piscivore"
+"White hake",2009,0.182582571905998,2008,NA,NA,NA,NA,NA,NA
+"White hake",2010,0.231734632203932,2008,NA,NA,NA,NA,NA,NA
+"White hake",2011,0.274131617307214,2008,NA,NA,NA,NA,NA,NA
+"White hake",2012,0.27493156042237,2008,NA,NA,NA,NA,NA,NA
+"White hake",2013,0.828999996185303,2013,"Benchmark","ASAP","UNIT","NEFMC","NO","Piscivore"
+"White hake",2014,0.000415493827160494,2013,NA,NA,NA,NA,NA,NA
+"White hake",2015,0.879999995231628,2015,"Full Update","ASAP","UNIT","NEFMC","NO","Piscivore"
+"White hake",2016,0.000399293394777266,2015,NA,NA,NA,NA,NA,NA
+"White hake",2017,0.686999976634979,2017,"Full Update","ASAP","UNIT","NEFMC","NO","Piscivore"
+"White hake",2018,0.000481905131187799,2017,NA,NA,NA,NA,NA,NA
+"White hake",2019,0.499000012874603,2019,"Operational","ASAP","UNIT","NEFMC","NO","Piscivore"
+"White hake",2020,0.493998994595953,2019,NA,NA,NA,NA,NA,NA
+"White hake",2021,0.493182103807968,2019,NA,NA,NA,NA,NA,NA
+"White hake",2022,0.691999971866608,2022,"Operational","ASAP","UNIT","NEFMC","NO","Piscivore"
+"White hake",2023,0.61959490617573,2022,NA,NA,NA,NA,NA,NA
+"White hake",2024,0.502039658046894,2022,NA,NA,NA,NA,NA,NA
+"White hake",2025,0.565999984741211,2025,"Operational","ASAP","UNIT","NEFMC","YES","Piscivore"
+"Windowpane",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Windowpane",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Windowpane",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Windowpane",2005,0.829999983310699,2005,"Full Update","Index Method","Gulf of Maine / Georges Bank","NEFMC","NO","Piscivore"
+"Windowpane",2005,0.207000002264977,2005,"Full Update","Index Method","Southern New England / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Windowpane",2006,19002.0861519197,2005,NA,NA,NA,NA,NA,NA
+"Windowpane",2007,7050.85087393409,2005,NA,NA,NA,NA,NA,NA
+"Windowpane",2008,0.171000003814697,2008,"Benchmark","AIM","Gulf of Maine / Georges Bank","NEFMC","NO","Piscivore"
+"Windowpane",2008,0.559000015258789,2008,"Benchmark","AIM","Southern New England / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Windowpane",2009,13414.3222150517,2008,NA,NA,NA,NA,NA,NA
+"Windowpane",2010,7121.79281101556,2008,NA,NA,NA,NA,NA,NA
+"Windowpane",2011,5965.01405247645,2008,NA,NA,NA,NA,NA,NA
+"Windowpane",2012,0.287999987602234,2012,"Full Update","AIM","Gulf of Maine / Georges Bank","NEFMC","NO","Piscivore"
+"Windowpane",2012,1.45799994468689,2012,"Full Update","AIM","Southern New England / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Windowpane",2013,10961.3999831468,2012,NA,NA,NA,NA,NA,NA
+"Windowpane",2013,2.24166666511446,2012,NA,NA,NA,NA,NA,NA
+"Windowpane",2014,8282.30639513869,2012,NA,NA,NA,NA,NA,NA
+"Windowpane",2014,1.96666672254602,2012,NA,NA,NA,NA,NA,NA
+"Windowpane",2015,0.34400001168251,2015,"Full Update","AIM","Gulf of Maine / Georges Bank","NEFMC","NO","Piscivore"
+"Windowpane",2015,0.34400001168251,2015,"Full Update","AIM","Gulf of Maine / Georges Bank","NEFMC","NO","Piscivore"
+"Windowpane",2015,1.67200005054474,2015,"Full Update","AIM","Southern New England / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Windowpane",2015,1.67200005054474,2015,"Full Update","AIM","Southern New England / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Windowpane",2016,6272.18812299607,2015,NA,NA,NA,NA,NA,NA
+"Windowpane",2016,1.48583005110616,2015,NA,NA,NA,NA,NA,NA
+"Windowpane",2017,0.174999997019768,2017,"Full Update","AIM","Gulf of Maine / Georges Bank","NEFMC","NO","Piscivore"
+"Windowpane",2017,0.174999997019768,2017,"Full Update","AIM","Gulf of Maine / Georges Bank","NEFMC","NO","Piscivore"
+"Windowpane",2017,1.29999995231628,2017,"Full Update","AIM","Southern New England / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Windowpane",2017,1.29999995231628,2017,"Full Update","AIM","Southern New England / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Windowpane",2018,5023.17975117896,2017,NA,NA,NA,NA,NA,NA
+"Windowpane",2018,1.3873518703785,2017,NA,NA,NA,NA,NA,NA
+"Windowpane",2019,0.0710000023245811,2019,"Operational","AIM","Gulf of Maine / Georges Bank","NEFMC","NO","Piscivore"
+"Windowpane",2019,0.0710000023245811,2019,"Operational","AIM","Gulf of Maine / Georges Bank","NEFMC","NO","Piscivore"
+"Windowpane",2019,1.7059999704361,2019,"Operational","AIM","Southern New England / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Windowpane",2019,1.7059999704361,2019,"Operational","AIM","Southern New England / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Windowpane",2020,1.50520834384305,2020,"Operational","Survey Abundance","Gulf of Maine / Georges Bank","NEFMC","NO","Piscivore"
+"Windowpane",2020,1.5,2020,"Operational","AIM","Southern New England / Mid-Atlantic","NEFMC","NO","Piscivore"
+"Windowpane",2021,1.35416660522525,2020,NA,NA,NA,NA,NA,NA
+"Windowpane",2022,1.1093749878734,2020,NA,NA,NA,NA,NA,NA
+"Windowpane",2023,NA,2023,"Operational","Empirical Approach","Gulf of Maine / Georges Bank","NEFMC","YES","Piscivore"
+"Windowpane",2023,0.851999998092651,2023,"Operational","AIM","Southern New England / Mid-Atlantic","NEFMC","YES","Piscivore"
+"Windowpane",2024,NA,2023,NA,NA,NA,NA,NA,NA
+"Windowpane",2025,NA,2023,NA,NA,NA,NA,NA,NA
+"Winter flounder",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Winter flounder",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Winter flounder",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Winter flounder",2005,0.154418604651163,2005,"Full Update","ASPIC","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2005,0.839999973773956,2005,"Full Update","VPA","Gulf of Maine","NEFMC","NO","Benthivore"
+"Winter flounder",2005,0.129999995231628,2005,"Full Update","VPA","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Winter flounder",2006,0.170963455149502,2005,NA,NA,NA,NA,NA,NA
+"Winter flounder",2007,0.187508305647841,2005,NA,NA,NA,NA,NA,NA
+"Winter flounder",2008,0.310000002384186,2008,"Benchmark","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2008,0.310000002384186,2008,"Benchmark","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2008,0.2521875,2008,"Benchmark","VPA & SCALE","Gulf of Maine","NEFMC","NO","Benthivore"
+"Winter flounder",2008,0.129150434715307,2008,"Benchmark","VPA & SCALE","Gulf of Maine","NEFMC","NO","Benthivore"
+"Winter flounder",2008,0.0869999974966049,2008,"Benchmark","VPA","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Winter flounder",2008,0.0869999974966049,2008,"Benchmark","VPA","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Winter flounder",2009,0.3439375,2008,NA,NA,NA,NA,NA,NA
+"Winter flounder",2009,1.39613526570048,2008,NA,NA,NA,NA,NA,NA
+"Winter flounder",2009,0.12014653904698,2008,NA,NA,NA,NA,NA,NA
+"Winter flounder",2010,0.3648125,2008,NA,NA,NA,NA,NA,NA
+"Winter flounder",2010,1.02053140096618,2008,NA,NA,NA,NA,NA,NA
+"Winter flounder",2010,0.137431954799928,2008,NA,NA,NA,NA,NA,NA
+"Winter flounder",2011,0.822000026702881,2011,"Benchmark","ADAPT VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2011,0.822000026702881,2011,"Benchmark","ADAPT VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2011,0.502881355932203,2011,"Benchmark","Index Method","Gulf of Maine","NEFMC","NO","Benthivore"
+"Winter flounder",2011,0.142232198071505,2011,"Benchmark","Index Method","Gulf of Maine","NEFMC","NO","Benthivore"
+"Winter flounder",2011,0.162000000476837,2011,"Benchmark","ASAP/SCAA","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Winter flounder",2011,0.162000000476837,2011,"Benchmark","ASAP/SCAA","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Winter flounder",2012,0.427627118644068,2011,NA,NA,NA,NA,NA,NA
+"Winter flounder",2012,0.141682508417123,2011,NA,NA,NA,NA,NA,NA
+"Winter flounder",2013,0.360338983050847,2011,NA,NA,NA,NA,NA,NA
+"Winter flounder",2013,0.1518975744944,2011,NA,NA,NA,NA,NA,NA
+"Winter flounder",2014,0.857999980449677,2014,"Full Update","ADAPT VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2014,0.857999980449677,2014,"Full Update","ADAPT VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2014,0.380493827160494,2014,"Full Update","Index Method","Gulf of Maine","NEFMC","NO","Benthivore"
+"Winter flounder",2014,0.118503927990655,2014,"Full Update","Index Method","Gulf of Maine","NEFMC","NO","Benthivore"
+"Winter flounder",2015,0.430000007152557,2015,"Full Update","ADAPT VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2015,0.430000007152557,2015,"Full Update","ADAPT VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2015,0.403283582089552,2015,"Full Update","Index Method","Gulf of Maine","NEFMC","NO","Benthivore"
+"Winter flounder",2015,0.16815210932858,2015,"Full Update","Index Method","Gulf of Maine","NEFMC","NO","Benthivore"
+"Winter flounder",2015,0.230000004172325,2015,"Full Update","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Winter flounder",2015,0.230000004172325,2015,"Full Update","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Winter flounder",2016,0.340298507462687,2015,NA,NA,NA,NA,NA,NA
+"Winter flounder",2016,0.141822638146168,2015,NA,NA,NA,NA,NA,NA
+"Winter flounder",2017,0.518999993801117,2017,"Full Update","ADAPT VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2017,0.518999993801117,2017,"Full Update","ADAPT VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2017,0.2625,2017,"Full Update","Index Method","Gulf of Maine","NEFMC","NO","Benthivore"
+"Winter flounder",2017,0.144772552355491,2017,"Full Update","Index Method","Gulf of Maine","NEFMC","NO","Benthivore"
+"Winter flounder",2017,0.177000001072884,2017,"Full Update","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Winter flounder",2017,0.177000001072884,2017,"Full Update","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Winter flounder",2018,0.270657894736842,2017,NA,NA,NA,NA,NA,NA
+"Winter flounder",2018,0.144610523757443,2017,NA,NA,NA,NA,NA,NA
+"Winter flounder",2019,0.244000002741814,2019,"Operational","ADAPT","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2019,0.244000002741814,2019,"Operational","ADAPT","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2020,0.356000006198883,2020,"Operational","ADAPT","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2020,0.356000006198883,2020,"Operational","ADAPT","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2020,0.367139122058621,2020,"Operational","Index Method","Gulf of Maine","NEFMC","NO","Benthivore"
+"Winter flounder",2020,0.285830222366499,2020,"Operational","Index Method","Gulf of Maine","NEFMC","NO","Benthivore"
+"Winter flounder",2020,0.294999986886978,2020,"Operational","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Winter flounder",2020,0.294999986886978,2020,"Operational","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Winter flounder",2021,0.442548506949222,2020,NA,NA,NA,NA,NA,NA
+"Winter flounder",2021,0.272114916409674,2020,NA,NA,NA,NA,NA,NA
+"Winter flounder",2022,0.600000023841858,2022,"Operational","ADAPT","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2022,0.600000023841858,2022,"Operational","ADAPT","Georges Bank","NEFMC","NO","Benthivore"
+"Winter flounder",2022,0.534319605491137,2022,"Operational","Area-Swept Biomass","Gulf of Maine","NEFMC","NO","Benthivore"
+"Winter flounder",2022,1.04767652383826,2022,"Operational","Area-Swept Biomass","Gulf of Maine","NEFMC","NO","Benthivore"
+"Winter flounder",2022,1.01199996471405,2022,"Operational","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Winter flounder",2022,1.01199996471405,2022,"Operational","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Winter flounder",2023,0.620285219245635,2022,NA,NA,NA,NA,NA,NA
+"Winter flounder",2024,0.729974676795948,2022,NA,NA,NA,NA,NA,NA
+"Winter flounder",2025,1.057000041008,2025,"Operational","WHAM","Georges Bank","NEFMC","YES","Benthivore"
+"Winter flounder",2025,NA,2025,"Operational","Area-Swept Biomass","Gulf of Maine","NEFMC","YES","Benthivore"
+"Winter flounder",2025,0.894999980926514,2025,"Operational","ASAP","Southern New England / Mid-Atlantic","NEFMC","YES","Benthivore"
+"Winter skate",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Winter skate",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Winter skate",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Winter skate",2005,NA,NA,NA,NA,NA,NA,NA,NA
+"Winter skate",2006,0.517000019550323,2006,"Benchmark","index","UNIT","NEFMC","NO","Piscivore"
+"Winter skate",2007,NA,2006,NA,NA,NA,NA,NA,NA
+"Winter skate",2008,0.934000015258789,2008,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Winter skate",2009,0.934000015258789,2009,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Winter skate",2010,1.80714286748244,2009,NA,NA,NA,NA,NA,NA
+"Winter skate",2011,1.72899997234344,2011,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Winter skate",2012,1.55200004577637,2012,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Winter skate",2013,1.192999958992,2013,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Winter skate",2014,0.885999977588654,2014,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Winter skate",2015,0.903999984264374,2015,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Winter skate",2016,0.944999992847443,2016,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Winter skate",2017,1.17499995231628,2017,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Winter skate",2018,1.25800001621246,2018,"Full Update","Index","UNIT","NEFMC","NO","Piscivore"
+"Winter skate",2019,1.27600002288818,2019,"Operational","Index Method","UNIT","NEFMC","NO","Piscivore"
+"Winter skate",2020,1.52100002765656,2020,"Operational","Index Method","UNIT","NEFMC","NO","Piscivore"
+"Winter skate",2021,1.88515907490219,2020,NA,NA,NA,NA,NA,NA
+"Winter skate",2022,1.71399998664856,2022,"Operational","Index Method","UNIT","NEFMC","NO","Piscivore"
+"Winter skate",2023,1.12000000476837,2023,"Operational","Index Method","UNIT","NEFMC","YES","Piscivore"
+"Winter skate",2024,NA,2023,NA,NA,NA,NA,NA,NA
+"Winter skate",2025,NA,2023,NA,NA,NA,NA,NA,NA
+"Witch flounder",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Witch flounder",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Witch flounder",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Witch flounder",2005,0.83899998664856,2005,"Full Update","VPA","UNIT","NEFMC","NO","Benthivore"
+"Witch flounder",2006,0.844621356147021,2005,NA,NA,NA,NA,NA,NA
+"Witch flounder",2007,0.776061470215463,2005,NA,NA,NA,NA,NA,NA
+"Witch flounder",2008,0.300000011920929,2008,"Benchmark","VPA","UNIT","NEFMC","NO","Benthivore"
+"Witch flounder",2009,1.81462391893072,2008,NA,NA,NA,NA,NA,NA
+"Witch flounder",2010,1.37171311260592,2008,NA,NA,NA,NA,NA,NA
+"Witch flounder",2011,1.42508954311173,2008,NA,NA,NA,NA,NA,NA
+"Witch flounder",2012,0.407999992370605,2012,"Full Update","VPA","UNIT","NEFMC","NO","Benthivore"
+"Witch flounder",2013,1.24694060292508,2012,NA,NA,NA,NA,NA,NA
+"Witch flounder",2014,1.45537757437071,2012,NA,NA,NA,NA,NA,NA
+"Witch flounder",2015,0.219999998807907,2015,"Full Update","VPA","UNIT","NEFMC","NO","Benthivore"
+"Witch flounder",2016,1.67285970653436,2015,NA,NA,NA,NA,NA,NA
+"Witch flounder",2017,NA,2017,"Full Update","Average survey biomass","UNIT","NEFMC","NO","Benthivore"
+"Witch flounder",2018,NA,2017,NA,NA,NA,NA,NA,NA
+"Witch flounder",2019,NA,2019,"Operational","Survey Abundance","UNIT","NEFMC","NO","Benthivore"
+"Witch flounder",2020,NA,2019,NA,NA,NA,NA,NA,NA
+"Witch flounder",2021,NA,2019,NA,NA,NA,NA,NA,NA
+"Witch flounder",2022,NA,2022,"Operational","Empirical Approach","UNIT","NEFMC","NO","Benthivore"
+"Witch flounder",2023,NA,2022,NA,NA,NA,NA,NA,NA
+"Witch flounder",2024,NA,2024,"Operational","Index Method","UNIT","NEFMC","YES","Benthivore"
+"Witch flounder",2025,NA,2024,NA,NA,NA,NA,NA,NA
+"Yellowtail flounder",2002,NA,NA,NA,NA,NA,NA,NA,NA
+"Yellowtail flounder",2003,NA,NA,NA,NA,NA,NA,NA,NA
+"Yellowtail flounder",2004,NA,NA,NA,NA,NA,NA,NA,NA
+"Yellowtail flounder",2005,0.0879999995231628,2005,"Full Update","VPA","Cape Cod / Gulf of Maine","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2005,0.0879999995231628,2005,"Full Update","VPA","Cape Cod / Gulf of Maine","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2005,0.0879999995231628,2005,"Full Update","VPA","Cape Cod / Gulf of Maine","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2005,0.266999989748001,2005,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2005,0.266999989748001,2005,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2005,0.266999989748001,2005,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2005,0.00999999977648258,2005,"Full Update","VPA","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2005,0.00999999977648258,2005,"Full Update","VPA","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2005,0.00999999977648258,2005,"Full Update","VPA","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2006,0.0411111111111111,2005,NA,NA,NA,NA,NA,NA
+"Yellowtail flounder",2006,0.276649659863946,2005,NA,NA,NA,NA,NA,NA
+"Yellowtail flounder",2006,0.0310503597122302,2005,NA,NA,NA,NA,NA,NA
+"Yellowtail flounder",2007,0.0522222222222222,2005,NA,NA,NA,NA,NA,NA
+"Yellowtail flounder",2007,0.450612244897959,2005,NA,NA,NA,NA,NA,NA
+"Yellowtail flounder",2007,0.0386618705035971,2005,NA,NA,NA,NA,NA,NA
+"Yellowtail flounder",2008,0.246999993920326,2008,"Benchmark","VPA","Cape Cod / Gulf of Maine","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2008,0.246999993920326,2008,"Benchmark","VPA","Cape Cod / Gulf of Maine","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2008,0.246999993920326,2008,"Benchmark","VPA","Cape Cod / Gulf of Maine","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2008,0.221000000834465,2008,"Benchmark","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2008,0.221000000834465,2008,"Benchmark","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2008,0.221000000834465,2008,"Benchmark","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2008,0.128000006079674,2008,"Benchmark","VPA","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2008,0.128000006079674,2008,"Benchmark","VPA","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2008,0.128000006079674,2008,"Benchmark","VPA","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2009,0.119127086007702,2009,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2009,0.790856481481481,2009,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2009,0.131204379562044,2009,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2010,0.324000000953674,2010,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2010,0.324000000953674,2010,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2010,0.324000000953674,2010,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2011,0.203999996185303,2011,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2011,0.203999996185303,2011,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2011,0.203999996185303,2011,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2012,0.237000003457069,2012,"Full Update","VPA","Cape Cod / Gulf of Maine","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2012,0.237000003457069,2012,"Full Update","VPA","Cape Cod / Gulf of Maine","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2012,0.237000003457069,2012,"Full Update","VPA","Cape Cod / Gulf of Maine","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2012,0.105999998748302,2012,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2012,0.105999998748302,2012,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2012,0.105999998748302,2012,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2012,1.29299998283386,2012,"Benchmark","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2012,1.29299998283386,2012,"Benchmark","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2012,1.29299998283386,2012,"Benchmark","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2013,0.102401129943503,2013,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2013,1.14791318864775,2013,"Full Update","VPA","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2014,0.0995762711864407,2014,"Benchmark","Index of Survey Abundance","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2014,0.673789649415693,2014,"Benchmark","Index of Survey Abundance","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2015,0.159999996423721,2015,"Full Update","VPA","Cape Cod / Gulf of Maine","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2015,0.159999996423721,2015,"Full Update","VPA","Cape Cod / Gulf of Maine","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2015,0.183304810800532,2015,"Full Update","Index Method","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2015,0.449719244512506,2015,"Full Update","Index Method","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2015,0.259999990463257,2015,"Benchmark","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2015,0.259999990463257,2015,"Benchmark","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2016,0.214109146225518,2016,"Full Update","Index Method","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2016,0.242470648289944,2016,"Full Update","Index Method","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2017,0.256999999284744,2017,"Full Update","VPA","Cape Cod / Gulf of Maine","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2017,0.256999999284744,2017,"Full Update","VPA","Cape Cod / Gulf of Maine","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2017,0.262068965517241,2017,"Full Update","Index Method","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2017,0.155913978494624,2017,"Full Update","Index Method","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2017,0.0820000022649765,2017,"Full Update","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2017,0.0820000022649765,2017,"Full Update","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2018,0.279956896551724,2018,"Full Update","Index Method","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2018,0.117741935483871,2018,"Full Update","Index Method","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2019,0.617999970912933,2019,"Operational","VPA","Cape Cod / Gulf of Maine","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2019,0.617999970912933,2019,"Operational","VPA","Cape Cod / Gulf of Maine","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2019,0.616167490549578,2019,"Operational","Survey Abundance","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2019,0.075885328836425,2019,"Operational","Survey Abundance","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2019,0.0509999990463257,2019,"Operational","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2019,0.0509999990463257,2019,"Operational","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2020,1.12619947659203,2020,"Operational","Index Method","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2020,0.0601461495222035,2020,"Operational","Index Method","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2021,0.88921198022681,2021,"Operational","Index Method","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2021,0.0326025857223159,2021,"Operational","Index Method","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2022,0.996999979019165,2022,"Operational","VPA","Cape Cod / Gulf of Maine","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2022,0.0209912536443149,2022,"Operational","Survey Abundance","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2022,0.0410000011324883,2022,"Operational","ASAP","Southern New England / Mid-Atlantic","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2023,0.0180758017492711,2023,"Operational","Index Method","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2024,0.0221574344023324,2024,"Operational","Index Method","Georges Bank","NEFMC","NO","Benthivore"
+"Yellowtail flounder",2025,0.439999997615814,2025,"Operational","WHAM","Cape Cod / Gulf of Maine","NEFMC","YES","Benthivore"
+"Yellowtail flounder",2025,0.101000003516674,2025,"Operational","WHAM","Georges Bank","NEFMC","YES","Benthivore"
+"Yellowtail flounder",2025,0.141000002622604,2025,"Operational","WHAM","Southern New England / Mid-Atlantic","NEFMC","YES","Benthivore"
