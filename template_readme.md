@@ -291,3 +291,20 @@ workflow_species_groupings <- function(
 * `input_path_functional_group` is the path to the static data set defining the species survey code (SVSPP) and corresponding functional group (`functional_groups_list.csv`)
 * `output_path_indicators` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
 The rds file name is hardcoded as `species_groupings.rds` to match the `ecodata` package dataset
+
+## Other Indicators
+
+### fuel_price
+
+*Note: the following function resides in the folder `data-raw` and is NOT part of the package*
+
+```
+workflow_fuel_prices <- function(
+  output_path_indicators,
+  fred_api_key
+```
+
+* `fred_api_key` is the API key to access the FRED website. 
+* `output_path_indicators` is the path to folder where indicator data should be saved, `EDAB_Indicators`.
+
+
