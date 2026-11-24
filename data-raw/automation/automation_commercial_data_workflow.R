@@ -26,19 +26,27 @@
 # pull has revenue (comland value data begin in 1982), so earlier revenue stays 0
 # rather than becoming menhaden-only. Menhaden dollars are nominal, so before they are
 # added they are converted to the same reference-year dollars as the commercial pull,
-# using the GDP deflator that comlandr ships (extdata/fred/fred.rds, as in
+# using the deflator series that comlandr ships (extdata/fred/fred.rds, as in
 # comlandr's adjust_inflation): value * deflator(refYear, refMonth) / deflator(year).
 # Menhaden values are annual, so the deflator for each year is the mean of that year's
 # reported (quarterly) values. refYear/refMonth follow SOEworkflows::get_commercial_data():
 # refYear = end.year - 1, refMonth = 1, where end.year is the current year (previous
 # year when run January-April).
 #
-# Order: (0) input checks -> (1) pull -> (2) comdat, (3) bennet.
+# Missing revenue patch: after the pull, SOEworkflows::missing_revenue_check() measures
+# the share of recent landings with no SPPVALUE. If it is above 1%, the script runs
+# SOEworkflows::adjusted_revenue() to fill those values from dealer average prices
+# (deflated to the pull's reference year) and saves the pull with an "_revadj" suffix;
+# otherwise the raw pull is used unchanged. The log states which happened. The patch
+# stops running on its own once the source data are fixed.
+#
+# Order: (0) input checks -> (1) pull (+ revenue patch if needed) -> (2) comdat, (3) bennet.
 # Steps 2-3 only run if the pull succeeds. Each indicator runs independently;
 # the script exits with status 1 if the pull or either indicator fails.
 #
 # Outputs (date = YYYY-MM-DD):
 #   Input_Folder : commercial_comdat_data_<date>.rds, commercial_bennet_data_<date>.rds
+#                  (commercial_*_data_revadj_<date>.rds when adjusted_revenue() was run)
 #   Output_Folder: comdat_<date>.rds, comdat_species_<date>.rds, bennet_<date>.rds
 
 library(DBI)
@@ -190,7 +198,7 @@ tidy_menhaden <- function(mh, first_year) {
 
 # add menhaden dollars to the comdat revenue series and comdat_species menhaden rows
 # (create_comdat() sets menhaden SPPVALUE to 0)
-# annual GDP deflator from comlandr's FRED data, plus the reference-period value
+# annual deflator from comlandr's FRED data, plus the reference-period value
 get_deflator <- function(ref_year, ref_month) {
   fred_path <- system.file("extdata/fred/fred.rds", package = "comlandr")
   if (fred_path == "") {
@@ -386,6 +394,15 @@ menhaden_raw <- tryCatch(
 )
 
 # ---- (1) pull commercial data ------------------------------------------------
+# reference year/month for dollar values: same logic as SOEworkflows::get_commercial_data()
+end_year <- as.numeric(format(Sys.Date(), "%Y"))
+if (as.numeric(format(Sys.Date(), "%m")) <= 4) {
+  end_year <- end_year - 1
+}
+ref_year <- end_year - 1
+ref_month <- 1
+log_msg("Dollar reference period: ", ref_year, "-", sprintf("%02d", ref_month))
+
 comdat_file <- file.path(
   input_folder,
   paste0("commercial_comdat_data_", run_date, ".rds")
@@ -426,6 +443,53 @@ pull_ok <- tryCatch(
     yrs <- range(commercial_data$comdat$comland$YEAR, na.rm = TRUE)
     log_msg("Pull returned comland years ", yrs[1], "-", yrs[2])
 
+    # patch missing revenue at the end of the time series, if any
+    rev_check <- SOEworkflows::missing_revenue_check(commercial_data$comdat)
+    log_msg(
+      "Landings with missing value in ",
+      rev_check$years[1],
+      "-",
+      rev_check$years[2],
+      ": ",
+      sprintf("%.2f%%", 100 * rev_check$share)
+    )
+    if (rev_check$needed) {
+      log_msg(
+        "Missing revenue detected: running SOEworkflows::adjusted_revenue()"
+      )
+      for (nm in c("comdat", "bennet")) {
+        commercial_data[[nm]] <- SOEworkflows::adjusted_revenue(
+          commercial_data[[nm]],
+          channel,
+          ref_year = ref_year,
+          ref_month = ref_month
+        )
+      }
+      adj <- commercial_data$comdat$revenue_adjustment
+      log_msg(
+        "adjusted_revenue() filled ",
+        adj$records_filled,
+        " of ",
+        adj$records_missing,
+        " records (",
+        format(round(adj$value_filled), big.mark = ","),
+        " ",
+        ref_year,
+        " dollars); ",
+        format(round(adj$mt_unpriced), big.mark = ","),
+        " mt still have no price"
+      )
+      revadj_name <- function(f) {
+        file.path(dirname(f), sub("_data_", "_data_revadj_", basename(f)))
+      }
+      comdat_file <- revadj_name(comdat_file)
+      bennet_file <- revadj_name(bennet_file)
+    } else {
+      log_msg(
+        "No missing revenue detected: adjusted_revenue() not run; using raw pulled values"
+      )
+    }
+
     saveRDS(commercial_data$comdat, comdat_file)
     log_msg("Saved: ", comdat_file)
     saveRDS(commercial_data$bennet, bennet_file)
@@ -444,15 +508,6 @@ pull_ok <- tryCatch(
 if (!pull_ok) {
   fail("Commercial data pull failed; comdat and bennet were not run.")
 }
-
-# reference year/month for dollar values: same logic as SOEworkflows::get_commercial_data()
-end_year <- as.numeric(format(Sys.Date(), "%Y"))
-if (as.numeric(format(Sys.Date(), "%m")) <= 4) {
-  end_year <- end_year - 1
-}
-ref_year <- end_year - 1
-ref_month <- 1
-log_msg("Dollar reference period: ", ref_year, "-", sprintf("%02d", ref_month))
 
 # ---- (2) comdat --------------------------------------------------------------
 comdat_ok <- tryCatch(
