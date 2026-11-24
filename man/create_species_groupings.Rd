@@ -4,12 +4,18 @@
 \alias{create_species_groupings}
 \title{Calculates species_groupings data set for automated workflow}
 \usage{
-create_species_groupings(input_path_species_list, input_path_functional_group)
+create_species_groupings(
+  input_path_species_list,
+  input_path_functional_group,
+  type = "SOE2027"
+)
 }
 \arguments{
-\item{input_path_species_list}{Character string. Full path to the original rds file from 2024}
+\item{input_path_species_list}{Character string. Full path to the original rds file from 2024 (\code{type = "SOE2026"}) or full path to the updated csv file from 2026 (\code{type = "SOE2027"})}
 
 \item{input_path_functional_group}{Character string. Full path to the species functional group csv file. SVSPP codes are mapped to functional group}
+
+\item{type}{One of c("SOE2026", "SOE2027"). Specifies whether to build the species_groupings data set with the methods used in the 2026 or 2027 SOE.}
 }
 \value{
 ecodata::species_groupings data frame
@@ -22,7 +28,8 @@ It is formatted exactly like the ecodata data object
 \dontrun{
 # create the ecodata::species_groupings table
 create_species_groupings(input_path_species_list = "path/to/SOE_species_list_old.rds",
-                         input_path_functional_group = "path/to/functional_groups_list.csv")
+                         input_path_functional_group = "path/to/functional_groups_list.csv",
+                         type = "SOE2027")
 
 }
 
