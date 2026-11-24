@@ -16,15 +16,16 @@ export(create_stock_status)
 export(create_survey_shannon)
 export(create_trans_dates)
 export(get_commercial_data)
+export(get_menhaden_data)
 export(get_recreational_data)
 export(get_survey_data)
 import(data.table)
 importFrom(data.table,
-  `:=`,
+  ":=",
   as.data.table
 )
 importFrom(dplyr,
-  `%>%`,
+  "%>%",
   bind_rows,
   case_when,
   distinct,
