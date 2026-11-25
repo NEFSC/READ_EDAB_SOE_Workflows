@@ -1,4 +1,4 @@
-common_name,stock_area,jurisdiction,metric,assessment_year,assessment_id,msy_unit,timeseries_units,timeseries_description,units_match,can_be_converted
+common_name,stock_area,jurisdiction,metric,assessment_year,assessment_id,msy_units,ts_units,ts_description,units_match,can_be_converted
 Acadian redfish,Gulf of Maine / Georges Bank,NEFMC,Abundance,2005,432,Thousand Metric Tons,Thousand Metric Tons,Spawning Stock Biomass,TRUE,
 Acadian redfish,Gulf of Maine / Georges Bank,NEFMC,Abundance,2008,1316,Metric Tons,Metric Tons,Spawning Stock Biomass - Retro Adjusted Terminal Year,TRUE,
 Acadian redfish,Gulf of Maine / Georges Bank,NEFMC,Abundance,2012,3170,Metric Tons,Metric Tons,Spawning Stock Biomass,TRUE,

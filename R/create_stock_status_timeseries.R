@@ -8,8 +8,8 @@
 #' The input keys are used to filter the `StockSmart` data based on unit matching between the MSY value and the timeseries unit.
 #' Input keys are created with:
 #' \dontrun{
-#' create_msy_present(type = "for_analysis")
-#' create_msy_historic(type = "for_analysis")
+#' create_msy_present(type = "for_review")
+#' create_msy_historic(type = "for_review")
 #' }
 #' and then edited by hand to add columns `units_match` and `can_be_converted`.
 #'
@@ -54,7 +54,7 @@ create_stock_status_timeseries <- function(
     ## but the can_be_converted column is there in case that changes
     dplyr::filter(units_match == TRUE | can_be_converted) |>
     # calculate msy
-    dplyr::mutate(over_msy = value / msy) |>
+    dplyr::mutate(over_msy = ts_value / msy_value) |>
     dplyr::select(
       common_name,
       stock_area,
@@ -87,18 +87,19 @@ create_stock_status_timeseries <- function(
   ### hard time series -- stitch together to understand near-real-time perception ----
 
   output <- create_msy_historic(type = "for_analysis") |>
-    dplyr::filter(!is.na(value), msy != "NA") |>
+    dplyr::filter(!is.na(ts_value), msy_value != "NA") |>
     ## adjust units if in thousands
     ## this won't fix all unit mismatches
     ## but it will fix some
     dplyr::mutate(
-      msy = dplyr::case_when(
-        stringr::str_detect(unit, "housand") ~ (as.numeric(msy) * 1000),
-        TRUE ~ as.numeric(msy)
+      msy_value = dplyr::case_when(
+        stringr::str_detect(msy_units, "housand") ~
+          (as.numeric(msy_value) * 1000),
+        TRUE ~ as.numeric(msy_value)
       ),
-      value = dplyr::case_when(
-        stringr::str_detect(timeseries_units, "housand") ~ value * 1000,
-        TRUE ~ value
+      ts_value = dplyr::case_when(
+        stringr::str_detect(ts_units, "housand") ~ ts_value * 1000,
+        TRUE ~ ts_value
       )
     ) |>
     # filter out stocks where units don't match
@@ -117,7 +118,7 @@ create_stock_status_timeseries <- function(
         can_be_converted
     ) |>
     # calculate ratios
-    dplyr::mutate(over_msy = value / as.numeric(msy)) |>
+    dplyr::mutate(over_msy = ts_value / as.numeric(msy_value)) |>
     dplyr::select(
       common_name,
       stock_area,

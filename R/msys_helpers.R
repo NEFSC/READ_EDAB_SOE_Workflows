@@ -66,16 +66,35 @@ create_msy_present <- function(type = c("for_review", "for_analysis")) {
     ) |>
     dplyr::select(-assessment_id, -stock_name) |>
     # na's have no msy value
-    tidyr::drop_na(common_name)
+    tidyr::drop_na(common_name) |>
+    ## rename columns for interpretability
+    dplyr::rename(
+      ts_value = value,
+      ts_units = timeseries_units,
+      msy_value = msy,
+      msy_units = unit,
+      ts_description = description
+    )
 
   if (type == "for_review") {
     conversion_table <- joined_dat |>
-      dplyr::select(-year, -value) |>
+      dplyr::select(
+        metric,
+        assessment_year,
+        common_name,
+        stock_area,
+        jurisdiction,
+        ts_description,
+        ts_units,
+        msy_units
+      ) |>
       dplyr::distinct()
+    fname <- here::here("data-raw/msy_conversions_present.csv")
     write.csv(
       conversion_table,
-      here::here("data-raw/msy_conversions_present.csv")
+      fname
     )
+    message("data saved to: ", fname)
   } else if (type == "for_analysis") {
     return(joined_dat)
   }
@@ -212,15 +231,36 @@ create_msy_historic <- function(type = c("for_review", "for_analysis")) {
     ) |>
     dplyr::select(-stock_name) |>
     # na's have no msy value
-    tidyr::drop_na(value)
+    tidyr::drop_na(value) |>
+    dplyr::rename(
+      ts_value = value,
+      ts_units = timeseries_units,
+      msy_value = msy,
+      msy_units = unit,
+      ts_description = description
+    )
+
   if (type == "for_review") {
     conversion_table <- joined_dat |>
-      dplyr::select(-year, -value) |>
+      dplyr::select(
+        metric,
+        assessment_year,
+        assessment_id,
+        common_name,
+        stock_area,
+        jurisdiction,
+        ts_description,
+        ts_units,
+        msy_units
+      ) |>
       dplyr::distinct()
+
+    fname <- here::here("data-raw/msy_conversions_historic.csv")
     write.csv(
       conversion_table,
-      here::here("data-raw/msy_conversions_historic.csv")
+      fname
     )
+    message("data saved to: ", fname)
   } else if (type == "for_analysis") {
     return(joined_dat)
   }

@@ -1,4 +1,4 @@
-metric,description,timeseries_units,common_name,stock_area,jurisdiction,assessment_year,msy,unit,units_match,can_be_converted
+metric,ts_description,ts_units,common_name,stock_area,jurisdiction,assessment_year,msy_value,msy_units,units_match,can_be_converted
 Fmort,F for Fully-Selected Fish,Fully-Selected F,Acadian redfish,Gulf of Maine / Georges Bank,NEFMC,2025,0.03700000048,Fully-selected F,TRUE,
 Abundance,Spawning Stock Biomass,Metric Tons,Acadian redfish,Gulf of Maine / Georges Bank,NEFMC,2025,131411,Metric Tons,TRUE,
 Fmort,F for Fully-Selected Fish,Fully-selected F,American plaice,Gulf of Maine / Georges Bank,NEFMC,2024,0.5189999938,Fully-selected F,TRUE,
