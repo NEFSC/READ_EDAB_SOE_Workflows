@@ -42,7 +42,8 @@ Imports:
     janitor,
     NEFSCspatial,
     ncdf4,
-    lubridate
+    lubridate,
+    fredr
 Remotes:
   NOAA-EDAB/survdat,
   NOAA-EDAB/stocksmart,
