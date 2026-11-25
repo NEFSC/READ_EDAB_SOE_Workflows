@@ -28,14 +28,10 @@
 #' @export
 
 create_stock_status_timeseries <- function(
-  input_path_present_key = here::here(
-    # "\\\\nefscdata\\EDAB_Resources\\static_workflow_inputs\\msy_conversions_present_reviewed.csv"
-    here::here("data-raw/msy_conversions_present_reviewed.csv")
-  ),
-  input_path_historic_key = here::here(
-    # "\\\\nefscdata\\EDAB_Resources\\static_workflow_inputs\\msy_conversions_historic_reviewed.csv"
-    here::here("data-raw/msy_conversions_historic_reviewed.csv")
-  )
+  input_path_present_key = # "\\\\nefscdata\\EDAB_Resources\\static_workflow_inputs\\msy_conversions_present_reviewed.csv"
+  here::here("data-raw/msy_conversions_present_reviewed.csv"),
+  input_path_historic_key = # "\\\\nefscdata\\EDAB_Resources\\static_workflow_inputs\\msy_conversions_historic_reviewed.csv"
+  here::here("data-raw/msy_conversions_historic_reviewed.csv")
 ) {
   ## read in keys
   units_check_present <- read.csv(input_path_present_key) |>
