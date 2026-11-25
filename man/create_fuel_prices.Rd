@@ -4,7 +4,7 @@
 \alias{create_fuel_prices}
 \title{Creates the fuel prices data frame for the SOE}
 \usage{
-create_fuel_prices(end_year = lubridate::year(Sys.Date()), fred_key = NULL)
+create_fuel_prices(end_year = lubridate::year(Sys.Date()))
 }
 \arguments{
 \item{end_year}{Integer. The final year of data to include. Defaults to 2026.}

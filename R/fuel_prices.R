@@ -42,19 +42,10 @@
 #'   ggplot2::theme(legend.position = "bottom")
 #' }
 create_fuel_prices <- function(
-  end_year = lubridate::year(Sys.Date()),
-  fred_key = NULL
+  end_year = lubridate::year(Sys.Date())
 ) {
-  ## FRED key (Consider moving this to your .Renviron file for security)
-  if (!is.null(fred_key)) {
-    fredr::fredr_set_key(fred_key)
-  }
-
-  if (!fredr::fredr_has_key()) {
-    stop(
-      "No FRED API key found. Please provide `fred_key` or set it in your .Renviron."
-    )
-  }
+  FRED_key <- Sys.getenv("FRED_API")
+  fredr::fredr_set_key(FRED_key)
 
   ## parameters
   start_year <- 1970
