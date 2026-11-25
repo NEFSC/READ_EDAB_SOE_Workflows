@@ -14,8 +14,7 @@
 #'
 #' @export
 workflow_fuel_prices <- function(
-  output_path_indicators = NULL,
-  fred_api_key = NULL
+  output_path_indicators = NULL
 ) {
   tryCatch(
     {
@@ -26,13 +25,6 @@ workflow_fuel_prices <- function(
         stop(
           "The output path is missing or the directory does not exist: ",
           output_path_indicators
-        )
-      }
-
-      ## validate FRED key
-      if (is.null(fred_api_key)) {
-        stop(
-          "Please provide the parameter `fred_api_key` to access the FRED API."
         )
       }
 

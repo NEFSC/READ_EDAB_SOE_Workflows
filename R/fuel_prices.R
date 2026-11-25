@@ -5,7 +5,6 @@
 #' FRED API and deflates them to a specified base year.
 #'
 #' @param end_year Integer. The final year of data to include. Defaults to 2026.
-#' @param fred_key Character. A valid FRED API key. Defaults to `NULL`.
 #'
 #' @return A tibble containing nominal and deflated monthly fuel prices.
 #'
