@@ -37,6 +37,10 @@ reference:
   - create_heatwave
   - create_heatwave_year
   - create_trans_dates
+- title: "Other indicators"
+  desc: "Indicators created from other sources"
+- contents: 
+  - create_fuel_prices
 - title: "Supporting data"
   desc: ""
 - contents:
